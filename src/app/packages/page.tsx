@@ -20,18 +20,16 @@ export const metadata: Metadata = {
 /* ============================================================
    DATA: Packages
    ============================================================ */
-const packages: {
-  name: string;
-  price: string;
-  description: string;
-  highlighted?: boolean;
-  features: string[];
-}[] = [
+const packages = [
   {
+    tier: "01",
     name: "Starter",
     price: "$2,500",
     description: "For new brands launching their identity.",
+    bestFor: "Small businesses & solo entrepreneurs",
+    badge: null,
     features: [
+      "Custom Website (3 pages)",
       "Logo Design",
       "Brand Color Palette",
       "Typography Selection",
@@ -41,30 +39,33 @@ const packages: {
     ],
   },
   {
+    tier: "02",
     name: "Professional",
     price: "$7,500",
     description: "Comprehensive branding and digital presence.",
-    highlighted: true,
+    bestFor: "Growing companies ready to scale",
+    badge: "Most Popular",
     features: [
       "Everything in Starter",
       "Full Visual Identity System",
       "Custom Website (5 pages)",
       "Social Media Templates",
-      "Product Photography (half day)",
       "Extended Brand Guidelines",
       "4 Revision Rounds",
       "30-Day Post-Launch Support",
     ],
   },
   {
+    tier: "03",
     name: "Enterprise",
     price: "$15,000+",
     description: "End-to-end creative partnership.",
+    bestFor: "Established brands & large organizations",
+    badge: "Full Service",
     features: [
       "Everything in Professional",
       "Custom Website (unlimited pages)",
       "Brand Video Production",
-      "Full Photography Package",
       "Social Media Strategy & Setup",
       "Advertising Campaign Setup",
       "Print Collateral Design",
@@ -73,7 +74,7 @@ const packages: {
       "Quarterly Strategy Reviews",
     ],
   },
-];
+] as const;
 
 /* ============================================================
    DATA: Add-ons
@@ -83,12 +84,6 @@ const addons = [
   { name: "E-Commerce Setup", price: "$2,000+" },
   { name: "Social Media Management", price: "$1,500/mo" },
   { name: "SEO Audit & Optimization", price: "$800" },
-  { name: "Product Photography (full day)", price: "$1,200" },
-  { name: "Brand Video (30 sec)", price: "$2,500" },
-  { name: "Brand Video (60 sec)", price: "$4,000" },
-  { name: "Drone Footage", price: "$500" },
-  { name: "Print Design (per piece)", price: "$250+" },
-  { name: "Packaging Design", price: "$1,000+" },
 ] as const;
 
 /* ============================================================
@@ -109,81 +104,162 @@ export default function PackagesPage() {
             Transparent pricing
           </h1>
           <p className="text-gray-500 text-sm mt-6 max-w-lg">
-            Clear, honest packages with no hidden fees. Choose a tier that
-            fits your needs, or contact us for a custom quote.
+            Clear, honest packages with no hidden fees. Choose a tier that fits
+            your needs, or contact us for a custom quote.
           </p>
         </div>
       </section>
 
       {/* =============================================
-          PRICING TIERS
+          TIER OVERVIEW STRIP -- all three packages at a glance
+          ============================================= */}
+      <section className="bg-black border-b border-white/10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-3 divide-x divide-white/10">
+            {packages.map((pkg) => (
+              <div key={`strip-${pkg.tier}`} className="py-6 px-4 lg:px-8">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-1">
+                  {pkg.tier}
+                </span>
+                <span className="text-white font-heading font-bold text-lg sm:text-xl block">
+                  {pkg.name}
+                </span>
+                <span className="text-gray-500 text-xs mt-0.5 block">
+                  Starting at {pkg.price}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =============================================
+          PRICING TIERS -- full detail cards
           ============================================= */}
       <section className="py-24 lg:py-32 bg-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/10">
-            {packages.map((pkg) => (
-              <div
-                key={pkg.name}
-                className={`p-8 lg:p-10 ${
-                  pkg.highlighted ? "bg-white text-black" : "bg-black"
-                }`}
-              >
-                {/* Header */}
-                <p
-                  className={`text-xs uppercase tracking-widest mb-6 ${
-                    pkg.highlighted ? "text-gray-500" : "text-gray-500"
-                  }`}
-                >
-                  {pkg.name}
-                </p>
-                <div
-                  className={`text-5xl font-heading font-bold mb-3 ${
-                    pkg.highlighted ? "text-black" : "text-white"
-                  }`}
-                >
-                  {pkg.price}
-                </div>
-                <p
-                  className={`text-sm mb-8 ${
-                    pkg.highlighted ? "text-gray-500" : "text-gray-500"
-                  }`}
-                >
-                  {pkg.description}
-                </p>
 
-                {/* Features */}
-                <div
-                  className={`border-t ${
-                    pkg.highlighted ? "border-black/10" : "border-white/10"
-                  }`}
-                >
-                  {pkg.features.map((feature) => (
-                    <div
-                      key={feature}
-                      className={`py-3 border-b text-sm ${
-                        pkg.highlighted
-                          ? "border-black/10 text-gray-700"
-                          : "border-white/10 text-gray-400"
-                      }`}
-                    >
-                      {feature}
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTA */}
-                <Link
-                  href="/contact"
-                  className={`block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider transition-colors ${
-                    pkg.highlighted
-                      ? "bg-black text-white hover:bg-gray-800"
-                      : "bg-white text-black hover:bg-gray-200"
-                  }`}
-                >
-                  Get Started
-                </Link>
+            {/* ---- Starter (dark) ---- */}
+            <div className="bg-black p-8 lg:p-10 flex flex-col">
+              <div className="flex items-center justify-between mb-8">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">
+                  Tier 01
+                </span>
               </div>
-            ))}
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+                {packages[0].name}
+              </p>
+              <div className="text-5xl font-heading font-bold text-white mb-3">
+                {packages[0].price}
+              </div>
+              <p className="text-sm text-gray-500 mb-2">
+                {packages[0].description}
+              </p>
+              <p className="text-xs text-gray-600 uppercase tracking-widest mb-8">
+                Best for: {packages[0].bestFor}
+              </p>
+              <div className="border-t border-white/10 flex-1">
+                {packages[0].features.map((feature) => (
+                  <div
+                    key={feature}
+                    className="flex items-start gap-3 py-3 border-b border-white/10"
+                  >
+                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
+                    <span className="text-gray-400 text-sm">{feature}</span>
+                  </div>
+                ))}
+              </div>
+              <Link
+                href="/contact"
+                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-white text-black hover:bg-gray-200 transition-colors"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* ---- Professional (light / highlighted) ---- */}
+            <div className="bg-white p-8 lg:p-10 flex flex-col">
+              <div className="flex items-center justify-between mb-8">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">
+                  Tier 02
+                </span>
+                <span className="text-[10px] uppercase tracking-widest bg-black text-white px-3 py-1 font-bold">
+                  Most Popular
+                </span>
+              </div>
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+                {packages[1].name}
+              </p>
+              <div className="text-5xl font-heading font-bold text-black mb-3">
+                {packages[1].price}
+              </div>
+              <p className="text-sm text-gray-500 mb-2">
+                {packages[1].description}
+              </p>
+              <p className="text-xs text-gray-400 uppercase tracking-widest mb-8">
+                Best for: {packages[1].bestFor}
+              </p>
+              <div className="border-t border-black/10 flex-1">
+                {packages[1].features.map((feature) => (
+                  <div
+                    key={feature}
+                    className="flex items-start gap-3 py-3 border-b border-black/10"
+                  >
+                    <span className="text-gray-400 mt-0.5 shrink-0">&mdash;</span>
+                    <span className="text-gray-700 text-sm">{feature}</span>
+                  </div>
+                ))}
+              </div>
+              <Link
+                href="/contact"
+                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-black text-white hover:bg-gray-800 transition-colors"
+              >
+                Get Started
+              </Link>
+            </div>
+
+            {/* ---- Enterprise (dark + white accent top border) ---- */}
+            <div className="bg-black p-8 lg:p-10 flex flex-col border-t-2 border-white">
+              <div className="flex items-center justify-between mb-8">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">
+                  Tier 03
+                </span>
+                <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-400 px-3 py-1">
+                  Full Service
+                </span>
+              </div>
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+                {packages[2].name}
+              </p>
+              <div className="text-5xl font-heading font-bold text-white mb-3">
+                {packages[2].price}
+              </div>
+              <p className="text-sm text-gray-500 mb-2">
+                {packages[2].description}
+              </p>
+              <p className="text-xs text-gray-600 uppercase tracking-widest mb-8">
+                Best for: {packages[2].bestFor}
+              </p>
+              <div className="border-t border-white/10 flex-1">
+                {packages[2].features.map((feature) => (
+                  <div
+                    key={feature}
+                    className="flex items-start gap-3 py-3 border-b border-white/10"
+                  >
+                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
+                    <span className="text-gray-400 text-sm">{feature}</span>
+                  </div>
+                ))}
+              </div>
+              <Link
+                href="/contact"
+                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-white text-black hover:bg-gray-200 transition-colors"
+              >
+                Get Started
+              </Link>
+            </div>
+
           </div>
         </div>
       </section>
@@ -194,7 +270,7 @@ export default function PackagesPage() {
       <section className="py-24 lg:py-32 bg-gray-900">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
-            À La Carte
+            &Agrave; La Carte
           </p>
           <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16">
             Add-on services
@@ -226,8 +302,8 @@ export default function PackagesPage() {
               Need something custom?
             </h2>
             <p className="text-gray-500 text-sm mb-8 max-w-lg">
-              Every brand is unique. Let&apos;s discuss your specific needs
-              and build a package that fits perfectly.
+              Every brand is unique. Let&apos;s discuss your specific needs and
+              build a package that fits perfectly.
             </p>
             <Link
               href="/contact"

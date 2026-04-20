@@ -93,10 +93,10 @@ const industries = [
    DATA: Stats
    ============================================================ */
 const stats = [
-  { value: "10+", label: "Projects" },
-  { value: "10+", label: "Clients" },
+  { value: "2026", label: "Launched" },
+  { value: "Open", label: "For projects" },
   { value: "1", label: "Team Member" },
-  { value: "99%", label: "Retention" },
+  { value: "100%", label: "Retention" },
 ] as const;
 
 /* ============================================================
@@ -142,10 +142,10 @@ export default function Home() {
             </p>
             <div className="flex gap-4">
               <Link
-                href="/case-studies"
+                href="/services"
                 className="px-6 py-3 bg-white text-black text-sm font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors"
               >
-                View Work
+                View Services
               </Link>
               <Link
                 href="/contact"
@@ -206,7 +206,7 @@ export default function Home() {
       {/* =============================================
           FEATURED WORK
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900">
+      <section className="py-24 lg:py-32 bg-gray-900 hidden">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           {/* Header */}
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-16">
@@ -268,7 +268,7 @@ export default function Home() {
           {[...industries, ...industries].map((industry, i) => (
             <span
               key={`${industry}-${i}`}
-              className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white/5 hover:text-white/20 transition-colors cursor-default"
+              className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white hover:text-white/20 transition-colors cursor-default"
             >
               {industry}
             </span>

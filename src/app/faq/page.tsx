@@ -25,7 +25,7 @@ const faqCategories = [
     questions: [
       {
         q: "What is Foundry Frame?",
-        a: "Foundry Frame is a full-service creative design agency based in Columbus, Ohio. Founded in 2026, we specialize in branding, web design, photography, videography, social media, and digital strategy for businesses of all sizes across various industries.",
+        a: "Foundry Frame is a full-service creative design agency based in Lorain, Ohio. Founded in 2026, we specialize in branding, web design, photography, videography, social media, and digital strategy for businesses of all sizes across various industries.",
       },
       {
         q: "What industries do you work with?",
@@ -33,7 +33,7 @@ const faqCategories = [
       },
       {
         q: "Do you work with clients outside of Ohio?",
-        a: "Absolutely! While we're proudly based in Ohio, we work with clients across the United States and internationally. Many of our services can be delivered remotely, and we're happy to travel for photography, videography, and on-site projects.",
+        a: "Absolutely! While we're proudly based in Lorain, Ohio, we work with clients across the United States and internationally. Many of our services can be delivered remotely, and we're happy to travel for photography, videography, and on-site projects.",
       },
     ],
   },
@@ -42,7 +42,7 @@ const faqCategories = [
     questions: [
       {
         q: "What services do you offer?",
-        a: "We offer a comprehensive suite of creative services: Branding & Identity, Web Design & Development, Photography, Videography, Social Media Management, Graphic Design, Advertising & Paid Media, and Digital Strategy. We can tackle individual services or provide full-service packages.",
+        a: "We offer a comprehensive suite of creative services: Branding & Identity, Web Design & Development, Social Media Management, Graphic Design, Advertising & Paid Media, and Digital Strategy. We can tackle individual services or provide full-service packages.",
       },
       {
         q: "What does your creative process look like?",
@@ -50,7 +50,7 @@ const faqCategories = [
       },
       {
         q: "How long does a typical project take?",
-        a: "Timelines vary by project scope. A brand identity project typically takes 4-8 weeks, a custom website 6-12 weeks, and a full brand + web package 8-16 weeks. Photography and videography shoots can be completed in 1-3 days with 2-4 weeks of post-production. We'll provide a detailed timeline during our initial consultation.",
+        a: "Timelines vary by project scope. A brand identity project typically takes 4-8 weeks, a custom website 6-12 weeks, and a full brand + web package 8-16 weeks. We'll provide a detailed timeline during our initial consultation.",
       },
       {
         q: "How many revisions are included?",
@@ -80,7 +80,7 @@ const faqCategories = [
     questions: [
       {
         q: "How do I get started?",
-        a: "Simply reach out through our Contact page or email us at hello@foundryframe.com. We'll schedule a free discovery call to learn about your project, discuss your goals, and determine the best approach. From there, we'll provide a detailed proposal and timeline.",
+        a: "Simply reach out through our Contact page or email us at jlatten@foundryframe.com. We'll schedule a free discovery call to learn about your project, discuss your goals, and determine the best approach. From there, we'll provide a detailed proposal and timeline.",
       },
       {
         q: "What do you need from me to start?",

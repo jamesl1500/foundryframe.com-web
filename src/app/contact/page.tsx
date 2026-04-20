@@ -14,7 +14,7 @@ import ContactForm from "@/components/ContactForm";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Foundry Frame. Tell us about your project and let's create something extraordinary together. Based in Columbus, Ohio.",
+    "Get in touch with Foundry Frame. Tell us about your project and let's create something extraordinary together. Based in Lorain, Ohio.",
 };
 
 /* ============================================================
@@ -23,17 +23,12 @@ export const metadata: Metadata = {
 const contactInfo = [
   {
     title: "Email",
-    value: "hello@foundryframe.com",
-    href: "mailto:hello@foundryframe.com",
-  },
-  {
-    title: "Phone",
-    value: "(614) 555-0192",
-    href: "tel:+16145550192",
+    value: "jlatten@foundryframe.com",
+    href: "mailto:jlatten@foundryframe.com",
   },
   {
     title: "Office",
-    value: "123 Creative Ave, Columbus, OH 43215",
+    value: "Virtual, Lorain, OH 44053",
     href: "#",
   },
   {

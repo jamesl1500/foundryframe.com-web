@@ -28,8 +28,6 @@ const footerColumns = [
     links: [
       { label: "Branding", href: "/services#branding" },
       { label: "Web Design", href: "/services#web-design" },
-      { label: "Photography", href: "/services#photography" },
-      { label: "Videography", href: "/services#videography" },
       { label: "Social Media", href: "/services#social-media" },
     ],
   },
@@ -64,7 +62,7 @@ export default function Footer() {
             </p>
 
             {/* Social */}
-            <div className="flex items-center gap-6 mt-8">
+            <div className="flex items-center gap-6 mt-8 hidden">
               {["Instagram", "LinkedIn", "Twitter", "Dribbble"].map((s) => (
                 <a
                   key={s}
