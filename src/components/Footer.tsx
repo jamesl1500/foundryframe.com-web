@@ -29,6 +29,8 @@ const footerColumns = [
       { label: "Branding", href: "/services#branding" },
       { label: "Web Design", href: "/services#web-design" },
       { label: "Social Media", href: "/services#social-media" },
+      { label: "Advertising", href: "/services#advertising" },
+      { label: "Digital Strategy", href: "/services#strategy" },
     ],
   },
   {
@@ -54,7 +56,7 @@ export default function Footer() {
               href="/"
               className="text-white font-heading font-bold text-lg tracking-tight uppercase mb-6 inline-block"
             >
-              FoundryFrame
+              Foundry Frame
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
               A creative agency based in Ohio. We build brands,
@@ -96,17 +98,6 @@ export default function Footer() {
               </ul>
             </div>
           ))}
-
-          {/* Newsletter */}
-          <div className="lg:col-span-2">
-            <h3 className="text-white text-xs font-bold uppercase tracking-widest mb-5">
-              Newsletter
-            </h3>
-            <p className="text-gray-500 text-sm mb-4">
-              Latest insights and project showcases.
-            </p>
-            <NewsletterForm variant="stacked" />
-          </div>
         </div>
       </div>
 
@@ -118,7 +109,7 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} Foundry Frame. All rights reserved.
             </p>
             <p className="text-gray-500 text-xs">
-              Designed &amp; Developed by Us with ❤️
+              Designed &amp; Developed by Us with Love
             </p>
           </div>
         </div>

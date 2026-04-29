@@ -36,7 +36,7 @@ export default function Header() {
             className="text-white font-heading font-bold text-lg tracking-tight uppercase"
             aria-label="Foundry Frame - Home"
           >
-            FoundryFrame
+            Foundry Frame
           </Link>
 
           {/* --- Desktop Nav --- */}

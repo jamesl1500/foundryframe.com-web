@@ -80,11 +80,49 @@ const packages = [
    DATA: Add-ons
    ============================================================ */
 const addons = [
-  { name: "Additional Web Pages", price: "$300/page" },
-  { name: "E-Commerce Setup", price: "$2,000+" },
-  { name: "Social Media Management", price: "$1,500/mo" },
-  { name: "SEO Audit & Optimization", price: "$800" },
-] as const;
+  {
+    name: "Additional Web Pages",
+    price: "$500/page",
+    description: "Extend your website with additional pages designed to match your existing brand system.",
+    featured: false,
+    highlights: [] as string[],
+  },
+  {
+    name: "E-Commerce Setup",
+    price: "$2,500+",
+    description:
+      "We build fully custom e-commerce experiences — no off-the-shelf templates. Every storefront is engineered from the ground up using modern technologies like Next.js and headless commerce platforms, giving you complete control over performance, UX, and scalability.",
+    featured: true,
+    highlights: [
+      "Headless commerce architecture",
+      "Custom product & checkout flows",
+      "Payment gateway integration",
+      "Inventory & order management",
+      "Built for speed & conversion",
+    ],
+  },
+  {
+    name: "Social Media Management",
+    price: "$250/mo",
+    description:
+      "We plug directly into your existing social channels — no disruption, no learning curve. Our team crafts and schedules platform-native content designed to resonate with your audience, drive engagement, and convert followers into customers.",
+    featured: true,
+    highlights: [
+      "Seamless integration with existing accounts",
+      "Content strategy tailored to your brand",
+      "Revenue-focused post scheduling",
+      "Platform-specific creative (Reels, Stories, Posts)",
+      "Monthly performance reporting",
+    ],
+  },
+  {
+    name: "SEO Audit & Optimization",
+    price: "$800",
+    description: "A comprehensive technical and on-page SEO audit with actionable fixes to improve search visibility.",
+    featured: false,
+    highlights: [] as string[],
+  },
+];
 
 /* ============================================================
    COMPONENT: Packages Page
@@ -276,18 +314,60 @@ export default function PackagesPage() {
             Add-on services
           </h2>
 
+          {/* Featured add-ons — expanded cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10 mb-px">
+            {addons
+              .filter((a) => a.featured)
+              .map((addon) => (
+                <div key={addon.name} className="bg-gray-900 p-8 lg:p-10 flex flex-col">
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <p className="text-white font-heading font-bold text-2xl">
+                      {addon.name}
+                    </p>
+                    <span className="text-white font-heading font-bold text-xl shrink-0">
+                      {addon.price}
+                    </span>
+                  </div>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                    {addon.description}
+                  </p>
+                  {addon.highlights.length > 0 && (
+                    <div className="border-t border-white/10 pt-6">
+                      {addon.highlights.map((point) => (
+                        <div
+                          key={point}
+                          className="flex items-start gap-3 py-2.5 border-b border-white/10"
+                        >
+                          <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
+                          <span className="text-gray-400 text-sm">{point}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+          </div>
+
+          {/* Standard add-ons — simple rows */}
           <div className="border-t border-white/10">
-            {addons.map((addon) => (
-              <div
-                key={addon.name}
-                className="flex items-center justify-between py-5 border-b border-white/10"
-              >
-                <span className="text-gray-300 text-sm">{addon.name}</span>
-                <span className="text-white font-heading font-semibold text-sm">
-                  {addon.price}
-                </span>
-              </div>
-            ))}
+            {addons
+              .filter((a) => !a.featured)
+              .map((addon) => (
+                <div
+                  key={addon.name}
+                  className="flex items-start justify-between gap-6 py-5 border-b border-white/10"
+                >
+                  <div>
+                    <span className="text-gray-300 text-sm block">{addon.name}</span>
+                    {addon.description && (
+                      <span className="text-gray-600 text-xs mt-1 block">{addon.description}</span>
+                    )}
+                  </div>
+                  <span className="text-white font-heading font-semibold text-sm shrink-0">
+                    {addon.price}
+                  </span>
+                </div>
+              ))}
           </div>
         </div>
       </section>
