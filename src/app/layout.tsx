@@ -46,6 +46,14 @@ export const metadata: Metadata = {
     "digital marketing",
   ],
   authors: [{ name: "James Latten" }],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
     title: "Foundry Frame | Creative Design Agency",
     description:
