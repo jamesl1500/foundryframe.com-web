@@ -27,8 +27,14 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://foundryframe.com";
+
 /* --- Global Metadata --- */
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Foundry Frame | Creative Design Agency",
     template: "%s | Foundry Frame",
@@ -58,6 +64,7 @@ export const metadata: Metadata = {
     title: "Foundry Frame | Creative Design Agency",
     description:
       "Premier creative design agency based in Ohio. Branding, web design, photography, videography, and digital strategy.",
+    url: "/",
     type: "website",
     locale: "en_US",
     siteName: "Foundry Frame",

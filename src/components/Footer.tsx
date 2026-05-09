@@ -9,7 +9,6 @@
  */
 
 import Link from "next/link";
-import NewsletterForm from "@/components/NewsletterForm";
 
 /* --- Footer Navigation Columns --- */
 const footerColumns = [
