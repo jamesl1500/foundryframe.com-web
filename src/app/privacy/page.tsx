@@ -7,6 +7,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/privacy",
   },
+  openGraph: {
+    title: "Privacy Policy",
+    description:
+      "Read how Foundry Frame collects, uses, and protects personal information.",
+    url: "/privacy",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame privacy policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy",
+    description:
+      "Read how Foundry Frame collects, uses, and protects personal information.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 export default function PrivacyPage() {

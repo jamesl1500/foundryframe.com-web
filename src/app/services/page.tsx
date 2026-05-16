@@ -13,9 +13,34 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Web Design & Creative Services",
   description:
     "Explore Foundry Frame's creative services: branding, web design, photography, videography, social media, graphic design, advertising, and digital strategy.",
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    title: "Web Design & Creative Services",
+    description:
+      "Branding, web design, photography, videography, and digital strategy services for growth-focused businesses.",
+    url: "/services",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Design & Creative Services",
+    description:
+      "Branding, web design, photography, videography, and digital strategy services for growth-focused businesses.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

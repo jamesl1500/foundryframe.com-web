@@ -12,9 +12,34 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Packages",
+  title: "Website & Marketing Packages",
   description:
     "Explore Foundry Frame's full range of packages: website design, launch bundles, maintenance plans, and marketing packages.",
+  alternates: {
+    canonical: "/packages",
+  },
+  openGraph: {
+    title: "Website & Marketing Packages",
+    description:
+      "Transparent website, launch, maintenance, and marketing packages built to help small businesses grow.",
+    url: "/packages",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame packages",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Website & Marketing Packages",
+    description:
+      "Transparent website, launch, maintenance, and marketing packages built to help small businesses grow.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

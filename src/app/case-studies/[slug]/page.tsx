@@ -13,6 +13,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
+
 /* ============================================================
    DATA: Case studies
    ============================================================ */
@@ -236,9 +238,32 @@ export async function generateMetadata({
   const study = caseStudies[slug];
   if (!study) return { title: "Not Found" };
 
+  const url = `/case-studies/${slug}`;
+
   return {
     title: study.title,
     description: study.overview,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: `${study.title} | Case Study`,
+      description: study.overview,
+      url,
+      type: "article",
+      images: [
+        {
+          url: study.heroImage,
+          alt: study.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${study.title} | Case Study`,
+      description: study.overview,
+      images: [study.heroImage],
+    },
   };
 }
 
@@ -262,8 +287,35 @@ export default async function CaseStudyPage({
 
   if (!study) notFound();
 
+  const canonicalUrl = `${siteUrl}/case-studies/${slug}`;
+  const caseStudyStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    additionalType: "https://schema.org/CaseStudy",
+    name: study.title,
+    description: study.overview,
+    image: [study.heroImage, ...study.gallery],
+    about: study.services,
+    creator: {
+      "@type": "Organization",
+      name: "Foundry Frame",
+      url: siteUrl,
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(caseStudyStructuredData),
+        }}
+      />
+
       {/* =============================================
           HERO
           ============================================= */}

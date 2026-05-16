@@ -7,6 +7,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/terms",
   },
+  openGraph: {
+    title: "Terms of Service",
+    description:
+      "Review Foundry Frame's terms of service for website and service usage.",
+    url: "/terms",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame terms of service",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service",
+    description:
+      "Review Foundry Frame's terms of service for website and service usage.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 export default function TermsPage() {

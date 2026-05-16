@@ -13,6 +13,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://foundryframe.com";
+
 /* ============================================================
    DATA: Blog post content
    ============================================================ */
@@ -159,9 +161,32 @@ export async function generateMetadata({
   const post = blogPosts[slug];
   if (!post) return { title: "Post Not Found" };
 
+  const url = `/blog/${slug}`;
+
   return {
     title: post.title,
     description: post.content[0],
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.content[0],
+      url,
+      type: "article",
+      images: [
+        {
+          url: post.image,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.content[0],
+      images: [post.image],
+    },
   };
 }
 
@@ -189,9 +214,45 @@ export default async function BlogPostPage({
   const related = Object.entries(blogPosts)
     .filter(([s]) => s !== slug)
     .slice(0, 3);
+  const canonicalUrl = `${siteUrl}/blog/${slug}`;
+  const publishedDate = new Date(post.date);
+  const blogPostingStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.content[0],
+    image: [post.image],
+    datePublished: Number.isNaN(publishedDate.getTime())
+      ? undefined
+      : publishedDate.toISOString(),
+    author: {
+      "@type": "Person",
+      name: post.author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Foundry Frame",
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/file.svg`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    articleSection: post.category,
+  };
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostingStructuredData),
+        }}
+      />
+
       {/* =============================================
           HERO
           ============================================= */}

@@ -14,6 +14,31 @@ export const metadata: Metadata = {
   title: "Marketing Packages",
   description:
     "Digital marketing packages from Foundry Frame — SEO, social media, paid ads, and content that turn your website into a consistent lead generation engine.",
+  alternates: {
+    canonical: "/packages/marketing",
+  },
+  openGraph: {
+    title: "Marketing Packages",
+    description:
+      "SEO, content, social, and paid ads packages that turn traffic into qualified leads.",
+    url: "/packages/marketing",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame marketing packages",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Marketing Packages",
+    description:
+      "SEO, content, social, and paid ads packages that turn traffic into qualified leads.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

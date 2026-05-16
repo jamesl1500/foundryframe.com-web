@@ -14,6 +14,31 @@ export const metadata: Metadata = {
   title: "Maintenance Plans",
   description:
     "Managed website maintenance plans from Foundry Frame. Keep your site fast, secure, and continuously improving — without lifting a finger.",
+  alternates: {
+    canonical: "/packages/maintenance",
+  },
+  openGraph: {
+    title: "Maintenance Plans",
+    description:
+      "Managed website maintenance to keep your site secure, fast, and conversion-ready.",
+    url: "/packages/maintenance",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame maintenance plans",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Maintenance Plans",
+    description:
+      "Managed website maintenance to keep your site secure, fast, and conversion-ready.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

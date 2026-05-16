@@ -12,9 +12,34 @@ import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Our Ohio Web Design Team",
   description:
     "Get in touch with Foundry Frame. Tell us about your project and let's create something extraordinary together. Based in Lorain, Ohio.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact Our Ohio Web Design Team",
+    description:
+      "Book a discovery call and tell us about your website, branding, or growth goals.",
+    url: "/contact",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Contact Foundry Frame",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Our Ohio Web Design Team",
+    description:
+      "Book a discovery call and tell us about your website, branding, or growth goals.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

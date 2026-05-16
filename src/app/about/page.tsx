@@ -13,9 +13,34 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Foundry Frame",
   description:
-    "Learn about Foundry Frame — a creative design agency founded in 2026 in Ohio.",
+    "Learn about Foundry Frame, an Ohio web design and creative agency in Lorain focused on custom websites, branding, and growth strategy.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Foundry Frame",
+    description:
+      "Meet the Ohio team behind custom websites, branding, and creative strategy for growth-focused businesses.",
+    url: "/about",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame team",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Foundry Frame",
+    description:
+      "Meet the Ohio team behind custom websites, branding, and creative strategy for growth-focused businesses.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

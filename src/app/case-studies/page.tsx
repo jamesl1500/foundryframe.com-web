@@ -13,9 +13,34 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Case Studies",
+  title: "Web Design Case Studies",
   description:
-    "Explore Foundry Frame's portfolio of creative projects across branding, web design, photography, and more.",
+    "Explore Ohio web design and branding case studies from Foundry Frame, including measurable results and project outcomes.",
+  alternates: {
+    canonical: "/case-studies",
+  },
+  openGraph: {
+    title: "Web Design Case Studies",
+    description:
+      "See real client outcomes across web design, branding, photography, and digital strategy.",
+    url: "/case-studies",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame case studies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Design Case Studies",
+    description:
+      "See real client outcomes across web design, branding, photography, and digital strategy.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

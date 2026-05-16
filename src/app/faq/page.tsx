@@ -10,10 +10,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
+
 export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Frequently asked questions about Foundry Frame's creative services, pricing, process, timelines, and more.",
+  alternates: {
+    canonical: "/faq",
+  },
+  openGraph: {
+    title: "FAQ | Foundry Frame",
+    description:
+      "Frequently asked questions about Foundry Frame's creative services, pricing, process, timelines, and more.",
+    url: "/faq",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame founder portrait",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ | Foundry Frame",
+    description:
+      "Frequently asked questions about Foundry Frame's creative services, pricing, process, timelines, and more.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================
@@ -98,12 +125,38 @@ const faqCategories = [
   },
 ] as const;
 
+const faqStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqCategories.flatMap((category) =>
+    category.questions.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    }))
+  ),
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": `${siteUrl}/faq`,
+  },
+};
+
 /* ============================================================
    COMPONENT
    ============================================================ */
 export default function FAQPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqStructuredData),
+        }}
+      />
+
       {/* =============================================
           HERO
           ============================================= */}

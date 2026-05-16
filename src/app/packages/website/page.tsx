@@ -15,6 +15,31 @@ export const metadata: Metadata = {
   title: "Website Packages",
   description:
     "Custom website design packages from Foundry Frame — from a clean 5-page launch site to a full enterprise build. No templates. No shortcuts.",
+  alternates: {
+    canonical: "/packages/website",
+  },
+  openGraph: {
+    title: "Website Packages",
+    description:
+      "Custom websites from $1,500 to enterprise builds. No templates. Built to convert.",
+    url: "/packages/website",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame website packages",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Website Packages",
+    description:
+      "Custom websites from $1,500 to enterprise builds. No templates. Built to convert.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

@@ -15,6 +15,31 @@ export const metadata: Metadata = {
   title: "Launch Bundles",
   description:
     "Complete digital launch bundles from Foundry Frame — website, brand identity, SEO, and maintenance in one cohesive engagement.",
+  alternates: {
+    canonical: "/packages/launch",
+  },
+  openGraph: {
+    title: "Launch Bundles",
+    description:
+      "Launch your brand with bundled website, identity, SEO, and support packages.",
+    url: "/packages/launch",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame launch bundles",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Launch Bundles",
+    description:
+      "Launch your brand with bundled website, identity, SEO, and support packages.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

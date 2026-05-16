@@ -14,9 +14,34 @@ import Link from "next/link";
 import NewsletterForm from "@/components/NewsletterForm";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Web Design & Branding Blog",
   description:
-    "Insights on design, branding, marketing, and creative industry trends from the Foundry Frame team.",
+    "Insights from an Ohio web design agency on branding, websites, SEO, marketing, and creative growth strategy.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Web Design & Branding Blog",
+    description:
+      "Actionable insights on web design, branding, SEO, and digital growth from Foundry Frame.",
+    url: "/blog",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame blog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Design & Branding Blog",
+    description:
+      "Actionable insights on web design, branding, SEO, and digital growth from Foundry Frame.",
+    images: ["/james-latten.jpg"],
+  },
 };
 
 /* ============================================================

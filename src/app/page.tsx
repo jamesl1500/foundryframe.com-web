@@ -8,8 +8,40 @@
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Ohio Web Design Agency | Foundry Frame",
+  description:
+    "Foundry Frame is an Ohio web design agency in Lorain building custom, conversion-focused websites for small businesses and growth brands.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Ohio Web Design Agency | Foundry Frame",
+    description:
+      "Custom websites from $1,500 built to convert. No templates. Launch in 6-12 weeks.",
+    url: "/",
+    type: "website",
+    images: [
+      {
+        url: "/james-latten.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame founder portrait",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ohio Web Design Agency | Foundry Frame",
+    description:
+      "Custom websites from $1,500 built to convert. No templates. Launch in 6-12 weeks.",
+    images: ["/james-latten.jpg"],
+  },
+};
 
 /* ============================================================
    DATA: Services
