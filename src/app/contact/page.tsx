@@ -8,7 +8,6 @@
  */
 
 import type { Metadata } from "next";
-import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 
 export const metadata: Metadata = {
@@ -46,6 +45,11 @@ export const metadata: Metadata = {
    DATA
    ============================================================ */
 const contactInfo = [
+  {
+    title: "Phone",
+    value: "(216) 889-7822",
+    href: "tel:+12168897822",
+  },
   {
     title: "Email",
     value: "jlatten@foundryframe.com",
@@ -125,16 +129,38 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              <div className="mt-12 pt-8 ">
-                <p className="text-gray-500 text-sm mb-2">
-                  Quick questions? Check the FAQ.
+              <div className="mt-12 pt-8 border-t border-white/10">
+                <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+                  Common Questions
                 </p>
-                <Link
-                  href="/faq"
-                  className="text-white text-sm border-b border-white/20 pb-0.5 hover:border-white transition-colors"
-                >
-                  View FAQ →
-                </Link>
+                <div className="border-t border-white/10">
+                  {[
+                    {
+                      q: "How much does a custom website cost?",
+                      a: "Projects start at $1,500 for a focused site. Most small business websites fall between $2,500–$7,500 depending on scope. We'll give you an exact number after a 30-min call.",
+                    },
+                    {
+                      q: "How quickly can we get started?",
+                      a: "Once the deposit is in, we typically kick off within a week. Full build timelines are 6–12 weeks. We currently have limited Q3 availability.",
+                    },
+                    {
+                      q: "What does the process look like?",
+                      a: "Discovery → Strategy → Design → Build → Launch. You're involved at each stage and we don't move forward without your sign-off. No surprises.",
+                    },
+                  ].map(({ q, a }) => (
+                    <details key={q} className="group border-b border-white/10">
+                      <summary className="flex items-center justify-between cursor-pointer py-4 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+                        <span className="pr-4">{q}</span>
+                        <span className="text-gray-500 flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                          +
+                        </span>
+                      </summary>
+                      <p className="pb-4 text-gray-500 text-sm leading-relaxed">
+                        {a}
+                      </p>
+                    </details>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

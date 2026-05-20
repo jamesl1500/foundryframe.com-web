@@ -40,14 +40,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  const caseStudyUrls: MetadataRoute.Sitemap = generateCaseStudyStaticParams().map(
-    ({ slug }) => ({
-      url: `${SITE_URL}/case-studies/${slug}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    })
-  );
-
-  return [...staticUrls, ...blogUrls, ...caseStudyUrls];
+  return [...staticUrls, ...blogUrls];
 }

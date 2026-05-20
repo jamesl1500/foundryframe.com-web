@@ -119,7 +119,7 @@ export default function AboutPage() {
       </section>
 
       {/* =============================================
-          STORY
+          FOUNDER BIO
           ============================================= */}
       <section className="py-24 lg:py-32 bg-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
@@ -127,8 +127,8 @@ export default function AboutPage() {
             {/* Image */}
             <div className="aspect-[4/5] relative overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80"
-                alt="Our studio"
+                src="/james-latten.jpg"
+                alt="James Latten, Founder of Foundry Frame"
                 fill
                 className="object-cover grayscale"
               />
@@ -137,30 +137,58 @@ export default function AboutPage() {
             {/* Copy */}
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
-                Our Story
+                The Founder
               </p>
               <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white leading-tight mb-8">
-                Built on passion, driven by craft
+                Hi, I&apos;m James.
               </h2>
               <div className="space-y-5 text-gray-400 text-sm leading-relaxed">
                 <p>
-                  Foundry Frame was born in 2026 from a simple belief: every
-                  brand deserves a creative partner that cares as deeply about
-                  their success as they do. Based in Ohio, we combine
-                  strategic thinking with bold creative execution.
+                  I&apos;m a software engineer and designer from Lorain, Ohio.
+                  I built Foundry Frame in 2026 after years of watching great
+                  small businesses lose clients to websites that looked like
+                  they were made in 2009 — or worse, by someone who clearly
+                  didn&apos;t care.
                 </p>
                 <p>
-                  We&apos;re not a factory. We&apos;re a workshop. Every project
-                  gets the focused attention it deserves. From startups finding
-                  their voice to established brands ready for reinvention, we
-                  approach each collaboration with fresh eyes and relentless
-                  dedication.
+                  My background sits at the intersection of technical
+                  engineering and visual design. I write the code, I design
+                  the layouts, and I think hard about conversion — what makes
+                  someone trust a business enough to reach out. That
+                  combination is rare, and it&apos;s the thing I&apos;m most
+                  proud to bring to every project.
                 </p>
                 <p>
-                  Our work spans branding, web design, photography, videography,
-                  and digital strategy — but our real product is the
-                  transformation our clients experience.
+                  Foundry Frame is deliberately small. I take on a limited
+                  number of projects each quarter so every client gets direct
+                  access to me — not a junior account manager. If you&apos;re
+                  investing $1,500 to $15,000+ in your website, you deserve
+                  to work with the person who&apos;s actually building it.
                 </p>
+                <p>
+                  I&apos;m results-focused above everything else. A site that
+                  wins awards but doesn&apos;t bring in clients is a failed
+                  site. Every decision I make — design, copy, structure — is
+                  in service of one goal: turning your visitors into paying
+                  customers.
+                </p>
+              </div>
+
+              <div className="mt-10 flex items-center gap-6">
+                <a
+                  href="/contact"
+                  className="px-6 py-3 bg-white text-black text-sm font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors"
+                >
+                  Work With James
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/foundry-frame/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-500 pb-0.5 hover:text-white hover:border-white transition-colors"
+                >
+                  LinkedIn
+                </a>
               </div>
             </div>
           </div>
@@ -273,15 +301,22 @@ export default function AboutPage() {
       <section className="py-24 lg:py-32 bg-black border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-8">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-4">
               Want to work together?
             </h2>
-            <Link
-              href="/contact"
-              className="inline-block px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors"
-            >
-              Get in Touch
-            </Link>
+            <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
+              James takes on a limited number of projects each quarter.
+              If you&apos;re serious about growing your business, let&apos;s
+              talk before the next slot fills.
+            </p>
+            <div className="flex gap-4">
+              <Link
+                href="https://calendly.com/jlatten-foundryframe/30min"
+                className="inline-block px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors"
+              >
+                Book a Free Discovery Call
+              </Link>
+            </div>
           </div>
         </div>
       </section>

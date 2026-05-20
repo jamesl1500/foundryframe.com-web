@@ -138,9 +138,17 @@ export default function ContactForm() {
         {status === "sending" ? "Sending..." : "Send Message"}
       </button>
 
-      <p className="text-gray-600 text-xs text-center">
-        We&apos;ll get back to you within 24 business hours.
-      </p>
+      <div className="space-y-2 pt-1">
+        <p className="text-gray-500 text-xs text-center">
+          James responds personally to every inquiry within 24 hours.
+        </p>
+        <p className="text-gray-500 text-xs text-center">
+          No spam, no pushy sales calls — just a real conversation about your goals.
+        </p>
+        <p className="text-gray-500 text-xs text-center">
+          Not sure what you need? That&apos;s exactly what the discovery call is for.
+        </p>
+      </div>
     </form>
   );
 }

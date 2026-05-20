@@ -14,6 +14,8 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import CalendlyBadge from "@/components/CalendlyBadge";
+import TawkChat from "@/components/TawkChat";
 
 /* --- Font Configuration --- */
 const inter = Inter({
@@ -196,6 +198,12 @@ export default function RootLayout({
 
         {/* Site-wide footer */}
         <Footer />
+
+        {/* Calendly badge widget */}
+        <CalendlyBadge />
+
+        {/* Tawk.to live chat */}
+        <TawkChat />
       </body>
     </html>
   );

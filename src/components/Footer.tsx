@@ -67,8 +67,24 @@ export default function Footer() {
               craft visuals, and design digital experiences.
             </p>
 
+            {/* Contact */}
+            <div className="mt-6 space-y-1">
+              <a
+                href="tel:+12168897822"
+                className="block text-gray-400 text-sm hover:text-white transition-colors"
+              >
+                (216) 889-7822
+              </a>
+              <a
+                href="mailto:jlatten@foundryframe.com"
+                className="block text-gray-400 text-sm hover:text-white transition-colors"
+              >
+                jlatten@foundryframe.com
+              </a>
+            </div>
+
             {/* Social */}
-            <div className="flex items-center gap-6 mt-8 hidden">
+            <div className="flex items-center gap-6 mt-8">
               {socialLinks.map((s) => (
                 <a
                   key={s.label}

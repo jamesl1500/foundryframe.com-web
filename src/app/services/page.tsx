@@ -61,6 +61,7 @@ const services = [
       "Typography & Color Palette",
       "Stationery & Collateral",
     ],
+    cta: "Ready for a brand that commands attention? Let\u2019s talk \u2192",
     image:
       "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
   },
@@ -78,6 +79,7 @@ const services = [
       "SEO Optimization",
       "Performance Tuning",
     ],
+    cta: "Want a site built to turn visitors into clients? Let\u2019s talk \u2192",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
   },
@@ -95,6 +97,7 @@ const services = [
       "Analytics & Reporting",
       "Influencer Partnerships",
     ],
+    cta: "Ready to build an audience that actually buys? Let\u2019s talk \u2192",
     image:
       "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
   },
@@ -112,6 +115,7 @@ const services = [
       "Signage & Environmental",
       "Digital Assets",
     ],
+    cta: "Need visuals that stop the scroll? Let\u2019s talk \u2192",
     image:
       "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
   },
@@ -129,6 +133,7 @@ const services = [
       "Social Advertising",
       "Performance Analytics",
     ],
+    cta: "Ready to put your brand in front of the right people? Let\u2019s talk \u2192",
     image:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
   },
@@ -146,6 +151,7 @@ const services = [
       "Conversion Optimization",
       "Quarterly Reviews",
     ],
+    cta: "Ready to build a plan that drives real growth? Let\u2019s talk \u2192",
     image:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
   },
@@ -235,6 +241,16 @@ export default function ServicesPage() {
                     </div>
                   ))}
                 </div>
+
+                {/* Micro-CTA */}
+                <div className="mt-8">
+                  <Link
+                    href="/contact"
+                    className="text-sm text-white border-b border-white/20 pb-0.5 hover:border-white transition-colors"
+                  >
+                    {service.cta}
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -280,21 +296,29 @@ export default function ServicesPage() {
       <section className="py-24 lg:py-32 bg-black border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-8">
-              Let&apos;s build something together
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+              Next Step
+            </p>
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-4">
+              Book your free 30-min strategy call
             </h2>
+            <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
+              Tell us about your goals. We&apos;ll walk you through exactly
+              how we&apos;d approach them — and what it would cost. No
+              obligation, no hard sell.
+            </p>
             <div className="flex gap-4">
               <Link
-                href="/contact"
+                href="https://calendly.com/jlatten-foundryframe/30min"
                 className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors"
               >
-                Start a Project
+                Book a Free Call
               </Link>
               <Link
-                href="/packages"
+                href="/contact"
                 className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors"
               >
-                View Packages
+                Contact Us
               </Link>
             </div>
           </div>

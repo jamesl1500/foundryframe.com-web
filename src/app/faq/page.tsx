@@ -221,28 +221,34 @@ export default function FAQPage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900 border-t border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 text-center">
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-4">
-            Still have questions?
-          </h2>
-          <p className="text-gray-500 text-sm max-w-md mx-auto mb-8">
-            Reach out to our team and we&apos;ll get back to you within 24
-            hours.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="px-8 py-3 bg-white text-black text-sm font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors"
-            >
-              Contact Us
-            </Link>
-            <a
-              href="mailto:hello@foundryframe.com"
-              className="px-8 py-3 border border-white/20 text-white text-sm font-medium uppercase tracking-wider hover:bg-white/5 transition-colors"
-            >
-              Email Directly
-            </a>
+      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+              Next Step
+            </p>
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-4">
+              Book your free 30-min strategy call
+            </h2>
+            <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
+              Bring your questions, your goals, and your budget. We&apos;ll
+              tell you exactly what&apos;s possible and what it would take to
+              get there. No pitch, no pressure.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="https://calendly.com/jlatten-foundryframe/30min"
+                className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+              >
+                Book a Free Call
+              </Link>
+              <a
+                href="mailto:jlatten@foundryframe.com"
+                className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+              >
+                Email Directly
+              </a>
+            </div>
           </div>
         </div>
       </section>
