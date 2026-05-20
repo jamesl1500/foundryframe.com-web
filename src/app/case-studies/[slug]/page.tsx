@@ -431,6 +431,45 @@ export default async function CaseStudyPage({
       </section>
 
       {/* =============================================
+          RESULTS CTA
+          ============================================= */}
+      <section className="py-20 lg:py-24 bg-black border-t border-white/10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+                Your Turn
+              </p>
+              <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white leading-tight">
+                Ready to achieve results like these?
+              </h2>
+            </div>
+            <div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                Book a free 30-min strategy call and we&apos;ll walk you through
+                exactly what&apos;s possible for your business — no obligation,
+                no pitch.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/contact"
+                  className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+                >
+                  Book a Free Call
+                </Link>
+                <Link
+                  href="/case-studies"
+                  className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+                >
+                  View All Projects
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =============================================
           GALLERY
           ============================================= */}
       <section className="bg-black">

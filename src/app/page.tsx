@@ -292,7 +292,14 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+          <div className="mt-10 text-center">
+            <Link
+              href="/contact"
+              className="px-8 py-4 bg-black text-white font-bold text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors"
+            >
+              Start Your Project
+            </Link>
+          </div>        </div>
       </section>
 
       {/* =============================================
@@ -385,7 +392,14 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/case-studies"
+              className="text-black text-xs uppercase tracking-wider border-b border-black/30 pb-0.5 hover:border-black transition-colors"
+            >
+              See the work behind these numbers →
+            </Link>
+          </div>        </div>
       </section>
 
       {/* =============================================

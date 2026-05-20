@@ -139,6 +139,18 @@ export default function BlogPage() {
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
             Insights & ideas
           </h1>
+          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+            Design, strategy, and business insights from the team at Foundry
+            Frame — practical takeaways you can use today.
+          </p>
+          <div className="mt-8">
+            <Link
+              href="/contact"
+              className="text-white text-xs uppercase tracking-wider border-b border-white/30 pb-0.5 hover:border-white transition-colors"
+            >
+              Ready to work with us? Book a free call →
+            </Link>
+          </div>
         </div>
       </section>
 

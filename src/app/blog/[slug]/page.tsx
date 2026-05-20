@@ -322,6 +322,39 @@ export default async function BlogPostPage({
       </section>
 
       {/* =============================================
+          POST CTA
+          ============================================= */}
+      <section className="py-20 lg:py-28 bg-gray-900 border-t border-white/10">
+        <div className="max-w-3xl mx-auto px-6 lg:px-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+            Work With Us
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white leading-tight mb-4">
+            Ready to apply this to your business?
+          </h2>
+          <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-md">
+            We build custom websites and brand experiences for small businesses
+            across Ohio and beyond. Book a free 30-min call and let&apos;s talk
+            about your goals.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/contact"
+              className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+            >
+              Book a Free Call
+            </Link>
+            <Link
+              href="/case-studies"
+              className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+            >
+              See Our Work
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* =============================================
           RELATED POSTS
           ============================================= */}
       {related.length > 0 && (

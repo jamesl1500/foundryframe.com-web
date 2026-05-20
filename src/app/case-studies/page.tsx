@@ -122,6 +122,18 @@ export default function CaseStudiesPage() {
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
             Selected projects
           </h1>
+          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+            A portfolio of websites and brand identities built to convert
+            visitors into paying clients.
+          </p>
+          <div className="mt-8">
+            <Link
+              href="/contact"
+              className="px-6 py-3 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors"
+            >
+              Start a Project
+            </Link>
+          </div>
         </div>
       </section>
 

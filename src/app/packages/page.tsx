@@ -109,6 +109,20 @@ export default function PackagesPage() {
             Four categories. Every scope. One team. Choose the package that fits
             where you are today — and where you&apos;re going.
           </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/contact"
+              className="px-6 py-3 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+            >
+              Book a Free Call
+            </Link>
+            <Link
+              href="/contact"
+              className="px-6 py-3 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+            >
+              Get a Custom Quote
+            </Link>
+          </div>
         </div>
       </section>
 

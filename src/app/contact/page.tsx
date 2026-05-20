@@ -9,6 +9,7 @@
 
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Contact Our Ohio Web Design Team",
@@ -88,6 +89,14 @@ export default function ContactPage() {
             Have a project in mind? Fill out the form below or reach out
             directly — we typically respond within 24 hours.
           </p>
+          <div className="mt-8 flex gap-4">
+            <Link
+              href="https://calendly.com/jlatten-foundryframe/30min"
+              className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+            >
+              Book a Free Consultation
+            </Link>
+          </div>
         </div>
       </section>
 
