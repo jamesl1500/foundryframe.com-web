@@ -14,9 +14,9 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    const { firstName, lastName, email, phone, company, service, budget, message } = body;
+    const { firstName, lastName, email, message } = body;
 
-    if (!firstName || !lastName || !email || !service || !message) {
+    if (!firstName || !lastName || !email || !message) {
       return Response.json(
         { error: "Missing required fields." },
         { status: 400 }
@@ -30,16 +30,12 @@ export async function POST(request: Request) {
       from: "Foundry Frame <noreply@foundryframe.com>",
       to: "jlatten@foundryframe.com",
       replyTo: email,
-      subject: `New Inquiry: ${esc(firstName)} ${esc(lastName)} — ${esc(service)}`,
+      subject: `New Inquiry: ${esc(firstName)} ${esc(lastName)}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <table style="border-collapse:collapse;width:100%;max-width:600px;">
           ${row("Name", `${firstName} ${lastName}`)}
           ${row("Email", email)}
-          ${phone ? row("Phone", phone) : ""}
-          ${company ? row("Company", company) : ""}
-          ${row("Service", service)}
-          ${budget ? row("Budget", budget) : ""}
           ${row("Message", message)}
         </table>
       `,

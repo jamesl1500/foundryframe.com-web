@@ -43,6 +43,11 @@ const footerColumns = [
   },
 ] as const;
 
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com/foundry_frame/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/foundry-frame/" },
+] as const;
+
 export default function Footer() {
   return (
     <footer className="bg-black border-t border-white/10">
@@ -64,14 +69,14 @@ export default function Footer() {
 
             {/* Social */}
             <div className="flex items-center gap-6 mt-8 hidden">
-              {["Instagram", "LinkedIn", "Twitter", "Dribbble"].map((s) => (
+              {socialLinks.map((s) => (
                 <a
-                  key={s}
-                  href="#"
+                  key={s.label}
+                  href={s.href}
                   className="text-gray-500 text-xs uppercase tracking-wider hover:text-white transition-colors"
-                  aria-label={s}
+                  aria-label={s.label}
                 >
-                  {s}
+                  {s.label}
                 </a>
               ))}
             </div>

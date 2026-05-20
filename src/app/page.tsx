@@ -127,8 +127,8 @@ const industries = [
 const stats = [
   { value: "2026", label: "Launched" },
   { value: "Open", label: "For projects" },
-  { value: "1", label: "Team Member" },
-  { value: "100%", label: "Retention" },
+  { value: "8", label: "Projects Completed" },
+  { value: "100%", label: "On-Time Delivery" },
 ] as const;
 
 /* ============================================================
