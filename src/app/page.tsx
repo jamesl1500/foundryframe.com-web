@@ -183,7 +183,7 @@ export default function Home() {
                 href="/contact"
                 className="px-6 py-3 border border-white/30 text-white text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-colors"
               >
-                Contact
+                Schedule Free Discovery Call
               </Link>
             </div>
           </div>
