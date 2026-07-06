@@ -30,7 +30,7 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
+const siteUrl = "https://www.foundryframe.com";
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
