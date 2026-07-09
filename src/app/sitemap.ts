@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { generateStaticParams as generateBlogStaticParams } from "@/app/blog/[slug]/page";
 import { generateStaticParams as generateCaseStudyStaticParams } from "@/app/case-studies/[slug]/page";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://foundryframe.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
 const staticRoutes = [
   "",
