@@ -58,7 +58,7 @@ const contactInfo = [
   },
   {
     title: "Office",
-    value: "Virtual, Lorain, OH 44053",
+    value: "Lorain, OH 44053",
     href: "#",
   },
   {

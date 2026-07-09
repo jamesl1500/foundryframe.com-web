@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.foundryframe.com"),
   title: "Web Design & Creative Services",
   description:
     "Explore Foundry Frame's creative services: branding, web design, photography, videography, social media, graphic design, advertising, and digital strategy.",
