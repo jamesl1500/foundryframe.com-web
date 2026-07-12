@@ -1,37 +1,36 @@
 /**
- * Services Page - Foundry Frame
+ * Services Hub - Foundry Frame
  * ===============================
- * Flat, minimal services layout. Numbered rows
- * with thin border dividers, B&W imagery.
+ * Category index linking to each individual service detail page.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
+const siteUrl = "https://www.foundryframe.com";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.foundryframe.com"),
   title: "Web Design & Creative Services",
   description:
-    "Explore Foundry Frame's creative services: branding, web design, photography, videography, social media, graphic design, advertising, and digital strategy.",
+    "Explore Foundry Frame's creative services: web design & development, branding, social media, graphic design, advertising, and digital strategy.",
   alternates: {
     canonical: "/services",
   },
   openGraph: {
     title: "Web Design & Creative Services",
     description:
-      "Branding, web design, photography, videography, and digital strategy services for growth-focused businesses.",
+      "Web design & development, branding, social media, and digital strategy services for growth-focused businesses.",
     url: "/services",
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame services",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -39,8 +38,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Web Design & Creative Services",
     description:
-      "Branding, web design, photography, videography, and digital strategy services for growth-focused businesses.",
-    images: ["/james-latten.jpg"],
+      "Web design & development, branding, social media, and digital strategy services for growth-focused businesses.",
+    images: ["/twitter-image"],
   },
 };
 
@@ -49,112 +48,70 @@ export const metadata: Metadata = {
    ============================================================ */
 const services = [
   {
-    id: "branding",
-    title: "Branding & Identity",
-    subtitle: "Define who you are.",
-    description:
-      "Your brand is more than a logo — it's the feeling people get when they interact with your business. We develop comprehensive identities that communicate your values and create lasting connections.",
-    deliverables: [
-      "Logo Design & Brand Mark",
-      "Brand Strategy & Positioning",
-      "Visual Identity System",
-      "Brand Guidelines",
-      "Typography & Color Palette",
-      "Stationery & Collateral",
-    ],
-    cta: "Ready for a brand that commands attention? Let\u2019s talk \u2192",
-    image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
-  },
-  {
+    number: "01",
     id: "web-design",
     title: "Web Design & Development",
-    subtitle: "Your digital storefront.",
+    href: "/services/web-design",
+    tagline: "Our flagship service.",
     description:
-      "We design and build websites that convert. From responsive design to seamless UX, every pixel is intentional, every interaction purposeful.",
-    deliverables: [
-      "Custom Website Design",
-      "Responsive Development",
-      "E-Commerce Solutions",
-      "CMS Integration",
-      "SEO Optimization",
-      "Performance Tuning",
-    ],
-    cta: "Want a site built to turn visitors into clients? Let\u2019s talk \u2192",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      "Custom-coded, conversion-focused websites built with Next.js and React — no templates, no page builders. This is the work we're best known for.",
+    highlights: ["Custom Design", "Next.js Development", "E-Commerce", "Technical SEO"],
+    featured: true,
   },
   {
+    number: "02",
+    id: "branding",
+    title: "Branding & Identity",
+    href: "/services/branding",
+    tagline: "Define who you are.",
+    description:
+      "Comprehensive brand identities — logo, positioning, visual system, and guidelines — that create lasting connections with your audience.",
+    highlights: ["Logo Design", "Brand Strategy", "Visual Identity", "Brand Guidelines"],
+    featured: false,
+  },
+  {
+    number: "03",
     id: "social-media",
     title: "Social Media",
-    subtitle: "Build your community.",
+    href: "/services/social-media",
+    tagline: "Build your community.",
     description:
-      "Strategic social media management that builds community and drives reach. We handle the content, strategy, and engagement so you can focus on your business.",
-    deliverables: [
-      "Content Strategy",
-      "Content Creation",
-      "Community Management",
-      "Paid Social Campaigns",
-      "Analytics & Reporting",
-      "Influencer Partnerships",
-    ],
-    cta: "Ready to build an audience that actually buys? Let\u2019s talk \u2192",
-    image:
-      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
+      "Strategic social media management that builds community and drives reach — content, strategy, and engagement handled end to end.",
+    highlights: ["Content Strategy", "Content Creation", "Paid Social", "Reporting"],
+    featured: false,
   },
   {
+    number: "04",
     id: "graphic-design",
     title: "Graphic Design",
-    subtitle: "Visual impact.",
+    href: "/services/graphic-design",
+    tagline: "Visual impact.",
     description:
-      "Compelling visual assets that strengthen your brand across every touchpoint. Print, digital, environmental — we design it all.",
-    deliverables: [
-      "Marketing Collateral",
-      "Packaging Design",
-      "Print Design",
-      "Presentation Design",
-      "Signage & Environmental",
-      "Digital Assets",
-    ],
-    cta: "Need visuals that stop the scroll? Let\u2019s talk \u2192",
-    image:
-      "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
+      "Compelling visual assets that strengthen your brand across every touchpoint — print, digital, and environmental.",
+    highlights: ["Marketing Collateral", "Packaging", "Print Design", "Digital Assets"],
+    featured: false,
   },
   {
+    number: "05",
     id: "advertising",
     title: "Advertising",
-    subtitle: "Reach the right people.",
+    href: "/services/advertising",
+    tagline: "Reach the right people.",
     description:
-      "Strategic advertising that puts your brand in front of the right audience. We combine creative excellence with data-driven targeting.",
-    deliverables: [
-      "Campaign Strategy",
-      "Ad Creative & Copywriting",
-      "PPC & Search Ads",
-      "Display & Programmatic",
-      "Social Advertising",
-      "Performance Analytics",
-    ],
-    cta: "Ready to put your brand in front of the right people? Let\u2019s talk \u2192",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+      "Strategic advertising that puts your brand in front of the right audience, combining creative excellence with data-driven targeting.",
+    highlights: ["Campaign Strategy", "PPC & Search", "Social Ads", "Analytics"],
+    featured: false,
   },
   {
+    number: "06",
     id: "strategy",
     title: "Digital Strategy",
-    subtitle: "Think bigger.",
+    href: "/services/strategy",
+    tagline: "Think bigger.",
     description:
-      "Data-driven marketing strategies that amplify your brand and maximize ROI. We help you understand your market, define your goals, and chart the path forward.",
-    deliverables: [
-      "Market Research & Analysis",
-      "Digital Marketing Strategy",
-      "Competitive Audit",
-      "Content Strategy",
-      "Conversion Optimization",
-      "Quarterly Reviews",
-    ],
-    cta: "Ready to build a plan that drives real growth? Let\u2019s talk \u2192",
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      "Data-driven marketing strategies that amplify your brand and maximize ROI — research, roadmap, and conversion optimization.",
+    highlights: ["Market Research", "Content Strategy", "Conversion Optimization", "Quarterly Reviews"],
+    featured: false,
   },
 ] as const;
 
@@ -162,19 +119,61 @@ const services = [
    DATA: Process
    ============================================================ */
 const process = [
-  { step: "Discovery", description: "We learn your business, audience, and goals." },
-  { step: "Strategy", description: "We define the approach and build the roadmap." },
+  {
+    step: "Discovery",
+    description: "We learn your business, audience, and goals.",
+  },
+  {
+    step: "Strategy",
+    description: "We define the approach and build the roadmap.",
+  },
   { step: "Create", description: "We design, build, and produce the work." },
   { step: "Refine", description: "We iterate until every detail is right." },
   { step: "Launch", description: "We deliver and measure the results." },
 ] as const;
 
 /* ============================================================
-   COMPONENT: Services Page
+   STRUCTURED DATA
+   ============================================================ */
+const servicesStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Creative design agency services",
+  provider: {
+    "@type": "Organization",
+    name: "Foundry Frame",
+    url: siteUrl,
+  },
+  areaServed: ["Ohio", "United States"],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Foundry Frame Services",
+    itemListElement: services.map((service) => ({
+      "@type": "Offer",
+      url: `${siteUrl}${service.href}`,
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+        url: `${siteUrl}${service.href}`,
+      },
+    })),
+  },
+};
+
+/* ============================================================
+   COMPONENT: Services Hub
    ============================================================ */
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(servicesStructuredData),
+        }}
+      />
+
       {/* =============================================
           HERO
           ============================================= */}
@@ -186,77 +185,87 @@ export default function ServicesPage() {
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
             What we do best
           </h1>
+          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+            Six disciplines, one team. Web design and development is our
+            flagship — everything else is built to support it.
+          </p>
         </div>
       </section>
 
       {/* =============================================
-          SERVICE SECTIONS
+          SERVICES GRID
           ============================================= */}
-      {services.map((service, i) => (
-        <section
-          key={service.id}
-          id={service.id}
-          className={`py-24 lg:py-32 ${
-            i % 2 === 0 ? "bg-black" : "bg-gray-900"
-          }`}
-        >
-          <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-            <div
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-start ${
-                i % 2 !== 0 ? "lg:direction-rtl" : ""
-              }`}
-            >
-              {/* Image */}
-              <div className={`aspect-[4/3] relative overflow-hidden ${i % 2 !== 0 ? "lg:order-2" : ""}`}>
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover grayscale"
-                />
-              </div>
-
-              {/* Content */}
-              <div className={i % 2 !== 0 ? "lg:order-1" : ""}>
-                <p className="text-xs font-mono text-gray-500 mb-4">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-2">
+      <section className="bg-black">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10">
+            {services.map((service) => (
+              <Link
+                key={service.id}
+                href={service.href}
+                className={`group p-10 lg:p-14 flex flex-col transition-colors ${
+                  service.featured
+                    ? "bg-white hover:bg-gray-100 lg:col-span-2"
+                    : "bg-black hover:bg-gray-950"
+                }`}
+              >
+                <div className="flex items-start justify-between mb-8">
+                  <span
+                    className={`text-[10px] uppercase tracking-[0.3em] ${
+                      service.featured ? "text-gray-500" : "text-gray-600"
+                    }`}
+                  >
+                    {service.number}
+                  </span>
+                  {service.featured ? (
+                    <span className="text-[10px] uppercase tracking-widest bg-black text-white px-3 py-1 font-bold">
+                      Flagship Service
+                    </span>
+                  ) : (
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-gray-600 group-hover:text-white transition-colors">
+                      View &rarr;
+                    </span>
+                  )}
+                </div>
+                <h2
+                  className={`text-3xl sm:text-4xl font-heading font-bold mb-2 leading-tight ${
+                    service.featured ? "text-black" : "text-white"
+                  }`}
+                >
                   {service.title}
                 </h2>
-                <p className="text-gray-500 text-sm uppercase tracking-wider mb-6">
-                  {service.subtitle}
+                <p
+                  className={`text-xs uppercase tracking-widest mb-6 ${
+                    service.featured ? "text-gray-500" : "text-gray-500"
+                  }`}
+                >
+                  {service.tagline}
                 </p>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                <p
+                  className={`text-sm leading-relaxed mb-8 max-w-xl ${
+                    service.featured ? "text-gray-600" : "text-gray-400"
+                  }`}
+                >
                   {service.description}
                 </p>
-
-                {/* Deliverables */}
-                <div className="border-t border-white/10">
-                  {service.deliverables.map((item) => (
-                    <div
-                      key={item}
-                      className="py-3 border-b border-white/10 text-gray-300 text-sm"
+                <div className="mt-auto flex flex-wrap gap-2">
+                  {service.highlights.map((h) => (
+                    <span
+                      key={h}
+                      className={`text-[10px] uppercase tracking-widest border px-2 py-1 ${
+                        service.featured
+                          ? "border-black/10 text-gray-500"
+                          : "border-white/10 text-gray-500"
+                      }`}
                     >
-                      {item}
-                    </div>
+                      {h}
+                    </span>
                   ))}
                 </div>
-
-                {/* Micro-CTA */}
-                <div className="mt-8">
-                  <Link
-                    href="/contact"
-                    className="text-sm text-white border-b border-white/20 pb-0.5 hover:border-white transition-colors"
-                  >
-                    {service.cta}
-                  </Link>
-                </div>
-              </div>
-            </div>
+              </Link>
+            ))}
           </div>
-        </section>
-      ))}
+        </div>
+      </section>
 
       {/* =============================================
           PROCESS

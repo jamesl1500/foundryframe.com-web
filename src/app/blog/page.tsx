@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame blog",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "Web Design & Branding Blog",
     description:
       "Actionable insights on web design, branding, SEO, and digital growth from Foundry Frame.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
@@ -63,8 +63,7 @@ const posts: {
       "In a world saturated with content, your brand is the one thing that sets you apart.",
     category: "Branding",
     date: "April 10, 2026",
-    image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
+    image: "/images/stock/service-branding.jpg",
     featured: true,
   },
   {
@@ -74,18 +73,7 @@ const posts: {
       "From immersive 3D to bold typography, these trends are shaping how brands connect online.",
     category: "Web Design",
     date: "April 5, 2026",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
-  },
-  {
-    slug: "product-photography-tips",
-    title: "10 Product Photography Tips That Sell",
-    excerpt:
-      "75% of online shoppers rely on product photos. Here's how to make yours count.",
-    category: "Photography",
-    date: "March 28, 2026",
-    image:
-      "https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=800&q=80",
+    image: "/images/stock/service-web-design.jpg",
   },
   {
     slug: "social-media-strategy-small-business",
@@ -94,18 +82,7 @@ const posts: {
       "Work smarter, not harder. A practical guide to social media with limited resources.",
     category: "Social Media",
     date: "March 20, 2026",
-    image:
-      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
-  },
-  {
-    slug: "video-content-brand-storytelling",
-    title: "How Video is Revolutionizing Brand Storytelling",
-    excerpt:
-      "Video generates 1200% more shares than text and images combined.",
-    category: "Videography",
-    date: "March 14, 2026",
-    image:
-      "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
+    image: "/images/stock/service-social-media.jpg",
   },
   {
     slug: "choosing-right-creative-agency",
@@ -114,8 +91,7 @@ const posts: {
       "The right partner transforms your brand. The wrong one wastes your budget.",
     category: "Strategy",
     date: "March 8, 2026",
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+    image: "/images/stock/service-advertising.jpg",
   },
 ];
 
@@ -236,8 +212,8 @@ export default function BlogPage() {
             Stay in the loop
           </h2>
           <p className="text-gray-500 text-sm max-w-md mx-auto mb-8">
-            Subscribe for the latest insights, project showcases,
-            and creative inspiration.
+            Subscribe for the latest insights, project showcases, and creative
+            inspiration.
           </p>
           <NewsletterForm
             variant="inline"

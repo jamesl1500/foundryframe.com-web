@@ -13,7 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Foundry Frame",
+  title: "About Us",
   description:
     "Learn about Foundry Frame, an Ohio web design and creative agency in Lorain focused on custom websites, branding, and growth strategy.",
   alternates: {
@@ -27,10 +27,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame team",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "About Foundry Frame",
     description:
       "Meet the Ohio team behind custom websites, branding, and creative strategy for growth-focused businesses.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
@@ -64,8 +64,7 @@ const values = [
   },
   {
     title: "Relentless Quality",
-    description:
-      "We obsess over every detail to ensure world-class results.",
+    description: "We obsess over every detail to ensure world-class results.",
   },
 ] as const;
 
@@ -78,7 +77,6 @@ const team = [
     role: "Founder & Creative Director",
     image: "/james-latten.jpg",
   },
-
 ] as const;
 
 /* ============================================================
@@ -100,7 +98,7 @@ export default function AboutPage() {
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80"
+            src="/images/stock/about-team.jpg"
             alt="Foundry Frame team"
             fill
             className="object-cover grayscale"
@@ -144,32 +142,32 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-5 text-gray-400 text-sm leading-relaxed">
                 <p>
-                  I&apos;m a software engineer and designer from Lorain, Ohio.
-                  I built Foundry Frame in 2026 after years of watching great
+                  I&apos;m a software engineer and designer from Lorain, Ohio. I
+                  built Foundry Frame in 2026 after years of watching great
                   small businesses lose clients to websites that looked like
                   they were made in 2009 — or worse, by someone who clearly
                   didn&apos;t care.
                 </p>
                 <p>
                   My background sits at the intersection of technical
-                  engineering and visual design. I write the code, I design
-                  the layouts, and I think hard about conversion — what makes
-                  someone trust a business enough to reach out. That
-                  combination is rare, and it&apos;s the thing I&apos;m most
-                  proud to bring to every project.
+                  engineering and visual design. I write the code, I design the
+                  layouts, and I think hard about conversion — what makes
+                  someone trust a business enough to reach out. That combination
+                  is rare, and it&apos;s the thing I&apos;m most proud to bring
+                  to every project.
                 </p>
                 <p>
                   Foundry Frame is deliberately small. I take on a limited
                   number of projects each quarter so every client gets direct
                   access to me — not a junior account manager. If you&apos;re
-                  investing $1,500 to $15,000+ in your website, you deserve
-                  to work with the person who&apos;s actually building it.
+                  investing $1,500 to $15,000+ in your website, you deserve to
+                  work with the person who&apos;s actually building it.
                 </p>
                 <p>
                   I&apos;m results-focused above everything else. A site that
                   wins awards but doesn&apos;t bring in clients is a failed
-                  site. Every decision I make — design, copy, structure — is
-                  in service of one goal: turning your visitors into paying
+                  site. Every decision I make — design, copy, structure — is in
+                  service of one goal: turning your visitors into paying
                   customers.
                 </p>
               </div>
@@ -305,9 +303,9 @@ export default function AboutPage() {
               Want to work together?
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
-              James takes on a limited number of projects each quarter.
-              If you&apos;re serious about growing your business, let&apos;s
-              talk before the next slot fills.
+              James takes on a limited number of projects each quarter. If
+              you&apos;re serious about growing your business, let&apos;s talk
+              before the next slot fills.
             </p>
             <div className="flex gap-4">
               <Link

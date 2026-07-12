@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Foundry Frame logo">
+  <rect width="200" height="200" fill="#000000"/>
+  <g stroke="#E63946" stroke-width="7" fill="none">
+    <path d="M18 40 V18 H40"/>
+    <path d="M160 18 H182 V40"/>
+    <path d="M182 160 V182 H160"/>
+    <path d="M40 182 H18 V160"/>
+  </g>
+  <text
+    x="100"
+    y="127"
+    font-family="Arial Black, Arial, sans-serif"
+    font-size="80"
+    font-weight="900"
+    letter-spacing="-2"
+    text-anchor="middle"
+    fill="#FFFFFF"
+  >FF</text>
+</svg>

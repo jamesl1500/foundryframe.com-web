@@ -27,10 +27,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame founder portrait",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "FAQ | Foundry Frame",
     description:
       "Frequently asked questions about Foundry Frame's creative services, pricing, process, timelines, and more.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
@@ -52,7 +52,7 @@ const faqCategories = [
     questions: [
       {
         q: "What is Foundry Frame?",
-        a: "Foundry Frame is a full-service creative design agency based in Lorain, Ohio. Founded in 2026, we specialize in branding, web design, photography, videography, social media, and digital strategy for businesses of all sizes across various industries.",
+        a: "Foundry Frame is a full-service creative design agency based in Lorain, Ohio. Founded in 2026, we specialize in branding, web design, social media, and digital strategy for businesses of all sizes across various industries.",
       },
       {
         q: "What industries do you work with?",
@@ -60,7 +60,7 @@ const faqCategories = [
       },
       {
         q: "Do you work with clients outside of Ohio?",
-        a: "Absolutely! While we're proudly based in Lorain, Ohio, we work with clients across the United States and internationally. Many of our services can be delivered remotely, and we're happy to travel for photography, videography, and on-site projects.",
+        a: "Absolutely! While we're proudly based in Lorain, Ohio, we work with clients across the United States and internationally. Nearly all of our services can be delivered fully remotely.",
       },
     ],
   },
@@ -115,7 +115,7 @@ const faqCategories = [
       },
       {
         q: "Will I own the final deliverables?",
-        a: "Yes! Upon full payment, you receive complete ownership of all final deliverables including logos, designs, code, photos, and videos. We retain the right to showcase the work in our portfolio unless otherwise agreed.",
+        a: "Yes! Upon full payment, you receive complete ownership of all final deliverables including logos, designs, and code. We retain the right to showcase the work in our portfolio unless otherwise agreed.",
       },
       {
         q: "Do you provide ongoing support after project completion?",

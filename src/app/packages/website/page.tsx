@@ -10,6 +10,9 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { parsePriceSpecification } from "@/lib/schema-price";
+
+const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
   title: "Website Packages",
@@ -26,10 +29,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame website packages",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -38,7 +41,7 @@ export const metadata: Metadata = {
     title: "Website Packages",
     description:
       "Custom websites from $1,500 to enterprise builds. No templates. Built to convert.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
@@ -193,11 +196,46 @@ const addons = [
 ];
 
 /* ============================================================
+   STRUCTURED DATA
+   ============================================================ */
+const offersStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "Website Packages",
+  url: `${siteUrl}/packages/website`,
+  itemListElement: packages.map((pkg) => ({
+    "@type": "Offer",
+    name: pkg.name,
+    description: pkg.tagline,
+    priceSpecification: parsePriceSpecification(pkg.price),
+  })),
+};
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
+    { "@type": "ListItem", position: 3, name: "Website Packages", item: `${siteUrl}/packages/website` },
+  ],
+};
+
+/* ============================================================
    COMPONENT: Website Packages Page
    ============================================================ */
 export default function WebsitePackagesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersStructuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
+
       {/* =============================================
           HERO
           ============================================= */}

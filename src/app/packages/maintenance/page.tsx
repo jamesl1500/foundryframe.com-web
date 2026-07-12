@@ -9,6 +9,9 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { parsePriceSpecification } from "@/lib/schema-price";
+
+const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
   title: "Maintenance Plans",
@@ -25,10 +28,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame maintenance plans",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -37,7 +40,7 @@ export const metadata: Metadata = {
     title: "Maintenance Plans",
     description:
       "Managed website maintenance to keep your site secure, fast, and conversion-ready.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
@@ -108,11 +111,46 @@ const plans = [
 ];
 
 /* ============================================================
+   STRUCTURED DATA
+   ============================================================ */
+const offersStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "Maintenance Plans",
+  url: `${siteUrl}/packages/maintenance`,
+  itemListElement: plans.map((plan) => ({
+    "@type": "Offer",
+    name: plan.name,
+    description: plan.tagline,
+    priceSpecification: parsePriceSpecification(plan.price),
+  })),
+};
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
+    { "@type": "ListItem", position: 3, name: "Maintenance Plans", item: `${siteUrl}/packages/maintenance` },
+  ],
+};
+
+/* ============================================================
    COMPONENT: Maintenance Plans Page
    ============================================================ */
 export default function MaintenancePlansPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersStructuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
+
       {/* =============================================
           HERO
           ============================================= */}

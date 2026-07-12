@@ -10,6 +10,9 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { parsePriceSpecification } from "@/lib/schema-price";
+
+const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
   title: "Launch Bundles",
@@ -26,10 +29,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame launch bundles",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -38,7 +41,7 @@ export const metadata: Metadata = {
     title: "Launch Bundles",
     description:
       "Launch your brand with bundled website, identity, SEO, and support packages.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
@@ -127,11 +130,46 @@ const bundles = [
 ];
 
 /* ============================================================
+   STRUCTURED DATA
+   ============================================================ */
+const offersStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "Launch Bundles",
+  url: `${siteUrl}/packages/launch`,
+  itemListElement: bundles.map((bundle) => ({
+    "@type": "Offer",
+    name: bundle.name,
+    description: bundle.tagline,
+    priceSpecification: parsePriceSpecification(bundle.price),
+  })),
+};
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
+    { "@type": "ListItem", position: 3, name: "Launch Bundles", item: `${siteUrl}/packages/launch` },
+  ],
+};
+
+/* ============================================================
    COMPONENT: Launch Bundles Page
    ============================================================ */
 export default function LaunchBundlesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersStructuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
+
       {/* =============================================
           HERO
           ============================================= */}

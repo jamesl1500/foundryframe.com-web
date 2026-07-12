@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Contact Foundry Frame",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Contact Our Ohio Web Design Team",
     description:
       "Book a discovery call and tell us about your website, branding, or growth goals.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 

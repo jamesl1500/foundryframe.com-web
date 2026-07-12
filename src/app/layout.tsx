@@ -8,7 +8,7 @@
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -39,10 +39,10 @@ const structuredData = {
       "@id": `${siteUrl}/#organization`,
       name: "Foundry Frame",
       url: siteUrl,
-      logo: `${siteUrl}/file.svg`,
+      logo: `${siteUrl}/logo.svg`,
       foundingDate: "2026",
       description:
-        "Foundry Frame is a creative design agency in Ohio specializing in branding, web design, photography, videography, and digital strategy.",
+        "Foundry Frame is a creative design agency in Ohio specializing in branding, web design, social media, and digital strategy.",
     },
     {
       "@type": "WebSite",
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     template: "%s | Foundry Frame",
   },
   description:
-    "Foundry Frame is a premier creative design agency based in Ohio, specializing in branding, web design, photography, videography, and digital strategy. Founded in 2026.",
+    "Foundry Frame is a premier creative design agency based in Ohio, specializing in branding, web design, social media, and digital strategy. Founded in 2026.",
   keywords: [
     "creative agency",
     "design agency",
@@ -105,8 +105,7 @@ export const metadata: Metadata = {
     "startup solutions",
     "startup websites",
     "startup branding",
-    "photography",
-    "videography",
+    "social media marketing",
     "digital marketing",
   ],
   authors: [{ name: "James Latten" }],
@@ -121,17 +120,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Foundry Frame | Creative Design Agency",
     description:
-      "Premier creative design agency based in Ohio. Branding, web design, photography, videography, and digital strategy.",
+      "Premier creative design agency based in Ohio. Branding, web design, social media, and digital strategy.",
     url: "/",
     type: "website",
     locale: "en_US",
     siteName: "Foundry Frame",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame founder portrait",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -139,9 +138,15 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Foundry Frame | Creative Design Agency",
     description:
-      "Premier creative design agency based in Ohio. Branding, web design, photography, videography, and digital strategy.",
-    images: ["/james-latten.jpg"],
+      "Premier creative design agency based in Ohio. Branding, web design, social media, and digital strategy.",
+    images: ["/twitter-image"],
   },
+};
+
+/* --- Global Viewport --- */
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  colorScheme: "dark",
 };
 
 /* --- Root Layout Component --- */
@@ -168,10 +173,8 @@ export default function RootLayout({
             gtag('config', 'G-2723XGFRH7');
           `}
         </Script>
-        <Script
-          id="structured-data"
+        <script
           type="application/ld+json"
-          strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 

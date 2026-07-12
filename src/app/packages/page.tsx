@@ -26,10 +26,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame packages",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Website & Marketing Packages",
     description:
       "Transparent website, launch, maintenance, and marketing packages built to help small businesses grow.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(base64 -w0 \"C:/Users/JamesLatten/AppData/Local/Temp/claude/a--Projects-foundryframe-com/cabae95b-5d6b-4bbc-b66f-f5a3b576d0a1/scratchpad/og-preview.png\")",
+      "Read(//c/Users/JamesLatten/AppData/Local/Temp/claude/a--Projects-foundryframe-com/cabae95b-5d6b-4bbc-b66f-f5a3b576d0a1/scratchpad/**)",
+      "Bash(cat C:/Users/JamesLatten/AppData/Local/Temp/claude/a--Projects-foundryframe-com/cabae95b-5d6b-4bbc-b66f-f5a3b576d0a1/scratchpad/report-head.html C:/Users/JamesLatten/AppData/Local/Temp/claude/a--Projects-foundryframe-com/cabae95b-5d6b-4bbc-b66f-f5a3b576d0a1/scratchpad/og-preview.b64 C:/Users/JamesLatten/AppData/Local/Temp/claude/a--Projects-foundryframe-com/cabae95b-5d6b-4bbc-b66f-f5a3b576d0a1/scratchpad/report-tail.html)",
+      "Bash(wc -c C:/Users/JamesLatten/AppData/Local/Temp/claude/a--Projects-foundryframe-com/cabae95b-5d6b-4bbc-b66f-f5a3b576d0a1/scratchpad/seo-og-report.html)",
+      "Bash(head -c 200 C:/Users/JamesLatten/AppData/Local/Temp/claude/a--Projects-foundryframe-com/cabae95b-5d6b-4bbc-b66f-f5a3b576d0a1/scratchpad/seo-og-report.html)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\JamesLatten\\AppData\\Local\\Temp\\claude\\a--Projects-foundryframe-com\\cabae95b-5d6b-4bbc-b66f-f5a3b576d0a1\\scratchpad"
+    ]
+  }
+}

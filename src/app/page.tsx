@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame founder portrait",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     title: "Ohio Web Design Agency | Foundry Frame",
     description:
       "Custom websites from $1,500 built to convert. No templates. Launch in 6-12 weeks.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
@@ -67,40 +67,6 @@ const services = [
     title: "Digital Strategy",
     description:
       "Data-driven strategies that amplify your brand and maximize ROI.",
-  },
-] as const;
-
-/* ============================================================
-   DATA: Featured projects
-   ============================================================ */
-const featuredProjects = [
-  {
-    title: "Apex Athletics",
-    category: "Branding & Web",
-    image:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
-    slug: "apex-athletics",
-  },
-  {
-    title: "Bloom Botanicals",
-    category: "Photography & Identity",
-    image:
-      "https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=800&q=80",
-    slug: "bloom-botanicals",
-  },
-  {
-    title: "Verdant Spaces",
-    category: "Web & Strategy",
-    image:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80",
-    slug: "verdant-spaces",
-  },
-  {
-    title: "Iron & Oak",
-    category: "Video & Branding",
-    image:
-      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
-    slug: "iron-and-oak",
   },
 ] as const;
 
@@ -169,7 +135,7 @@ export default function Home() {
         {/* Background */}
         <div className="absolute inset-0">
           <Image
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80"
+            src="/images/stock/case-verdant-spaces.jpg"
             alt="Creative workspace"
             fill
             className="object-cover grayscale"
@@ -199,8 +165,8 @@ export default function Home() {
           {/* Sub */}
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 border-t border-white/20 pt-8">
             <p className="max-w-md text-gray-400 text-sm leading-relaxed">
-              Foundry Frame builds custom, conversion-focused websites for
-              small businesses and growth brands across Ohio and beyond.
+              Foundry Frame builds custom, conversion-focused websites for small
+              businesses and growth brands across Ohio and beyond.
             </p>
             <div className="flex gap-4">
               <a
@@ -210,10 +176,10 @@ export default function Home() {
                 Get a Free Website Audit
               </a>
               <Link
-                href="/case-studies"
+                href="/packages"
                 className="px-6 py-3 border border-white/30 text-white text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-colors"
               >
-                See Our Work
+                See Our Packages
               </Link>
             </div>
           </div>
@@ -278,10 +244,12 @@ export default function Home() {
               What Clients Say
             </h2>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
             {testimonials.map((t) => (
-              <div key={t.name} className="bg-black p-8 lg:p-10 flex flex-col gap-6">
+              <div
+                key={t.name}
+                className="bg-black p-8 lg:p-10 flex flex-col gap-6"
+              >
                 <p className="text-white text-base leading-relaxed flex-1">
                   &ldquo;{t.quote}&rdquo;
                 </p>
@@ -299,58 +267,7 @@ export default function Home() {
             >
               Start Your Project
             </Link>
-          </div>        </div>
-      </section>
-
-      {/* =============================================
-          FEATURED WORK
-          ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900 hidden">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          {/* Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-16">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
-                Selected Work
-              </p>
-              <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white">
-                Featured Projects
-              </h2>
-            </div>
-            <Link
-              href="/case-studies"
-              className="text-xs uppercase tracking-wider text-gray-400 hover:text-white border-b border-gray-400 hover:border-white pb-1 transition-colors"
-            >
-              View All
-            </Link>
-          </div>
-
-          {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
-            {featuredProjects.map((project) => (
-              <Link
-                key={project.slug}
-                href={`/case-studies/${project.slug}`}
-                className="group relative aspect-[4/3] overflow-hidden bg-black"
-              >
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-xs uppercase tracking-wider text-gray-400 mb-2">
-                    {project.category}
-                  </p>
-                  <h3 className="text-2xl font-heading font-bold text-white">
-                    {project.title}
-                  </h3>
-                </div>
-              </Link>
-            ))}
-          </div>
+          </div>{" "}
         </div>
       </section>
 
@@ -382,7 +299,10 @@ export default function Home() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-black/10">
             {stats.map((stat) => (
-              <div key={stat.label} className="bg-white p-8 lg:p-12 text-center">
+              <div
+                key={stat.label}
+                className="bg-white p-8 lg:p-12 text-center"
+              >
                 <div className="text-5xl sm:text-6xl font-heading font-bold text-black mb-2">
                   {stat.value}
                 </div>
@@ -392,20 +312,16 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div className="mt-8 text-center">
-            <Link
-              href="/case-studies"
-              className="text-black text-xs uppercase tracking-wider border-b border-black/30 pb-0.5 hover:border-black transition-colors"
-            >
-              See the work behind these numbers →
-            </Link>
-          </div>        </div>
+        </div>
       </section>
 
       {/* =============================================
           AUDIT LEAD CAPTURE
           ============================================= */}
-      <section id="audit" className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section
+        id="audit"
+        className="py-24 lg:py-32 bg-black border-t border-white/10"
+      >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-2xl mb-10">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
@@ -415,9 +331,9 @@ export default function Home() {
               Is your website losing you clients?
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Enter your URL and email — we&apos;ll review your site against
-              5 key conversion factors and send you a personalised audit
-              within 24 hours. No pitch, no obligation.
+              Enter your URL and email — we&apos;ll review your site against 5
+              key conversion factors and send you a personalised audit within 24
+              hours. No pitch, no obligation.
             </p>
           </div>
           <AuditForm />

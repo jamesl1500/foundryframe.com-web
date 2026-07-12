@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame terms of service",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Terms of Service",
     description:
       "Review Foundry Frame's terms of service for website and service usage.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 

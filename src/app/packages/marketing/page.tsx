@@ -9,6 +9,9 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { parsePriceSpecification } from "@/lib/schema-price";
+
+const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
   title: "Marketing Packages",
@@ -25,10 +28,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame marketing packages",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -37,7 +40,7 @@ export const metadata: Metadata = {
     title: "Marketing Packages",
     description:
       "SEO, content, social, and paid ads packages that turn traffic into qualified leads.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
@@ -94,7 +97,7 @@ const packages = [
       "Full SEO strategy and execution — technical audits, content sprints, authority link building",
       "Google Ads management (ad spend billed separately)",
       "Meta Ads management — Facebook and Instagram (ad spend billed separately)",
-      "Social media management — 4 platforms, 20 posts/month with custom video content",
+      "Social media management — 4 platforms, 20 posts/month with custom graphics",
       "4 long-form SEO blog posts per month (1,200–2,000 words each)",
       "Weekly email campaigns + 3 automation sequences built and managed",
       "Landing page A/B testing with monthly optimization cycle",
@@ -108,11 +111,46 @@ const packages = [
 ];
 
 /* ============================================================
+   STRUCTURED DATA
+   ============================================================ */
+const offersStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "Marketing Packages",
+  url: `${siteUrl}/packages/marketing`,
+  itemListElement: packages.map((pkg) => ({
+    "@type": "Offer",
+    name: pkg.name,
+    description: pkg.tagline,
+    priceSpecification: parsePriceSpecification(pkg.price),
+  })),
+};
+
+const breadcrumbStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+    { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
+    { "@type": "ListItem", position: 3, name: "Marketing Packages", item: `${siteUrl}/packages/marketing` },
+  ],
+};
+
+/* ============================================================
    COMPONENT: Marketing Packages Page
    ============================================================ */
 export default function MarketingPackagesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersStructuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
+      />
+
       {/* =============================================
           HERO
           ============================================= */}

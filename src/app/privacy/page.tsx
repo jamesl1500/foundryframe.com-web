@@ -15,10 +15,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/james-latten.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame privacy policy",
+        alt: "Foundry Frame | Creative Design Agency",
       },
     ],
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy",
     description:
       "Read how Foundry Frame collects, uses, and protects personal information.",
-    images: ["/james-latten.jpg"],
+    images: ["/twitter-image"],
   },
 };
 
