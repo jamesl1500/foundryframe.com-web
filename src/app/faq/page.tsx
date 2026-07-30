@@ -13,7 +13,7 @@ import Link from "next/link";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
-  title: "FAQ",
+  title: "FAQ | Foundry Frame",
   description:
     "Frequently asked questions about Foundry Frame's creative services, pricing, process, timelines, and more.",
   alternates: {
@@ -152,9 +152,7 @@ export default function FAQPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqStructuredData),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
       />
 
       {/* =============================================

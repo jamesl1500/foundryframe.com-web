@@ -140,14 +140,27 @@ const serviceStructuredData = {
   "@type": "Service",
   name: "Social Media Management",
   serviceType: "Social Media Management",
+  category: "Social Media",
   description:
     "Strategic social media management — content strategy, creation, community management, and paid social.",
   provider: {
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     name: "Foundry Frame",
     url: siteUrl,
+    telephone: "+1-440-921-8245",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Lorain",
+      addressRegion: "OH",
+      postalCode: "44053",
+      addressCountry: "US",
+    },
   },
-  areaServed: ["Ohio", "United States"],
+  areaServed: [
+    { "@type": "City", name: "Lorain" },
+    { "@type": "State", name: "Ohio" },
+    { "@type": "AdministrativeArea", name: "United States" },
+  ],
   url: `${siteUrl}/services/social-media`,
   hasOfferCatalog: {
     "@type": "OfferCatalog",

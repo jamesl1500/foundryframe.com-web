@@ -35,14 +35,36 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness"],
       "@id": `${siteUrl}/#organization`,
       name: "Foundry Frame",
       url: siteUrl,
       logo: `${siteUrl}/logo.svg`,
+      image: `${siteUrl}/james-latten.jpg`,
       foundingDate: "2026",
       description:
         "Foundry Frame is a creative design agency in Ohio specializing in branding, web design, social media, and digital strategy.",
+      telephone: "+1-440-921-8245",
+      email: "jlatten@foundryframe.com",
+      priceRange: "$$",
+      areaServed: [
+        { "@type": "City", name: "Lorain" },
+        { "@type": "State", name: "Ohio" },
+        { "@type": "AdministrativeArea", name: "United States" },
+      ],
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Lorain",
+        addressRegion: "OH",
+        postalCode: "44053",
+        addressCountry: "US",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: 41.468,
+        longitude: -82.1884,
+      },
+      sameAs: ["https://www.linkedin.com/company/foundry-frame/"],
     },
     {
       "@type": "WebSite",
@@ -60,14 +82,23 @@ const structuredData = {
       name: "Foundry Frame",
       url: siteUrl,
       image: `${siteUrl}/james-latten.jpg`,
-      areaServed: ["Ohio", "United States"],
+      serviceType: ["Web Design", "Branding", "Digital Strategy", "Social Media"],
+      areaServed: [
+        { "@type": "City", name: "Lorain" },
+        { "@type": "State", name: "Ohio" },
+        { "@type": "AdministrativeArea", name: "United States" },
+      ],
       priceRange: "$$",
+      telephone: "+1-440-921-8245",
+      email: "jlatten@foundryframe.com",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Lorain",
         addressRegion: "OH",
+        postalCode: "44053",
         addressCountry: "US",
       },
+      sameAs: ["https://www.linkedin.com/company/foundry-frame/"],
     },
   ],
 };

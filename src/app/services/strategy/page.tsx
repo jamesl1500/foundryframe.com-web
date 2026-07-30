@@ -140,14 +140,27 @@ const serviceStructuredData = {
   "@type": "Service",
   name: "Digital Strategy",
   serviceType: "Digital Strategy",
+  category: "Strategy",
   description:
     "Data-driven digital marketing strategy — research, positioning, roadmap, and conversion optimization.",
   provider: {
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     name: "Foundry Frame",
     url: siteUrl,
+    telephone: "+1-440-921-8245",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Lorain",
+      addressRegion: "OH",
+      postalCode: "44053",
+      addressCountry: "US",
+    },
   },
-  areaServed: ["Ohio", "United States"],
+  areaServed: [
+    { "@type": "City", name: "Lorain" },
+    { "@type": "State", name: "Ohio" },
+    { "@type": "AdministrativeArea", name: "United States" },
+  ],
   url: `${siteUrl}/services/strategy`,
   hasOfferCatalog: {
     "@type": "OfferCatalog",

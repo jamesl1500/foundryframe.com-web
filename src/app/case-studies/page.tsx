@@ -3,11 +3,33 @@ import Link from "next/link";
 import { getPublishedCaseStudies } from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
-  title: "Case Studies",
+  title: "Case Studies | Foundry Frame",
   description:
     "Explore Foundry Frame case studies and real project outcomes across web design, branding, and digital strategy.",
   alternates: {
     canonical: "/case-studies",
+  },
+  openGraph: {
+    title: "Case Studies | Foundry Frame",
+    description:
+      "Explore real results from Foundry Frame's branding, web design, and digital strategy projects.",
+    url: "/case-studies",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Foundry Frame case studies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Case Studies | Foundry Frame",
+    description:
+      "Explore real results from Foundry Frame's branding, web design, and digital strategy projects.",
+    images: ["/twitter-image"],
   },
 };
 

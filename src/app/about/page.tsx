@@ -13,7 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Foundry Frame | Ohio Creative Agency",
   description:
     "Learn about Foundry Frame, an Ohio web design and creative agency in Lorain focused on custom websites, branding, and growth strategy.",
   alternates: {
@@ -69,24 +69,6 @@ const values = [
 ] as const;
 
 /* ============================================================
-   DATA: Team
-   ============================================================ */
-const team = [
-  {
-    name: "James Latten",
-    role: "Founder & Creative Director",
-    image: "/james-latten.jpg",
-  },
-] as const;
-
-/* ============================================================
-   DATA: Timeline
-   ============================================================ */
-const timeline = [
-  { year: "2026", event: "Foundry Frame established in Ohio." },
-] as const;
-
-/* ============================================================
    COMPONENT: About Page
    ============================================================ */
 export default function AboutPage() {
@@ -111,8 +93,12 @@ export default function AboutPage() {
             About Us
           </p>
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
-            The people behind the work
+            Ohio web design & branding agency
           </h1>
+          <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mt-6">
+            We build thoughtful websites and brand systems for small businesses,
+            founders, and growth-focused teams in Ohio and across the U.S.
+          </p>
         </div>
       </section>
 

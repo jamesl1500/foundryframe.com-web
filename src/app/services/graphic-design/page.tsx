@@ -140,14 +140,27 @@ const serviceStructuredData = {
   "@type": "Service",
   name: "Graphic Design",
   serviceType: "Graphic Design",
+  category: "Graphic Design",
   description:
     "Print, digital, and environmental graphic design — collateral, packaging, presentations, and signage.",
   provider: {
-    "@type": "Organization",
+    "@type": ["Organization", "LocalBusiness"],
     name: "Foundry Frame",
     url: siteUrl,
+    telephone: "+1-440-921-8245",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Lorain",
+      addressRegion: "OH",
+      postalCode: "44053",
+      addressCountry: "US",
+    },
   },
-  areaServed: ["Ohio", "United States"],
+  areaServed: [
+    { "@type": "City", name: "Lorain" },
+    { "@type": "State", name: "Ohio" },
+    { "@type": "AdministrativeArea", name: "United States" },
+  ],
   url: `${siteUrl}/services/graphic-design`,
   hasOfferCatalog: {
     "@type": "OfferCatalog",

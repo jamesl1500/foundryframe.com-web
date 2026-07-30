@@ -173,16 +173,17 @@ export default async function Home() {
 
           {/* Heading */}
           <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading font-bold text-white leading-[0.9] tracking-tight mb-10">
-            We Forge
+            Ohio Web Design
             <br />
-            Bold Brands
+            & Branding Agency
           </h1>
 
           {/* Sub */}
           <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 border-t border-white/20 pt-8">
             <p className="max-w-md text-gray-400 text-sm leading-relaxed">
-              Foundry Frame builds custom, conversion-focused websites for small
-              businesses and growth brands across Ohio and beyond.
+              Foundry Frame builds custom websites, brand systems, and digital
+              strategy for small businesses and growth-focused brands across
+              Ohio and beyond.
             </p>
             <div className="flex gap-4">
               <a
@@ -214,7 +215,7 @@ export default async function Home() {
                 Services
               </p>
               <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white">
-                What We Do
+                Web Design, Branding & Digital Strategy
               </h2>
             </div>
             <Link
