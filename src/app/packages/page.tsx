@@ -10,7 +10,11 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import { formatPriceLabel, getPublishedPackages } from "@/lib/cms/public-data";
+import {
+  formatPriceLabel,
+  getPublishedPackages,
+  type PublishedPackage,
+} from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
   title: "Website & Marketing Packages",
@@ -85,6 +89,57 @@ const fallbackCategories = [
   },
 ];
 
+function getCategoryHref(slug: string) {
+  switch (slug) {
+    case "website-packages":
+      return "/packages/website";
+    case "launch-bundles":
+      return "/packages/launch";
+    case "maintenance-plans":
+      return "/packages/maintenance";
+    case "marketing-packages":
+      return "/packages/marketing";
+    default:
+      return "/contact";
+  }
+}
+
+function buildCategoryCards(packages: PublishedPackage[]) {
+  const grouped = packages.reduce<Map<string, { name: string; href: string; tagline: string; description: string; priceRange: string; tiers: string[] }>>(
+    (acc, pkg) => {
+      const categorySlug = pkg.category?.slug || "";
+      const key = categorySlug || pkg.category?.name || "featured-packages";
+      const fallbackCategory =
+        fallbackCategories.find((category) => getCategoryHref(categorySlug) === category.href) ||
+        fallbackCategories[0];
+
+      if (!acc.has(key)) {
+        acc.set(key, {
+          name: pkg.category?.name || fallbackCategory.name,
+          href: getCategoryHref(categorySlug),
+          tagline: fallbackCategory.tagline,
+          description: fallbackCategory.description,
+          priceRange: formatPriceLabel(pkg.price, pkg.billing_period),
+          tiers: [],
+        });
+      }
+
+      const entry = acc.get(key);
+      if (entry) {
+        entry.tiers.push(pkg.name);
+      }
+
+      return acc;
+    },
+    new Map()
+  );
+
+  return Array.from(grouped.values()).map((category, index) => ({
+    number: String(index + 1).padStart(2, "0"),
+    ...category,
+  }));
+}
+
 /* ============================================================
    COMPONENT: Packages Hub
    ============================================================ */
@@ -93,20 +148,7 @@ export default async function PackagesPage() {
 
   const categories =
     cmsPackages.length > 0
-      ? cmsPackages.map((pkg, index) => ({
-          number: String(index + 1).padStart(2, "0"),
-          name: pkg.name,
-          href: pkg.cta_url || "/contact",
-          tagline: pkg.tagline || "Built to drive growth.",
-          description:
-            pkg.description ||
-            "A packaged engagement designed to deliver clear outcomes quickly.",
-          priceRange: formatPriceLabel(pkg.price, pkg.billing_period),
-          tiers:
-            Array.isArray(pkg.features) && pkg.features.length > 0
-              ? pkg.features.slice(0, 4)
-              : ["Custom scope"],
-        }))
+      ? buildCategoryCards(cmsPackages)
       : fallbackCategories.map((category, index) => ({
           number: String(index + 1).padStart(2, "0"),
           ...category,

@@ -11,7 +11,14 @@ type PublishedService = {
   is_featured: boolean | null;
 };
 
-type PublishedPackage = {
+export type PublishedCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  order_index: number | null;
+};
+
+export type PublishedPackage = {
   id: string;
   name: string;
   slug: string;
@@ -22,6 +29,9 @@ type PublishedPackage = {
   cta_url: string | null;
   features: string[] | null;
   is_featured: boolean | null;
+  sort_order: number | null;
+  category_id: string | null;
+  category: PublishedCategory | null;
 };
 
 export type PublishedCaseStudy = {
@@ -113,16 +123,28 @@ export async function getPublishedPackages(): Promise<PublishedPackage[]> {
   const supabase = getSupabasePublicClient();
   const { data, error } = await supabase
     .from("packages")
-    .select("id, name, slug, tagline, description, price, billing_period, cta_url, features, is_featured")
-    .eq("is_published", true)
-    .order("sort_order", { ascending: true })
-    .order("updated_at", { ascending: false });
+    .select(
+      "id, name, slug, tagline, description, price, billing_period, cta_url, features, is_featured, sort_order, category_id, categories!packages_category_id_fkey(id, name, slug, order_index)"
+    )
+    .eq("is_published", true);
 
   if (error || !data) {
     return [];
   }
 
-  return data as PublishedPackage[];
+  return (data as PublishedPackage[]).sort((a, b) => {
+    const categoryOrderA = a.category?.order_index ?? Number.MAX_SAFE_INTEGER;
+    const categoryOrderB = b.category?.order_index ?? Number.MAX_SAFE_INTEGER;
+
+    if (categoryOrderA !== categoryOrderB) {
+      return categoryOrderA - categoryOrderB;
+    }
+
+    const sortOrderA = a.sort_order ?? Number.MAX_SAFE_INTEGER;
+    const sortOrderB = b.sort_order ?? Number.MAX_SAFE_INTEGER;
+
+    return sortOrderA - sortOrderB;
+  });
 }
 
 export async function getPublishedCaseStudies(limit?: number): Promise<PublishedCaseStudy[]> {
