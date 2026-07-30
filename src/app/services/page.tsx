@@ -9,6 +9,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getPublishedServices } from "@/lib/cms/public-data";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -46,9 +47,8 @@ export const metadata: Metadata = {
 /* ============================================================
    DATA: Services
    ============================================================ */
-const services = [
+const fallbackServices = [
   {
-    number: "01",
     id: "web-design",
     title: "Web Design & Development",
     href: "/services/web-design",
@@ -115,6 +115,15 @@ const services = [
   },
 ] as const;
 
+const supportedServiceDetailSlugs = new Set([
+  "web-design",
+  "branding",
+  "social-media",
+  "graphic-design",
+  "advertising",
+  "strategy",
+]);
+
 /* ============================================================
    DATA: Process
    ============================================================ */
@@ -133,38 +142,62 @@ const process = [
 ] as const;
 
 /* ============================================================
-   STRUCTURED DATA
-   ============================================================ */
-const servicesStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  serviceType: "Creative design agency services",
-  provider: {
-    "@type": "Organization",
-    name: "Foundry Frame",
-    url: siteUrl,
-  },
-  areaServed: ["Ohio", "United States"],
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Foundry Frame Services",
-    itemListElement: services.map((service) => ({
-      "@type": "Offer",
-      url: `${siteUrl}${service.href}`,
-      itemOffered: {
-        "@type": "Service",
-        name: service.title,
-        description: service.description,
-        url: `${siteUrl}${service.href}`,
-      },
-    })),
-  },
-};
-
-/* ============================================================
    COMPONENT: Services Hub
    ============================================================ */
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const cmsServices = await getPublishedServices();
+
+  const services =
+    cmsServices.length > 0
+      ? cmsServices.map((service, index) => ({
+          number: String(index + 1).padStart(2, "0"),
+          id: service.id,
+          title: service.name,
+          href: supportedServiceDetailSlugs.has(service.slug)
+            ? `/services/${service.slug}`
+            : "/contact",
+          tagline: service.timeline || "Built around your goals.",
+          description:
+            service.description ||
+            service.short_description ||
+            "Custom service delivery shaped to your business needs.",
+          highlights:
+            Array.isArray(service.deliverables) && service.deliverables.length > 0
+              ? service.deliverables.slice(0, 4)
+              : ["Custom Scope"],
+          featured: Boolean(service.is_featured),
+        }))
+      : fallbackServices.map((service, index) => ({
+          number: String(index + 1).padStart(2, "0"),
+          ...service,
+        }));
+
+  const servicesStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Creative design agency services",
+    provider: {
+      "@type": "Organization",
+      name: "Foundry Frame",
+      url: siteUrl,
+    },
+    areaServed: ["Ohio", "United States"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Foundry Frame Services",
+      itemListElement: services.map((service) => ({
+        "@type": "Offer",
+        url: `${siteUrl}${service.href}`,
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+          description: service.description,
+          url: `${siteUrl}${service.href}`,
+        },
+      })),
+    },
+  };
+
   return (
     <>
       <script

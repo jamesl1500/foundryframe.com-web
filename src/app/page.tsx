@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
+import { getHomepageTestimonials, getPublishedServices } from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
   title: "Ohio Web Design Agency | Foundry Frame",
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
 /* ============================================================
    DATA: Services
    ============================================================ */
-const services = [
+const fallbackServices = [
   {
     title: "Branding & Identity",
     description:
@@ -101,13 +102,7 @@ const stats = [
 /* ============================================================
    DATA: Testimonials
    ============================================================ */
-const testimonials = [
-  {
-    quote:
-      "Foundry Frame completely transformed our online presence. We had three inbound leads in the first week after launch.",
-    name: "Sarah M.",
-    title: "Owner, Bloom Botanicals",
-  },
+const fallbackTestimonials = [
   {
     quote:
       "Professional, fast, and genuinely invested in our success. Delivered on time and the site looks incredible.",
@@ -125,7 +120,28 @@ const testimonials = [
 /* ============================================================
    COMPONENT: Homepage
    ============================================================ */
-export default function Home() {
+export default async function Home() {
+  const cmsServices = await getPublishedServices(4);
+  const services =
+    cmsServices.length > 0
+      ? cmsServices.map((service) => ({
+          title: service.name,
+          description:
+            service.short_description ||
+            service.description ||
+            "Custom service delivery aligned to your business goals.",
+        }))
+      : fallbackServices;
+
+  const cmsTestimonials = await getHomepageTestimonials(3);
+  const testimonials =
+    cmsTestimonials.length > 0
+      ? cmsTestimonials
+      : fallbackTestimonials.map((item) => ({
+          ...item,
+          featured: false,
+        }));
+
   return (
     <>
       {/* =============================================

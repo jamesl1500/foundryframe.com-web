@@ -16,6 +16,7 @@ import Link from "next/link";
 /* --- Navigation Links Data --- */
 const navLinks = [
   { label: "About", href: "/about" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Services", href: "/services" },
   { label: "Packages", href: "/packages" },
   { label: "Blog", href: "/blog" },

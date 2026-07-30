@@ -10,6 +10,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { formatPriceLabel, getPublishedPackages } from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
   title: "Website & Marketing Packages",
@@ -45,9 +46,8 @@ export const metadata: Metadata = {
 /* ============================================================
    DATA: Categories
    ============================================================ */
-const categories = [
+const fallbackCategories = [
   {
-    number: "01",
     name: "Website Packages",
     href: "/packages/website",
     tagline: "Custom-built. Performance-first.",
@@ -57,7 +57,6 @@ const categories = [
     tiers: ["The Spark", "The Blueprint", "The Architect", "The Monument"],
   },
   {
-    number: "02",
     name: "Launch Bundles",
     href: "/packages/launch",
     tagline: "Everything you need. One engagement.",
@@ -67,7 +66,6 @@ const categories = [
     tiers: ["Ignite", "Velocity", "Ascend", "Apex"],
   },
   {
-    number: "03",
     name: "Maintenance Plans",
     href: "/packages/maintenance",
     tagline: "Launch is day one, not the finish line.",
@@ -77,7 +75,6 @@ const categories = [
     tiers: ["Steady", "Active", "Elite"],
   },
   {
-    number: "04",
     name: "Marketing Packages",
     href: "/packages/marketing",
     tagline: "Traffic. Leads. Growth.",
@@ -91,7 +88,30 @@ const categories = [
 /* ============================================================
    COMPONENT: Packages Hub
    ============================================================ */
-export default function PackagesPage() {
+export default async function PackagesPage() {
+  const cmsPackages = await getPublishedPackages();
+
+  const categories =
+    cmsPackages.length > 0
+      ? cmsPackages.map((pkg, index) => ({
+          number: String(index + 1).padStart(2, "0"),
+          name: pkg.name,
+          href: pkg.cta_url || "/contact",
+          tagline: pkg.tagline || "Built to drive growth.",
+          description:
+            pkg.description ||
+            "A packaged engagement designed to deliver clear outcomes quickly.",
+          priceRange: formatPriceLabel(pkg.price, pkg.billing_period),
+          tiers:
+            Array.isArray(pkg.features) && pkg.features.length > 0
+              ? pkg.features.slice(0, 4)
+              : ["Custom scope"],
+        }))
+      : fallbackCategories.map((category, index) => ({
+          number: String(index + 1).padStart(2, "0"),
+          ...category,
+        }));
+
   return (
     <>
       {/* =============================================
