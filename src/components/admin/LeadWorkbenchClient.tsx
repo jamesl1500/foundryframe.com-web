@@ -667,17 +667,15 @@ export default function LeadWorkbenchClient({
                     </p>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
-                    {(["proposal", "agreement"] as const).flatMap((document) =>
-                      (["docx", "pdf"] as const).map((format) => (
-                        <a
-                          key={`${document}-${format}`}
-                          href={`/api/admin/leads/${lead.id}/proposal/${proposal.id}/${document}/${format}`}
-                          className="px-3 py-3 border border-white/20 text-center text-[10px] uppercase tracking-widest text-white hover:bg-white/5"
-                        >
-                          {document === "proposal" ? "Proposal" : "Agreement"} {format.toUpperCase()}
-                        </a>
-                      ))
-                    )}
+                    {(["proposal", "agreement"] as const).map((document) => (
+                      <a
+                        key={document}
+                        href={`/api/admin/leads/${lead.id}/proposal/${proposal.id}/${document}/docx`}
+                        className="px-3 py-3 border border-white/20 text-center text-[10px] uppercase tracking-widest text-white hover:bg-white/5"
+                      >
+                        Download {document === "proposal" ? "Proposal" : "Agreement"}
+                      </a>
+                    ))}
                   </div>
                   <p className="text-xs text-amber-200">Review business and legal terms before sending.</p>
                 </div>

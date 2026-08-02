@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { requireAdmin } from "@/app/api/admin/_utils";
 import {
   renderDocx,
-  renderPdf,
-  type ProposalDocumentFormat,
   type ProposalDocumentKind,
 } from "@/lib/leads/documents";
 import { getLeadProposalById } from "@/lib/leads/repository";
@@ -17,7 +15,7 @@ export async function GET(
   if (unauthorized) return unauthorized;
 
   const { id, proposalId, document, format } = await context.params;
-  if (!["proposal", "agreement"].includes(document) || !["docx", "pdf"].includes(format)) {
+  if (!["proposal", "agreement"].includes(document) || format !== "docx") {
     return NextResponse.json({ error: "Unsupported document format." }, { status: 404 });
   }
 
@@ -27,14 +25,8 @@ export async function GET(
   }
 
   const documentKind = document as ProposalDocumentKind;
-  const documentFormat = format as ProposalDocumentFormat;
-  const bytes = documentFormat === "docx"
-    ? await renderDocx(proposal, documentKind)
-    : await renderPdf(proposal, documentKind);
+  const bytes = await renderDocx(proposal, documentKind);
   const baseName = slugify(`${proposal.prepared_for}-${documentKind}`) || documentKind;
-  const contentType = documentFormat === "docx"
-    ? "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-    : "application/pdf";
   const body = bytes.buffer.slice(
     bytes.byteOffset,
     bytes.byteOffset + bytes.byteLength
@@ -42,8 +34,8 @@ export async function GET(
 
   return new Response(body, {
     headers: {
-      "Content-Type": contentType,
-      "Content-Disposition": `attachment; filename="${baseName}.${documentFormat}"`,
+      "Content-Type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "Content-Disposition": `attachment; filename="${baseName}.docx"`,
       "Cache-Control": "private, no-store",
     },
   });
