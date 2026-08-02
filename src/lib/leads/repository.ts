@@ -10,6 +10,10 @@ import type {
   PublishedServiceReference,
 } from "@/lib/leads/types";
 
+const PROPOSAL_DOCUMENTS_BUCKET = "proposal-documents";
+const DOCX_CONTENT_TYPE =
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
 export async function listLeads(): Promise<LeadRecord[]> {
   const supabase = getSupabaseAdminClient();
   const db = supabase as unknown as LooseSupabaseClient;
@@ -193,7 +197,14 @@ export async function listPublishedServicesForLeads(): Promise<PublishedServiceR
 }
 
 export async function createLeadProposal(
-  input: Omit<LeadProposalRecord, "id" | "created_at" | "updated_at">
+  input: Omit<
+    LeadProposalRecord,
+    | "id"
+    | "created_at"
+    | "updated_at"
+    | "proposal_storage_path"
+    | "agreement_storage_path"
+  >
 ): Promise<LeadProposalRecord> {
   const supabase = getSupabaseAdminClient();
   const db = supabase as unknown as LooseSupabaseClient;
@@ -205,6 +216,31 @@ export async function createLeadProposal(
 
   if (error) throw new Error(error.message);
   return data as LeadProposalRecord;
+}
+
+export async function updateLeadProposal(
+  proposalId: string,
+  patch: Partial<LeadProposalRecord>
+): Promise<LeadProposalRecord> {
+  const supabase = getSupabaseAdminClient();
+  const db = supabase as unknown as LooseSupabaseClient;
+  const { data, error } = await db
+    .from("lead_proposals")
+    .update(patch)
+    .eq("id", proposalId)
+    .select("*")
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data as LeadProposalRecord;
+}
+
+export async function deleteLeadProposal(proposalId: string): Promise<void> {
+  const supabase = getSupabaseAdminClient();
+  const db = supabase as unknown as LooseSupabaseClient;
+  const { error } = await db.from("lead_proposals").delete().eq("id", proposalId);
+
+  if (error) throw new Error(error.message);
 }
 
 export async function getLatestLeadProposal(
@@ -237,6 +273,49 @@ export async function getLeadProposalById(
 
   if (error) throw new Error(error.message);
   return (data ?? null) as LeadProposalRecord | null;
+}
+
+export function buildLeadProposalStoragePath(
+  leadId: string,
+  proposalId: string,
+  document: "proposal" | "agreement"
+): string {
+  return `Proposals/${leadId}/${proposalId}/${document}.docx`;
+}
+
+export async function uploadLeadProposalDocument(
+  path: string,
+  bytes: Uint8Array
+): Promise<void> {
+  const supabase = getSupabaseAdminClient();
+  const storage = (supabase as unknown as LooseSupabaseClient).storage;
+  const { error } = await storage.from(PROPOSAL_DOCUMENTS_BUCKET).upload(path, bytes, {
+    contentType: DOCX_CONTENT_TYPE,
+    upsert: false,
+    cacheControl: "0",
+  });
+
+  if (error) throw new Error(error.message);
+}
+
+export async function downloadLeadProposalDocument(path: string): Promise<Blob> {
+  const supabase = getSupabaseAdminClient();
+  const storage = (supabase as unknown as LooseSupabaseClient).storage;
+  const { data, error } = await storage.from(PROPOSAL_DOCUMENTS_BUCKET).download(path);
+
+  if (error) throw new Error(error.message);
+  if (!data) throw new Error("Proposal document was not found in storage.");
+  return data;
+}
+
+export async function removeLeadProposalDocuments(paths: string[]): Promise<void> {
+  if (paths.length === 0) return;
+
+  const supabase = getSupabaseAdminClient();
+  const storage = (supabase as unknown as LooseSupabaseClient).storage;
+  const { error } = await storage.from(PROPOSAL_DOCUMENTS_BUCKET).remove(paths);
+
+  if (error) throw new Error(error.message);
 }
 
 export function buildLeadPageStoragePath(leadId: string): string {

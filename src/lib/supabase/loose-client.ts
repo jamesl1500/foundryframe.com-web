@@ -15,9 +15,14 @@ export interface LooseSupabaseQuery extends PromiseLike<{ data: unknown; error: 
 export interface LooseSupabaseStorageBucket {
   upload: (
     path: string,
-    body: Buffer,
+    body: Uint8Array,
     options: { contentType: string; upsert: boolean; cacheControl: string }
   ) => Promise<{ error: { message: string } | null }>;
+  download: (path: string) => Promise<{
+    data: Blob | null;
+    error: { message: string } | null;
+  }>;
+  remove: (paths: string[]) => Promise<{ error: { message: string } | null }>;
   getPublicUrl: (path: string) => { data: { publicUrl: string } };
 }
 

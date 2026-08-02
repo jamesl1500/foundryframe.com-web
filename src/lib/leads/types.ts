@@ -224,6 +224,8 @@ export type LeadProposalRecord = {
   valid_until: string;
   model: string | null;
   raw_model_output: string | null;
+  proposal_storage_path: string | null;
+  agreement_storage_path: string | null;
   created_at: string;
   updated_at: string;
 };

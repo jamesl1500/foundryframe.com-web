@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/app/api/admin/_utils";
 import {
-  renderDocx,
-  type ProposalDocumentKind,
-} from "@/lib/leads/documents";
-import { getLeadProposalById } from "@/lib/leads/repository";
+  downloadLeadProposalDocument,
+  getLeadProposalById,
+} from "@/lib/leads/repository";
 import { slugify } from "@/lib/leads/utils";
 
 export async function GET(
@@ -24,13 +23,18 @@ export async function GET(
     return NextResponse.json({ error: "Proposal not found." }, { status: 404 });
   }
 
-  const documentKind = document as ProposalDocumentKind;
-  const bytes = await renderDocx(proposal, documentKind);
-  const baseName = slugify(`${proposal.prepared_for}-${documentKind}`) || documentKind;
-  const body = bytes.buffer.slice(
-    bytes.byteOffset,
-    bytes.byteOffset + bytes.byteLength
-  ) as ArrayBuffer;
+  const storagePath = document === "proposal"
+    ? proposal.proposal_storage_path
+    : proposal.agreement_storage_path;
+  if (!storagePath) {
+    return NextResponse.json(
+      { error: "This proposal predates stored documents. Generate a new proposal to download it." },
+      { status: 404 }
+    );
+  }
+
+  const body = await downloadLeadProposalDocument(storagePath);
+  const baseName = slugify(`${proposal.prepared_for}-${document}`) || document;
 
   return new Response(body, {
     headers: {

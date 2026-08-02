@@ -5,16 +5,22 @@ import {
 } from "@/lib/leads/claude";
 import { crawlWebsiteWithPlaywright } from "@/lib/leads/playwright-analyzer";
 import {
+  buildLeadProposalStoragePath,
   buildLeadPageStoragePath,
   createGeneratedLeadPage,
   createLeadAudit,
   createLeadProposal,
+  deleteLeadProposal,
   getLatestLeadAudit,
   listPublishedPackagesForLeads,
   mapLandingPayloadColumns,
+  removeLeadProposalDocuments,
   updateLead,
+  updateLeadProposal,
   uploadLeadAuditScreenshot,
+  uploadLeadProposalDocument,
 } from "@/lib/leads/repository";
+import { renderDocx } from "@/lib/leads/documents";
 import type { LeadRecord, ProposalLineItem } from "@/lib/leads/types";
 import { slugify } from "@/lib/leads/utils";
 
@@ -119,7 +125,7 @@ export async function generateLeadProposal(args: {
 
   const proposal = await createLeadProposal({
     lead_id: args.lead.id,
-    status: "ready",
+    status: "draft",
     title: aiOutput.content.projectTitle,
     prepared_for: args.lead.company_name || args.lead.name,
     contact_name: args.lead.name,
@@ -136,10 +142,45 @@ export async function generateLeadProposal(args: {
     raw_model_output: aiOutput.rawModelOutput,
   });
 
+  const proposalPath = buildLeadProposalStoragePath(
+    args.lead.id,
+    proposal.id,
+    "proposal"
+  );
+  const agreementPath = buildLeadProposalStoragePath(
+    args.lead.id,
+    proposal.id,
+    "agreement"
+  );
+  const storagePaths = [proposalPath, agreementPath];
+  let storedProposal: typeof proposal;
+
+  try {
+    const [proposalBytes, agreementBytes] = await Promise.all([
+      renderDocx(proposal, "proposal"),
+      renderDocx(proposal, "agreement"),
+    ]);
+
+    await uploadLeadProposalDocument(proposalPath, proposalBytes);
+    await uploadLeadProposalDocument(agreementPath, agreementBytes);
+
+    storedProposal = await updateLeadProposal(proposal.id, {
+      status: "ready",
+      proposal_storage_path: proposalPath,
+      agreement_storage_path: agreementPath,
+    });
+  } catch (error) {
+    await Promise.allSettled([
+      removeLeadProposalDocuments(storagePaths),
+      deleteLeadProposal(proposal.id),
+    ]);
+    throw error;
+  }
+
   await updateLead(args.lead.id, {
     status: "proposal_generated",
     last_generated_at: new Date().toISOString(),
   });
 
-  return proposal;
+  return storedProposal;
 }
