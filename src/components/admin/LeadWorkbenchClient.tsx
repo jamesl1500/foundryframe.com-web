@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
 import type {
   LeadAuditRecord,
@@ -23,6 +23,13 @@ interface Props {
 }
 
 type ProposalDraftItem = ProposalLineItem;
+type WorkbenchTab = "details" | "proposal" | "analysis";
+
+const workbenchTabs: Array<{ id: WorkbenchTab; label: string }> = [
+  { id: "details", label: "Lead Details" },
+  { id: "proposal", label: "Proposal Studio" },
+  { id: "analysis", label: "Analysis" },
+];
 
 const packageCategoryPurpose: Record<string, string> = {
   "website-packages": "Standalone website builds, from a focused starter site to a bespoke digital platform.",
@@ -74,6 +81,7 @@ export default function LeadWorkbenchClient({
   const [timelineWeeks, setTimelineWeeks] = useState(8);
   const [depositPercent, setDepositPercent] = useState(50);
   const [discount, setDiscount] = useState(0);
+  const [activeTab, setActiveTab] = useState<WorkbenchTab>("details");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -276,6 +284,7 @@ export default function LeadWorkbenchClient({
 
     setAnalyzing(false);
     setSuccess("Analysis completed with Playwright crawl + Claude recommendations.");
+    setActiveTab("analysis");
     router.refresh();
   }
 
@@ -298,6 +307,7 @@ export default function LeadWorkbenchClient({
 
     setGenerating(false);
     setSuccess("Lead preview generated successfully.");
+    setActiveTab("analysis");
     router.refresh();
   }
 
@@ -324,6 +334,30 @@ export default function LeadWorkbenchClient({
     setSendingProposal(false);
     setSuccess(`Proposal email sent to ${result.sentTo ?? (state.contact_email || "lead contact")}.`);
     router.refresh();
+  }
+
+  function handleTabKeyDown(
+    event: KeyboardEvent<HTMLButtonElement>,
+    currentIndex: number
+  ) {
+    let nextIndex = currentIndex;
+
+    if (event.key === "ArrowRight") {
+      nextIndex = (currentIndex + 1) % workbenchTabs.length;
+    } else if (event.key === "ArrowLeft") {
+      nextIndex = (currentIndex - 1 + workbenchTabs.length) % workbenchTabs.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = workbenchTabs.length - 1;
+    } else {
+      return;
+    }
+
+    event.preventDefault();
+    const nextTab = workbenchTabs[nextIndex];
+    setActiveTab(nextTab.id);
+    document.getElementById(`lead-tab-${nextTab.id}`)?.focus();
   }
 
   return (
@@ -372,7 +406,48 @@ export default function LeadWorkbenchClient({
           </div>
         </div>
 
-        <div className="border border-white/10 p-6 bg-black">
+        <div
+          role="tablist"
+          aria-label="Lead workspace sections"
+          className="grid grid-cols-3 border border-white/10 bg-black"
+        >
+          {workbenchTabs.map((tab, index) => {
+            const isActive = activeTab === tab.id;
+
+            return (
+              <button
+                key={tab.id}
+                id={`lead-tab-${tab.id}`}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-controls={`lead-panel-${tab.id}`}
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => setActiveTab(tab.id)}
+                onKeyDown={(event) => handleTabKeyDown(event, index)}
+                className={`min-h-14 px-3 py-4 text-xs font-bold uppercase tracking-wider border-r border-white/10 last:border-r-0 transition-colors ${
+                  isActive
+                    ? "bg-white text-black"
+                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {error ? <p className="text-sm text-red-300">{error}</p> : null}
+        {success ? <p className="text-sm text-green-300">{success}</p> : null}
+
+        <div
+          id="lead-panel-details"
+          role="tabpanel"
+          aria-labelledby="lead-tab-details"
+          tabIndex={0}
+          hidden={activeTab !== "details"}
+          className="border border-white/10 p-6 bg-black"
+        >
           <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">Lead Details</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {[
@@ -439,10 +514,14 @@ export default function LeadWorkbenchClient({
           </div>
         </div>
 
-        {error ? <p className="text-sm text-red-300">{error}</p> : null}
-        {success ? <p className="text-sm text-green-300">{success}</p> : null}
-
-        <div className="border border-white/10 bg-black">
+        <div
+          id="lead-panel-proposal"
+          role="tabpanel"
+          aria-labelledby="lead-tab-proposal"
+          tabIndex={0}
+          hidden={activeTab !== "proposal"}
+          className="border border-white/10 bg-black"
+        >
           <div className="p-6 border-b border-white/10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">Proposal Studio</p>
@@ -684,7 +763,14 @@ export default function LeadWorkbenchClient({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        <div
+          id="lead-panel-analysis"
+          role="tabpanel"
+          aria-labelledby="lead-tab-analysis"
+          tabIndex={0}
+          hidden={activeTab !== "analysis"}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        >
           <article className="border border-white/10 p-6 bg-black">
             <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">Latest Analysis</p>
             {!latestAudit ? (

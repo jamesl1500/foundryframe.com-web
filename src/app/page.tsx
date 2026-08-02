@@ -94,8 +94,8 @@ const industries = [
    ============================================================ */
 const stats = [
   { value: "2026", label: "Launched" },
-  { value: "2 Left", label: "Q3 Project Slots" },
-  { value: "8", label: "Projects Completed" },
+  { value: "20", label: "Q3 Project Slots" },
+  { value: "Many", label: "Projects Completed" },
   { value: "100%", label: "On-Time Delivery" },
 ] as const;
 
@@ -169,7 +169,7 @@ export default async function Home() {
               Creative Agency — Ohio
             </p>
             <span className="text-xs uppercase tracking-[0.15em] font-bold bg-white text-black px-3 py-1">
-              2 Q3 Slots Remaining
+              20 Q3 Slots Remaining
             </span>
           </div>
 
@@ -372,7 +372,7 @@ export default async function Home() {
               Let&apos;s build your next client-winning website.
             </h2>
             <p className="text-gray-500 text-xs uppercase tracking-widest mb-8 font-bold">
-              2 project slots remaining for Q3 2026
+              20 project slots remaining for Q3 2026
             </p>
             <p className="text-gray-500 text-sm leading-relaxed mb-10 max-w-lg">
               Custom websites from $1,500. No templates. No fluff. Built to
