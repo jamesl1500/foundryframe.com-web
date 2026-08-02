@@ -4,6 +4,9 @@ import {
   getLeadById,
   getLatestGeneratedLeadPage,
   getLatestLeadAudit,
+  getLatestLeadProposal,
+  listPublishedPackagesForLeads,
+  listPublishedServicesForLeads,
 } from "@/lib/leads/repository";
 
 export default async function LeadWorkbenchPage({
@@ -18,10 +21,22 @@ export default async function LeadWorkbenchPage({
     notFound();
   }
 
-  const [latestAudit, latestPage] = await Promise.all([
+  const [latestAudit, latestPage, latestProposal, packages, services] = await Promise.all([
     getLatestLeadAudit(lead.id),
     getLatestGeneratedLeadPage(lead.id),
+    getLatestLeadProposal(lead.id),
+    listPublishedPackagesForLeads(),
+    listPublishedServicesForLeads(),
   ]);
 
-  return <LeadWorkbenchClient lead={lead} latestAudit={latestAudit} latestPage={latestPage} />;
+  return (
+    <LeadWorkbenchClient
+      lead={lead}
+      latestAudit={latestAudit}
+      latestPage={latestPage}
+      latestProposal={latestProposal}
+      packages={packages}
+      services={services}
+    />
+  );
 }

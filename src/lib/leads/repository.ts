@@ -4,8 +4,10 @@ import type {
   LandingPagePayload,
   LeadAuditRecord,
   LeadGeneratedPageRecord,
+  LeadProposalRecord,
   LeadRecord,
   PublishedPackageReference,
+  PublishedServiceReference,
 } from "@/lib/leads/types";
 
 export async function listLeads(): Promise<LeadRecord[]> {
@@ -167,12 +169,74 @@ export async function listPublishedPackagesForLeads(): Promise<PublishedPackageR
   const db = supabase as unknown as LooseSupabaseClient;
   const { data, error } = await db
     .from("packages")
-    .select("id, name, slug, tagline, description, price, billing_period, features")
+    .select(
+      "id, name, slug, tagline, description, price, billing_period, features, category_id, category:categories!packages_category_id_fkey(id, name, slug, order_index)"
+    )
     .eq("is_published", true)
     .order("sort_order", { ascending: true });
 
   if (error) throw new Error(error.message);
   return (data ?? []) as PublishedPackageReference[];
+}
+
+export async function listPublishedServicesForLeads(): Promise<PublishedServiceReference[]> {
+  const supabase = getSupabaseAdminClient();
+  const db = supabase as unknown as LooseSupabaseClient;
+  const { data, error } = await db
+    .from("services")
+    .select("id, name, slug, short_description, description, starting_price, deliverables, timeline")
+    .eq("is_published", true)
+    .order("sort_order", { ascending: true });
+
+  if (error) throw new Error(error.message);
+  return (data ?? []) as PublishedServiceReference[];
+}
+
+export async function createLeadProposal(
+  input: Omit<LeadProposalRecord, "id" | "created_at" | "updated_at">
+): Promise<LeadProposalRecord> {
+  const supabase = getSupabaseAdminClient();
+  const db = supabase as unknown as LooseSupabaseClient;
+  const { data, error } = await db
+    .from("lead_proposals")
+    .insert(input)
+    .select("*")
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data as LeadProposalRecord;
+}
+
+export async function getLatestLeadProposal(
+  leadId: string
+): Promise<LeadProposalRecord | null> {
+  const supabase = getSupabaseAdminClient();
+  const db = supabase as unknown as LooseSupabaseClient;
+  const { data, error } = await db
+    .from("lead_proposals")
+    .select("*")
+    .eq("lead_id", leadId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (error) throw new Error(error.message);
+  return (data ?? null) as LeadProposalRecord | null;
+}
+
+export async function getLeadProposalById(
+  proposalId: string
+): Promise<LeadProposalRecord | null> {
+  const supabase = getSupabaseAdminClient();
+  const db = supabase as unknown as LooseSupabaseClient;
+  const { data, error } = await db
+    .from("lead_proposals")
+    .select("*")
+    .eq("id", proposalId)
+    .maybeSingle();
+
+  if (error) throw new Error(error.message);
+  return (data ?? null) as LeadProposalRecord | null;
 }
 
 export function buildLeadPageStoragePath(leadId: string): string {

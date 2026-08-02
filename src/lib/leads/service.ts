@@ -1,16 +1,21 @@
-import { generateAuditWithClaude, generateLandingPageWithClaude } from "@/lib/leads/claude";
+import {
+  generateAuditWithClaude,
+  generateLandingPageWithClaude,
+  generateProposalWithClaude,
+} from "@/lib/leads/claude";
 import { crawlWebsiteWithPlaywright } from "@/lib/leads/playwright-analyzer";
 import {
   buildLeadPageStoragePath,
   createGeneratedLeadPage,
   createLeadAudit,
+  createLeadProposal,
   getLatestLeadAudit,
   listPublishedPackagesForLeads,
   mapLandingPayloadColumns,
   updateLead,
   uploadLeadAuditScreenshot,
 } from "@/lib/leads/repository";
-import type { LeadRecord } from "@/lib/leads/types";
+import type { LeadRecord, ProposalLineItem } from "@/lib/leads/types";
 import { slugify } from "@/lib/leads/utils";
 
 export async function analyzeLeadWebsite(lead: LeadRecord) {
@@ -88,4 +93,53 @@ export async function generateLeadLandingPage(lead: LeadRecord) {
   });
 
   return page;
+}
+
+export async function generateLeadProposal(args: {
+  lead: LeadRecord;
+  projectBrief: string;
+  items: ProposalLineItem[];
+  timelineWeeks: number;
+  depositPercent: number;
+  discount: number;
+  instructions: string;
+}) {
+  const subtotal = args.items.reduce((sum, item) => sum + item.price, 0);
+  const discount = Math.min(args.discount, subtotal);
+  const total = subtotal - discount;
+  const aiOutput = await generateProposalWithClaude({
+    lead: args.lead,
+    projectBrief: args.projectBrief,
+    items: args.items,
+    timelineWeeks: args.timelineWeeks,
+    instructions: args.instructions,
+  });
+  const validUntil = new Date();
+  validUntil.setDate(validUntil.getDate() + 30);
+
+  const proposal = await createLeadProposal({
+    lead_id: args.lead.id,
+    status: "ready",
+    title: aiOutput.content.projectTitle,
+    prepared_for: args.lead.company_name || args.lead.name,
+    contact_name: args.lead.name,
+    project_brief: args.projectBrief,
+    selected_items: args.items,
+    proposal_content: aiOutput.content,
+    subtotal,
+    discount,
+    total,
+    deposit_percent: args.depositPercent,
+    timeline_weeks: args.timelineWeeks,
+    valid_until: validUntil.toISOString().slice(0, 10),
+    model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-20250514",
+    raw_model_output: aiOutput.rawModelOutput,
+  });
+
+  await updateLead(args.lead.id, {
+    status: "proposal_generated",
+    last_generated_at: new Date().toISOString(),
+  });
+
+  return proposal;
 }

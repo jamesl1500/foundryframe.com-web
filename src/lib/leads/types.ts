@@ -161,4 +161,69 @@ export type PublishedPackageReference = {
   billing_period: string | null;
   features: string[] | null;
   timeline: string | null;
+  category_id: string | null;
+  category: {
+    id: string;
+    name: string;
+    slug: string;
+    order_index: number | null;
+  } | null;
+};
+
+export type PublishedServiceReference = {
+  id: string;
+  name: string;
+  slug: string;
+  short_description: string | null;
+  description: string | null;
+  starting_price: number | null;
+  deliverables: string[] | null;
+  timeline: string | null;
+};
+
+export type ProposalLineItem = {
+  catalogId: string;
+  kind: "package" | "service" | "custom";
+  name: string;
+  description: string;
+  price: number;
+  deliverables: string[];
+};
+
+export type ProposalTimelinePhase = {
+  name: string;
+  weeks: string;
+  description: string;
+};
+
+export type ProposalContent = {
+  projectTitle: string;
+  opportunity: string;
+  recommendation: string;
+  objectives: string[];
+  scopeSummary: string;
+  timeline: ProposalTimelinePhase[];
+  nextSteps: string;
+};
+
+export type LeadProposalRecord = {
+  id: string;
+  lead_id: string;
+  status: "draft" | "ready" | "archived";
+  title: string;
+  prepared_for: string;
+  contact_name: string | null;
+  project_brief: string;
+  selected_items: ProposalLineItem[];
+  proposal_content: ProposalContent;
+  subtotal: number;
+  discount: number;
+  total: number;
+  deposit_percent: number;
+  timeline_weeks: number;
+  valid_until: string;
+  model: string | null;
+  raw_model_output: string | null;
+  created_at: string;
+  updated_at: string;
 };

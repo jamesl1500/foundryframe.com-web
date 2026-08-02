@@ -52,6 +52,7 @@ export type PublishedCaseStudy = {
 };
 
 type CaseStudyTestimonial = {
+  id: string;
   testimonial_quote: string | null;
   testimonial_author: string | null;
   client_name: string | null;
@@ -60,6 +61,7 @@ type CaseStudyTestimonial = {
 };
 
 type ClientTestimonial = {
+  id: string;
   quote: string | null;
   quote_author: string | null;
   name: string;
@@ -67,6 +69,7 @@ type ClientTestimonial = {
 };
 
 export type HomepageTestimonial = {
+  id: string;
   quote: string;
   name: string;
   title: string;
@@ -124,7 +127,7 @@ export async function getPublishedPackages(): Promise<PublishedPackage[]> {
   const { data, error } = await supabase
     .from("packages")
     .select(
-      "id, name, slug, tagline, description, price, billing_period, cta_url, features, is_featured, sort_order, category_id, categories!packages_category_id_fkey(id, name, slug, order_index)"
+      "id, name, slug, tagline, description, price, billing_period, cta_url, features, is_featured, sort_order, category_id, category:categories!packages_category_id_fkey(id, name, slug, order_index)"
     )
     .eq("is_published", true);
 
@@ -197,7 +200,7 @@ export async function getHomepageTestimonials(limit = 3): Promise<HomepageTestim
   const [caseStudyResult, clientResult] = await Promise.all([
     supabase
       .from("case_studies")
-      .select("testimonial_quote, testimonial_author, client_name, title, is_featured")
+      .select("id, testimonial_quote, testimonial_author, client_name, title, is_featured")
       .eq("is_published", true)
       .not("testimonial_quote", "is", null)
       .order("sort_order", { ascending: true })
@@ -205,7 +208,7 @@ export async function getHomepageTestimonials(limit = 3): Promise<HomepageTestim
       .limit(6),
     supabase
       .from("clients")
-      .select("quote, quote_author, name, is_featured")
+      .select("id, quote, quote_author, name, is_featured")
       .eq("is_published", true)
       .eq("is_active", true)
       .not("quote", "is", null)
@@ -221,6 +224,7 @@ export async function getHomepageTestimonials(limit = 3): Promise<HomepageTestim
     .filter((item) => Boolean(item.testimonial_quote))
     .map((row) => {
       return {
+        id: `case-study:${row.id}`,
         quote: row.testimonial_quote ?? "",
         name: row.testimonial_author ?? row.client_name ?? "Client",
         title: row.title,
@@ -232,6 +236,7 @@ export async function getHomepageTestimonials(limit = 3): Promise<HomepageTestim
     .filter((item) => Boolean(item.quote))
     .map((row) => {
       return {
+        id: `client:${row.id}`,
         quote: row.quote ?? "",
         name: row.quote_author ?? row.name,
         title: row.name,

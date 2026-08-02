@@ -2,6 +2,8 @@ import Anthropic from "@anthropic-ai/sdk";
 import type {
   LandingPagePayload,
   LeadRecord,
+  ProposalContent,
+  ProposalLineItem,
   PublishedPackageReference,
   SiteAuditResult,
   SiteCrawlSnapshot,
@@ -17,6 +19,64 @@ function getAnthropicClient() {
   }
 
   return new Anthropic({ apiKey });
+}
+
+export async function generateProposalWithClaude(args: {
+  lead: LeadRecord;
+  projectBrief: string;
+  items: ProposalLineItem[];
+  timelineWeeks: number;
+  instructions: string;
+}): Promise<{ content: ProposalContent; rawModelOutput: string }> {
+  const anthropic = getAnthropicClient();
+  const prompt = `Create the strategic copy for a Foundry Frame client proposal using the supplied facts.
+
+Lead:
+${JSON.stringify(args.lead, null, 2)}
+
+Project brief:
+${args.projectBrief}
+
+Selected scope:
+${JSON.stringify(args.items, null, 2)}
+
+Timeline: ${args.timelineWeeks} weeks
+Additional direction: ${args.instructions || "None"}
+
+Return strict JSON with this exact shape:
+{
+  "projectTitle": string,
+  "opportunity": string,
+  "recommendation": string,
+  "objectives": string[],
+  "scopeSummary": string,
+  "timeline": [{"name": string, "weeks": string, "description": string}],
+  "nextSteps": string
+}
+
+Rules:
+- Use only the supplied client, scope, deliverable, and timeline facts.
+- Do not invent metrics, guarantees, prices, services, legal terms, or client claims.
+- Make the plan specific, concise, and ready to show a client.
+- Timeline phases must fit within the supplied total timeline.
+- Do not write contract clauses; the agreement is assembled separately from approved boilerplate.`;
+
+  const message = await anthropic.messages.create({
+    model: DEFAULT_MODEL,
+    max_tokens: 2500,
+    system:
+      "You are Foundry Frame's senior agency strategist. Return only valid JSON with no markdown fences or prose outside JSON.",
+    messages: [{ role: "user", content: prompt }],
+  });
+
+  const raw = extractTextFromResponse(message);
+  const content = await parseJsonObjectWithRepair<ProposalContent>({
+    anthropic,
+    raw,
+    context: "client proposal plan",
+  });
+
+  return { content, rawModelOutput: raw };
 }
 
 function extractTextFromResponse(response: Anthropic.Messages.Message): string {

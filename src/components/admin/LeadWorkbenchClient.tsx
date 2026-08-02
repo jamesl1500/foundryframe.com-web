@@ -6,16 +6,49 @@ import { useRouter } from "next/navigation";
 import type {
   LeadAuditRecord,
   LeadGeneratedPageRecord,
+  LeadProposalRecord,
   LeadRecord,
+  ProposalLineItem,
+  PublishedPackageReference,
+  PublishedServiceReference,
 } from "@/lib/leads/types";
 
 interface Props {
   lead: LeadRecord;
   latestAudit: LeadAuditRecord | null;
   latestPage: LeadGeneratedPageRecord | null;
+  latestProposal: LeadProposalRecord | null;
+  packages: PublishedPackageReference[];
+  services: PublishedServiceReference[];
 }
 
-export default function LeadWorkbenchClient({ lead, latestAudit, latestPage }: Props) {
+type ProposalDraftItem = ProposalLineItem;
+
+const packageCategoryPurpose: Record<string, string> = {
+  "website-packages": "Standalone website builds, from a focused starter site to a bespoke digital platform.",
+  "launch-bundles": "Website, brand identity, and launch support combined into one coordinated engagement.",
+  "maintenance-plans": "Ongoing website security, updates, performance, and development support.",
+  "marketing-packages": "Recurring visibility, traffic, and lead-generation campaigns after launch.",
+};
+
+function formatCatalogPrice(price: number | null, billingPeriod?: string | null) {
+  const amount = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+  }).format(price ?? 0);
+
+  return billingPeriod === "monthly" ? `${amount}/mo` : amount;
+}
+
+export default function LeadWorkbenchClient({
+  lead,
+  latestAudit,
+  latestPage,
+  latestProposal,
+  packages,
+  services,
+}: Props) {
   const router = useRouter();
   const [state, setState] = useState({
     name: lead.name,
@@ -33,6 +66,14 @@ export default function LeadWorkbenchClient({ lead, latestAudit, latestPage }: P
   const [analyzing, setAnalyzing] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [sendingProposal, setSendingProposal] = useState(false);
+  const [creatingProposal, setCreatingProposal] = useState(false);
+  const [proposal, setProposal] = useState(latestProposal);
+  const [proposalItems, setProposalItems] = useState<ProposalDraftItem[]>([]);
+  const [proposalBrief, setProposalBrief] = useState(lead.notes ?? "");
+  const [proposalInstructions, setProposalInstructions] = useState("");
+  const [timelineWeeks, setTimelineWeeks] = useState(8);
+  const [depositPercent, setDepositPercent] = useState(50);
+  const [discount, setDiscount] = useState(0);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -103,6 +144,92 @@ export default function LeadWorkbenchClient({ lead, latestAudit, latestPage }: P
       .filter((item): item is { category: string; action: string; expectedImpact: string } => item !== null);
   }, [latestAudit]);
   const recommendationCount = useMemo(() => normalizedRecommendations.length, [normalizedRecommendations]);
+  const proposalSubtotal = useMemo(
+    () => proposalItems.reduce((sum, item) => sum + item.price, 0),
+    [proposalItems]
+  );
+  const packageGroups = useMemo(() => {
+    const groups = new Map<string, {
+      name: string;
+      slug: string;
+      purpose: string;
+      items: PublishedPackageReference[];
+    }>();
+
+    packages.forEach((item) => {
+      const slug = item.category?.slug || "other";
+      const current = groups.get(slug) ?? {
+        name: item.category?.name || "Other Packages",
+        slug,
+        purpose: packageCategoryPurpose[slug] || "Custom packaged offers for a defined business outcome.",
+        items: [],
+      };
+      current.items.push(item);
+      groups.set(slug, current);
+    });
+
+    return Array.from(groups.values());
+  }, [packages]);
+
+  function toggleCatalogItem(item: ProposalDraftItem) {
+    setProposalItems((current) => {
+      const exists = current.some((entry) => entry.kind === item.kind && entry.catalogId === item.catalogId);
+      return exists
+        ? current.filter((entry) => !(entry.kind === item.kind && entry.catalogId === item.catalogId))
+        : [...current, item];
+    });
+  }
+
+  function updateProposalItem(index: number, patch: Partial<ProposalDraftItem>) {
+    setProposalItems((current) => current.map((item, itemIndex) => (
+      itemIndex === index ? { ...item, ...patch } : item
+    )));
+  }
+
+  function addCustomItem() {
+    setProposalItems((current) => [
+      ...current,
+      {
+        catalogId: `custom-${crypto.randomUUID()}`,
+        kind: "custom",
+        name: "",
+        description: "",
+        price: 0,
+        deliverables: [],
+      },
+    ]);
+  }
+
+  async function createProposal() {
+    setCreatingProposal(true);
+    setError("");
+    setSuccess("");
+
+    const response = await fetch(`/api/admin/leads/${lead.id}/proposal`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: proposalItems,
+        projectBrief: proposalBrief,
+        instructions: proposalInstructions,
+        timelineWeeks,
+        depositPercent,
+        discount,
+      }),
+    });
+    const result = (await response.json()) as { data?: LeadProposalRecord; error?: string };
+
+    if (!response.ok || !result.data) {
+      setError(result.error ?? "Proposal generation failed.");
+      setCreatingProposal(false);
+      return;
+    }
+
+    setProposal(result.data);
+    setCreatingProposal(false);
+    setSuccess("Proposal and service agreement drafts generated.");
+    router.refresh();
+  }
 
   async function saveLead() {
     setSaving(true);
@@ -314,6 +441,250 @@ export default function LeadWorkbenchClient({ lead, latestAudit, latestPage }: P
 
         {error ? <p className="text-sm text-red-300">{error}</p> : null}
         {success ? <p className="text-sm text-green-300">{success}</p> : null}
+
+        <div className="border border-white/10 bg-black">
+          <div className="p-6 border-b border-white/10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">Proposal Studio</p>
+              <h2 className="text-2xl font-heading font-bold text-white">Scope, price, generate.</h2>
+            </div>
+            <div className="md:text-right">
+              <p className="text-[10px] uppercase tracking-widest text-gray-500">Proposal Total</p>
+              <p className="text-2xl font-heading font-bold text-white">
+                {formatCatalogPrice(Math.max(0, proposalSubtotal - discount))}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-[1.2fr_0.8fr]">
+            <div className="p-6 xl:border-r border-white/10 space-y-8">
+              <section>
+                <div className="flex items-baseline gap-3 mb-5">
+                  <span className="text-xs font-bold text-white">01</span>
+                  <div>
+                    <h3 className="text-sm font-bold text-white">Choose the offer</h3>
+                    <p className="text-xs text-gray-500 mt-1">Packages are grouped by what they accomplish.</p>
+                  </div>
+                </div>
+                <div className="space-y-5">
+                  {packageGroups.map((group) => (
+                    <div key={group.slug}>
+                      <div className="mb-2">
+                        <p className="text-xs font-bold uppercase tracking-widest text-white">{group.name}</p>
+                        <p className="text-xs text-gray-500 mt-1">{group.purpose}</p>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {group.items.map((item) => {
+                          const selected = proposalItems.some((entry) => entry.kind === "package" && entry.catalogId === item.id);
+                          return (
+                            <label key={item.id} className={`flex gap-3 border p-3 cursor-pointer ${selected ? "border-white bg-white/10" : "border-white/10 hover:border-white/30"}`}>
+                              <input
+                                type="checkbox"
+                                checked={selected}
+                                onChange={() => toggleCatalogItem({
+                                  catalogId: item.id,
+                                  kind: "package",
+                                  name: item.name,
+                                  description: item.description || item.tagline || "",
+                                  price: item.price ?? 0,
+                                  deliverables: item.features ?? [],
+                                })}
+                                className="mt-1 accent-white"
+                              />
+                              <span className="min-w-0">
+                                <span className="flex items-baseline justify-between gap-2">
+                                  <span className="text-sm font-bold text-white">{item.name}</span>
+                                  <span className="text-xs text-gray-300 shrink-0">{formatCatalogPrice(item.price, item.billing_period)}</span>
+                                </span>
+                                <span className="block text-xs text-gray-500 mt-1 line-clamp-2">{item.description || item.tagline}</span>
+                              </span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <details className="mt-5 border border-white/10">
+                  <summary className="cursor-pointer px-4 py-3 text-xs font-bold uppercase tracking-widest text-gray-300 hover:text-white">
+                    Add individual services ({services.length})
+                  </summary>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 border-t border-white/10">
+                    {services.map((item) => {
+                      const selected = proposalItems.some((entry) => entry.kind === "service" && entry.catalogId === item.id);
+                      return (
+                        <label key={item.id} className={`flex gap-3 border p-3 cursor-pointer ${selected ? "border-white bg-white/10" : "border-white/10 hover:border-white/30"}`}>
+                          <input
+                            type="checkbox"
+                            checked={selected}
+                            onChange={() => toggleCatalogItem({
+                              catalogId: item.id,
+                              kind: "service",
+                              name: item.name,
+                              description: item.description || item.short_description || "",
+                              price: item.starting_price ?? 0,
+                              deliverables: item.deliverables ?? [],
+                            })}
+                            className="mt-1 accent-white"
+                          />
+                          <span className="min-w-0">
+                            <span className="flex items-baseline justify-between gap-2">
+                              <span className="text-sm font-bold text-white">{item.name}</span>
+                              <span className="text-xs text-gray-300 shrink-0">{formatCatalogPrice(item.starting_price)}</span>
+                            </span>
+                            <span className="block text-xs text-gray-500 mt-1 line-clamp-2">{item.short_description || item.description}</span>
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </details>
+              </section>
+
+              <section>
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-xs font-bold text-white">02</span>
+                    <h3 className="text-sm font-bold text-white">Review scope and pricing</h3>
+                  </div>
+                  <button type="button" onClick={addCustomItem} className="text-xs uppercase tracking-widest text-gray-300 hover:text-white">
+                    + Custom item
+                  </button>
+                </div>
+                {proposalItems.length === 0 ? (
+                  <p className="text-sm text-gray-500 border border-dashed border-white/20 p-4">No scope selected.</p>
+                ) : (
+                  <div className="divide-y divide-white/10 border-y border-white/10">
+                    {proposalItems.map((item, index) => (
+                      <div key={`${item.kind}-${item.catalogId}`} className="grid grid-cols-1 sm:grid-cols-[1fr_130px_auto] gap-2 py-3">
+                        <div className="space-y-2">
+                          <input
+                            value={item.name}
+                            disabled={item.kind !== "custom"}
+                            onChange={(event) => updateProposalItem(index, { name: event.target.value })}
+                            aria-label={`Name for item ${index + 1}`}
+                            className="w-full bg-transparent border-0 text-white text-sm px-0 py-2 disabled:text-gray-300"
+                          />
+                          {item.kind === "custom" ? (
+                            <input
+                              value={item.description}
+                              onChange={(event) => updateProposalItem(index, { description: event.target.value })}
+                              placeholder="What is included?"
+                              aria-label={`Description for item ${index + 1}`}
+                              className="w-full bg-white/5 border border-white/20 text-white text-xs px-3 py-2"
+                            />
+                          ) : null}
+                        </div>
+                        <label>
+                          <span className="sr-only">Price for {item.name || `item ${index + 1}`}</span>
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            value={item.price}
+                            onChange={(event) => updateProposalItem(index, { price: Number(event.target.value) })}
+                            className="w-full bg-white/5 border border-white/20 text-white text-sm px-3 py-2"
+                          />
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => setProposalItems((current) => current.filter((_, itemIndex) => itemIndex !== index))}
+                          aria-label={`Remove ${item.name || `item ${index + 1}`}`}
+                          className="px-3 py-2 text-xs text-gray-500 hover:text-white"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </section>
+            </div>
+
+            <section className="p-6 space-y-5">
+              <div className="flex items-baseline gap-3">
+                <span className="text-xs font-bold text-white">03</span>
+                <div>
+                  <h3 className="text-sm font-bold text-white">Brief and terms</h3>
+                  <p className="text-xs text-gray-500 mt-1">Claude writes the narrative; your inputs control the deal.</p>
+                </div>
+              </div>
+              <label className="block">
+                <span className="block text-[10px] uppercase tracking-widest text-gray-500 mb-2">Project brief</span>
+                <textarea
+                  rows={7}
+                  value={proposalBrief}
+                  onChange={(event) => setProposalBrief(event.target.value)}
+                  placeholder="Client goals, audience, constraints, and desired outcome."
+                  className="w-full bg-white/5 border border-white/20 text-white text-sm px-4 py-3"
+                />
+              </label>
+              <div className="grid grid-cols-3 gap-3">
+                <label>
+                  <span className="block text-[10px] uppercase tracking-widest text-gray-500 mb-2">Weeks</span>
+                  <input type="number" min="1" max="104" value={timelineWeeks} onChange={(event) => setTimelineWeeks(Number(event.target.value))} className="w-full bg-white/5 border border-white/20 text-white text-sm px-3 py-3" />
+                </label>
+                <label>
+                  <span className="block text-[10px] uppercase tracking-widest text-gray-500 mb-2">Deposit %</span>
+                  <input type="number" min="0" max="100" value={depositPercent} onChange={(event) => setDepositPercent(Number(event.target.value))} className="w-full bg-white/5 border border-white/20 text-white text-sm px-3 py-3" />
+                </label>
+                <label>
+                  <span className="block text-[10px] uppercase tracking-widest text-gray-500 mb-2">Discount</span>
+                  <input type="number" min="0" max={proposalSubtotal} value={discount} onChange={(event) => setDiscount(Number(event.target.value))} className="w-full bg-white/5 border border-white/20 text-white text-sm px-3 py-3" />
+                </label>
+              </div>
+              <details className="border border-white/10">
+                <summary className="cursor-pointer px-4 py-3 text-[10px] uppercase tracking-widest text-gray-400 hover:text-white">
+                  Claude direction (optional)
+                </summary>
+                <div className="p-3 border-t border-white/10">
+                  <textarea
+                    rows={3}
+                    value={proposalInstructions}
+                    onChange={(event) => setProposalInstructions(event.target.value)}
+                    placeholder="Tone, priorities, or strategic context."
+                    className="w-full bg-white/5 border border-white/20 text-white text-sm px-4 py-3"
+                  />
+                </div>
+              </details>
+              <button
+                type="button"
+                onClick={createProposal}
+                disabled={creatingProposal || proposalItems.length === 0 || proposalBrief.trim().length < 20}
+                className="w-full px-5 py-4 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-gray-200 disabled:opacity-50"
+              >
+                {creatingProposal ? "Drafting with Claude..." : "Generate Documents"}
+              </button>
+
+              {proposal ? (
+                <div className="border border-emerald-300/30 p-4 space-y-4">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest text-emerald-300">Latest Draft</p>
+                    <h3 className="text-lg font-heading font-bold text-white mt-2">{proposal.title}</h3>
+                    <p className="text-xs text-gray-400 mt-1">
+                      {formatCatalogPrice(proposal.total)} · Valid through {proposal.valid_until}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {(["proposal", "agreement"] as const).flatMap((document) =>
+                      (["docx", "pdf"] as const).map((format) => (
+                        <a
+                          key={`${document}-${format}`}
+                          href={`/api/admin/leads/${lead.id}/proposal/${proposal.id}/${document}/${format}`}
+                          className="px-3 py-3 border border-white/20 text-center text-[10px] uppercase tracking-widest text-white hover:bg-white/5"
+                        >
+                          {document === "proposal" ? "Proposal" : "Agreement"} {format.toUpperCase()}
+                        </a>
+                      ))
+                    )}
+                  </div>
+                  <p className="text-xs text-amber-200">Review business and legal terms before sending.</p>
+                </div>
+              ) : null}
+            </section>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
           <article className="border border-white/10 p-6 bg-black">

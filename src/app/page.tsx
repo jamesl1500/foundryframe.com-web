@@ -104,12 +104,14 @@ const stats = [
    ============================================================ */
 const fallbackTestimonials = [
   {
+    id: "fallback:marcus-t",
     quote:
       "Professional, fast, and genuinely invested in our success. Delivered on time and the site looks incredible.",
     name: "Marcus T.",
     title: "Founder, Apex Athletics",
   },
   {
+    id: "fallback:lisa-r",
     quote:
       "Best investment we made this year. Clean design, works perfectly on mobile, and our bounce rate dropped significantly.",
     name: "Lisa R.",
@@ -264,7 +266,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
             {testimonials.map((t) => (
               <div
-                key={t.name}
+                key={t.id}
                 className="bg-black p-8 lg:p-10 flex flex-col gap-6"
               >
                 <p className="text-white text-base leading-relaxed flex-1">
