@@ -13,7 +13,8 @@
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const ACCENT = "#E63946";
+const ACCENT = "#C4821A";
+const ACCENT_GLOW = "#E09A28";
 const GRAY = "#999999";
 
 const cornerBracket = (
@@ -54,6 +55,17 @@ export function OgImageContent() {
         padding: "80px 96px",
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 6,
+          display: "flex",
+          background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT_GLOW})`,
+        }}
+      />
       {cornerBracket("top-left")}
       {cornerBracket("top-right")}
       {cornerBracket("bottom-left")}
@@ -72,7 +84,7 @@ export function OgImageContent() {
             style={{
               width: 16,
               height: 16,
-              backgroundColor: ACCENT,
+              backgroundColor: ACCENT_GLOW,
               marginRight: 18,
               display: "flex",
             }}

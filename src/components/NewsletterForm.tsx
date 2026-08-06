@@ -34,14 +34,14 @@ export default function NewsletterForm({
         placeholder={placeholder}
         className={`${
           variant === "inline" ? "flex-1" : "w-full"
-        } px-3 py-2 bg-transparent border border-white/20 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-white transition-colors`}
+        } px-3 py-2 bg-transparent border border-white/20 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-accent transition-colors`}
         aria-label="Email address for newsletter"
       />
       <button
         type="submit"
         className={`${
           variant === "inline" ? "" : "w-full"
-        } px-4 py-2 bg-white text-black text-sm font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors`}
+        } px-4 py-2 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors`}
       >
         {buttonText}
       </button>

@@ -46,7 +46,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[13px] font-medium text-gray-400 hover:text-white uppercase tracking-wider transition-colors"
+                className="text-[13px] font-medium text-gray-400 hover:text-accent-glow uppercase tracking-wider transition-colors"
               >
                 {link.label}
               </Link>
@@ -57,7 +57,7 @@ export default function Header() {
           <div className="hidden lg:block">
             <Link
               href="/contact"
-              className="text-[13px] font-bold text-black bg-white px-5 py-2 uppercase tracking-wider hover:bg-gray-200 transition-colors"
+              className="text-[13px] font-bold text-black bg-accent px-5 py-2 uppercase tracking-wider hover:bg-accent-glow transition-colors"
             >
               Let&apos;s Talk
             </Link>
@@ -100,7 +100,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="block py-3 text-sm font-medium text-gray-400 hover:text-white uppercase tracking-wider border-b border-white/5 transition-colors"
+              className="block py-3 text-sm font-medium text-gray-400 hover:text-accent-glow uppercase tracking-wider border-b border-white/5 transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               {link.label}
@@ -109,7 +109,7 @@ export default function Header() {
           <div className="pt-4">
             <Link
               href="/contact"
-              className="block w-full text-center text-sm font-bold text-black bg-white px-5 py-3 uppercase tracking-wider"
+              className="block w-full text-center text-sm font-bold text-black bg-accent px-5 py-3 uppercase tracking-wider"
               onClick={() => setMobileMenuOpen(false)}
             >
               Let&apos;s Talk

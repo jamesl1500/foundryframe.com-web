@@ -19,7 +19,7 @@ export default function CalendlyBadge() {
           window.Calendly?.initBadgeWidget({
             url: "https://calendly.com/jlatten-foundryframe/30min",
             text: "Book a free consultation",
-            color: "#ffffff",
+            color: "#C4821A",
             textColor: "#000000",
             branding: false,
           });

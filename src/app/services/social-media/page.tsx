@@ -255,7 +255,7 @@ export default function SocialMediaServicePage() {
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
               href="https://calendly.com/jlatten-foundryframe/30min"
-              className="px-6 py-3 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+              className="px-6 py-3 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
             >
               Book a Free Call
             </Link>
@@ -410,7 +410,7 @@ export default function SocialMediaServicePage() {
             <div className="flex gap-4">
               <Link
                 href="https://calendly.com/jlatten-foundryframe/30min"
-                className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors"
+                className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
               >
                 Book a Free Call
               </Link>

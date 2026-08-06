@@ -174,7 +174,7 @@ export default async function PackagesPage() {
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
               href="/contact"
-              className="px-6 py-3 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+              className="px-6 py-3 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
             >
               Book a Free Call
             </Link>
@@ -257,7 +257,7 @@ export default async function PackagesPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors"
+              className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
             >
               Get in Touch
             </Link>

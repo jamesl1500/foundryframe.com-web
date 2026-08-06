@@ -68,7 +68,7 @@ export default function ContactForm() {
             id="firstName"
             name="firstName"
             required
-            className="w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors"
+            className="w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-accent transition-colors"
             placeholder="John"
           />
         </div>
@@ -84,7 +84,7 @@ export default function ContactForm() {
             id="lastName"
             name="lastName"
             required
-            className="w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors"
+            className="w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-accent transition-colors"
             placeholder="Doe"
           />
         </div>
@@ -103,7 +103,7 @@ export default function ContactForm() {
             id="email"
             name="email"
             required
-            className="w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors"
+            className="w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-accent transition-colors"
             placeholder="john@example.com"
           />
         </div>
@@ -121,7 +121,7 @@ export default function ContactForm() {
           name="message"
           required
           rows={5}
-          className="w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-white transition-colors resize-none"
+          className="w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-accent transition-colors resize-none"
           placeholder="Tell us about your project, goals, and timeline..."
         />
       </div>
@@ -133,7 +133,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full px-8 py-4 bg-white text-black text-sm font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-8 py-4 bg-accent text-black text-sm font-medium uppercase tracking-wider hover:bg-accent-glow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === "sending" ? "Sending..." : "Send Message"}
       </button>

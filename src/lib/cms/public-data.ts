@@ -273,5 +273,9 @@ export function formatPriceLabel(
     return formatted;
   }
 
+  if (billingPeriod.toLowerCase() === "one-time") {
+    return `${formatted} (Starting)`;
+  }
+
   return `${formatted}/${billingPeriod}`;
 }

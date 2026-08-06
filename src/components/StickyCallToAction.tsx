@@ -22,7 +22,7 @@ export default function StickyCallToAction() {
   if (!visible || dismissed) return null;
 
   return (
-    <div className="fixed bottom-6 left-6 z-40 flex items-center gap-3 bg-white text-black px-5 py-3 shadow-xl">
+    <div className="fixed bottom-6 left-6 z-40 flex items-center gap-3 bg-accent text-black px-5 py-3 shadow-xl">
       <span className="text-xs text-black/50 hidden sm:block">
         Ready to start?
       </span>

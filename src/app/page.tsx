@@ -168,7 +168,7 @@ export default async function Home() {
             <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
               Creative Agency — Ohio
             </p>
-            <span className="text-xs uppercase tracking-[0.15em] font-bold bg-white text-black px-3 py-1">
+            <span className="text-xs uppercase tracking-[0.15em] font-bold bg-accent text-black px-3 py-1">
               20 Q3 Slots Remaining
             </span>
           </div>
@@ -190,7 +190,7 @@ export default async function Home() {
             <div className="flex gap-4">
               <a
                 href="#audit"
-                className="px-6 py-3 bg-white text-black text-sm font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors"
+                className="px-6 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
               >
                 Get a Free Website Audit
               </a>

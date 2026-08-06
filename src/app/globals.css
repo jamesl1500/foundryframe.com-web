@@ -1,7 +1,7 @@
 /**
  * Global Styles - Foundry Frame
  * ==============================
- * Flat, brutalist-minimal aesthetic. Black & white with red accent.
+ * Flat, brutalist-minimal aesthetic. Black & white with a molten-brass accent.
  * No gradients, no shadows, sharp edges, generous whitespace.
  *
  * @author James Latten
@@ -13,7 +13,8 @@
 /* --- Tailwind Theme Customization --- */
 @theme inline {
   /* Accent — used sparingly */
-  --color-accent: #E63946;
+  --color-accent: #C4821A; /* Molten Brass */
+  --color-accent-glow: #E09A28; /* Brass Glow */
 
   /* Neutral palette */
   --color-black: #000000;
@@ -57,7 +58,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* --- Selection --- */
 ::selection {
-  background-color: #fff;
+  background-color: var(--color-accent);
   color: #000;
 }
 
@@ -75,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  background: var(--color-accent);
 }
 
 /* --- Horizontal rule divider --- */

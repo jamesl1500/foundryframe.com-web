@@ -242,7 +242,7 @@ export default function LaunchBundlesPage() {
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-white text-black hover:bg-gray-200 transition-colors"
+                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
               >
                 {bundles[0].cta}
               </Link>
@@ -295,7 +295,7 @@ export default function LaunchBundlesPage() {
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-white text-black hover:bg-gray-200 transition-colors"
+                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
               >
                 {bundles[2].cta}
               </Link>
@@ -323,7 +323,7 @@ export default function LaunchBundlesPage() {
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-white text-black hover:bg-gray-200 transition-colors"
+                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
               >
                 {bundles[3].cta}
               </Link>
@@ -349,7 +349,7 @@ export default function LaunchBundlesPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors"
+              className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
             >
               Get in Touch
             </Link>

@@ -161,7 +161,7 @@ export default function AboutPage() {
               <div className="mt-10 flex items-center gap-6">
                 <a
                   href="/contact"
-                  className="px-6 py-3 bg-white text-black text-sm font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors"
+                  className="px-6 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
                 >
                   Work With James
                 </a>
@@ -229,7 +229,7 @@ export default function AboutPage() {
             <div className="flex gap-4">
               <Link
                 href="https://calendly.com/jlatten-foundryframe/30min"
-                className="inline-block px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors"
+                className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
               >
                 Book a Free Discovery Call
               </Link>

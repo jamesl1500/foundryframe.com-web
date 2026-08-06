@@ -157,7 +157,7 @@ export default async function LeadPreviewPage({
           <p className="text-gray-300 text-sm max-w-3xl mb-6">{closingCopy}</p>
           <a
             href={`mailto:${generatedPage.lead.contact_email || "hello@foundryframe.com"}?subject=Website%20Roadmap`}
-            className="inline-flex px-6 py-3 bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-gray-200"
+            className="inline-flex px-6 py-3 bg-accent text-black text-xs font-bold uppercase tracking-widest hover:bg-accent-glow"
           >
             {primaryCtaText}
           </a>

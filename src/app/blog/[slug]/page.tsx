@@ -323,7 +323,7 @@ export default async function BlogPostPage({
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/contact"
-              className="px-8 py-4 bg-white text-black font-bold text-sm uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+              className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
             >
               Book a Free Call
             </Link>
@@ -378,7 +378,7 @@ export default async function BlogPostPage({
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 text-center">
           <Link
             href="/blog"
-            className="inline-block px-8 py-3 bg-white text-black text-sm font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors"
+            className="inline-block px-8 py-3 bg-accent text-black text-sm font-medium uppercase tracking-wider hover:bg-accent-glow transition-colors"
           >
             Back to Blog
           </Link>

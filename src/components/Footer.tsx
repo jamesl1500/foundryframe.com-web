@@ -71,13 +71,13 @@ export default function Footer() {
             <div className="mt-6 space-y-1">
               <a
                 href="tel:+14409218245"
-                className="block text-gray-400 text-sm hover:text-white transition-colors"
+                className="block text-gray-400 text-sm hover:text-accent-glow transition-colors"
               >
                 (440) 921-8245
               </a>
               <a
                 href="mailto:jlatten@foundryframe.com"
-                className="block text-gray-400 text-sm hover:text-white transition-colors"
+                className="block text-gray-400 text-sm hover:text-accent-glow transition-colors"
               >
                 jlatten@foundryframe.com
               </a>
@@ -89,7 +89,7 @@ export default function Footer() {
                 <a
                   key={s.label}
                   href={s.href}
-                  className="text-gray-500 text-xs uppercase tracking-wider hover:text-white transition-colors"
+                  className="text-gray-500 text-xs uppercase tracking-wider hover:text-accent-glow transition-colors"
                   aria-label={s.label}
                 >
                   {s.label}
@@ -109,7 +109,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-gray-500 text-sm hover:text-white transition-colors"
+                      className="text-gray-500 text-sm hover:text-accent-glow transition-colors"
                     >
                       {link.label}
                     </Link>

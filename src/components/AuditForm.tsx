@@ -56,7 +56,7 @@ export default function AuditForm() {
           placeholder="yourwebsite.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          className="flex-1 bg-white/5 border border-white/20 text-white text-sm px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-white/50 transition-colors"
+          className="flex-1 bg-white/5 border border-white/20 text-white text-sm px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-accent transition-colors"
         />
         <input
           type="email"
@@ -64,12 +64,12 @@ export default function AuditForm() {
           placeholder="your@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 bg-white/5 border border-white/20 text-white text-sm px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-white/50 transition-colors"
+          className="flex-1 bg-white/5 border border-white/20 text-white text-sm px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-accent transition-colors"
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className="px-8 py-3 bg-white text-black text-sm font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors disabled:opacity-50 whitespace-nowrap"
+          className="px-8 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors disabled:opacity-50 whitespace-nowrap"
         >
           {status === "loading" ? "Sending…" : "Get My Audit"}
         </button>
