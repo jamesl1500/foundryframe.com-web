@@ -43,7 +43,7 @@ const structuredData = {
       foundingDate: "2026",
       description:
         "Foundry Frame is a creative design agency in Ohio specializing in branding, web design, social media, and digital strategy.",
-      telephone: "+1-440-921-8245",
+      telephone: "+1-216-889-7822",
       email: "jlatten@foundryframe.com",
       priceRange: "$$",
       areaServed: [
@@ -88,7 +88,7 @@ const structuredData = {
         { "@type": "AdministrativeArea", name: "United States" },
       ],
       priceRange: "$$",
-      telephone: "+1-440-921-8245",
+      telephone: "+1-216-889-7822",
       email: "jlatten@foundryframe.com",
       address: {
         "@type": "PostalAddress",

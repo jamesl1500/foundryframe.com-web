@@ -102,7 +102,7 @@ function proposalBlocks(proposal: LeadProposalRecord): DocumentBlock[] {
     },
     { style: "spacer", text: "" },
     { style: "subtitle", text: "Foundry Frame LLC" },
-    { style: "body", text: "(440) 921-8245  |  jlatten@foundryframe.com  |  foundryframe.com" },
+    { style: "body", text: "(216) 889-7822  |  jlatten@foundryframe.com  |  foundryframe.com" },
     { style: "label", text: "DRAFT - REVIEW BEFORE SENDING" },
   ];
 }

@@ -225,7 +225,7 @@ const serviceStructuredData = {
     "@type": ["Organization", "LocalBusiness"],
     name: "Foundry Frame",
     url: siteUrl,
-    telephone: "+1-440-921-8245",
+    telephone: "+1-216-889-7822",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Lorain",

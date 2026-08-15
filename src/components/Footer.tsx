@@ -70,10 +70,10 @@ export default function Footer() {
             {/* Contact */}
             <div className="mt-6 space-y-1">
               <a
-                href="tel:+14409218245"
+                href="tel:+12168897822"
                 className="block text-gray-400 text-sm hover:text-accent-glow transition-colors"
               >
-                (440) 921-8245
+                (216) 889-7822
               </a>
               <a
                 href="mailto:jlatten@foundryframe.com"
