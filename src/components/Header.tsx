@@ -12,6 +12,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 
 /* --- Navigation Links Data --- */
 const navLinks = [
@@ -89,34 +90,46 @@ export default function Header() {
       </div>
 
       {/* --- Mobile Menu --- */}
-      <div
-        id="mobile-menu"
-        className={`lg:hidden overflow-hidden transition-all duration-200 ${
-          mobileMenuOpen ? "max-h-[500px]" : "max-h-0"
-        }`}
-      >
-        <nav className="px-6 pb-6 border-t border-white/10" aria-label="Mobile navigation">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="block py-3 text-sm font-medium text-gray-400 hover:text-accent-glow uppercase tracking-wider border-b border-white/5 transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
-          <div className="pt-4">
-            <Link
-              href="/contact"
-              className="block w-full text-center text-sm font-bold text-black bg-accent px-5 py-3 uppercase tracking-wider"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Let&apos;s Talk
-            </Link>
-          </div>
-        </nav>
-      </div>
+      <AnimatePresence initial={false}>
+        {mobileMenuOpen && (
+          <motion.div
+            id="mobile-menu"
+            className="lg:hidden overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <nav className="px-6 pb-6 border-t border-white/10" aria-label="Mobile navigation">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.25, delay: i * 0.04 }}
+                >
+                  <Link
+                    href={link.href}
+                    className="block py-3 text-sm font-medium text-gray-400 hover:text-accent-glow uppercase tracking-wider border-b border-white/5 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
+              ))}
+              <div className="pt-4">
+                <Link
+                  href="/contact"
+                  className="block w-full text-center text-sm font-bold text-black bg-accent px-5 py-3 uppercase tracking-wider"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Let&apos;s Talk
+                </Link>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

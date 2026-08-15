@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function esc(str: string): string {
   return str
@@ -19,6 +20,13 @@ export async function POST(request: Request) {
     if (!firstName || !lastName || !email || !message) {
       return Response.json(
         { error: "Missing required fields." },
+        { status: 400 }
+      );
+    }
+
+    if (!EMAIL_REGEX.test(email)) {
+      return Response.json(
+        { error: "Please enter a valid email." },
         { status: 400 }
       );
     }

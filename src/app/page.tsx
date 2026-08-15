@@ -12,6 +12,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
+import FadeIn from "@/components/motion/FadeIn";
+import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import { getHomepageTestimonials, getPublishedServices } from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
@@ -164,24 +166,29 @@ export default async function Home() {
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 w-full">
           {/* Eyebrow + availability badge */}
-          <div className="flex flex-wrap items-center gap-4 mb-6">
+          <FadeIn className="flex flex-wrap items-center gap-4 mb-6" delay={0}>
             <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
               Creative Agency — Ohio
             </p>
             <span className="text-xs uppercase tracking-[0.15em] font-bold bg-accent text-black px-3 py-1">
               20 Q3 Slots Remaining
             </span>
-          </div>
+          </FadeIn>
 
           {/* Heading */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading font-bold text-white leading-[0.9] tracking-tight mb-10">
-            Ohio Web Design
-            <br />
-            & Branding Agency
-          </h1>
+          <FadeIn delay={0.1} duration={0.8} distance={32}>
+            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading font-bold text-white leading-[0.9] tracking-tight mb-10">
+              Ohio Web Design
+              <br />
+              & Branding Agency
+            </h1>
+          </FadeIn>
 
           {/* Sub */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 border-t border-white/20 pt-8">
+          <FadeIn
+            delay={0.25}
+            className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 border-t border-white/20 pt-8"
+          >
             <p className="max-w-md text-gray-400 text-sm leading-relaxed">
               Foundry Frame builds custom websites, brand systems, and digital
               strategy for small businesses and growth-focused brands across
@@ -201,7 +208,7 @@ export default async function Home() {
                 See Our Packages
               </Link>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -211,7 +218,7 @@ export default async function Home() {
       <section className="py-24 lg:py-32 bg-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-16">
+          <FadeIn className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-16">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
                 Services
@@ -226,12 +233,12 @@ export default async function Home() {
             >
               All Services
             </Link>
-          </div>
+          </FadeIn>
 
           {/* Grid */}
-          <div className="border-t border-white/10">
+          <StaggerContainer className="border-t border-white/10">
             {services.map((service, i) => (
-              <div
+              <StaggerItem
                 key={service.title}
                 className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-white/10"
               >
@@ -244,9 +251,9 @@ export default async function Home() {
                 <p className="md:col-span-7 text-gray-500 text-sm leading-relaxed">
                   {service.description}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -255,17 +262,17 @@ export default async function Home() {
           ============================================= */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="mb-16">
+          <FadeIn className="mb-16">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
               Client Results
             </p>
             <h2 className="text-4xl sm:text-5xl font-heading font-bold text-black">
               What Clients Say
             </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+          </FadeIn>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
             {testimonials.map((t) => (
-              <div
+              <StaggerItem
                 key={t.id}
                 className="bg-black p-8 lg:p-10 flex flex-col gap-6"
               >
@@ -276,17 +283,17 @@ export default async function Home() {
                   <p className="text-white text-sm font-bold">{t.name}</p>
                   <p className="text-gray-500 text-xs mt-1">{t.title}</p>
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
-          <div className="mt-10 text-center">
+          </StaggerContainer>
+          <FadeIn className="mt-10 text-center">
             <Link
               href="/contact"
               className="px-8 py-4 bg-black text-white font-bold text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors"
             >
               Start Your Project
             </Link>
-          </div>{" "}
+          </FadeIn>
         </div>
       </section>
 
@@ -294,11 +301,11 @@ export default async function Home() {
           INDUSTRIES MARQUEE
           ============================================= */}
       <section className="py-16 bg-black border-y border-white/10 overflow-hidden">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-10">
+        <FadeIn className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-10">
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500">
             Industries We Serve
           </p>
-        </div>
+        </FadeIn>
         <div className="flex gap-12 animate-marquee whitespace-nowrap">
           {[...industries, ...industries].map((industry, i) => (
             <span
@@ -316,9 +323,9 @@ export default async function Home() {
           ============================================= */}
       <section className="py-24 lg:py-32 bg-white">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-black/10">
+          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-black/10">
             {stats.map((stat) => (
-              <div
+              <StaggerItem
                 key={stat.label}
                 className="bg-white p-8 lg:p-12 text-center"
               >
@@ -328,9 +335,9 @@ export default async function Home() {
                 <div className="text-gray-500 text-xs uppercase tracking-widest">
                   {stat.label}
                 </div>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
@@ -342,7 +349,7 @@ export default async function Home() {
         className="py-24 lg:py-32 bg-black border-t border-white/10"
       >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="max-w-2xl mb-10">
+          <FadeIn className="max-w-2xl mb-10">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
               Free Offer
             </p>
@@ -354,8 +361,10 @@ export default async function Home() {
               key conversion factors and send you a personalised audit within 24
               hours. No pitch, no obligation.
             </p>
-          </div>
-          <AuditForm />
+          </FadeIn>
+          <FadeIn delay={0.15}>
+            <AuditForm />
+          </FadeIn>
         </div>
       </section>
 
@@ -364,7 +373,7 @@ export default async function Home() {
           ============================================= */}
       <section className="py-24 lg:py-32 bg-white border-t border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="max-w-3xl">
+          <FadeIn className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
               Start a Project
             </p>
@@ -392,7 +401,7 @@ export default async function Home() {
                 Contact Us
               </Link>
             </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
     </>

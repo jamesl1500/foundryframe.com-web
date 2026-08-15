@@ -11,6 +11,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import FadeIn from "@/components/motion/FadeIn";
+import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 
 export const metadata: Metadata = {
   title: "About Foundry Frame | Ohio Creative Agency",
@@ -89,16 +91,18 @@ export default function AboutPage() {
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
-            About Us
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
-            Ohio web design & branding agency
-          </h1>
-          <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mt-6">
-            We build thoughtful websites and brand systems for small businesses,
-            founders, and growth-focused teams in Ohio and across the U.S.
-          </p>
+          <FadeIn>
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
+              About Us
+            </p>
+            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+              Ohio web design & branding agency
+            </h1>
+            <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mt-6">
+              We build thoughtful websites and brand systems for small businesses,
+              founders, and growth-focused teams in Ohio and across the U.S.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
@@ -109,14 +113,14 @@ export default function AboutPage() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Image */}
-            <div className="aspect-[4/5] relative overflow-hidden">
+            <FadeIn direction="right" className="aspect-[4/5] relative overflow-hidden">
               <Image
                 src="/james-latten.jpg"
                 alt="James Latten, Founder of Foundry Frame"
                 fill
                 className="object-cover grayscale"
               />
-            </div>
+            </FadeIn>
 
             {/* Copy */}
             <div>
@@ -184,16 +188,18 @@ export default function AboutPage() {
           ============================================= */}
       <section className="py-24 lg:py-32 bg-gray-900">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
-            Core Values
-          </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16">
-            What drives us
-          </h2>
+          <FadeIn>
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+              Core Values
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16">
+              What drives us
+            </h2>
+          </FadeIn>
 
-          <div className="border-t border-white/10">
+          <StaggerContainer className="border-t border-white/10">
             {values.map((value, i) => (
-              <div
+              <StaggerItem
                 key={value.title}
                 className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-white/10"
               >
@@ -206,9 +212,9 @@ export default function AboutPage() {
                 <p className="md:col-span-7 text-gray-500 text-sm leading-relaxed">
                   {value.description}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
 
