@@ -160,7 +160,6 @@ export default function AuditForm() {
               <input
                 type="text"
                 required
-                autoFocus
                 placeholder="yourwebsite.com"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}

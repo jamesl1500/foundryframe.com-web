@@ -195,12 +195,12 @@ export default async function Home() {
               Ohio and beyond.
             </p>
             <div className="flex gap-4">
-              <a
-                href="#audit"
+              <Link
+                href="/audit"
                 className="px-6 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
               >
                 Get a Free Website Audit
-              </a>
+              </Link>
               <Link
                 href="/packages"
                 className="px-6 py-3 border border-white/30 text-white text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-colors"

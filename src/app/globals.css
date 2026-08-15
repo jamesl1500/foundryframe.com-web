@@ -94,3 +94,7 @@ hr {
   animation: marquee 30s linear infinite;
 }
 .stagger-6 { animation-delay: 0.6s; }
+
+button[type="submit"]{
+  cursor: pointer;
+}

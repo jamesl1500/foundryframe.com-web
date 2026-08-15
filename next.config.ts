@@ -16,11 +16,11 @@ import type { NextConfig } from "next";
    use when flagging sites as phishing. */
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://assets.calendly.com https://embed.tawk.to https://res.public.onecdn.static.microsoft",
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV !== "production" ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://assets.calendly.com https://embed.tawk.to https://res.public.onecdn.static.microsoft`,
   "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://calendly.com https://res.public.onecdn.static.microsoft",
+  "connect-src 'self' https://analytics.google.com https://www.google.com https://www.google-analytics.com https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://calendly.com https://res.public.onecdn.static.microsoft",
   "frame-src 'self' https://calendly.com https://tawk.to",
   "object-src 'none'",
   "base-uri 'self'",
