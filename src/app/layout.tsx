@@ -219,18 +219,6 @@ export default function RootLayout({
 
         {/* Calendly badge widget */}
         <CalendlyBadge />
-
-        {/* Microsoft Customer Connect chat */}
-        <Script
-          id="chatbot"
-          src="https://res.public.onecdn.static.microsoft/customerconnect/v1/7dttl/init.js"
-          strategy="lazyOnload"
-          {...{
-            environmentId: "e21aeee5-0f06-e0ff-a499-f78cff50cc09",
-            region: "unitedstates",
-            crossOrigin: "anonymous",
-          }}
-        />
       </body>
     </html>
   );
