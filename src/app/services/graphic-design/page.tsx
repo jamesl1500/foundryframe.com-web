@@ -253,7 +253,7 @@ export default function GraphicDesignServicePage() {
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
-              href="https://calendly.com/jlatten-foundryframe/30min"
+              href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
               className="px-6 py-3 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
             >
               Book a Free Call
@@ -408,7 +408,7 @@ export default function GraphicDesignServicePage() {
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://calendly.com/jlatten-foundryframe/30min"
+                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
                 className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
               >
                 Book a Free Call

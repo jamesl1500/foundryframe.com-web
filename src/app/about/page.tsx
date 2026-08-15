@@ -234,7 +234,7 @@ export default function AboutPage() {
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://calendly.com/jlatten-foundryframe/30min"
+                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
                 className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
               >
                 Book a Free Discovery Call

@@ -217,7 +217,7 @@ export default function RootLayout({
         {/* Site-wide footer */}
         <Footer />
 
-        {/* Calendly badge widget */}
+        {/* Floating consultation booking badge */}
         <CalendlyBadge />
       </body>
     </html>

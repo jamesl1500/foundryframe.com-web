@@ -10,18 +10,18 @@
 import type { NextConfig } from "next";
 
 /* Content-Security-Policy: locks script/frame/connect origins down to the
-   known third-party services this site actually loads (analytics, Calendly,
+   known third-party services this site actually loads (analytics,
    Tawk.to chat, Microsoft chatbot, Supabase) to reduce the site's exposure to
    injected scripts and to the "unknown redirect" signals ISPs/Safe Browsing
    use when flagging sites as phishing. */
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV !== "production" ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://assets.calendly.com https://embed.tawk.to https://res.public.onecdn.static.microsoft`,
-  "style-src 'self' 'unsafe-inline' https://assets.calendly.com",
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV !== "production" ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://embed.tawk.to https://res.public.onecdn.static.microsoft`,
+  "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://analytics.google.com https://www.google.com https://www.google-analytics.com https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://calendly.com https://res.public.onecdn.static.microsoft",
-  "frame-src 'self' https://calendly.com https://tawk.to",
+  "connect-src 'self' https://analytics.google.com https://www.google.com https://www.google-analytics.com https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://res.public.onecdn.static.microsoft",
+  "frame-src 'self' https://tawk.to",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

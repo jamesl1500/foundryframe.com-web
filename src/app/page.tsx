@@ -389,7 +389,7 @@ export default async function Home() {
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://calendly.com/jlatten-foundryframe/30min"
+                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
                 className="px-8 py-4 bg-black text-white font-bold text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors"
               >
                 Book a Free Discovery Call
