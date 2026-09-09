@@ -11,10 +11,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Foundry Frame | Creative Design Agency",
+    name: "Foundry Frame | Ohio Web Design & Branding Agency",
     short_name: "Foundry Frame",
     description:
-      "Foundry Frame is a premier creative design agency based in Ohio, specializing in branding, web design, social media, and digital strategy.",
+      "Foundry Frame is an Ohio web design and branding agency in Lorain, building custom, conversion-focused websites and brand systems for small businesses and growth brands.",
     start_url: "/",
     display: "standalone",
     background_color: "#000000",

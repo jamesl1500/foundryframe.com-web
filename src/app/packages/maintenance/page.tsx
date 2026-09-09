@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -51,6 +51,7 @@ const plans = [
   {
     number: "01",
     name: "Steady",
+    pricePrefix: "From",
     price: "$99/mo",
     tagline: "Stay protected without lifting a finger.",
     description:
@@ -70,6 +71,7 @@ const plans = [
   {
     number: "02",
     name: "Active",
+    pricePrefix: "From",
     price: "$249/mo",
     tagline: "Your site, always improving. Never stagnant.",
     description:
@@ -90,6 +92,7 @@ const plans = [
   {
     number: "03",
     name: "Elite",
+    pricePrefix: "From",
     price: "$499/mo",
     tagline: "Mission-critical support for businesses that can't afford downtime.",
     description:
@@ -122,7 +125,9 @@ const offersStructuredData = {
     "@type": "Offer",
     name: plan.name,
     description: plan.tagline,
-    priceSpecification: parsePriceSpecification(plan.price),
+    priceSpecification: parsePriceSpecification(
+      plan.pricePrefix ? `${plan.pricePrefix} ${plan.price}` : plan.price
+    ),
   })),
 };
 
@@ -191,7 +196,10 @@ export default function MaintenancePlansPage() {
                 <span className="text-white font-heading font-bold text-base sm:text-lg block">
                   {p.name}
                 </span>
-                <span className="text-gray-500 text-xs mt-0.5 block">{p.price}</span>
+                <span className="text-gray-500 text-xs mt-0.5 block">
+                  {p.pricePrefix ? `${p.pricePrefix} ` : ""}
+                  {p.price}
+                </span>
               </div>
             ))}
           </div>
@@ -201,16 +209,19 @@ export default function MaintenancePlansPage() {
       {/* =============================================
           PLAN CARDS — 3 columns
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="glow-field py-24 lg:py-32 bg-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/10">
 
             {/* ---- Steady (dark) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col">
+            <div className="glass-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Plan 01</span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{plans[0].name}</p>
+              {plans[0].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{plans[0].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{plans[0].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{plans[0].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-8">{plans[0].description}</p>
@@ -239,6 +250,9 @@ export default function MaintenancePlansPage() {
                 </span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{plans[1].name}</p>
+              {plans[1].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-400 block">{plans[1].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-black mb-2">{plans[1].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{plans[1].tagline}&rdquo;</p>
               <p className="text-sm text-gray-600 leading-relaxed mb-8">{plans[1].description}</p>
@@ -259,7 +273,7 @@ export default function MaintenancePlansPage() {
             </div>
 
             {/* ---- Elite (dark + white accent top border) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col border-t-2 border-white">
+            <div className="glass-card p-8 lg:p-10 flex flex-col border-t-2 border-white">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Plan 03</span>
                 <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-400 px-3 py-1">
@@ -267,6 +281,9 @@ export default function MaintenancePlansPage() {
                 </span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{plans[2].name}</p>
+              {plans[2].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{plans[2].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{plans[2].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{plans[2].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-8">{plans[2].description}</p>

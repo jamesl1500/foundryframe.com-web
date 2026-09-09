@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -136,9 +136,9 @@ const process = [
     step: "Strategy",
     description: "We define the approach and build the roadmap.",
   },
-  { step: "Create", description: "We design, build, and produce the work." },
-  { step: "Refine", description: "We iterate until every detail is right." },
-  { step: "Launch", description: "We deliver and measure the results." },
+  { step: "Design", description: "We craft every page and asset around your brand." },
+  { step: "Build", description: "We hand-code and produce the work, then refine every detail." },
+  { step: "Launch", description: "We deploy, connect analytics, and measure the results." },
 ] as const;
 
 /* ============================================================

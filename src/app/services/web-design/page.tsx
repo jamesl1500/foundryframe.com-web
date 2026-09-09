@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -322,10 +322,11 @@ export default function WebDesignServicePage() {
           >
             &larr; All Services
           </Link>
+          <div className="glass max-w-3xl p-6 sm:p-8">
           <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
             Our Flagship Service
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.9] tracking-tight">
             Web Design & Development
           </h1>
           <p className="text-gray-300 text-lg mt-6 max-w-2xl leading-relaxed">
@@ -341,10 +342,11 @@ export default function WebDesignServicePage() {
             </Link>
             <Link
               href="/packages/website"
-              className="px-6 py-3 border border-white/30 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/10 transition-colors text-center"
+              className="glass-light px-6 py-3 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/15 transition-colors text-center"
             >
-              See Pricing — From $1,500
+              See Pricing — Starting at $1,500
             </Link>
+          </div>
           </div>
         </div>
       </section>
@@ -609,8 +611,9 @@ export default function WebDesignServicePage() {
               Let&apos;s build your next client-winning website.
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
-              Custom websites from $1,500. No templates. No fluff. Built to
-              convert visitors into paying clients — delivered in 6–12 weeks.
+              Custom websites starting at $1,500. No templates, no fluff — built
+              to convert visitors into paying clients and delivered in 6–12
+              weeks.
             </p>
             <div className="flex gap-4">
               <Link

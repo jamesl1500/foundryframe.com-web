@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },

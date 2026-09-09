@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -52,6 +52,7 @@ const bundles = [
   {
     number: "01",
     name: "Ignite",
+    pricePrefix: "Starting at",
     price: "$2,500",
     tagline: "From zero to online in one move.",
     description:
@@ -70,6 +71,7 @@ const bundles = [
   {
     number: "02",
     name: "Velocity",
+    pricePrefix: "Starting at",
     price: "$6,500",
     tagline: "Everything a real business needs to compete online.",
     description:
@@ -82,13 +84,14 @@ const bundles = [
       "Competitor analysis report (top 5 competitors in your market)",
       "3 months of Professional Maintenance",
     ],
-    cta: "Start with Velocity — From $6,500",
+    cta: "Start with Velocity",
     badge: "Most Popular",
     variant: "light" as const,
   },
   {
     number: "03",
     name: "Ascend",
+    pricePrefix: "Starting at",
     price: "$14,000",
     tagline: "Build the machine. Turn it on. Watch it grow.",
     description:
@@ -102,17 +105,18 @@ const bundles = [
       "Monthly performance reporting across all channels",
       "6 months of Professional Maintenance",
     ],
-    cta: "Build with Ascend — From $14,000",
+    cta: "Build with Ascend",
     badge: null,
     variant: "dark" as const,
   },
   {
     number: "04",
     name: "Apex",
-    price: "$28,000+",
-    tagline: "Total digital dominance. Nothing left undone.",
+    pricePrefix: "Starting at",
+    price: "$28,000",
+    tagline: "Total digital command. Nothing left undone.",
     description:
-      "Apex is our most comprehensive engagement — reserved for companies that want complete command of their digital presence. An enterprise-grade website, custom application feature, full brand strategy workshop, SEO, paid ads, and a full year of premium maintenance. Apex clients don't shop for services. They invest in outcomes.",
+      "Apex is our most comprehensive engagement — for companies that want complete command of their digital presence. An enterprise-grade website, custom application feature, full brand strategy workshop, SEO, paid ads, and a full year of premium maintenance. Apex clients don't shop for services. They invest in outcomes.",
     features: [
       "The Monument — enterprise custom website",
       "Custom web application feature or client portal",
@@ -141,7 +145,9 @@ const offersStructuredData = {
     "@type": "Offer",
     name: bundle.name,
     description: bundle.tagline,
-    priceSpecification: parsePriceSpecification(bundle.price),
+    priceSpecification: parsePriceSpecification(
+      bundle.pricePrefix ? `${bundle.pricePrefix} ${bundle.price}` : bundle.price
+    ),
   })),
 };
 
@@ -209,7 +215,10 @@ export default function LaunchBundlesPage() {
                 <span className="text-white font-heading font-bold text-base sm:text-lg block">
                   {b.name}
                 </span>
-                <span className="text-gray-500 text-xs mt-0.5 block">{b.price}</span>
+                <span className="text-gray-500 text-xs mt-0.5 block">
+                  {b.pricePrefix ? `${b.pricePrefix} ` : ""}
+                  {b.price}
+                </span>
               </div>
             ))}
           </div>
@@ -219,16 +228,19 @@ export default function LaunchBundlesPage() {
       {/* =============================================
           BUNDLE CARDS — 2x2 grid
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="glow-field py-24 lg:py-32 bg-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10">
 
             {/* ---- Ignite (dark) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col">
+            <div className="glass-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Bundle 01</span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{bundles[0].name}</p>
+              {bundles[0].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{bundles[0].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{bundles[0].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{bundles[0].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-8">{bundles[0].description}</p>
@@ -257,6 +269,9 @@ export default function LaunchBundlesPage() {
                 </span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{bundles[1].name}</p>
+              {bundles[1].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-400 block">{bundles[1].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-black mb-2">{bundles[1].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{bundles[1].tagline}&rdquo;</p>
               <p className="text-sm text-gray-600 leading-relaxed mb-8">{bundles[1].description}</p>
@@ -277,11 +292,14 @@ export default function LaunchBundlesPage() {
             </div>
 
             {/* ---- Ascend (dark) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col">
+            <div className="glass-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Bundle 03</span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{bundles[2].name}</p>
+              {bundles[2].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{bundles[2].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{bundles[2].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{bundles[2].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-8">{bundles[2].description}</p>
@@ -302,7 +320,7 @@ export default function LaunchBundlesPage() {
             </div>
 
             {/* ---- Apex (dark + white accent top border) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col border-t-2 border-white">
+            <div className="glass-card p-8 lg:p-10 flex flex-col border-t-2 border-white">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Bundle 04</span>
                 <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-400 px-3 py-1">
@@ -310,6 +328,9 @@ export default function LaunchBundlesPage() {
                 </span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{bundles[3].name}</p>
+              {bundles[3].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{bundles[3].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{bundles[3].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{bundles[3].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-8">{bundles[3].description}</p>

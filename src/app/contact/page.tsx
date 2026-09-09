@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -86,8 +86,9 @@ export default function ContactPage() {
             Let&apos;s talk
           </h1>
           <p className="text-gray-500 text-lg max-w-xl">
-            Have a project in mind? Fill out the form below or reach out
-            directly — we typically respond within 24 hours.
+            Have a project in mind? We&apos;d love to hear about it. Fill out the
+            form below or reach out directly — we typically respond within 24
+            hours, and there&apos;s never any pressure to commit.
           </p>
           <div className="mt-8 flex gap-4">
             <Link
@@ -138,7 +139,7 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              <div className="mt-12 pt-8 border-t border-white/10">
+              <div className="glass mt-12 p-6">
                 <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
                   Common Questions
                 </p>
@@ -146,11 +147,11 @@ export default function ContactPage() {
                   {[
                     {
                       q: "How much does a custom website cost?",
-                      a: "Projects start at $1,500 for a focused site. Most small business websites fall between $2,500–$7,500 depending on scope. We'll give you an exact number after a 30-min call.",
+                      a: "Website packages start at $1,500 for a focused site. Most small business websites land between $3,500 and $7,000 depending on scope. Every number is a starting point — we'll confirm the exact figure after a friendly 30-min call, with no obligation.",
                     },
                     {
                       q: "How quickly can we get started?",
-                      a: "Once the deposit is in, we typically kick off within a week. Full build timelines are 6–12 weeks. We currently have limited Q3 availability.",
+                      a: "Once the deposit is in, we typically kick off within a week. Full build timelines are 6–12 weeks. We take on a limited number of projects each quarter, so the sooner we talk, the sooner we can reserve your slot.",
                     },
                     {
                       q: "What does the process look like?",

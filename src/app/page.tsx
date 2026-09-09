@@ -1,8 +1,9 @@
 /**
  * Homepage - Foundry Frame
  * =========================
- * Flat, brutalist-minimal landing page. Large typography,
- * thin rule dividers, B&W with sparse red accent.
+ * Bold typographic landing page — large type, thin rule dividers,
+ * B&W with a sparse molten-brass accent and a light frosted-glass
+ * layer on floating elements.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Ohio Web Design Agency | Foundry Frame",
     description:
-      "Custom websites from $1,500 built to convert. No templates. Launch in 6-12 weeks.",
+      "Custom websites starting at $1,500, built to convert. No templates. Launch in 6-12 weeks.",
     url: "/",
     type: "website",
     images: [
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ohio Web Design Agency | Foundry Frame",
     description:
-      "Custom websites from $1,500 built to convert. No templates. Launch in 6-12 weeks.",
+      "Custom websites starting at $1,500, built to convert. No templates. Launch in 6-12 weeks.",
     images: ["/twitter-image"],
   },
 };
@@ -95,9 +96,9 @@ const industries = [
    DATA: Stats
    ============================================================ */
 const stats = [
-  { value: "2026", label: "Launched" },
-  { value: "20", label: "Q3 Project Slots" },
-  { value: "Many", label: "Projects Completed" },
+  { value: "2026", label: "Founded in Ohio" },
+  { value: "1:1", label: "Work Direct with the Founder" },
+  { value: "6–12", label: "Weeks to Launch" },
   { value: "100%", label: "On-Time Delivery" },
 ] as const;
 
@@ -170,8 +171,8 @@ export default async function Home() {
             <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
               Creative Agency — Ohio
             </p>
-            <span className="text-xs uppercase tracking-[0.15em] font-bold bg-accent text-black px-3 py-1">
-              20 Q3 Slots Remaining
+            <span className="glass-accent text-xs uppercase tracking-[0.15em] font-bold text-white px-3 py-1">
+              Booking New Projects
             </span>
           </FadeIn>
 
@@ -187,14 +188,15 @@ export default async function Home() {
           {/* Sub */}
           <FadeIn
             delay={0.25}
-            className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 border-t border-white/20 pt-8"
+            className="glass flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 p-6 sm:p-8"
           >
-            <p className="max-w-md text-gray-400 text-sm leading-relaxed">
+            <p className="max-w-md text-gray-300 text-sm leading-relaxed">
               Foundry Frame builds custom websites, brand systems, and digital
-              strategy for small businesses and growth-focused brands across
-              Ohio and beyond.
+              strategy for small businesses and growth-focused brands across Ohio
+              and beyond. Friendly, founder-led, and focused on results you can
+              measure.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
               <Link
                 href="/audit"
                 className="px-6 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
@@ -203,7 +205,7 @@ export default async function Home() {
               </Link>
               <Link
                 href="/packages"
-                className="px-6 py-3 border border-white/30 text-white text-sm font-bold uppercase tracking-wider hover:bg-white/10 transition-colors"
+                className="glass-light px-6 py-3 text-white text-sm font-bold uppercase tracking-wider hover:bg-white/15 transition-colors"
               >
                 See Our Packages
               </Link>
@@ -381,11 +383,11 @@ export default async function Home() {
               Let&apos;s build your next client-winning website.
             </h2>
             <p className="text-gray-500 text-xs uppercase tracking-widest mb-8 font-bold">
-              20 project slots remaining for Q3 2026
+              We take on a limited number of projects each quarter
             </p>
             <p className="text-gray-500 text-sm leading-relaxed mb-10 max-w-lg">
-              Custom websites from $1,500. No templates. No fluff. Built to
-              convert visitors into paying clients — delivered in 6–12 weeks.
+              Custom websites starting at $1,500. No templates, no fluff — built
+              to turn visitors into paying clients and delivered in 6–12 weeks.
             </p>
             <div className="flex gap-4">
               <Link

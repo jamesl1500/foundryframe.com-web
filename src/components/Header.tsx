@@ -1,8 +1,8 @@
 /**
  * Header Component - Foundry Frame
  * ==================================
- * Flat, minimal navigation. No blur, no rounded corners.
- * Thin border-bottom divider. Brutalist aesthetic.
+ * Minimal navigation on a frosted-glass bar. Square corners,
+ * thin border-bottom divider, bold uppercase type.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -29,7 +29,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/10">
+    <header className="glass-nav fixed top-0 left-0 right-0 z-50 border-b border-white/10">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
         <div className="flex items-center justify-between h-16">
           {/* --- Logo --- */}
@@ -94,7 +94,7 @@ export default function Header() {
         {mobileMenuOpen && (
           <motion.div
             id="mobile-menu"
-            className="lg:hidden overflow-hidden"
+            className="glass-nav lg:hidden overflow-hidden"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

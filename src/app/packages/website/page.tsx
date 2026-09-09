@@ -17,14 +17,14 @@ const siteUrl = "https://www.foundryframe.com";
 export const metadata: Metadata = {
   title: "Website Packages",
   description:
-    "Custom website design packages from Foundry Frame — from a clean 5-page launch site to a full enterprise build. No templates. No shortcuts.",
+    "Custom website design packages from Foundry Frame — from a clean 5-page launch site to a full enterprise build. Starting at $1,500. No templates, no shortcuts.",
   alternates: {
     canonical: "/packages/website",
   },
   openGraph: {
     title: "Website Packages",
     description:
-      "Custom websites from $1,500 to enterprise builds. No templates. Built to convert.",
+      "Custom websites starting at $1,500, up to enterprise builds. No templates. Built to convert.",
     url: "/packages/website",
     type: "website",
     images: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Website Packages",
     description:
-      "Custom websites from $1,500 to enterprise builds. No templates. Built to convert.",
+      "Custom websites starting at $1,500, up to enterprise builds. No templates. Built to convert.",
     images: ["/twitter-image"],
   },
 };
@@ -52,7 +52,8 @@ const packages = [
   {
     tier: "01",
     name: "The Spark",
-    price: "$1,500–$2,500",
+    pricePrefix: "Starting at",
+    price: "$1,500",
     tagline: "Your business, online — done right the first time.",
     description:
       "You've built something worth showing the world. Now it's time to show it. The Spark is our entry-level website package — but there's nothing entry-level about what you get. This is a fully custom, professionally designed website built for performance and first impressions, not a template with your name dropped in.",
@@ -69,16 +70,17 @@ const packages = [
       "2 structured revision rounds",
       "30-day post-launch support window",
     ],
-    cta: "Get The Spark — Starting at $1,500",
+    cta: "Get Started with The Spark",
     variant: "dark" as const,
   },
   {
     tier: "02",
     name: "The Blueprint",
-    price: "$3,500–$6,000",
+    pricePrefix: "Starting at",
+    price: "$3,500",
     tagline: "A real business deserves a real website.",
     description:
-      "Your business has outgrown a basic website. The Blueprint hits the sweet spot: custom design, advanced features, and a strategy-first approach that sets you apart from every competitor using the same $29/month template. We build it to be your most effective sales tool.",
+      "Your business has outgrown a basic website. The Blueprint hits the sweet spot: custom design, advanced features, and a strategy-first approach that sets you apart from competitors relying on the same off-the-shelf template. We build it to be your most effective sales tool.",
     bestFor:
       "Established small businesses, growing brands building credibility, service companies with multiple offerings, businesses investing in SEO",
     badge: "Most Popular",
@@ -92,14 +94,15 @@ const packages = [
       "CMS training session (30 min recorded walkthrough)",
       "3 revision rounds + optional stakeholder review presentation",
     ],
-    cta: "Start Your Blueprint — From $3,500",
+    cta: "Start Your Blueprint",
     variant: "light" as const,
   },
   {
     tier: "03",
     name: "The Architect",
-    price: "$7,000–$12,000",
-    tagline: "Scale-ready. Strategy-first. Built to dominate search.",
+    pricePrefix: "Starting at",
+    price: "$7,000",
+    tagline: "Scale-ready. Strategy-first. Built to lead your market in search.",
     description:
       "Some websites are brochures. The Architect is a growth machine. Built for scaling companies with complex needs — multiple service lines, e-commerce, integrations, and serious traffic goals — it doesn't just look the part. It performs. Every engagement starts with a deep strategic session.",
     bestFor:
@@ -116,16 +119,17 @@ const packages = [
       "4 revision rounds with dedicated project manager",
       "3-month post-launch performance check-in",
     ],
-    cta: "Build Your Architect Site — From $7,000",
+    cta: "Build Your Architect Site",
     variant: "dark" as const,
   },
   {
     tier: "04",
     name: "The Monument",
-    price: "$15,000+",
-    tagline: "When mediocrity isn't an option.",
+    pricePrefix: null,
+    price: "Custom",
+    tagline: "For organizations where the website is a flagship asset.",
     description:
-      "The Monument is our enterprise-grade engagement — fully custom, fully bespoke, built for organizations where the digital presence is a flagship asset, not a cost center. Monument clients get a dedicated project team. This isn't a project. It's a partnership.",
+      "The Monument is our enterprise-grade engagement — fully custom, fully bespoke, built for organizations where the digital presence is a flagship asset, not a cost center. Monument clients get a dedicated project team, and scope and pricing are shaped around your goals in a discovery session. This isn't a project. It's a partnership.",
     bestFor:
       "Enterprise organizations, regional or national brands, regulated industries (healthcare, finance, legal), businesses replacing a legacy digital platform",
     badge: "Enterprise",
@@ -165,7 +169,7 @@ const addons = [
   },
   {
     name: "Social Media Management",
-    price: "$250/mo",
+    price: "From $250/mo",
     description:
       "We plug directly into your existing social channels — no disruption, no learning curve. Our team crafts and schedules platform-native content designed to resonate with your audience, drive engagement, and convert followers into customers.",
     featured: true,
@@ -207,7 +211,9 @@ const offersStructuredData = {
     "@type": "Offer",
     name: pkg.name,
     description: pkg.tagline,
-    priceSpecification: parsePriceSpecification(pkg.price),
+    priceSpecification: parsePriceSpecification(
+      pkg.pricePrefix ? `${pkg.pricePrefix} ${pkg.price}` : pkg.price
+    ),
   })),
 };
 
@@ -275,7 +281,10 @@ export default function WebsitePackagesPage() {
                 <span className="text-white font-heading font-bold text-base sm:text-lg block">
                   {pkg.name}
                 </span>
-                <span className="text-gray-500 text-xs mt-0.5 block">{pkg.price}</span>
+                <span className="text-gray-500 text-xs mt-0.5 block">
+                  {pkg.pricePrefix ? `${pkg.pricePrefix} ` : ""}
+                  {pkg.price}
+                </span>
               </div>
             ))}
           </div>
@@ -285,16 +294,19 @@ export default function WebsitePackagesPage() {
       {/* =============================================
           PRICING TIERS — 2x2 grid
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="glow-field py-24 lg:py-32 bg-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10">
 
             {/* ---- The Spark (dark) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col">
+            <div className="glass-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Tier 01</span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[0].name}</p>
+              {packages[0].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{packages[0].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{packages[0].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[0].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-4">{packages[0].description}</p>
@@ -326,6 +338,9 @@ export default function WebsitePackagesPage() {
                 </span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[1].name}</p>
+              {packages[1].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-400 block">{packages[1].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-black mb-2">{packages[1].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[1].tagline}&rdquo;</p>
               <p className="text-sm text-gray-600 leading-relaxed mb-4">{packages[1].description}</p>
@@ -349,11 +364,14 @@ export default function WebsitePackagesPage() {
             </div>
 
             {/* ---- The Architect (dark) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col">
+            <div className="glass-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Tier 03</span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[2].name}</p>
+              {packages[2].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{packages[2].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{packages[2].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[2].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-4">{packages[2].description}</p>
@@ -377,7 +395,7 @@ export default function WebsitePackagesPage() {
             </div>
 
             {/* ---- The Monument (dark + white accent top border) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col border-t-2 border-white">
+            <div className="glass-card p-8 lg:p-10 flex flex-col border-t-2 border-white">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Tier 04</span>
                 <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-400 px-3 py-1">
@@ -385,6 +403,9 @@ export default function WebsitePackagesPage() {
                 </span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[3].name}</p>
+              {packages[3].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{packages[3].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{packages[3].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[3].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-4">{packages[3].description}</p>

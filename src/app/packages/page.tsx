@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -83,7 +83,7 @@ const fallbackCategories = [
     href: "/packages/marketing",
     tagline: "Traffic. Leads. Growth.",
     description:
-      "A great website with no traffic is a billboard in a forest. Our marketing packages turn your digital presence into a consistent, measurable lead generation engine.",
+      "A great website only works when people can find it. Our marketing packages turn your digital presence into a consistent, measurable lead generation engine.",
     priceRange: "From $500/mo",
     tiers: ["Presence", "Momentum", "Dominate"],
   },
@@ -165,11 +165,12 @@ export default async function PackagesPage() {
             Packages
           </p>
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
-            Transparent pricing
+            Simple, transparent pricing
           </h1>
           <p className="text-gray-500 text-sm mt-6 max-w-lg">
-            Four categories. Every scope. One team. Choose the package that fits
-            where you are today — and where you&apos;re going.
+            Four categories. Every scope. One team. Every price below is a
+            starting point — we&apos;ll confirm the exact number on a free call,
+            with no obligation to move forward.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
@@ -191,14 +192,14 @@ export default async function PackagesPage() {
       {/* =============================================
           CATEGORY GRID
           ============================================= */}
-      <section className="bg-black">
+      <section className="glow-field bg-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10">
             {categories.map((cat) => (
               <a
                 key={cat.number}
                 href={cat.href}
-                className="group bg-black p-10 lg:p-14 flex flex-col hover:bg-gray-950 transition-colors"
+                className="glass-card group p-10 lg:p-14 flex flex-col"
               >
                 <div className="flex items-start justify-between mb-8">
                   <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">

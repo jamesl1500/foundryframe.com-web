@@ -11,7 +11,7 @@
 import { ImageResponse } from "next/og";
 import { OgImageContent, size, contentType } from "@/lib/og-image";
 
-export const alt = "Foundry Frame | Creative Design Agency";
+export const alt = "Foundry Frame | Ohio Web Design & Branding Agency";
 export { size, contentType };
 
 export default function Image() {

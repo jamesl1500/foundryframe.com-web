@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -91,16 +91,17 @@ export default function AboutPage() {
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
-          <FadeIn>
+          <FadeIn className="glass max-w-3xl p-6 sm:p-8">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
               About Us
             </p>
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.9] tracking-tight">
               Ohio web design & branding agency
             </h1>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-2xl mt-6">
+            <p className="text-gray-300 text-sm leading-relaxed max-w-2xl mt-6">
               We build thoughtful websites and brand systems for small businesses,
-              founders, and growth-focused teams in Ohio and across the U.S.
+              founders, and growth-focused teams in Ohio and across the U.S. —
+              and we&apos;re genuinely glad you&apos;re here.
             </p>
           </FadeIn>
         </div>
@@ -134,9 +135,10 @@ export default function AboutPage() {
                 <p>
                   I&apos;m a software engineer and designer from Lorain, Ohio. I
                   built Foundry Frame in 2026 after years of watching great
-                  small businesses lose clients to websites that looked like
-                  they were made in 2009 — or worse, by someone who clearly
-                  didn&apos;t care.
+                  small businesses lose clients to websites that didn&apos;t do
+                  them justice — slow, dated, or clearly built without much
+                  care. Good businesses deserve better, and it&apos;s more
+                  achievable than most owners think.
                 </p>
                 <p>
                   My background sits at the intersection of technical
@@ -149,9 +151,9 @@ export default function AboutPage() {
                 <p>
                   Foundry Frame is deliberately small. I take on a limited
                   number of projects each quarter so every client gets direct
-                  access to me — not a junior account manager. If you&apos;re
-                  investing $1,500 to $15,000+ in your website, you deserve to
-                  work with the person who&apos;s actually building it.
+                  access to me — not a junior account manager. When you invest
+                  in your website, you deserve to work with the person
+                  who&apos;s actually building it.
                 </p>
                 <p>
                   I&apos;m results-focused above everything else. A site that

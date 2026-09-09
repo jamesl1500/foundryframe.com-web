@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -73,7 +73,7 @@ const faqCategories = [
       },
       {
         q: "What does your creative process look like?",
-        a: "Our process follows five key phases: Discovery (understanding your business and goals), Strategy (developing the creative plan), Create (designing and producing the work), Launch (deploying with precision), and Optimize (refining based on data and performance). This structured approach ensures every project delivers measurable results.",
+        a: "Our process follows five phases: Discovery (understanding your business, audience, and goals), Strategy (defining the approach and roadmap), Design (crafting every page and asset around your brand), Build (hand-coding and producing the work), and Launch (deploying, connecting analytics, and training your team). You're involved at every stage and nothing moves forward without your sign-off.",
       },
       {
         q: "How long does a typical project take?",
@@ -81,7 +81,7 @@ const faqCategories = [
       },
       {
         q: "How many revisions are included?",
-        a: "The number of revisions depends on your package. Our Starter package includes 1 round, Professional includes 3 rounds, and Enterprise includes unlimited revisions. Additional revision rounds can be added to any package for a fee.",
+        a: "It depends on the package. The Spark includes 2 structured revision rounds, The Blueprint includes 3, The Architect includes 4, and The Monument includes unlimited revisions within the agreed project scope. Additional revision rounds can be added to any package for a fee.",
       },
     ],
   },
@@ -90,11 +90,11 @@ const faqCategories = [
     questions: [
       {
         q: "How much do your services cost?",
-        a: "Our project-based packages start at $2,500 for the Starter package, $7,500 for Professional, and $15,000+ for Enterprise. We also offer custom proposals for unique projects. Visit our Packages page for detailed pricing or contact us for a custom quote.",
+        a: "Website packages start at $1,500 (The Spark), $3,500 (The Blueprint), and $7,000 (The Architect), with The Monument scoped as a custom enterprise engagement. We also offer Launch Bundles starting at $2,500, monthly Maintenance Plans from $99/mo, and Marketing Packages from $500/mo. Every price is a starting point — you'll get an exact number after a free, no-obligation call. Visit our Packages page for details.",
       },
       {
         q: "Do you offer payment plans?",
-        a: "Yes! We typically structure payments as 50% upfront to begin the project and 50% upon completion. For larger projects, we can arrange milestone-based payment schedules. We accept bank transfers, credit cards, and checks.",
+        a: "Yes. We typically structure payments as 50% upfront to begin the project and 50% on completion. For larger projects, we can arrange milestone-based payment schedules. We accept bank transfers, credit cards, and checks.",
       },
       {
         q: "Do you offer retainer agreements?",
@@ -119,7 +119,7 @@ const faqCategories = [
       },
       {
         q: "Do you provide ongoing support after project completion?",
-        a: "Yes, all projects include a support period after launch: Starter includes 14 days, Professional includes 30 days, and Enterprise includes 90 days. After that, we offer ongoing support and maintenance packages, or you can engage us on an as-needed basis.",
+        a: "Yes. Every website package includes a post-launch support window — 30 days on The Spark, scaling up to a 6-month priority retainer on The Monument. After that, our Maintenance Plans (from $99/mo) keep your site updated, monitored, and backed up, or you can engage us on an as-needed basis.",
       },
     ],
   },

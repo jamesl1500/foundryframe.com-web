@@ -270,12 +270,12 @@ export function formatPriceLabel(
   }).format(numeric);
 
   if (!billingPeriod) {
-    return formatted;
+    return `Starting at ${formatted}`;
   }
 
   if (billingPeriod.toLowerCase() === "one-time") {
-    return `${formatted} (Starting)`;
+    return `Starting at ${formatted}`;
   }
 
-  return `${formatted}/${billingPeriod}`;
+  return `From ${formatted}/${billingPeriod}`;
 }

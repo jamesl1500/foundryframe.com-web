@@ -31,7 +31,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Foundry Frame | Creative Design Agency",
+        alt: "Foundry Frame | Ohio Web Design & Branding Agency",
       },
     ],
   },
@@ -51,6 +51,7 @@ const packages = [
   {
     number: "01",
     name: "Presence",
+    pricePrefix: "From",
     price: "$500/mo",
     tagline: "Get found. Get remembered.",
     description:
@@ -69,6 +70,7 @@ const packages = [
   {
     number: "02",
     name: "Momentum",
+    pricePrefix: "From",
     price: "$1,200/mo",
     tagline: "More visibility. More leads. More growth.",
     description:
@@ -82,17 +84,18 @@ const packages = [
       "Monthly strategy call with your dedicated marketing manager",
       "Competitor keyword ranking updates",
     ],
-    cta: "Build Momentum — From $1,200/mo",
+    cta: "Build Momentum",
     badge: "Most Popular",
     variant: "light" as const,
   },
   {
     number: "03",
     name: "Dominate",
+    pricePrefix: "From",
     price: "$2,500/mo",
-    tagline: "Own the search results. Own the conversation.",
+    tagline: "Lead the search results. Lead the conversation.",
     description:
-      "Dominate is for brands that want to be the undeniable leader in their market. Full-funnel marketing at scale: technical SEO, paid search, paid social, long-form content, weekly email, and a dedicated strategist who manages it all. While your competitors run marketing in pieces wondering why it's not working, yours is coordinated, optimized, and growing — every single week.",
+      "Dominate is for brands that want to be the clear leader in their market. Full-funnel marketing at scale: technical SEO, paid search, paid social, long-form content, weekly email, and a dedicated strategist who manages it all. Instead of marketing that runs in disconnected pieces, yours is coordinated, optimized, and growing — every single week.",
     features: [
       "Full SEO strategy and execution — technical audits, content sprints, authority link building",
       "Google Ads management (ad spend billed separately)",
@@ -104,7 +107,7 @@ const packages = [
       "Custom growth dashboard with real-time performance metrics",
       "Bi-weekly strategy calls with your dedicated growth strategist",
     ],
-    cta: "Start Dominate — From $2,500/mo",
+    cta: "Start Dominate",
     badge: "Full Service",
     variant: "dark-accent" as const,
   },
@@ -122,7 +125,9 @@ const offersStructuredData = {
     "@type": "Offer",
     name: pkg.name,
     description: pkg.tagline,
-    priceSpecification: parsePriceSpecification(pkg.price),
+    priceSpecification: parsePriceSpecification(
+      pkg.pricePrefix ? `${pkg.pricePrefix} ${pkg.price}` : pkg.price
+    ),
   })),
 };
 
@@ -166,12 +171,12 @@ export default function MarketingPackagesPage() {
             Marketing Packages
           </p>
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
-            Stop waiting to be found
+            Get found by the people looking for you
           </h1>
           <p className="text-gray-500 text-sm mt-6 max-w-lg">
-            A great website with no traffic is a billboard in the middle of a
-            forest. Our marketing packages transform your digital presence into a
-            consistent, measurable lead generation engine.
+            A great website only works when people can find it. Our marketing
+            packages turn your digital presence into a consistent, measurable
+            lead generation engine.
           </p>
         </div>
       </section>
@@ -190,7 +195,10 @@ export default function MarketingPackagesPage() {
                 <span className="text-white font-heading font-bold text-base sm:text-lg block">
                   {p.name}
                 </span>
-                <span className="text-gray-500 text-xs mt-0.5 block">{p.price}</span>
+                <span className="text-gray-500 text-xs mt-0.5 block">
+                  {p.pricePrefix ? `${p.pricePrefix} ` : ""}
+                  {p.price}
+                </span>
               </div>
             ))}
           </div>
@@ -200,16 +208,19 @@ export default function MarketingPackagesPage() {
       {/* =============================================
           PACKAGE CARDS — 3 columns
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="glow-field py-24 lg:py-32 bg-black">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/10">
 
             {/* ---- Presence (dark) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col">
+            <div className="glass-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Plan 01</span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[0].name}</p>
+              {packages[0].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{packages[0].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{packages[0].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[0].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-8">{packages[0].description}</p>
@@ -238,6 +249,9 @@ export default function MarketingPackagesPage() {
                 </span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[1].name}</p>
+              {packages[1].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-400 block">{packages[1].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-black mb-2">{packages[1].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[1].tagline}&rdquo;</p>
               <p className="text-sm text-gray-600 leading-relaxed mb-8">{packages[1].description}</p>
@@ -258,7 +272,7 @@ export default function MarketingPackagesPage() {
             </div>
 
             {/* ---- Dominate (dark + white accent top border) ---- */}
-            <div className="bg-black p-8 lg:p-10 flex flex-col border-t-2 border-white">
+            <div className="glass-card p-8 lg:p-10 flex flex-col border-t-2 border-white">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Plan 03</span>
                 <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-400 px-3 py-1">
@@ -266,6 +280,9 @@ export default function MarketingPackagesPage() {
                 </span>
               </div>
               <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[2].name}</p>
+              {packages[2].pricePrefix && (
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{packages[2].pricePrefix}</span>
+              )}
               <div className="text-4xl font-heading font-bold text-white mb-2">{packages[2].price}</div>
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[2].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-8">{packages[2].description}</p>

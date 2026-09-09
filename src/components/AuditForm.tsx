@@ -186,7 +186,7 @@ export default function AuditForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.4, ease: easeOut }}
-            className="border border-white/20 p-6 sm:p-8"
+            className="glass p-6 sm:p-8"
           >
             <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">Auditing</p>
             <p className="text-white font-heading font-bold text-xl mb-6 break-all">{url}</p>
@@ -245,7 +245,7 @@ export default function AuditForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.4, ease: easeOut }}
-            className="border border-white/20 p-8 sm:p-12 text-center"
+            className="glass p-8 sm:p-12 text-center"
           >
             <div className="mx-auto mb-6 h-16 w-16 relative">
               <div className="absolute inset-0 border-2 border-accent/30 rounded-full" />
@@ -288,7 +288,7 @@ export default function AuditForm() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.4, ease: easeOut }}
-            className="border border-red-400/30 p-8 text-center"
+            className="glass border-red-400/30 p-8 text-center"
           >
             <p className="text-white font-heading font-bold text-xl mb-2">
               We hit a snag
