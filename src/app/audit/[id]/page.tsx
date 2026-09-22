@@ -18,7 +18,8 @@ import AuditPendingNotice from "@/components/AuditPendingNotice";
 export const metadata: Metadata = {
   title: "Your Website Audit Results | Foundry Frame",
   description: "Review your free Foundry Frame website audit results.",
-  robots: { index: false, follow: false },
+  // Private, per-lead results: keep out of search and caches entirely.
+  robots: { index: false, follow: false, nocache: true },
 };
 
 export default async function AuditDetailsPage({

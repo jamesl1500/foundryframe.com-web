@@ -14,6 +14,7 @@ const staticRoutes = [
   "/services/graphic-design",
   "/services/advertising",
   "/services/strategy",
+  "/audit",
   "/packages",
   "/packages/website",
   "/packages/launch",
@@ -34,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${SITE_URL}${route}`,
     lastModified: now,
     changeFrequency: route === "" ? "weekly" : "monthly",
-    priority: route === "" ? 1 : 0.8,
+    priority: route === "" ? 1 : route === "/audit" ? 0.9 : 0.8,
   }));
 
   const blogUrls: MetadataRoute.Sitemap = (await generateBlogStaticParams()).map(

@@ -9,6 +9,7 @@
  */
 
 import type { Metadata } from "next";
+import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import {
   formatPriceLabel,
@@ -265,6 +266,7 @@ export default async function PackagesPage() {
           </div>
         </div>
       </section>
+      <AuditCallout />
     </>
   );
 }

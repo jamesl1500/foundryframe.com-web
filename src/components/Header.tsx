@@ -15,15 +15,16 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 
 /* --- Navigation Links Data --- */
-const navLinks = [
+const navLinks: ReadonlyArray<{ label: string; href: string; highlight?: boolean }> = [
   { label: "About", href: "/about" },
   { label: "Case Studies", href: "/case-studies" },
   { label: "Services", href: "/services" },
   { label: "Packages", href: "/packages" },
+  { label: "Free Audit", href: "/audit", highlight: true },
   { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
-] as const;
+];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -47,7 +48,11 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-[13px] font-medium text-gray-400 hover:text-accent-glow uppercase tracking-wider transition-colors"
+                className={
+                  link.highlight
+                    ? "glass-accent text-[13px] font-bold text-white hover:text-accent-glow uppercase tracking-wider px-3 py-1 transition-colors"
+                    : "text-[13px] font-medium text-gray-400 hover:text-accent-glow uppercase tracking-wider transition-colors"
+                }
               >
                 {link.label}
               </Link>
@@ -110,7 +115,9 @@ export default function Header() {
                 >
                   <Link
                     href={link.href}
-                    className="block py-3 text-sm font-medium text-gray-400 hover:text-accent-glow uppercase tracking-wider border-b border-white/5 transition-colors"
+                    className={`block py-3 text-sm uppercase tracking-wider border-b border-white/5 transition-colors hover:text-accent-glow ${
+                      link.highlight ? "font-bold text-accent-glow" : "font-medium text-gray-400"
+                    }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.label}

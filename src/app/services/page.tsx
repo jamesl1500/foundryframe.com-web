@@ -8,6 +8,7 @@
  */
 
 import type { Metadata } from "next";
+import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import { getPublishedServices } from "@/lib/cms/public-data";
 
@@ -367,6 +368,7 @@ export default async function ServicesPage() {
           </div>
         </div>
       </section>
+      <AuditCallout />
     </>
   );
 }

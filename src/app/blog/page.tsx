@@ -9,6 +9,7 @@
  */
 
 import type { Metadata } from "next";
+import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
 import NewsletterForm from "@/components/NewsletterForm";
@@ -222,6 +223,7 @@ export default function BlogPage() {
           />
         </div>
       </section>
+      <AuditCallout />
     </>
   );
 }

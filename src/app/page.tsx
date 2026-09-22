@@ -353,15 +353,22 @@ export default async function Home() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <FadeIn className="max-w-2xl mb-10">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
-              Free Offer
+              Free Website Audit
             </p>
             <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-4">
               Is your website losing you clients?
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Enter your URL and email — we&apos;ll review your site against 5
-              key conversion factors and send you a personalised audit within 24
-              hours. No pitch, no obligation.
+              Enter your URL and get a free website audit in about a minute —
+              your SEO, speed, design, and accessibility scores, plus a
+              prioritized fix list. No pitch, no obligation.{" "}
+              <Link
+                href="/audit"
+                className="text-white border-b border-white/30 pb-0.5 hover:border-white transition-colors"
+              >
+                See how the audit works
+              </Link>
+              .
             </p>
           </FadeIn>
           <FadeIn delay={0.15}>

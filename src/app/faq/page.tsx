@@ -8,6 +8,7 @@
  */
 
 import type { Metadata } from "next";
+import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
@@ -53,6 +54,10 @@ const faqCategories = [
       {
         q: "What is Foundry Frame?",
         a: "Foundry Frame is a full-service creative design agency based in Lorain, Ohio. Founded in 2026, we specialize in branding, web design, social media, and digital strategy for businesses of all sizes across various industries.",
+      },
+      {
+        q: "Do you offer a free website audit?",
+        a: "Yes. Our free website audit scores your site's SEO, speed, design, and accessibility in about a minute and gives you a prioritized list of what to fix first. There's no cost and no obligation — run it any time at foundryframe.com/audit.",
       },
       {
         q: "What industries do you work with?",
@@ -250,6 +255,7 @@ export default function FAQPage() {
           </div>
         </div>
       </section>
+      <AuditCallout />
     </>
   );
 }
