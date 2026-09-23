@@ -26,6 +26,12 @@ export default function AdminDashboardPage() {
               Open Leads Workbench
             </Link>
             <Link
+              href="/admin/leads/finder"
+              className="px-4 py-2 border border-white/20 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/5"
+            >
+              Find New Leads
+            </Link>
+            <Link
               href="/admin/leads/new"
               className="px-4 py-2 border border-white/20 text-white text-xs font-bold uppercase tracking-wider hover:bg-white/5"
             >

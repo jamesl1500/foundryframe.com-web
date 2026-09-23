@@ -42,6 +42,12 @@ export default async function SecureAdminLayout({
           >
             Leads AI Generator
           </Link>
+          <Link
+            href="/admin/leads/finder"
+            className="px-3 py-2 border border-emerald-300/30 text-[10px] uppercase tracking-widest text-emerald-200 hover:text-white hover:bg-emerald-500/10"
+          >
+            Lead Finder
+          </Link>
           {CMS_ENTITIES.map((entity) => (
             <Link
               key={entity}

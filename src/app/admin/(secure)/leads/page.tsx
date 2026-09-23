@@ -15,12 +15,20 @@ export default async function LeadsPage() {
               Add leads, analyze their existing websites with Playwright + Claude, and generate tailored landing page concepts with package recommendations.
             </p>
           </div>
-          <Link
-            href="/admin/leads/new"
-            className="px-6 py-3 bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-gray-200"
-          >
-            Add New Lead
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/admin/leads/finder"
+              className="px-6 py-3 border border-white/20 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/5"
+            >
+              Find Leads
+            </Link>
+            <Link
+              href="/admin/leads/new"
+              className="px-6 py-3 bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-gray-200"
+            >
+              Add New Lead
+            </Link>
+          </div>
         </div>
 
         {leads.length === 0 ? (

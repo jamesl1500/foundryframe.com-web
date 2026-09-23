@@ -8,6 +8,10 @@ export interface LooseSupabaseQuery extends PromiseLike<{ data: unknown; error: 
   single: () => LooseQueryResult;
   maybeSingle: () => LooseQueryResult;
   insert: (payload: unknown) => LooseSupabaseQuery;
+  upsert: (
+    payload: unknown,
+    options?: { onConflict?: string; ignoreDuplicates?: boolean }
+  ) => LooseSupabaseQuery;
   update: (payload: unknown) => LooseSupabaseQuery;
   delete: () => LooseSupabaseQuery;
 }

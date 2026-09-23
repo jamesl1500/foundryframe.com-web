@@ -40,6 +40,9 @@ Optional:
 - `RESEND_API_KEY`
 - `ANTHROPIC_API_KEY` (required for lead analysis and generated previews)
 - `ANTHROPIC_MODEL` (defaults to `claude-sonnet-4-20250514`)
+- `GOOGLE_PLACES_API_KEY` (Lead Finder's Google Places source; enable "Places API (New)" in Google Cloud)
+- `LEAD_FINDER_MODEL` (Lead Finder's web search model, defaults to `claude-opus-5`)
+- `CRON_SECRET` (protects the daily Lead Finder job at `/api/cron/lead-finder`)
 
 ## Lead Website Generator Workflow
 
@@ -49,6 +52,19 @@ The admin includes a dedicated lead workbench under `/admin/leads`:
 2. Run **Analyze Website** to crawl the current site with Playwright and generate a detailed SEO/CRO audit using Claude.
 3. Run **Generate Landing Page** to create a personalized concept page with package recommendations.
 4. Run **Send Proposal Email** to send the preview link and recommendation summary directly to the lead.
+
+## Lead Finder
+
+`/admin/leads/finder` searches the public web for small businesses and brands that are likely to need a new website:
+
+- **Google Places** returns local businesses for "<type of business> in <city>", including ones with no website. Chains that share one domain are dropped.
+- **Web search (Claude)** looks for public buying signals: "looking for a web designer" posts, requests for proposals, new openings with no real site, and visibly outdated sites.
+
+Every prospect's site gets a quick HTTP check (HTTPS, mobile viewport, copyright year, SEO basics, speed, parked/"coming soon" pages, free builder subdomains) and a 0-100 score with the reasons listed. Prospects are de-duplicated by domain (or name + location), so re-runs only add new businesses. **Promote to Lead** creates a lead in the workbench with the score and reasons in its notes.
+
+Saved searches re-run daily through `/api/cron/lead-finder` (scheduled in `vercel.json`; requires `CRON_SECRET`).
+
+Before first use, apply `supabase/migrations/20260923000000_lead_finder.sql` to the Supabase project (SQL editor or `supabase db push`).
 
 Generated previews are available at:
 
