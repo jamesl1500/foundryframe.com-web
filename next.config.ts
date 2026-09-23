@@ -13,14 +13,16 @@ import type { NextConfig } from "next";
    known third-party services this site actually loads (analytics,
    Tawk.to chat, Microsoft chatbot, Supabase) to reduce the site's exposure to
    injected scripts and to the "unknown redirect" signals ISPs/Safe Browsing
-   use when flagging sites as phishing. */
+   use when flagging sites as phishing. GA4 sends hits to regional hosts
+   (e.g. region1.google-analytics.com), so connect-src needs the wildcards
+   Google documents, not just the bare www host. */
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV !== "production" ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://embed.tawk.to https://res.public.onecdn.static.microsoft`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://analytics.google.com https://www.google.com https://www.google-analytics.com https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://res.public.onecdn.static.microsoft",
+  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://res.public.onecdn.static.microsoft",
   "frame-src 'self' https://tawk.to",
   "object-src 'none'",
   "base-uri 'self'",

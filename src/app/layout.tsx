@@ -15,6 +15,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CalendlyBadge from "@/components/CalendlyBadge";
+import ConversionTracking from "@/components/ConversionTracking";
 
 /* --- Font Configuration --- */
 const inter = Inter({
@@ -240,6 +241,9 @@ export default function RootLayout({
 
         {/* Floating consultation booking badge */}
         <CalendlyBadge />
+
+        {/* Reports lead-intent clicks (booking, phone, email, CTAs) to GA4 */}
+        <ConversionTracking />
       </body>
     </html>
   );

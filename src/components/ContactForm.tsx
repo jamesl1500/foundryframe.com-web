@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -28,6 +29,7 @@ export default function ContactForm() {
         throw new Error(json?.error || "Something went wrong.");
       }
 
+      trackEvent("generate_lead", { method: "contact_form" });
       setStatus("success");
       form.reset();
     } catch (err) {

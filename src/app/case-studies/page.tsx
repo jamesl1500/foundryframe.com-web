@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import { getPublishedCaseStudies } from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
-  title: "Case Studies | Foundry Frame",
+  title: "Case Studies",
   description:
     "Explore Foundry Frame case studies and real project outcomes across web design, branding, and digital strategy.",
   alternates: {
@@ -120,6 +121,7 @@ export default async function CaseStudiesPage() {
           </div>
         </div>
       </section>
+      <AuditCallout />
     </>
   );
 }

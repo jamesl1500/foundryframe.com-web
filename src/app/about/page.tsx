@@ -9,6 +9,7 @@
  */
 
 import type { Metadata } from "next";
+import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/motion/FadeIn";
@@ -245,6 +246,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <AuditCallout />
     </>
   );
 }

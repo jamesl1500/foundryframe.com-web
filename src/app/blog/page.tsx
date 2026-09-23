@@ -12,7 +12,6 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
-import NewsletterForm from "@/components/NewsletterForm";
 
 export const metadata: Metadata = {
   title: "Web Design & Branding Blog",
@@ -204,25 +203,6 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* =============================================
-          NEWSLETTER
-          ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900 border-t border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 text-center">
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-4">
-            Stay in the loop
-          </h2>
-          <p className="text-gray-500 text-sm max-w-md mx-auto mb-8">
-            Subscribe for the latest insights, project showcases, and creative
-            inspiration.
-          </p>
-          <NewsletterForm
-            variant="inline"
-            className="max-w-md mx-auto"
-            placeholder="Enter your email"
-          />
-        </div>
-      </section>
       <AuditCallout />
     </>
   );

@@ -16,7 +16,7 @@ import AuditResults from "@/components/AuditResults";
 import AuditPendingNotice from "@/components/AuditPendingNotice";
 
 export const metadata: Metadata = {
-  title: "Your Website Audit Results | Foundry Frame",
+  title: "Your Website Audit Results",
   description: "Review your free Foundry Frame website audit results.",
   // Private, per-lead results: keep out of search and caches entirely.
   robots: { index: false, follow: false, nocache: true },
