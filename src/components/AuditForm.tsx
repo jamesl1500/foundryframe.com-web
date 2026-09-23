@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import type { AuditRead } from "@/lib/audit/types";
+import { trackEvent } from "@/lib/analytics";
 
 type Step = "url" | "contact" | "scanning" | "error";
 
@@ -127,6 +128,8 @@ export default function AuditForm() {
       if (!res.ok) {
         throw new Error(data.error ?? "We couldn't start your audit.");
       }
+
+      trackEvent("generate_lead", { method: "website_audit" });
 
       pollDeadline.current = Date.now() + POLL_TIMEOUT_MS;
       pollTimer.current = setInterval(() => pollAudit(data.id), POLL_INTERVAL_MS);

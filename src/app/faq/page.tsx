@@ -14,7 +14,7 @@ import Link from "next/link";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
-  title: "FAQ | Foundry Frame",
+  title: "FAQ",
   description:
     "Frequently asked questions about Foundry Frame's creative services, pricing, process, timelines, and more.",
   alternates: {

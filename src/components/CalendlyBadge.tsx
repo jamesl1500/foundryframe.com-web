@@ -9,7 +9,7 @@
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
-const BOOKING_URL = "https://calendar.app.google/BugYDt3yg1oWBfpH7";
+import { BOOKING_URL } from "@/lib/analytics";
 
 export default function CalendlyBadge() {
   return (

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { generateStaticParams as generateBlogStaticParams } from "@/app/blog/[slug]/page";
 import { generateStaticParams as generateCaseStudyStaticParams } from "@/app/case-studies/[slug]/page";
+import { industries } from "@/lib/seo/industries";
+import { locations } from "@/lib/seo/locations";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
@@ -15,6 +17,8 @@ const staticRoutes = [
   "/services/advertising",
   "/services/strategy",
   "/audit",
+  "/locations",
+  "/industries",
   "/packages",
   "/packages/website",
   "/packages/launch",
@@ -56,5 +60,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  return [...staticUrls, ...blogUrls, ...caseStudyUrls];
+  const landingUrls: MetadataRoute.Sitemap = [
+    ...locations.map(({ slug }) => `/locations/${slug}`),
+    ...industries.map(({ slug }) => `/industries/${slug}`),
+  ].map((route) => ({
+    url: `${SITE_URL}${route}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticUrls, ...landingUrls, ...blogUrls, ...caseStudyUrls];
 }

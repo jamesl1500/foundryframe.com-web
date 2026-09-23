@@ -31,7 +31,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${study.title} | Case Study | Foundry Frame`,
+    title: `${study.title} | Case Study`,
     description: study.summary || "Foundry Frame case study.",
     alternates: {
       canonical: `/case-studies/${study.slug}`,
