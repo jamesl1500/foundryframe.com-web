@@ -180,6 +180,14 @@ export default function AboutPage() {
                 >
                   LinkedIn
                 </a>
+                <a
+                  href="https://x.com/FoundryFrame"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-500 pb-0.5 hover:text-white hover:border-white transition-colors"
+                >
+                  X
+                </a>
               </div>
             </div>
           </div>

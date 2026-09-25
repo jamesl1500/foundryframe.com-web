@@ -59,6 +59,7 @@ const footerColumns = [
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/foundry_frame/" },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/foundry-frame/" },
+  { label: "X", href: "https://x.com/FoundryFrame" },
 ] as const;
 
 export default function Footer() {

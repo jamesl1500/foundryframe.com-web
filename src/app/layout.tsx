@@ -89,6 +89,7 @@ const structuredData = {
       sameAs: [
         "https://www.linkedin.com/company/foundry-frame/",
         "https://www.instagram.com/foundry_frame/",
+        "https://x.com/FoundryFrame",
       ],
     },
     {
@@ -126,6 +127,7 @@ const structuredData = {
       sameAs: [
         "https://www.linkedin.com/company/foundry-frame/",
         "https://www.instagram.com/foundry_frame/",
+        "https://x.com/FoundryFrame",
       ],
     },
   ],
@@ -192,6 +194,11 @@ export const metadata: Metadata = {
     description:
       "An Ohio web design and branding agency building custom, conversion-focused websites for small businesses and growth brands.",
     images: ["/twitter-image"],
+  },
+  /* Set via `other` rather than twitter.site: pages define their own
+     `twitter` object, which replaces the root one instead of merging. */
+  other: {
+    "twitter:site": "@FoundryFrame",
   },
 };
 
