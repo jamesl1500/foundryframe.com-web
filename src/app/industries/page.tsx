@@ -20,6 +20,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/industries",
   },
+  openGraph: {
+    title: "Website Design by Industry",
+    description:
+      "Custom website design for restaurants, contractors, salons, real estate agents, gyms, and retail shops. Built around how your customers actually buy.",
+    url: "/industries",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Website Design by Industry" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Website Design by Industry",
+    description:
+      "Custom website design for restaurants, contractors, salons, real estate agents, gyms, and retail shops. Built around how your customers actually buy.",
+    images: ["/twitter-image"],
+  },
 };
 
 export default function IndustriesPage() {

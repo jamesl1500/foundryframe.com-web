@@ -19,7 +19,7 @@ import AuditForm from "@/components/AuditForm";
 const siteUrl = "https://www.foundryframe.com";
 const pageTitle = "Free Website Audit — SEO, Speed & Design Check";
 const pageDescription =
-  "Get a free website audit in about a minute. Instantly score your site's SEO, speed, mobile design, and accessibility — with a prioritized fix list from an Ohio web design agency. No credit card, no obligation.";
+  "Get a free website audit in about a minute. Score your site's SEO, speed, mobile design, and accessibility, with a prioritized fix list. No credit card needed.";
 
 export const metadata: Metadata = {
   title: pageTitle,

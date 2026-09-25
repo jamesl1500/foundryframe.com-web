@@ -60,6 +60,7 @@ const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/foundry_frame/" },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/foundry-frame/" },
   { label: "X", href: "https://x.com/FoundryFrame" },
+  { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61594467310063" },
 ] as const;
 
 export default function Footer() {
