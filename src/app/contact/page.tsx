@@ -13,7 +13,7 @@ import ContactForm from "@/components/ContactForm";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Contact Foundry Frame | Ohio Web Design Agency",
+  title: "Contact Us | Ohio Web Design Agency",
   description:
     "Get in touch with Foundry Frame. Tell us about your project and let's create something extraordinary together. Based in Lorain, Ohio.",
   alternates: {

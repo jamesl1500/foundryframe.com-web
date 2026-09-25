@@ -16,7 +16,7 @@ import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 
 export const metadata: Metadata = {
-  title: "About Foundry Frame | Ohio Creative Agency",
+  title: "About | Ohio Web Design & Creative Agency",
   description:
     "Learn about Foundry Frame, an Ohio web design and creative agency in Lorain focused on custom websites, branding, and growth strategy.",
   alternates: {
@@ -187,6 +187,14 @@ export default function AboutPage() {
                   className="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-500 pb-0.5 hover:text-white hover:border-white transition-colors"
                 >
                   X
+                </a>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61594467310063"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-500 pb-0.5 hover:text-white hover:border-white transition-colors"
+                >
+                  Facebook
                 </a>
               </div>
             </div>

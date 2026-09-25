@@ -110,6 +110,15 @@ const blogPosts: Record<
 /* ============================================================
    METADATA
    ============================================================ */
+
+/** Cuts a paragraph to ~155 characters on a word boundary so search
+    results show a whole meta description instead of a truncated one. */
+function summarize(text: string, max = 155) {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:—-]\s*$/, "")}…`;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -120,16 +129,17 @@ export async function generateMetadata({
   if (!post) return { title: "Post Not Found" };
 
   const url = `/blog/${slug}`;
+  const description = summarize(post.content[0]);
 
   return {
     title: post.title,
-    description: post.content[0],
+    description,
     alternates: {
       canonical: url,
     },
     openGraph: {
       title: post.title,
-      description: post.content[0],
+      description,
       url,
       type: "article",
       images: [
@@ -142,7 +152,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description: post.content[0],
+      description,
       images: [post.image],
     },
   };

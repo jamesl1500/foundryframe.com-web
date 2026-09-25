@@ -20,6 +20,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/locations",
   },
+  openGraph: {
+    title: "Web Design Across Northeast Ohio",
+    description:
+      "Foundry Frame builds custom websites for small businesses in Lorain, Elyria, Avon Lake, Amherst, Sandusky, Cleveland, and across Northeast Ohio.",
+    url: "/locations",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Web Design Across Northeast Ohio" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Web Design Across Northeast Ohio",
+    description:
+      "Foundry Frame builds custom websites for small businesses in Lorain, Elyria, Avon Lake, Amherst, Sandusky, Cleveland, and across Northeast Ohio.",
+    images: ["/twitter-image"],
+  },
 };
 
 export default function LocationsPage() {
