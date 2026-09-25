@@ -31,7 +31,7 @@ export async function generateMetadata({
   const location = getLocation(slug);
   if (!location) return {};
 
-  const title = `${location.city}, OH Web Design for Small Businesses`;
+  const title = `Web Design in ${location.city}, OH`;
   const url = `/locations/${location.slug}`;
 
   return {

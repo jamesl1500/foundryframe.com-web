@@ -16,7 +16,7 @@ const siteUrl = "https://www.foundryframe.com";
 export const metadata: Metadata = {
   title: "Graphic Design Services",
   description:
-    "Graphic design from Foundry Frame — marketing collateral, packaging, print design, presentations, signage, and digital assets that strengthen your brand everywhere it shows up.",
+    "Graphic design from Foundry Frame: marketing collateral, packaging, print, presentations, signage, and digital assets that strengthen your brand everywhere.",
   alternates: {
     canonical: "/services/graphic-design",
   },

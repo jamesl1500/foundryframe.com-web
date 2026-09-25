@@ -16,7 +16,7 @@ const siteUrl = "https://www.foundryframe.com";
 export const metadata: Metadata = {
   title: "Advertising Services",
   description:
-    "Advertising services from Foundry Frame — campaign strategy, ad creative, PPC and search ads, display advertising, and social advertising built on data-driven targeting.",
+    "Advertising from Foundry Frame: campaign strategy, ad creative, and search, display, and social ads built on data-driven targeting for Ohio small businesses.",
   alternates: {
     canonical: "/services/advertising",
   },
