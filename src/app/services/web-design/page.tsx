@@ -18,7 +18,7 @@ const siteUrl = "https://www.foundryframe.com";
 export const metadata: Metadata = {
   title: "Web Design & Development Services",
   description:
-    "Custom web design and development from Foundry Frame — hand-coded with Next.js and React, not templates. Fast, mobile-first, SEO-ready websites built to convert. Starting at $1,500.",
+    "Custom web design and development from Foundry Frame. Hand-coded, fast, mobile-first, SEO-ready websites built to convert, starting at $1,500. No templates.",
   alternates: {
     canonical: "/services/web-design",
   },
