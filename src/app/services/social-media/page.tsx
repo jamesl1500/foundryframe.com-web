@@ -16,7 +16,7 @@ const siteUrl = "https://www.foundryframe.com";
 export const metadata: Metadata = {
   title: "Social Media Management Services",
   description:
-    "Social media management from Foundry Frame — content strategy, content creation, community management, and paid social campaigns that build community and drive reach.",
+    "Social media management from Foundry Frame: content strategy and creation, community management, and paid social campaigns that grow reach and engagement.",
   alternates: {
     canonical: "/services/social-media",
   },

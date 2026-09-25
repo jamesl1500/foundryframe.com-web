@@ -16,7 +16,7 @@ const siteUrl = "https://www.foundryframe.com";
 export const metadata: Metadata = {
   title: "Digital Strategy Services",
   description:
-    "Digital strategy from Foundry Frame — market research, digital marketing strategy, competitive audits, content strategy, and conversion optimization to maximize ROI.",
+    "Digital strategy from Foundry Frame: market research, competitive audits, content strategy, and conversion optimization that turn marketing spend into ROI.",
   alternates: {
     canonical: "/services/strategy",
   },
