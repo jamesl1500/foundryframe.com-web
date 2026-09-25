@@ -127,7 +127,7 @@ export default async function Home() {
         {/* Background */}
         <div className="absolute inset-0">
           <Image
-            src="/images/stock/case-verdant-spaces.jpg"
+            src="/images/stock/hero-workspace.jpg"
             alt="Creative workspace"
             fill
             className="object-cover grayscale"
