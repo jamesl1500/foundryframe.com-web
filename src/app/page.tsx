@@ -15,7 +15,7 @@ import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
-import { getHomepageTestimonials, getPublishedServices } from "@/lib/cms/public-data";
+import { getPublishedServices } from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
   title: "Ohio Web Design Agency | Foundry Frame",
@@ -103,26 +103,6 @@ const stats = [
 ] as const;
 
 /* ============================================================
-   DATA: Testimonials
-   ============================================================ */
-const fallbackTestimonials = [
-  {
-    id: "fallback:marcus-t",
-    quote:
-      "Professional, fast, and genuinely invested in our success. Delivered on time and the site looks incredible.",
-    name: "Marcus T.",
-    title: "Founder, Apex Athletics",
-  },
-  {
-    id: "fallback:lisa-r",
-    quote:
-      "Best investment we made this year. Clean design, works perfectly on mobile, and our bounce rate dropped significantly.",
-    name: "Lisa R.",
-    title: "Director, Verdant Spaces",
-  },
-] as const;
-
-/* ============================================================
    COMPONENT: Homepage
    ============================================================ */
 export default async function Home() {
@@ -137,15 +117,6 @@ export default async function Home() {
             "Custom service delivery aligned to your business goals.",
         }))
       : fallbackServices;
-
-  const cmsTestimonials = await getHomepageTestimonials(3);
-  const testimonials =
-    cmsTestimonials.length > 0
-      ? cmsTestimonials
-      : fallbackTestimonials.map((item) => ({
-          ...item,
-          featured: false,
-        }));
 
   return (
     <>
@@ -256,46 +227,6 @@ export default async function Home() {
               </StaggerItem>
             ))}
           </StaggerContainer>
-        </div>
-      </section>
-
-      {/* =============================================
-          TESTIMONIALS
-          ============================================= */}
-      <section className="py-24 lg:py-32 bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <FadeIn className="mb-16">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
-              Client Results
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-black">
-              What Clients Say
-            </h2>
-          </FadeIn>
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
-            {testimonials.map((t) => (
-              <StaggerItem
-                key={t.id}
-                className="bg-black p-8 lg:p-10 flex flex-col gap-6"
-              >
-                <p className="text-white text-base leading-relaxed flex-1">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="border-t border-white/10 pt-6">
-                  <p className="text-white text-sm font-bold">{t.name}</p>
-                  <p className="text-gray-500 text-xs mt-1">{t.title}</p>
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-          <FadeIn className="mt-10 text-center">
-            <Link
-              href="/contact"
-              className="px-8 py-4 bg-black text-white font-bold text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors"
-            >
-              Start Your Project
-            </Link>
-          </FadeIn>
         </div>
       </section>
 
