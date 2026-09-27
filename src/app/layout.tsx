@@ -222,9 +222,12 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* The ~190 KB gtag.js library loads at idle so it doesn't compete
+            with hydration on mobile; the tiny stub below defines gtag() early,
+            so page views and trackEvent() calls queue in dataLayer until then. */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-2723XGFRH7"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`

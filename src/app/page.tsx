@@ -127,38 +127,39 @@ export default async function Home() {
         {/* Background */}
         <div className="absolute inset-0">
           <Image
-            src="/images/stock/hero-workspace.jpg"
+            src="/images/stock/hero-workspace-bw.jpg"
             alt="Creative workspace"
             fill
-            className="object-cover grayscale"
+            sizes="100vw"
+            className="object-cover"
             priority
           />
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 w-full">
+          {/* Hero copy is static (no FadeIn) so the headline — the page's LCP
+              element — paints immediately instead of after hydration. */}
+
           {/* Eyebrow + availability badge */}
-          <FadeIn className="flex flex-wrap items-center gap-4 mb-6" delay={0}>
+          <div className="flex flex-wrap items-center gap-4 mb-6">
             <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
               Creative Agency — Ohio
             </p>
             <span className="glass-accent text-xs uppercase tracking-[0.15em] font-bold text-white px-3 py-1">
               Booking New Projects
             </span>
-          </FadeIn>
+          </div>
 
           {/* Heading */}
-          <FadeIn delay={0.1} duration={0.8} distance={32}>
-            <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading font-bold text-white leading-[0.9] tracking-tight mb-10">
-              Ohio Web Design
-              <br />
-              & Branding Agency
-            </h1>
-          </FadeIn>
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading font-bold text-white leading-[0.9] tracking-tight mb-10">
+            Ohio Web Design
+            <br />
+            & Branding Agency
+          </h1>
 
           {/* Sub */}
-          <FadeIn
-            delay={0.25}
+          <div
             className="glass flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 p-6 sm:p-8"
           >
             <p className="max-w-md text-gray-300 text-sm leading-relaxed">
@@ -181,7 +182,7 @@ export default async function Home() {
                 See Our Packages
               </Link>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
 

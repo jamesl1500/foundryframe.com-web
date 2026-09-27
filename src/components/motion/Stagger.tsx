@@ -2,7 +2,9 @@
  * Stagger - Foundry Frame
  * ========================
  * Container/item pair that reveals a list of children in a staggered
- * sequence as they scroll into view, built on framer-motion.
+ * sequence as they scroll into view. Uses the same visible-by-default
+ * approach as FadeIn; the stagger is a per-position CSS transition-delay
+ * (see the "Scroll reveal" section of globals.css).
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -10,40 +12,22 @@
 
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import { useRef, type CSSProperties, type ReactNode } from "react";
+import { useReveal } from "./useReveal";
 
 interface StaggerContainerProps {
   children: ReactNode;
   className?: string;
-  staggerDelay?: number;
-  once?: boolean;
 }
 
-export function StaggerContainer({
-  children,
-  className,
-  staggerDelay = 0.1,
-  once = true,
-}: StaggerContainerProps) {
-  const reduceMotion = useReducedMotion();
-  const variants: Variants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: reduceMotion ? 0 : staggerDelay },
-    },
-  };
+export function StaggerContainer({ children, className }: StaggerContainerProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  useReveal(ref, 0.15);
 
   return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount: 0.15 }}
-      variants={variants}
-    >
+    <div ref={ref} className={className} data-reveal-group="">
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -54,19 +38,13 @@ interface StaggerItemProps {
 }
 
 export function StaggerItem({ children, className, distance = 20 }: StaggerItemProps) {
-  const reduceMotion = useReducedMotion();
-  const variants: Variants = {
-    hidden: reduceMotion ? { opacity: 0 } : { opacity: 0, y: distance },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: reduceMotion ? 0.2 : 0.5, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
-
   return (
-    <motion.div className={className} variants={variants}>
+    <div
+      className={className}
+      style={{ "--reveal-y": `${distance}px` } as CSSProperties}
+      data-reveal-item=""
+    >
       {children}
-    </motion.div>
+    </div>
   );
 }

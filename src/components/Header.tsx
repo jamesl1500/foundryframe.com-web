@@ -12,7 +12,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
 
 /* --- Navigation Links Data --- */
 const navLinks: ReadonlyArray<{ label: string; href: string; highlight?: boolean }> = [
@@ -95,48 +94,48 @@ export default function Header() {
       </div>
 
       {/* --- Mobile Menu --- */}
-      <AnimatePresence initial={false}>
-        {mobileMenuOpen && (
-          <motion.div
-            id="mobile-menu"
-            className="glass-nav lg:hidden overflow-hidden"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <nav className="px-6 pb-6 border-t border-white/10" aria-label="Mobile navigation">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.25, delay: i * 0.04 }}
-                >
-                  <Link
-                    href={link.href}
-                    className={`block py-3 text-sm uppercase tracking-wider border-b border-white/5 transition-colors hover:text-accent-glow ${
-                      link.highlight ? "font-bold text-accent-glow" : "font-medium text-gray-400"
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-              <div className="pt-4">
+      {/* Always rendered so it can transition; `inert` keeps the closed menu
+          out of the tab order and accessibility tree. */}
+      <div
+        id="mobile-menu"
+        inert={!mobileMenuOpen}
+        className={`glass-nav lg:hidden grid transition-[grid-template-rows,opacity] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          mobileMenuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <nav className="px-6 pb-6 border-t border-white/10" aria-label="Mobile navigation">
+            {navLinks.map((link, i) => (
+              <div
+                key={link.href}
+                className={`transition-[opacity,translate] duration-250 ${
+                  mobileMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-3"
+                }`}
+                style={{ transitionDelay: mobileMenuOpen ? `${i * 40}ms` : "0ms" }}
+              >
                 <Link
-                  href="/contact"
-                  className="block w-full text-center text-sm font-bold text-black bg-accent px-5 py-3 uppercase tracking-wider"
+                  href={link.href}
+                  className={`block py-3 text-sm uppercase tracking-wider border-b border-white/5 transition-colors hover:text-accent-glow ${
+                    link.highlight ? "font-bold text-accent-glow" : "font-medium text-gray-400"
+                  }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Let&apos;s Talk
+                  {link.label}
                 </Link>
               </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+            <div className="pt-4">
+              <Link
+                href="/contact"
+                className="block w-full text-center text-sm font-bold text-black bg-accent px-5 py-3 uppercase tracking-wider"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Let&apos;s Talk
+              </Link>
+            </div>
+          </nav>
+        </div>
+      </div>
     </header>
   );
 }

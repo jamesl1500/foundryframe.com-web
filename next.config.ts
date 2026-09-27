@@ -22,7 +22,7 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.google.com https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://res.public.onecdn.static.microsoft",
+  "connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://*.googletagmanager.com https://www.google.com https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://res.public.onecdn.static.microsoft",
   "frame-src 'self' https://tawk.to",
   "object-src 'none'",
   "base-uri 'self'",

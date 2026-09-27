@@ -15,7 +15,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import type { AuditRead } from "@/lib/audit/types";
 import { trackEvent } from "@/lib/analytics";
 
@@ -33,8 +32,6 @@ const SCAN_STAGES = [
 const POLL_INTERVAL_MS = 2500;
 const POLL_TIMEOUT_MS = 120_000;
 
-const easeOut = [0.16, 1, 0.3, 1] as const;
-
 export default function AuditForm() {
   const router = useRouter();
   const [step, setStep] = useState<Step>("url");
@@ -44,6 +41,9 @@ export default function AuditForm() {
   const [company, setCompany] = useState("");
   const [error, setError] = useState("");
   const [stageIndex, setStageIndex] = useState(0);
+  // The first step renders without an entrance animation so it's visible in
+  // the server HTML; later step changes animate in.
+  const [hasChangedStep, setHasChangedStep] = useState(false);
 
   const pollTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const stageTimer = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -60,6 +60,7 @@ export default function AuditForm() {
     e.preventDefault();
     if (!url.trim()) return;
     setError("");
+    setHasChangedStep(true);
     setStep("contact");
   }
 
@@ -149,15 +150,11 @@ export default function AuditForm() {
 
   return (
     <div className="relative">
-      <AnimatePresence mode="wait">
         {step === "url" && (
-          <motion.form
+          <form
             key="url"
             onSubmit={handleUrlSubmit}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.4, ease: easeOut }}
+            className={hasChangedStep ? "animate-step-in" : undefined}
           >
             <div className="flex flex-col sm:flex-row gap-3">
               <input
@@ -178,18 +175,14 @@ export default function AuditForm() {
             <p className="text-gray-500 text-xs mt-3">
               Takes about a minute. No credit card, no obligation.
             </p>
-          </motion.form>
+          </form>
         )}
 
         {step === "contact" && (
-          <motion.form
+          <form
             key="contact"
             onSubmit={handleContactSubmit}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.4, ease: easeOut }}
-            className="glass p-6 sm:p-8"
+            className="animate-step-in glass p-6 sm:p-8"
           >
             <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">Auditing</p>
             <p className="text-white font-heading font-bold text-xl mb-6 break-all">{url}</p>
@@ -238,60 +231,37 @@ export default function AuditForm() {
             <p className="text-gray-500 text-xs mt-3">
               We&apos;ll email your full report and never spam you.
             </p>
-          </motion.form>
+          </form>
         )}
 
         {step === "scanning" && (
-          <motion.div
+          <div
             key="scanning"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.4, ease: easeOut }}
-            className="glass p-8 sm:p-12 text-center"
+            className="animate-step-in glass p-8 sm:p-12 text-center"
           >
             <div className="mx-auto mb-6 h-16 w-16 relative">
               <div className="absolute inset-0 border-2 border-accent/30 rounded-full" />
-              <motion.div
-                className="absolute inset-0 border-2 border-t-accent border-r-transparent border-b-transparent border-l-transparent rounded-full"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-              />
+              <div className="absolute inset-0 border-2 border-t-accent border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin" />
             </div>
             <p className="text-white font-heading font-bold text-xl mb-2">
               Scanning {url}
             </p>
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={stageIndex}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.3 }}
-                className="text-gray-400 text-sm"
-              >
-                {SCAN_STAGES[stageIndex]}
-              </motion.p>
-            </AnimatePresence>
+            <p key={stageIndex} className="animate-stage-in text-gray-400 text-sm">
+              {SCAN_STAGES[stageIndex]}
+            </p>
             <div className="mt-6 h-1 w-full max-w-sm mx-auto bg-white/10 overflow-hidden">
-              <motion.div
+              <div
                 className="h-full bg-accent"
-                initial={{ width: "5%" }}
-                animate={{ width: "92%" }}
-                transition={{ duration: POLL_TIMEOUT_MS / 1000, ease: "linear" }}
+                style={{ animation: `scan-progress ${POLL_TIMEOUT_MS / 1000}s linear forwards` }}
               />
             </div>
-          </motion.div>
+          </div>
         )}
 
         {step === "error" && (
-          <motion.div
+          <div
             key="error"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.4, ease: easeOut }}
-            className="glass border-red-400/30 p-8 text-center"
+            className="animate-step-in glass border-red-400/30 p-8 text-center"
           >
             <p className="text-white font-heading font-bold text-xl mb-2">
               We hit a snag
@@ -303,9 +273,8 @@ export default function AuditForm() {
             >
               Try Again
             </button>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
     </div>
   );
 }
