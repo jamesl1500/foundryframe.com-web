@@ -10,6 +10,7 @@
 
 import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
+import PackageHighlights from "@/components/PackageHighlights";
 import Link from "next/link";
 import {
   formatPriceLabel,
@@ -18,16 +19,16 @@ import {
 } from "@/lib/cms/public-data";
 
 export const metadata: Metadata = {
-  title: "Website & Marketing Packages",
+  title: "Web Design Packages & Pricing",
   description:
-    "Explore Foundry Frame's full range of packages: website design, launch bundles, maintenance plans, and marketing packages.",
+    "Website packages from $1,500, launch bundles from $2,500, maintenance plans from $99/mo, and marketing from $500/mo. Transparent pricing for Ohio businesses.",
   alternates: {
     canonical: "/packages",
   },
   openGraph: {
-    title: "Website & Marketing Packages",
+    title: "Web Design Packages & Pricing",
     description:
-      "Transparent website, launch, maintenance, and marketing packages built to help small businesses grow.",
+      "Website packages, launch bundles, maintenance plans, and marketing packages with transparent starting prices.",
     url: "/packages",
     type: "website",
     images: [
@@ -41,9 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Website & Marketing Packages",
+    title: "Web Design Packages & Pricing",
     description:
-      "Transparent website, launch, maintenance, and marketing packages built to help small businesses grow.",
+      "Website packages, launch bundles, maintenance plans, and marketing packages with transparent starting prices.",
     images: ["/twitter-image"],
   },
 };
@@ -189,6 +190,14 @@ export default async function PackagesPage() {
           </div>
         </div>
       </section>
+
+      {/* =============================================
+          FEATURED: LAUNCH BUNDLES + MAINTENANCE PLANS
+          ============================================= */}
+      <PackageHighlights
+        heading="Start with a launch bundle. Stay sharp with a maintenance plan."
+        showAllLink={false}
+      />
 
       {/* =============================================
           CATEGORY GRID

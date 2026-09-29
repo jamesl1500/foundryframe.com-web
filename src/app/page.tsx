@@ -13,6 +13,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
+import PackageHighlights from "@/components/PackageHighlights";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import { getPublishedServices } from "@/lib/cms/public-data";
@@ -230,6 +231,11 @@ export default async function Home() {
           </StaggerContainer>
         </div>
       </section>
+
+      {/* =============================================
+          PACKAGES
+          ============================================= */}
+      <PackageHighlights />
 
       {/* =============================================
           INDUSTRIES MARQUEE

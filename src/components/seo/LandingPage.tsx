@@ -11,6 +11,7 @@
 
 import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
+import PackageHighlights from "@/components/PackageHighlights";
 import { BOOKING_URL } from "@/lib/analytics";
 
 type Feature = { title: string; description: string };
@@ -151,6 +152,11 @@ export default function LandingPage({
           </ul>
         </div>
       </section>
+
+      {/* =============================================
+          PACKAGES
+          ============================================= */}
+      <PackageHighlights />
 
       {/* =============================================
           AUDIT LEAD CAPTURE
