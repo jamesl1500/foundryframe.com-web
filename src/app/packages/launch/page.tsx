@@ -15,16 +15,16 @@ import { parsePriceSpecification } from "@/lib/schema-price";
 const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
-  title: "Launch Bundles",
+  title: "Website + Branding Launch Bundles",
   description:
-    "Complete digital launch bundles from Foundry Frame — website, brand identity, SEO, and maintenance in one cohesive engagement.",
+    "Launch bundles from $2,500: a custom website, logo and brand identity, SEO setup, and months of maintenance in one package for Ohio small businesses.",
   alternates: {
     canonical: "/packages/launch",
   },
   openGraph: {
-    title: "Launch Bundles",
+    title: "Website + Branding Launch Bundles",
     description:
-      "Launch your brand with bundled website, identity, SEO, and support packages.",
+      "A custom website, brand identity, and months of maintenance in one package. Ignite, Velocity, Ascend, and Apex from $2,500.",
     url: "/packages/launch",
     type: "website",
     images: [
@@ -38,9 +38,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Launch Bundles",
+    title: "Website + Branding Launch Bundles",
     description:
-      "Launch your brand with bundled website, identity, SEO, and support packages.",
+      "A custom website, brand identity, and months of maintenance in one package. Ignite, Velocity, Ascend, and Apex from $2,500.",
     images: ["/twitter-image"],
   },
 };
@@ -138,16 +138,61 @@ const bundles = [
    ============================================================ */
 const offersStructuredData = {
   "@context": "https://schema.org",
-  "@type": "OfferCatalog",
-  name: "Launch Bundles",
+  "@type": "Service",
+  name: "Website Launch Bundles",
+  serviceType: "Website design and branding package",
+  description:
+    "Bundled packages combining a custom website, brand identity, SEO setup, and ongoing maintenance in one engagement.",
   url: `${siteUrl}/packages/launch`,
-  itemListElement: bundles.map((bundle) => ({
-    "@type": "Offer",
-    name: bundle.name,
-    description: bundle.tagline,
-    priceSpecification: parsePriceSpecification(
-      bundle.pricePrefix ? `${bundle.pricePrefix} ${bundle.price}` : bundle.price
-    ),
+  provider: { "@id": `${siteUrl}/#organization` },
+  areaServed: [
+    { "@type": "State", name: "Ohio" },
+    { "@type": "Country", name: "United States" },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Launch Bundles",
+    itemListElement: bundles.map((bundle) => ({
+      "@type": "Offer",
+      name: `${bundle.name} Launch Bundle`,
+      description: bundle.tagline,
+      url: `${siteUrl}/packages/launch`,
+      priceSpecification: parsePriceSpecification(
+        bundle.pricePrefix ? `${bundle.pricePrefix} ${bundle.price}` : bundle.price
+      ),
+    })),
+  },
+};
+
+/* ============================================================
+   DATA: FAQ
+   ============================================================ */
+const faqs = [
+  {
+    q: "What is a launch bundle?",
+    a: "A launch bundle packages a custom website, brand identity, and ongoing maintenance into one engagement with one team and one timeline. The larger bundles add SEO, paid ads, and social media management.",
+  },
+  {
+    q: "How much does a launch bundle cost?",
+    a: "Ignite starts at $2,500, Velocity at $6,500, Ascend at $14,000, and Apex at $28,000. Every price is a starting point; we confirm the exact number on a free, no-obligation call.",
+  },
+  {
+    q: "How is a launch bundle different from a website package?",
+    a: "A website package is the site itself. A launch bundle adds a logo or full brand identity and months of website maintenance, and on Velocity and up, SEO setup, analytics, ads, or social media, so everything launches together.",
+  },
+  {
+    q: "What happens when the included maintenance ends?",
+    a: "You can continue on any of our Maintenance Plans: Steady from $99/mo, Active from $249/mo, or Elite from $499/mo.",
+  },
+];
+
+const faqStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: { "@type": "Answer", text: faq.a },
   })),
 };
 
@@ -175,6 +220,10 @@ export default function LaunchBundlesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
 
       {/* =============================================
           HERO
@@ -188,10 +237,10 @@ export default function LaunchBundlesPage() {
             &larr; All Packages
           </Link>
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
-            Launch Bundles
+            Launch Bundles &middot; From $2,500
           </p>
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
-            Everything in one move
+            Website + brand, in one move
           </h1>
           <p className="text-gray-500 text-sm mt-6 max-w-lg">
             Our launch bundles combine a custom website, brand identity, and
@@ -351,6 +400,45 @@ export default function LaunchBundlesPage() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* =============================================
+          FAQ
+          ============================================= */}
+      <section className="py-24 lg:py-32 bg-gray-900 border-t border-white/10">
+        <div className="max-w-3xl mx-auto px-6 lg:px-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+            Questions
+          </p>
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-12">
+            Launch bundle FAQ
+          </h2>
+          <div className="border-t border-white/10">
+            {faqs.map((faq) => (
+              <details key={faq.q} className="group border-b border-white/10">
+                <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+                  <span className="pr-6">{faq.q}</span>
+                  <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <div className="pb-5 text-gray-400 text-sm leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+          <p className="text-gray-500 text-sm mt-10">
+            Already have a website?{" "}
+            <Link
+              href="/packages/maintenance"
+              className="text-white border-b border-white/30 pb-0.5 hover:border-white transition-colors"
+            >
+              Website Maintenance Plans
+            </Link>{" "}
+            start at $99/mo.
+          </p>
         </div>
       </section>
 

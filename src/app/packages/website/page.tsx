@@ -15,14 +15,14 @@ import { parsePriceSpecification } from "@/lib/schema-price";
 const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
-  title: "Website Packages",
+  title: "Custom Website Packages from $1,500",
   description:
     "Custom website design packages from Foundry Frame — from a clean 5-page launch site to a full enterprise build. Starting at $1,500. No templates, no shortcuts.",
   alternates: {
     canonical: "/packages/website",
   },
   openGraph: {
-    title: "Website Packages",
+    title: "Custom Website Packages from $1,500",
     description:
       "Custom websites starting at $1,500, up to enterprise builds. No templates. Built to convert.",
     url: "/packages/website",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Website Packages",
+    title: "Custom Website Packages from $1,500",
     description:
       "Custom websites starting at $1,500, up to enterprise builds. No templates. Built to convert.",
     images: ["/twitter-image"],
@@ -257,7 +257,7 @@ export default function WebsitePackagesPage() {
             Website Packages
           </p>
           <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
-            Built for results
+            Custom websites, built for results
           </h1>
           <p className="text-gray-500 text-sm mt-6 max-w-lg">
             Every website we build is fully custom. No templates, no shortcuts —
