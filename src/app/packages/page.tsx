@@ -182,10 +182,10 @@ export default async function PackagesPage() {
               Book a Free Call
             </Link>
             <Link
-              href="/contact"
+              href="/packages/builder"
               className="px-6 py-3 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
             >
-              Get a Custom Quote
+              Build Your Package
             </Link>
           </div>
         </div>
@@ -266,12 +266,20 @@ export default async function PackagesPage() {
               goals and we&apos;ll point you toward the right package — or build
               a custom scope that fits exactly.
             </p>
-            <Link
-              href="/contact"
-              className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
-            >
-              Get in Touch
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/packages/builder"
+                className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+              >
+                Build Your Package
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-block px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+              >
+                Get in Touch
+              </Link>
+            </div>
           </div>
         </div>
       </section>

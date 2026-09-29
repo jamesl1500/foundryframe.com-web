@@ -66,6 +66,14 @@ Saved searches re-run daily through `/api/cron/lead-finder` (scheduled in `verce
 
 Before first use, apply `supabase/migrations/20260923000000_lead_finder.sql` to the Supabase project (SQL editor or `supabase db push`).
 
+## Package Builder
+
+`/packages/builder` lets visitors assemble their own package (a website tier or launch bundle, add-ons, a maintenance plan, a marketing plan), see the one-time and monthly price update live, and pick a preferred meeting day and time. On submit, `/api/package-quote` re-prices the package from `src/lib/package-builder/catalog.ts`, saves it to the `package_quotes` table, and emails the itemized quote to jlatten@foundryframe.com and leads@foundryframe.com. The visitor then gets a button to book an exact time on the Google Calendar booking page.
+
+Quotes show up in `/admin/quotes`, where each one can be moved through New, Contacted, Meeting booked, Won, and Lost. Prices in `catalog.ts` mirror the public package pages; change both together.
+
+Before first use, apply `supabase/migrations/20260929000000_package_quotes.sql` to the Supabase project. Until then, quotes are still emailed but not saved.
+
 Generated previews are available at:
 
 - `/lead-preview/[slug]`
