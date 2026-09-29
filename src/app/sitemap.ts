@@ -20,6 +20,7 @@ const staticRoutes = [
   "/locations",
   "/industries",
   "/packages",
+  "/packages/builder",
   "/packages/website",
   "/packages/launch",
   "/packages/maintenance",
