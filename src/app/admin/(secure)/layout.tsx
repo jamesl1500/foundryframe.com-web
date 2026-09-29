@@ -48,6 +48,12 @@ export default async function SecureAdminLayout({
           >
             Lead Finder
           </Link>
+          <Link
+            href="/admin/quotes"
+            className="px-3 py-2 border border-emerald-300/30 text-[10px] uppercase tracking-widest text-emerald-200 hover:text-white hover:bg-emerald-500/10"
+          >
+            Package Quotes
+          </Link>
           {CMS_ENTITIES.map((entity) => (
             <Link
               key={entity}
