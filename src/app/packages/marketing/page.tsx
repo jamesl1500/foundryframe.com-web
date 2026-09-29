@@ -14,14 +14,14 @@ import { parsePriceSpecification } from "@/lib/schema-price";
 const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
-  title: "Marketing Packages",
+  title: "Digital Marketing Packages from $500/mo",
   description:
     "Digital marketing packages from Foundry Frame — SEO, social media, paid ads, and content that turn your website into a consistent lead generation engine.",
   alternates: {
     canonical: "/packages/marketing",
   },
   openGraph: {
-    title: "Marketing Packages",
+    title: "Digital Marketing Packages from $500/mo",
     description:
       "SEO, content, social, and paid ads packages that turn traffic into qualified leads.",
     url: "/packages/marketing",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marketing Packages",
+    title: "Digital Marketing Packages from $500/mo",
     description:
       "SEO, content, social, and paid ads packages that turn traffic into qualified leads.",
     images: ["/twitter-image"],
