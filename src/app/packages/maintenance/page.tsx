@@ -14,16 +14,16 @@ import { parsePriceSpecification } from "@/lib/schema-price";
 const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
-  title: "Maintenance Plans",
+  title: "Website Maintenance Plans from $99/mo",
   description:
-    "Managed website maintenance plans from Foundry Frame. Keep your site fast, secure, and continuously improving — without lifting a finger.",
+    "Website maintenance plans from $99/mo. We handle updates, security, backups, uptime monitoring, and content changes for Ohio small business websites.",
   alternates: {
     canonical: "/packages/maintenance",
   },
   openGraph: {
-    title: "Maintenance Plans",
+    title: "Website Maintenance Plans from $99/mo",
     description:
-      "Managed website maintenance to keep your site secure, fast, and conversion-ready.",
+      "Updates, security, backups, and content changes handled every month. Steady, Active, and Elite plans from $99/mo.",
     url: "/packages/maintenance",
     type: "website",
     images: [
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maintenance Plans",
+    title: "Website Maintenance Plans from $99/mo",
     description:
-      "Managed website maintenance to keep your site secure, fast, and conversion-ready.",
+      "Updates, security, backups, and content changes handled every month. Steady, Active, and Elite plans from $99/mo.",
     images: ["/twitter-image"],
   },
 };
@@ -118,16 +118,61 @@ const plans = [
    ============================================================ */
 const offersStructuredData = {
   "@context": "https://schema.org",
-  "@type": "OfferCatalog",
-  name: "Maintenance Plans",
+  "@type": "Service",
+  name: "Website Maintenance Plans",
+  serviceType: "Website maintenance",
+  description:
+    "Managed website maintenance: software updates, security monitoring, backups, uptime monitoring, and content updates.",
   url: `${siteUrl}/packages/maintenance`,
-  itemListElement: plans.map((plan) => ({
-    "@type": "Offer",
-    name: plan.name,
-    description: plan.tagline,
-    priceSpecification: parsePriceSpecification(
-      plan.pricePrefix ? `${plan.pricePrefix} ${plan.price}` : plan.price
-    ),
+  provider: { "@id": `${siteUrl}/#organization` },
+  areaServed: [
+    { "@type": "State", name: "Ohio" },
+    { "@type": "Country", name: "United States" },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Maintenance Plans",
+    itemListElement: plans.map((plan) => ({
+      "@type": "Offer",
+      name: `${plan.name} Maintenance`,
+      description: plan.tagline,
+      url: `${siteUrl}/packages/maintenance`,
+      priceSpecification: parsePriceSpecification(
+        plan.pricePrefix ? `${plan.pricePrefix} ${plan.price}` : plan.price
+      ),
+    })),
+  },
+};
+
+/* ============================================================
+   DATA: FAQ
+   ============================================================ */
+const faqs = [
+  {
+    q: "What does a website maintenance plan include?",
+    a: "Every plan covers software and plugin updates, security monitoring, 24/7 uptime monitoring, offsite backups, and performance reporting. Active adds bi-weekly updates, weekly backups, a developer hour, and up to 2 content updates a month. Elite adds weekly updates, daily backups, 3 developer hours, up to 6 content updates, emergency recovery, and priority phone support.",
+  },
+  {
+    q: "How much does website maintenance cost?",
+    a: "Steady starts at $99/mo, Active at $249/mo, and Elite at $499/mo. Every price is a starting point; we confirm the exact number on a free, no-obligation call.",
+  },
+  {
+    q: "Which maintenance plan is right for my business?",
+    a: "Steady fits a site that rarely changes and just needs to stay secure and online. Active fits a business that updates its site regularly, such as new services, staff, or offers. Elite fits a business where downtime means lost revenue and you want a retained team on call.",
+  },
+  {
+    q: "Do Launch Bundles include maintenance?",
+    a: "Yes. Ignite includes 1 month of Steady Maintenance, Velocity includes 3 months of Active, Ascend includes 6 months of Active, and Apex includes 12 months of Elite. After that, you can continue on any plan.",
+  },
+];
+
+const faqStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: { "@type": "Answer", text: faq.a },
   })),
 };
 
@@ -155,6 +200,10 @@ export default function MaintenancePlansPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
 
       {/* =============================================
           HERO
@@ -168,13 +217,13 @@ export default function MaintenancePlansPage() {
             &larr; All Packages
           </Link>
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
-            Maintenance Plans
+            Maintenance Plans &middot; From $99/mo
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
-            Launch is day one
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+            Website maintenance, handled
           </h1>
           <p className="text-gray-500 text-sm mt-6 max-w-lg">
-            A site that goes unmaintained gets hacked, slows down, breaks on
+            Launch is day one, not the finish line. A site that goes unmaintained gets hacked, slows down, breaks on
             updates, and falls in search rankings. Our plans keep your digital
             presence fast, secure, and continuously improving — without you ever
             having to think about it.
@@ -304,6 +353,45 @@ export default function MaintenancePlansPage() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* =============================================
+          FAQ
+          ============================================= */}
+      <section className="py-24 lg:py-32 bg-gray-900 border-t border-white/10">
+        <div className="max-w-3xl mx-auto px-6 lg:px-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+            Questions
+          </p>
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-12">
+            Website maintenance FAQ
+          </h2>
+          <div className="border-t border-white/10">
+            {faqs.map((faq) => (
+              <details key={faq.q} className="group border-b border-white/10">
+                <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+                  <span className="pr-6">{faq.q}</span>
+                  <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                    +
+                  </span>
+                </summary>
+                <div className="pb-5 text-gray-400 text-sm leading-relaxed">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+          <p className="text-gray-500 text-sm mt-10">
+            Launching a new site?{" "}
+            <Link
+              href="/packages/launch"
+              className="text-white border-b border-white/30 pb-0.5 hover:border-white transition-colors"
+            >
+              Launch Bundles
+            </Link>{" "}
+            include months of maintenance from day one.
+          </p>
         </div>
       </section>
 
