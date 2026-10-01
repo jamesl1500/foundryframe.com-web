@@ -189,7 +189,7 @@ export default function AboutPage() {
                   X
                 </a>
                 <a
-                  href="https://www.facebook.com/profile.php?id=61594467310063"
+                  href="https://www.facebook.com/foundry.frame"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-500 pb-0.5 hover:text-white hover:border-white transition-colors"

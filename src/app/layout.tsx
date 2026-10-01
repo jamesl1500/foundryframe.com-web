@@ -86,7 +86,7 @@ const structuredData = {
         "https://www.linkedin.com/company/foundry-frame/",
         "https://www.instagram.com/foundry_frame/",
         "https://x.com/FoundryFrame",
-        "https://www.facebook.com/profile.php?id=61594467310063",
+        "https://www.facebook.com/foundry.frame",
       ],
     },
     {
@@ -125,7 +125,7 @@ const structuredData = {
         "https://www.linkedin.com/company/foundry-frame/",
         "https://www.instagram.com/foundry_frame/",
         "https://x.com/FoundryFrame",
-        "https://www.facebook.com/profile.php?id=61594467310063",
+        "https://www.facebook.com/foundry.frame",
       ],
     },
   ],
