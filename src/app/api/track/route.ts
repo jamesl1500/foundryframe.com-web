@@ -5,8 +5,8 @@
  * sent with the same event ID as the browser pixel so Meta deduplicates
  * them. Catches conversions the pixel misses (ad blockers, iOS privacy).
  *
- * Needs NEXT_PUBLIC_META_PIXEL_ID and META_CAPI_ACCESS_TOKEN. Without them
- * it quietly does nothing. Set META_CAPI_TEST_EVENT_CODE to see events in
+ * Needs META_PIXEL_CONVERSIONS_API, the access token (the pixel ID defaults to Foundry Frame's).
+ * Without the token it quietly does nothing. Set META_CAPI_TEST_EVENT_CODE to see events in
  * Events Manager > Test Events while checking the setup.
  *
  * @author James Latten
@@ -15,10 +15,10 @@
 
 import { createHash } from "node:crypto";
 import { cookies, headers } from "next/headers";
-import { META_EVENT_NAMES, type MetaEventName } from "@/lib/analytics";
+import { META_EVENT_NAMES, META_PIXEL_ID, type MetaEventName } from "@/lib/analytics";
 
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
-const ACCESS_TOKEN = process.env.META_CAPI_ACCESS_TOKEN;
+const PIXEL_ID = META_PIXEL_ID;
+const ACCESS_TOKEN = process.env.META_PIXEL_CONVERSIONS_API || process.env.META_CAPI_ACCESS_TOKEN;
 const TEST_EVENT_CODE = process.env.META_CAPI_TEST_EVENT_CODE;
 const GRAPH_API_VERSION = process.env.META_GRAPH_API_VERSION || "v23.0";
 const SITE_HOSTS = ["foundryframe.com", "www.foundryframe.com", "localhost"];

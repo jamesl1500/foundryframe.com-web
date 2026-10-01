@@ -26,7 +26,7 @@ export const BOOKING_URL = "https://calendar.app.google/BugYDt3yg1oWBfpH7";
 /* --- Tracking IDs (all public; set in the deployment's env vars) --- */
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-2723XGFRH7";
 export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
-export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "";
+export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "28899294216427049";
 
 /* Each env var is read by its literal name so Next can inline it. */
 const GOOGLE_ADS_LABELS = {

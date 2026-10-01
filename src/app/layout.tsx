@@ -234,7 +234,7 @@ export default function RootLayout({
             ${GOOGLE_ADS_ID ? `gtag('config', ${JSON.stringify(GOOGLE_ADS_ID)});` : ""}
           `}
         </Script>
-        {/* Meta Pixel: only loads once NEXT_PUBLIC_META_PIXEL_ID is set. */}
+        {/* Meta Pixel (ID from NEXT_PUBLIC_META_PIXEL_ID, defaulting to Foundry Frame's). */}
         {META_PIXEL_ID ? (
           <Script id="meta-pixel" strategy="afterInteractive">
             {`
@@ -247,6 +247,18 @@ export default function RootLayout({
               fbq('track', 'PageView');
             `}
           </Script>
+        ) : null}
+        {META_PIXEL_ID ? (
+          <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              alt=""
+              src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+            />
+          </noscript>
         ) : null}
         <script
           type="application/ld+json"

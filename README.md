@@ -49,8 +49,8 @@ Ad and conversion tracking (all optional; each piece turns on once its variable 
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` (GA4, defaults to the current `G-2723XGFRH7`)
 - `NEXT_PUBLIC_GOOGLE_ADS_ID` (Google Ads tag, e.g. `AW-123456789`)
 - `NEXT_PUBLIC_GOOGLE_ADS_LABEL_AUDIT`, `NEXT_PUBLIC_GOOGLE_ADS_LABEL_CONTACT`, `NEXT_PUBLIC_GOOGLE_ADS_LABEL_BOOKING`, `NEXT_PUBLIC_GOOGLE_ADS_LABEL_CALL` (the label after the `/` in each Google Ads conversion action's `send_to`; the contact label also covers the package builder and Founding Client forms)
-- `NEXT_PUBLIC_META_PIXEL_ID` (Meta Pixel)
-- `META_CAPI_ACCESS_TOKEN` (Meta Conversions API, server only; generate in Events Manager > Settings)
+- `NEXT_PUBLIC_META_PIXEL_ID` (Meta Pixel, defaults to `28899294216427049`)
+- `META_PIXEL_CONVERSIONS_API` (Meta Conversions API access token, server only; `META_CAPI_ACCESS_TOKEN` also works)
 - `META_CAPI_TEST_EVENT_CODE` (optional, shows server events under Events Manager > Test Events while checking the setup)
 
 ## Lead Website Generator Workflow
