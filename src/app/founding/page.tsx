@@ -2,7 +2,7 @@
  * Founding Clients - Foundry Frame
  * ==================================
  * Landing page for the Founding Client offer: a small number of first
- * clients who work directly with James at founding-client pricing in
+ * clients who get 20% off a launch bundle (plus a design-approval guarantee) in
  * exchange for feedback and a case study. Short application form.
  *
  * @author James Latten
@@ -13,10 +13,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import FoundingForm from "@/components/FoundingForm";
 import { BOOKING_URL } from "@/lib/analytics";
-import { BUSINESS_HOURS_PHRASE, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
+import { BUSINESS_HOURS_PHRASE, FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
 
 const pageTitle = "Founding Client Program | New Website for Your Business";
-const pageDescription = `Foundry Frame is taking on ${FOUNDING_SPOTS_OPEN} Founding Clients: small businesses that get a custom website built directly by the founder at founding-client pricing.`;
+const pageDescription = `Foundry Frame is taking its first ${FOUNDING_SPOTS_OPEN} clients this quarter: 20% off any launch bundle, built by the founder, with a design-approval guarantee.`;
 
 export const metadata: Metadata = {
   title: pageTitle,
@@ -46,25 +46,40 @@ export const metadata: Metadata = {
   },
 };
 
+/* Launch bundle starting prices (keep in sync with /packages/launch). */
+const bundlePrices = [
+  { name: "Ignite", price: 2500 },
+  { name: "Velocity", price: 6500 },
+  { name: "Ascend", price: 14000 },
+  { name: "Apex", price: 28000 },
+] as const;
+
+const formatUsd = (value: number) => `$${value.toLocaleString("en-US")}`;
+
 const benefits = [
   {
-    title: "Founding-client pricing",
-    body: "A reduced rate on any website or launch bundle, locked in for your project. James confirms the exact number with you on a call before anything is signed.",
+    title: `${FOUNDING_DISCOUNT_PERCENT}% off any launch bundle`,
+    body: "Founding pricing on every launch bundle: a custom website, brand identity, and months of maintenance in one package.",
+  },
+  {
+    title: "Design-approval guarantee",
+    body: "If you don't love your homepage design after two revision rounds, you walk away and owe only the deposit.",
+  },
+  {
+    title: "Pay in installments",
+    body: "Split your project into 2 to 4 payments instead of paying it all up front.",
   },
   {
     title: "Built by the founder",
     body: "No account managers or hand-offs. James designs and codes your site himself, and you talk to him directly at every step.",
   },
-  {
-    title: "Custom, not a template",
-    body: "A hand-built, fast, mobile-first site with on-page SEO and a clear path for visitors to call, book, or buy.",
-  },
 ] as const;
 
 const asks = [
-  "Honest feedback during and after the project",
-  "Permission to feature your finished site as a case study",
-  "A short testimonial if you're happy with the result",
+  "A written testimonial and a short video testimonial",
+  "A Google review",
+  "Permission for a full case study with before-and-after numbers",
+  "Your logo on our site",
 ] as const;
 
 const steps = [
@@ -80,15 +95,15 @@ export default function FoundingPage() {
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">
-            {FOUNDING_SPOTS_OPEN} Founding Client spots open
+            {FOUNDING_SPOTS_OPEN} Founding Client spots this quarter
           </p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.95] tracking-tight max-w-4xl mb-6">
             Be one of our first clients. Get a better deal for it.
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl mb-10">
-            Foundry Frame is a new, founder-led studio in Lorain, Ohio. We&apos;re taking on{" "}
-            {FOUNDING_SPOTS_OPEN} small businesses as Founding Clients: you get a custom website at
-            founding-client pricing, and we get a real project to show the next client.
+            Foundry Frame is a new, founder-led studio in Lorain, Ohio, and we&apos;re taking our first
+            clients. {FOUNDING_SPOTS_OPEN} small businesses this quarter get {FOUNDING_DISCOUNT_PERCENT}% off any
+            launch bundle. In return, you help us show the next client what we can do.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <a
@@ -113,13 +128,36 @@ export default function FoundingPage() {
       <section className="py-24 lg:py-32 bg-black border-b border-white/10">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-8">What you get</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
             {benefits.map((benefit) => (
               <div key={benefit.title} className="bg-black p-8 lg:p-10">
                 <h2 className="text-2xl font-heading font-bold text-white mb-3">{benefit.title}</h2>
                 <p className="text-sm text-gray-400 leading-relaxed">{benefit.body}</p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-20">
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Founding pricing</p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+              {bundlePrices.map((bundle) => (
+                <div key={bundle.name} className="bg-black p-6 lg:p-8">
+                  <p className="text-white font-heading font-bold text-xl mb-3">{bundle.name}</p>
+                  <p className="text-gray-500 text-sm line-through">{formatUsd(bundle.price)}</p>
+                  <p className="text-accent-glow text-3xl font-heading font-bold">
+                    {formatUsd(Math.round(bundle.price * (1 - FOUNDING_DISCOUNT_PERCENT / 100)))}
+                  </p>
+                  <p className="text-gray-600 text-[10px] uppercase tracking-widest mt-2">Starting price</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-gray-500 text-xs mt-4">
+              See what each bundle includes on the{" "}
+              <Link href="/packages/launch" className="text-white underline underline-offset-4">
+                Launch Bundles
+              </Link>{" "}
+              page.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-20">

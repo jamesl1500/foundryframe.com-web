@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import { getPublishedCaseStudies } from "@/lib/cms/public-data";
-import { isInHouseProduct } from "@/lib/site-facts";
+import { FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN, isInHouseProduct } from "@/lib/site-facts";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -110,9 +110,9 @@ export default async function CaseStudiesPage() {
               Want to be our first client case study?
             </h2>
             <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
-              We&apos;re taking on a few Founding Clients who work directly with James at
-              founding-client pricing. Tell us what you&apos;re building and we&apos;ll map out
-              the right scope and next steps.
+              We&apos;re taking {FOUNDING_SPOTS_OPEN} Founding Clients this quarter, at{" "}
+              {FOUNDING_DISCOUNT_PERCENT}% off any launch bundle. Tell us what you&apos;re building
+              and we&apos;ll map out the right scope and next steps.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link

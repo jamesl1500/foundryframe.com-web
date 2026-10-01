@@ -35,6 +35,7 @@ export const OPENING_HOURS_SPECIFICATION = [
 
 /* --- Founding Client offer --- */
 export const FOUNDING_SPOTS_OPEN = 3;
+export const FOUNDING_DISCOUNT_PERCENT = 20;
 
 /* --- In-house products ---
    Case studies for products Foundry Frame built and runs itself (not client

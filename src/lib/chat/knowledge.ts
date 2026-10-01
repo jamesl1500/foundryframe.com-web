@@ -11,7 +11,7 @@
  */
 
 import { BOOKING_URL } from "@/lib/analytics";
-import { BUSINESS_HOURS_LINES, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
+import { BUSINESS_HOURS_LINES, FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
 
 export const SITE_KNOWLEDGE = `
 # Foundry Frame
@@ -75,7 +75,12 @@ Website, brand, and support combined in one engagement, one team, one timeline.
 - Industries: fitness, fashion, real estate, hospitality, healthcare, technology, automotive, construction, food and beverage, e-commerce, and more.
 
 ## Founding Client offer (/founding)
-Foundry Frame is new (founded 2026) and is taking on its first ${FOUNDING_SPOTS_OPEN} Founding Clients. Founding Clients work directly with James and get founding-client pricing in exchange for honest feedback and permission to feature the finished project as a case study. Exact pricing is confirmed on a call. Apply with the short form at /founding.
+Foundry Frame is new (founded 2026) and is taking its first clients: ${FOUNDING_SPOTS_OPEN} Founding Client spots this quarter.
+- ${FOUNDING_DISCOUNT_PERCENT}% off any launch bundle (for example Ignite $2,500 becomes $2,000, Velocity $6,500 becomes $5,200).
+- Design-approval guarantee: if they don't love the homepage design after two revision rounds, they can walk away and owe only the deposit.
+- Payment in 2 to 4 installments.
+- In return: a written and short video testimonial, a Google review, permission for a full case study with before-and-after numbers, and their logo on the Foundry Frame site.
+Apply with the short form at /founding.
 
 ## Past work
 The case studies on /case-studies (Syllaplan and PrereqPilot) are Foundry Frame's own in-house products, not client projects. Be upfront about that if asked about past clients.
