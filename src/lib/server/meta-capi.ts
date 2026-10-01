@@ -118,13 +118,21 @@ export async function sendMetaEvent(
   }
 }
 
-/** Sends a Lead event for a form that was just submitted successfully. */
+/**
+ * Sends a Lead event for a form that was just submitted successfully. Never
+ * throws: tracking is best-effort and must not turn a saved submission into
+ * an error response.
+ */
 export async function sendMetaLead(
   request: Request,
   body: Record<string, unknown> | null | undefined,
   lead: { contentName: string; value?: number; email?: string; name?: string }
 ): Promise<void> {
-  const eventId = parseEventId(body?.conversionId);
-  if (!eventId) return;
-  await sendMetaEvent(request, { eventName: "Lead", eventId, ...lead });
+  try {
+    const eventId = parseEventId(body?.conversionId);
+    if (!eventId) return;
+    await sendMetaEvent(request, { eventName: "Lead", eventId, ...lead });
+  } catch (error) {
+    console.error("Meta lead tracking failed:", error);
+  }
 }
