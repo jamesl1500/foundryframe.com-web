@@ -17,6 +17,8 @@ import Footer from "@/components/Footer";
 import CalendlyBadge from "@/components/CalendlyBadge";
 import ConversionTracking from "@/components/ConversionTracking";
 import SiteChat from "@/components/SiteChat";
+import { OPENING_HOURS_SPECIFICATION } from "@/lib/site-facts";
+import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID, META_PIXEL_ID } from "@/lib/analytics";
 
 /* --- Font Configuration --- */
 const inter = Inter({
@@ -79,14 +81,7 @@ const structuredData = {
         latitude: 41.468,
         longitude: -82.1884,
       },
-      openingHoursSpecification: [
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          opens: "09:00",
-          closes: "18:00",
-        },
-      ],
+      openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
       sameAs: [
         "https://www.linkedin.com/company/foundry-frame/",
         "https://www.instagram.com/foundry_frame/",
@@ -227,7 +222,7 @@ export default function RootLayout({
             with hydration on mobile; the tiny stub below defines gtag() early,
             so page views and trackEvent() calls queue in dataLayer until then. */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-2723XGFRH7"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="lazyOnload"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -235,9 +230,24 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-2723XGFRH7');
+            gtag('config', ${JSON.stringify(GA_MEASUREMENT_ID)});
+            ${GOOGLE_ADS_ID ? `gtag('config', ${JSON.stringify(GOOGLE_ADS_ID)});` : ""}
           `}
         </Script>
+        {/* Meta Pixel: only loads once NEXT_PUBLIC_META_PIXEL_ID is set. */}
+        {META_PIXEL_ID ? (
+          <Script id="meta-pixel" strategy="afterInteractive">
+            {`
+              !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+              n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+              document,'script','https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', ${JSON.stringify(META_PIXEL_ID)});
+              fbq('track', 'PageView');
+            `}
+          </Script>
+        ) : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -258,7 +268,7 @@ export default function RootLayout({
         {/* Floating AI chat that answers visitor questions */}
         <SiteChat />
 
-        {/* Reports lead-intent clicks (booking, phone, email, CTAs) to GA4 */}
+        {/* Reports lead-intent clicks (booking, phone, email, CTAs) to GA4, Google Ads and Meta */}
         <ConversionTracking />
       </body>
     </html>

@@ -11,6 +11,7 @@
  */
 
 import { BOOKING_URL } from "@/lib/analytics";
+import { BUSINESS_HOURS_LINES, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
 
 export const SITE_KNOWLEDGE = `
 # Foundry Frame
@@ -20,7 +21,7 @@ Foundry Frame is a founder-led creative design agency in Lorain, Ohio, founded i
 ## Contact
 - Phone: (216) 889-7822 (link: tel:+12168897822)
 - Email: jlatten@foundryframe.com (link: mailto:jlatten@foundryframe.com)
-- Hours: Monday to Friday, 9 AM to 6 PM Eastern
+- Hours: ${BUSINESS_HOURS_LINES.join("; ")}. James runs Foundry Frame around a day job, so he answers calls and email in those windows. The fastest way to reach him is to book a time on the calendar.
 - Book a free consultation: ${BOOKING_URL}
 - Contact form: /contact
 - Free website audit (scores SEO, speed, design and accessibility in about a minute): /audit
@@ -72,6 +73,12 @@ Website, brand, and support combined in one engagement, one team, one timeline.
 - Getting started: book a free consultation or use the contact page. After a discovery call, Foundry Frame sends a detailed proposal and timeline.
 - What's needed to start: a brief on goals, audience, and any existing brand assets; a questionnaire is provided during onboarding.
 - Industries: fitness, fashion, real estate, hospitality, healthcare, technology, automotive, construction, food and beverage, e-commerce, and more.
+
+## Founding Client offer (/founding)
+Foundry Frame is new (founded 2026) and is taking on its first ${FOUNDING_SPOTS_OPEN} Founding Clients. Founding Clients work directly with James and get founding-client pricing in exchange for honest feedback and permission to feature the finished project as a case study. Exact pricing is confirmed on a call. Apply with the short form at /founding.
+
+## Past work
+The case studies on /case-studies (Syllaplan and PrereqPilot) are Foundry Frame's own in-house products, not client projects. Be upfront about that if asked about past clients.
 
 ## Other pages
 - All packages overview: /packages

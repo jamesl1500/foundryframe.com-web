@@ -6,6 +6,7 @@ import {
   getPublishedCaseStudies,
   getPublishedCaseStudyBySlug,
 } from "@/lib/cms/public-data";
+import { isInHouseProduct } from "@/lib/site-facts";
 
 interface Params {
   slug: string;
@@ -71,6 +72,7 @@ export default async function CaseStudyDetailPage({
     notFound();
   }
 
+  const inHouse = isInHouseProduct(study);
   const metricItems = Array.isArray(study.metrics) ? study.metrics : [];
   const galleryImages = Array.isArray(study.gallery_urls)
     ? study.gallery_urls.filter((entry): entry is string => typeof entry === "string" && entry.trim().length > 0)
@@ -86,7 +88,14 @@ export default async function CaseStudyDetailPage({
           &larr; All Case Studies
         </Link>
 
-        <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">Case Study</p>
+        <div className="flex flex-wrap items-center gap-3 mb-4">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500">Case Study</p>
+          {inHouse ? (
+            <span className="text-[10px] uppercase tracking-widest border border-accent/40 text-accent-glow px-2 py-1">
+              In-house product
+            </span>
+          ) : null}
+        </div>
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.95] mb-4">
           {study.title}
         </h1>
@@ -94,6 +103,13 @@ export default async function CaseStudyDetailPage({
           {study.client_name}
           {study.industry ? ` · ${study.industry}` : ""}
         </p>
+
+        {inHouse ? (
+          <p className="text-sm text-gray-400 leading-relaxed border-l-2 border-accent/40 pl-4 mb-8">
+            {study.client_name || study.title} is Foundry Frame&apos;s own product. We designed, built, and
+            run it ourselves, so this is a look at our work rather than a client engagement.
+          </p>
+        ) : null}
 
         {study.summary ? <p className="text-gray-300 text-base leading-relaxed mb-10">{study.summary}</p> : null}
 

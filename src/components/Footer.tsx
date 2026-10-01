@@ -9,6 +9,8 @@
  */
 
 import Link from "next/link";
+import { BOOKING_URL } from "@/lib/analytics";
+import { BUSINESS_HOURS_LINES } from "@/lib/site-facts";
 
 /* --- Footer Navigation Columns --- */
 const footerColumns = [
@@ -21,6 +23,7 @@ const footerColumns = [
       { label: "Launch Bundles", href: "/packages/launch" },
       { label: "Maintenance Plans", href: "/packages/maintenance" },
       { label: "Free Website Audit", href: "/audit" },
+      { label: "Founding Clients", href: "/founding" },
       { label: "Contact", href: "/contact" },
     ],
   },
@@ -97,6 +100,21 @@ export default function Footer() {
                 className="block text-gray-400 text-sm hover:text-accent-glow transition-colors"
               >
                 jlatten@foundryframe.com
+              </a>
+              <p className="pt-3 text-gray-500 text-xs leading-relaxed">
+                {BUSINESS_HOURS_LINES.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
+              </p>
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block pt-1 text-accent-glow text-xs uppercase tracking-wider hover:text-white transition-colors"
+              >
+                Book a call &rarr;
               </a>
             </div>
 

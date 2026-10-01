@@ -44,6 +44,15 @@ Optional:
 - `LEAD_FINDER_MODEL` (Lead Finder's web search model, defaults to `claude-opus-5`)
 - `CRON_SECRET` (protects the daily Lead Finder job at `/api/cron/lead-finder`)
 
+Ad and conversion tracking (all optional; each piece turns on once its variable is set):
+
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` (GA4, defaults to the current `G-2723XGFRH7`)
+- `NEXT_PUBLIC_GOOGLE_ADS_ID` (Google Ads tag, e.g. `AW-123456789`)
+- `NEXT_PUBLIC_GOOGLE_ADS_LABEL_AUDIT`, `NEXT_PUBLIC_GOOGLE_ADS_LABEL_CONTACT`, `NEXT_PUBLIC_GOOGLE_ADS_LABEL_BOOKING`, `NEXT_PUBLIC_GOOGLE_ADS_LABEL_CALL` (the label after the `/` in each Google Ads conversion action's `send_to`; the contact label also covers the package builder and Founding Client forms)
+- `NEXT_PUBLIC_META_PIXEL_ID` (Meta Pixel)
+- `META_CAPI_ACCESS_TOKEN` (Meta Conversions API, server only; generate in Events Manager > Settings)
+- `META_CAPI_TEST_EVENT_CODE` (optional, shows server events under Events Manager > Test Events while checking the setup)
+
 ## Lead Website Generator Workflow
 
 The admin includes a dedicated lead workbench under `/admin/leads`:
@@ -73,6 +82,16 @@ Before first use, apply `supabase/migrations/20260923000000_lead_finder.sql` to 
 Quotes show up in `/admin/quotes`, where each one can be moved through New, Contacted, Meeting booked, Won, and Lost. Prices in `catalog.ts` mirror the public package pages; change both together.
 
 Before first use, apply `supabase/migrations/20260929000000_package_quotes.sql` to the Supabase project. Until then, quotes are still emailed but not saved.
+
+## Founding Clients
+
+`/founding` is the landing page for the Founding Client offer, with a short application (name, email, business, current URL, timeline, budget range). `/api/founding` saves each application to the `founding_applications` table and emails it to jlatten@foundryframe.com and leads@foundryframe.com. Applications are listed at `/admin/founding`. The number of open spots lives in `src/lib/site-facts.ts` and feeds the homepage stat and the page copy.
+
+Before first use, apply `supabase/migrations/20261001000000_founding_applications.sql`. Until then, applications are still emailed but not saved.
+
+## Conversion Tracking
+
+Audit submits, contact/package builder/founding forms, booking-link clicks, and click-to-call are each sent to GA4 (`generate_lead`, `book_call_click`, `contact_click`), to Google Ads as conversions, and to Meta as `Lead`, `Schedule`, and `Contact`. Meta gets both a browser Pixel event and a Conversions API event from `/api/track` with a shared event ID, so it counts each one once. See `src/lib/analytics.ts`.
 
 Generated previews are available at:
 
