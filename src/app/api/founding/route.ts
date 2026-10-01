@@ -4,6 +4,11 @@
  * Receives the short /founding application, saves it for the admin
  * Founding Clients page, and emails it to the team.
  *
+ * Abuse protection: the honeypot only stops naive bots, so every request is
+ * also checked against durable rate limits (per IP and site-wide) before
+ * anything is saved or emailed. If the limiter is unreachable the request is
+ * refused rather than let through.
+ *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
@@ -14,10 +19,15 @@ import {
   insertFoundingApplication,
   markFoundingApplicationEmailed,
 } from "@/lib/founding/repository";
+import { sendMetaLead } from "@/lib/server/meta-capi";
+import { ipBucket, isSameSiteRequest, throttleHit } from "@/lib/server/request-guard";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const RECIPIENTS = ["jlatten@foundryframe.com", "leads@foundryframe.com"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PER_IP_LIMIT = 3; // applications per IP per hour
+const SITE_WIDE_LIMIT = 30; // applications per hour from everyone combined
+const TOO_MANY = "Too many applications right now. Please try again later or email jlatten@foundryframe.com.";
 
 function esc(str: string): string {
   return str
@@ -36,6 +46,10 @@ function oneOf<T extends string>(value: string, options: readonly T[]): T | null
 }
 
 export async function POST(request: Request) {
+  if (!isSameSiteRequest(request)) {
+    return Response.json({ error: "Forbidden." }, { status: 403 });
+  }
+
   try {
     const body = (await request.json()) as Record<string, unknown> | null;
     if (!body || typeof body !== "object") {
@@ -59,6 +73,18 @@ export async function POST(request: Request) {
     }
     if (!EMAIL_REGEX.test(email)) {
       return Response.json({ error: "Please enter a valid email." }, { status: 400 });
+    }
+
+    const ipAllowed = await throttleHit(ipBucket("founding", request), PER_IP_LIMIT, 3600);
+    const siteAllowed = ipAllowed === true ? await throttleHit("founding:all", SITE_WIDE_LIMIT, 3600) : ipAllowed;
+    if (ipAllowed === null || siteAllowed === null) {
+      return Response.json(
+        { error: "We couldn't take applications just now. Please email jlatten@foundryframe.com." },
+        { status: 503 }
+      );
+    }
+    if (!ipAllowed || !siteAllowed) {
+      return Response.json({ error: TOO_MANY }, { status: 429 });
     }
 
     let applicationId: string | null = null;
@@ -117,6 +143,8 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+
+    await sendMetaLead(request, body, { contentName: "founding", email, name });
 
     return Response.json({ success: true });
   } catch {

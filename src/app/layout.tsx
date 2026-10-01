@@ -234,7 +234,7 @@ export default function RootLayout({
             ${GOOGLE_ADS_ID ? `gtag('config', ${JSON.stringify(GOOGLE_ADS_ID)});` : ""}
           `}
         </Script>
-        {/* Meta Pixel (ID from NEXT_PUBLIC_META_PIXEL_ID, defaulting to Foundry Frame's). */}
+        {/* Meta Pixel: production deployment only (see AD_TRACKING_ENABLED in next.config.ts). */}
         {META_PIXEL_ID ? (
           <Script id="meta-pixel" strategy="afterInteractive">
             {`

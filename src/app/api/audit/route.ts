@@ -10,6 +10,7 @@
 
 import { Resend } from "resend";
 import { createAudit, AuditApiError } from "@/lib/audit/api";
+import { sendMetaLead } from "@/lib/server/meta-capi";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -76,6 +77,12 @@ export async function POST(request: Request) {
     });
 
     void notifyTeam(normalizedUrl, String(email), name ? String(name) : undefined, company ? String(company) : undefined);
+
+    await sendMetaLead(request, body, {
+      contentName: "audit",
+      email: String(email),
+      name: name ? String(name) : undefined,
+    });
 
     return Response.json(audit, { status: 201 });
   } catch (error) {

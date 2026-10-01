@@ -12,10 +12,12 @@
  *   - contact_click      click on a tel: or mailto: link (param: method)
  *   - cta_click          click on any link to /audit, /contact or /founding
  *
- * Every conversion is also sent to Google Ads (when NEXT_PUBLIC_GOOGLE_ADS_ID
- * and that conversion's label are set) and to Meta as a Pixel event plus a
- * matching Conversions API event via /api/track. Both Meta copies share one
- * event ID so Meta counts them once.
+ * On the production deployment, every conversion is also sent to Google Ads
+ * (when NEXT_PUBLIC_GOOGLE_ADS_ID and that conversion's label are set) and to
+ * Meta as a Pixel event plus a matching Conversions API event. Form leads are
+ * sent to the Conversions API by the form's own API route after a successful
+ * submission; click conversions (booking, call) go through /api/track. Both
+ * Meta copies share one event ID so Meta counts them once.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -23,10 +25,16 @@
 
 export const BOOKING_URL = "https://calendar.app.google/BugYDt3yg1oWBfpH7";
 
-/* --- Tracking IDs (all public; set in the deployment's env vars) --- */
+/* --- Tracking IDs (all public; set in the deployment's env vars) ---
+   AD_TRACKING_ENABLED is set in next.config.ts: on for the Vercel production
+   deployment (or with AD_TRACKING_ENABLED=true), off for local and preview
+   builds, so test traffic never reaches the live Google Ads and Meta accounts. */
+export const AD_TRACKING_ENABLED = process.env.AD_TRACKING_ENABLED === "true";
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-2723XGFRH7";
-export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
-export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "28899294216427049";
+export const GOOGLE_ADS_ID = AD_TRACKING_ENABLED ? process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "" : "";
+export const META_PIXEL_ID = AD_TRACKING_ENABLED
+  ? process.env.NEXT_PUBLIC_META_PIXEL_ID || "28899294216427049"
+  : "";
 
 /* Each env var is read by its literal name so Next can inline it. */
 const GOOGLE_ADS_LABELS = {
@@ -38,9 +46,13 @@ const GOOGLE_ADS_LABELS = {
 
 export type ConversionKind = "audit" | "contact" | "package_builder" | "founding" | "booking" | "call";
 
-/* Meta standard event names this site sends. /api/track only forwards these. */
-export const META_EVENT_NAMES = ["Lead", "Schedule", "Contact"] as const;
-export type MetaEventName = (typeof META_EVENT_NAMES)[number];
+/* Meta standard event names this site sends. Lead comes only from form API
+   routes; /api/track only forwards the click events. */
+export type MetaEventName = "Lead" | "Schedule" | "Contact";
+export const META_CLICK_EVENT_NAMES = ["Schedule", "Contact"] as const;
+
+/* Form kinds whose Meta Conversions API event is sent by the server. */
+const SERVER_SIDE_KINDS: ReadonlySet<ConversionKind> = new Set(["audit", "contact", "package_builder", "founding"]);
 
 const CONVERSIONS: Record<
   ConversionKind,
@@ -71,7 +83,8 @@ export function trackEvent(eventName: string, params: EventParams = {}) {
   });
 }
 
-function newEventId() {
+/** An event ID for one conversion, shared by the browser and server copies. */
+export function newConversionId() {
   if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
     return crypto.randomUUID();
   }
@@ -79,17 +92,17 @@ function newEventId() {
 }
 
 /**
- * Report a conversion to GA4, Google Ads, the Meta Pixel and the Meta
- * Conversions API in one call. `user` is only used server-side, hashed,
- * to help Meta match the event; it is never sent to the browser pixel.
+ * Report a conversion to GA4, Google Ads and the Meta Pixel. For forms, pass
+ * the `eventId` that was sent with the submission (see newConversionId) so
+ * the pixel event matches the Conversions API event the server sent.
  */
 export function trackConversion(
   kind: ConversionKind,
-  options: { params?: EventParams; value?: number; user?: { email?: string; name?: string } } = {}
+  options: { params?: EventParams; value?: number; eventId?: string } = {}
 ) {
   if (typeof window === "undefined") return;
   const conversion = CONVERSIONS[kind];
-  const eventId = newEventId();
+  const eventId = options.eventId || newConversionId();
   const value = options.value;
 
   trackEvent(conversion.ga, {
@@ -117,6 +130,8 @@ export function trackConversion(
     window.fbq("track", conversion.meta, customData, { eventID: eventId });
   }
 
+  if (SERVER_SIDE_KINDS.has(kind)) return;
+
   try {
     void fetch("/api/track", {
       method: "POST",
@@ -127,8 +142,6 @@ export function trackConversion(
         eventId,
         sourceUrl: window.location.href,
         customData,
-        email: options.user?.email,
-        name: options.user?.name,
       }),
     }).catch(() => undefined);
   } catch {

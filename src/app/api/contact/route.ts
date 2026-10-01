@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { sendMetaLead } from "@/lib/server/meta-capi";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -52,6 +53,8 @@ export async function POST(request: Request) {
     if (error) {
       return Response.json({ error: error.message }, { status: 500 });
     }
+
+    await sendMetaLead(request, body, { contentName: "contact", email, name: String(firstName) });
 
     return Response.json({ success: true });
   } catch {

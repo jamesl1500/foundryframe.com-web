@@ -11,7 +11,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { BOOKING_URL, trackConversion } from "@/lib/analytics";
+import { BOOKING_URL, newConversionId, trackConversion } from "@/lib/analytics";
 import { FOUNDING_BUDGETS, FOUNDING_TIMELINES } from "@/lib/founding/options";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -31,19 +31,18 @@ export default function FoundingForm() {
 
     const form = event.currentTarget;
     const data = Object.fromEntries(new FormData(form));
+    const conversionId = newConversionId();
 
     try {
       const res = await fetch("/api/founding", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, conversionId }),
       });
       const json = await res.json().catch(() => null);
       if (!res.ok) throw new Error(json?.error || "Something went wrong.");
 
-      trackConversion("founding", {
-        user: { email: String(data.email ?? ""), name: String(data.name ?? "") },
-      });
+      trackConversion("founding", { eventId: conversionId });
       setStatus("success");
       form.reset();
     } catch (err) {
