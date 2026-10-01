@@ -2,8 +2,9 @@
  * ConversionTracking - Foundry Frame
  * ====================================
  * One delegated click listener that reports lead-intent clicks (booking
- * link, phone, email, audit/contact CTAs) to GA4. Lives in the root layout
- * so server-rendered pages don't each need their own onClick handlers.
+ * link, phone, email, audit/contact/founding CTAs). Booking and phone clicks
+ * are conversions, so they also go to Google Ads and Meta. Lives in the root
+ * layout so server-rendered pages don't each need their own onClick handlers.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -12,7 +13,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { BOOKING_URL, trackEvent } from "@/lib/analytics";
+import { BOOKING_URL, trackConversion, trackEvent } from "@/lib/analytics";
 
 function linkLabel(anchor: HTMLAnchorElement) {
   return (anchor.dataset.track ?? anchor.textContent ?? "").trim().slice(0, 100);
@@ -30,12 +31,12 @@ export default function ConversionTracking() {
       const label = linkLabel(anchor);
 
       if (href.startsWith(BOOKING_URL)) {
-        trackEvent("book_call_click", { link_text: label });
+        trackConversion("booking", { params: { link_text: label } });
       } else if (href.startsWith("tel:")) {
-        trackEvent("contact_click", { method: "phone", link_text: label });
+        trackConversion("call", { params: { link_text: label } });
       } else if (href.startsWith("mailto:")) {
         trackEvent("contact_click", { method: "email", link_text: label });
-      } else if (/^\/(audit|contact)(?:[?#]|$)/.test(href)) {
+      } else if (/^\/(audit|contact|founding)(?:[?#]|$)/.test(href)) {
         trackEvent("cta_click", { destination: href, link_text: label });
       }
     }

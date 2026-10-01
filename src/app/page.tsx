@@ -17,6 +17,7 @@ import PackageHighlights from "@/components/PackageHighlights";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import { getPublishedServices } from "@/lib/cms/public-data";
+import { FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
 
 export const metadata: Metadata = {
   title: "Ohio Web Design Agency | Foundry Frame",
@@ -97,10 +98,10 @@ const industries = [
    DATA: Stats
    ============================================================ */
 const stats = [
-  { value: "2026", label: "Founded in Ohio" },
-  { value: "1:1", label: "Work Direct with the Founder" },
-  { value: "6–12", label: "Weeks to Launch" },
-  { value: "100%", label: "On-Time Delivery" },
+  { value: "2026", label: "Founded in Ohio", href: undefined },
+  { value: "1:1", label: "Work Direct with the Founder", href: undefined },
+  { value: "6–12", label: "Weeks to Launch", href: undefined },
+  { value: String(FOUNDING_SPOTS_OPEN), label: "Founding Client Spots Open", href: "/founding" },
 ] as const;
 
 /* ============================================================
@@ -273,7 +274,13 @@ export default async function Home() {
                   {stat.value}
                 </div>
                 <div className="text-gray-500 text-xs uppercase tracking-widest">
-                  {stat.label}
+                  {stat.href ? (
+                    <Link href={stat.href} className="underline underline-offset-4 hover:text-black transition-colors">
+                      {stat.label}
+                    </Link>
+                  ) : (
+                    stat.label
+                  )}
                 </div>
               </StaggerItem>
             ))}
