@@ -16,7 +16,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { AuditRead } from "@/lib/audit/types";
-import { trackConversion } from "@/lib/analytics";
+import { newConversionId, trackConversion } from "@/lib/analytics";
 
 type Step = "url" | "contact" | "scanning" | "error";
 
@@ -117,11 +117,13 @@ export default function AuditForm() {
       setStageIndex((i) => Math.min(i + 1, SCAN_STAGES.length - 1));
     }, 4000);
 
+    const conversionId = newConversionId();
+
     try {
       const res = await fetch("/api/audit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url, email, name: name || undefined, company: company || undefined }),
+        body: JSON.stringify({ url, email, name: name || undefined, company: company || undefined, conversionId }),
       });
 
       const data = await res.json();
@@ -130,7 +132,7 @@ export default function AuditForm() {
         throw new Error(data.error ?? "We couldn't start your audit.");
       }
 
-      trackConversion("audit", { user: { email, name } });
+      trackConversion("audit", { eventId: conversionId });
 
       pollDeadline.current = Date.now() + POLL_TIMEOUT_MS;
       pollTimer.current = setInterval(() => pollAudit(data.id), POLL_INTERVAL_MS);

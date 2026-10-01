@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, type FormEvent, type ReactNode } from "react";
-import { BOOKING_URL, trackConversion } from "@/lib/analytics";
+import { BOOKING_URL, newConversionId, trackConversion } from "@/lib/analytics";
 import {
   ADDONS,
   FOUNDATIONS,
@@ -208,20 +208,18 @@ export default function PackageBuilder() {
     setErrorMsg("");
 
     const form = Object.fromEntries(new FormData(event.currentTarget));
+    const conversionId = newConversionId();
 
     try {
       const res = await fetch("/api/package-quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, selection }),
+        body: JSON.stringify({ ...form, selection, conversionId }),
       });
       const json = await res.json().catch(() => null);
       if (!res.ok) throw new Error(json?.error || "Something went wrong.");
 
-      trackConversion("package_builder", {
-        value: quote.oneTimeTotal,
-        user: { email: String(form.email ?? ""), name: String(form.name ?? "") },
-      });
+      trackConversion("package_builder", { value: quote.oneTimeTotal, eventId: conversionId });
       setSubmittedQuote(json?.quote ?? quote);
       setStatus("success");
       window.scrollTo({ top: 0, behavior: "smooth" });

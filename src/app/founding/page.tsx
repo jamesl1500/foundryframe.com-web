@@ -16,7 +16,7 @@ import { BOOKING_URL } from "@/lib/analytics";
 import { BUSINESS_HOURS_PHRASE, FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
 
 const pageTitle = "Founding Client Program | New Website for Your Business";
-const pageDescription = `Foundry Frame is taking its first ${FOUNDING_SPOTS_OPEN} clients this quarter: 20% off any launch bundle, built by the founder, with a design-approval guarantee.`;
+const pageDescription = `Foundry Frame is taking its first ${FOUNDING_SPOTS_OPEN} clients this quarter: ${FOUNDING_DISCOUNT_PERCENT}% off any launch bundle, built by the founder, with a design-approval guarantee.`;
 
 export const metadata: Metadata = {
   title: pageTitle,

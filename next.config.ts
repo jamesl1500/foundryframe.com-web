@@ -47,8 +47,17 @@ const securityHeaders = [
   },
 ];
 
+/* Google Ads and Meta tracking only run on the production deployment (or
+   when AD_TRACKING_ENABLED=true is set), so local and preview builds don't
+   send test traffic to the live ad accounts. */
+const adTrackingEnabled =
+  process.env.VERCEL_ENV === "production" || process.env.AD_TRACKING_ENABLED === "true";
+
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  env: {
+    AD_TRACKING_ENABLED: adTrackingEnabled ? "true" : "false",
+  },
   images: {
     remotePatterns: [
       {

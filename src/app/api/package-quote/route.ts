@@ -19,6 +19,7 @@ import {
   type PricedQuote,
 } from "@/lib/package-builder/catalog";
 import { insertQuote, updateQuote } from "@/lib/package-builder/repository";
+import { sendMetaLead } from "@/lib/server/meta-capi";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const QUOTE_RECIPIENTS = ["jlatten@foundryframe.com", "leads@foundryframe.com"];
@@ -177,6 +178,13 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+
+    await sendMetaLead(request, body, {
+      contentName: "package_builder",
+      value: quote.oneTimeTotal,
+      email: contact.email,
+      name: contact.name,
+    });
 
     return Response.json({ success: true, quote });
   } catch {
