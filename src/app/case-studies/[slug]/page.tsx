@@ -82,125 +82,160 @@ export default async function CaseStudyDetailPage({
     : [];
 
   return (
-    <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black min-h-screen border-b border-white/10">
-      <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
-        <Link
-          href="/case-studies"
-          className="text-[10px] uppercase tracking-[0.3em] text-gray-600 hover:text-gray-400 transition-colors mb-6 inline-block"
-        >
-          &larr; All Case Studies
-        </Link>
+    <>
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black min-h-screen border-b border-white/10">
+        <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
+          <Link
+            href="/case-studies"
+            className="text-[10px] uppercase tracking-[0.3em] text-gray-600 hover:text-gray-400 transition-colors mb-6 inline-block"
+          >
+            &larr; All Case Studies
+          </Link>
 
-        <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
-          Case Study
-        </p>
-        <div className="flex flex-wrap items-center gap-3 mb-4">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500">
-            Case Study
-          </p>
-          {inHouse ? (
-            <span className="text-[10px] uppercase tracking-widest border border-accent/40 text-accent-glow px-2 py-1">
-              In-house product
-            </span>
-          ) : null}
-        </div>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.95] mb-4">
-          {study.title}
-        </h1>
-        <p className="text-xs uppercase tracking-widest text-gray-500 mb-8">
-          {study.client_name}
-          {study.industry ? ` · ${study.industry}` : ""}
-        </p>
-
-        {inHouse ? (
-          <p className="text-sm text-gray-400 leading-relaxed border-l-2 border-accent/40 pl-4 mb-8">
-            {study.client_name || study.title} is Foundry Frame&apos;s own
-            product. We designed, built, and run it ourselves, so this is a look
-            at our work rather than a client engagement.
-          </p>
-        ) : null}
-
-        {study.summary ? (
-          <p className="text-gray-300 text-base leading-relaxed mb-10">
-            {study.summary}
-          </p>
-        ) : null}
-
-        {study.cover_image_url ? (
-          <Image
-            src={study.cover_image_url}
-            alt={study.title}
-            width={1600}
-            height={900}
-            className="w-full h-auto border border-white/10 mb-10"
-          />
-        ) : null}
-
-        {galleryImages.length > 0 ? (
-          <div className="mb-10">
-            <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">
-              Project Gallery
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-500">
+              Case Study
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {galleryImages.map((imageUrl, index) => (
-                <Image
-                  key={`${imageUrl}-${index}`}
-                  src={imageUrl}
-                  alt={`${study.title} gallery image ${index + 1}`}
-                  width={1000}
-                  height={750}
-                  className="w-full h-48 object-cover border border-white/10"
-                />
-              ))}
+            {inHouse ? (
+              <span className="text-[10px] uppercase tracking-widest border border-accent/40 text-accent-glow px-2 py-1">
+                In-house product
+              </span>
+            ) : null}
+          </div>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.95] mb-4">
+            {study.title}
+          </h1>
+          <p className="text-xs uppercase tracking-widest text-gray-500 mb-8">
+            {study.client_name}
+            {study.industry ? ` · ${study.industry}` : ""}
+          </p>
+
+          {inHouse ? (
+            <p className="text-sm text-gray-400 leading-relaxed border-l-2 border-accent/40 pl-4 mb-8">
+              {study.client_name || study.title} is Foundry Frame&apos;s own
+              product. We designed, built, and run it ourselves, so this is a
+              look at our work rather than a client engagement.
+            </p>
+          ) : null}
+
+          {study.summary ? (
+            <p className="text-gray-300 text-base leading-relaxed mb-10">
+              {study.summary}
+            </p>
+          ) : null}
+
+          {study.cover_image_url ? (
+            <Image
+              src={study.cover_image_url}
+              alt={study.title}
+              width={1600}
+              height={900}
+              className="w-full h-auto border border-white/10 mb-10"
+            />
+          ) : null}
+
+          {galleryImages.length > 0 ? (
+            <div className="mb-10">
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">
+                Project Gallery
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {galleryImages.map((imageUrl, index) => (
+                  <Image
+                    key={`${imageUrl}-${index}`}
+                    src={imageUrl}
+                    alt={`${study.title} gallery image ${index + 1}`}
+                    width={1000}
+                    height={750}
+                    className="w-full h-48 object-cover border border-white/10"
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10 mb-10">
+            <div className="bg-black p-6">
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+                Challenge
+              </p>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                {study.challenge || "Not specified."}
+              </p>
+            </div>
+            <div className="bg-black p-6">
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+                Solution
+              </p>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                {study.solution || "Not specified."}
+              </p>
+            </div>
+            <div className="bg-black p-6">
+              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+                Results
+              </p>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                {study.results || "Not specified."}
+              </p>
             </div>
           </div>
-        ) : null}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10 mb-10">
-          <div className="bg-black p-6">
-            <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
-              Challenge
-            </p>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              {study.challenge || "Not specified."}
-            </p>
-          </div>
-          <div className="bg-black p-6">
-            <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
-              Solution
-            </p>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              {study.solution || "Not specified."}
-            </p>
-          </div>
-          <div className="bg-black p-6">
-            <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
-              Results
-            </p>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              {study.results || "Not specified."}
-            </p>
+          {metricItems.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
+              {metricItems.map((metric, index) => (
+                <div
+                  key={`${metric.label || "metric"}-${index}`}
+                  className="bg-black p-6 text-center"
+                >
+                  <p className="text-3xl font-heading font-bold text-white mb-2">
+                    {metric.value || "-"}
+                  </p>
+                  <p className="text-[10px] uppercase tracking-widest text-gray-500">
+                    {metric.label || "Metric"}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      {/* =============================================
+        CASE STUDY CTA
+        ============================================= */}
+      <section className="py-20 lg:py-28 bg-gray-900 border-b border-white/10">
+        <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+            Work With Us
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white leading-tight mb-4">
+            {inHouse
+              ? "Want something like this built for you?"
+              : "Want results like these for your business?"}
+          </h2>
+          <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-md">
+            We build custom websites and brand experiences for small businesses
+            across Ohio and beyond. Book a free 30-min call and let&apos;s talk
+            about your goals.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/contact"
+              data-track="Case study CTA: Book a Free Call"
+              className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+            >
+              Book a Free Call
+            </Link>
+            <Link
+              href="/case-studies"
+              className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+            >
+              More Case Studies
+            </Link>
           </div>
         </div>
-
-        {metricItems.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
-            {metricItems.map((metric, index) => (
-              <div
-                key={`${metric.label || "metric"}-${index}`}
-                className="bg-black p-6 text-center"
-              >
-                <p className="text-3xl font-heading font-bold text-white mb-2">
-                  {metric.value || "-"}
-                </p>
-                <p className="text-[10px] uppercase tracking-widest text-gray-500">
-                  {metric.label || "Metric"}
-                </p>
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
