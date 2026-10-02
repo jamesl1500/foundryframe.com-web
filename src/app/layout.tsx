@@ -34,6 +34,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const siteUrl = "https://www.foundryframe.com";
+// Google Business Profile share link.
+const GOOGLE_MAPS_URL = "https://share.google/MfrKTPNLPCBWTl4O0";
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -82,11 +84,13 @@ const structuredData = {
         longitude: -82.1884,
       },
       openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
+      hasMap: GOOGLE_MAPS_URL,
       sameAs: [
         "https://www.linkedin.com/company/foundry-frame/",
         "https://www.instagram.com/foundry_frame/",
         "https://x.com/FoundryFrame",
         "https://www.facebook.com/foundry.frame",
+        GOOGLE_MAPS_URL,
       ],
     },
     {
@@ -126,6 +130,7 @@ const structuredData = {
         "https://www.instagram.com/foundry_frame/",
         "https://x.com/FoundryFrame",
         "https://www.facebook.com/foundry.frame",
+        GOOGLE_MAPS_URL,
       ],
     },
   ],
