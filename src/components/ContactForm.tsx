@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { trackEvent } from "@/lib/analytics";
+import { newConversionId, trackConversion } from "@/lib/analytics";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -16,12 +16,13 @@ export default function ContactForm() {
 
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form));
+    const conversionId = newConversionId();
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, conversionId }),
       });
 
       if (!res.ok) {
@@ -29,7 +30,7 @@ export default function ContactForm() {
         throw new Error(json?.error || "Something went wrong.");
       }
 
-      trackEvent("generate_lead", { method: "contact_form" });
+      trackConversion("contact", { eventId: conversionId });
       setStatus("success");
       form.reset();
     } catch (err) {

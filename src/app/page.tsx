@@ -17,16 +17,17 @@ import PackageHighlights from "@/components/PackageHighlights";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import { getPublishedServices } from "@/lib/cms/public-data";
+import { FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
 
 export const metadata: Metadata = {
-  title: "Ohio Web Design Agency | Foundry Frame",
+  title: { absolute: "Foundry Frame | Ohio Web Design & Branding Agency" },
   description:
     "Foundry Frame is an Ohio web design agency in Lorain building custom, conversion-focused websites for small businesses and growth brands.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Ohio Web Design Agency | Foundry Frame",
+    title: "Foundry Frame | Ohio Web Design & Branding Agency",
     description:
       "Custom websites starting at $1,500, built to convert. No templates. Launch in 6-12 weeks.",
     url: "/",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ohio Web Design Agency | Foundry Frame",
+    title: "Foundry Frame | Ohio Web Design & Branding Agency",
     description:
       "Custom websites starting at $1,500, built to convert. No templates. Launch in 6-12 weeks.",
     images: ["/twitter-image"],
@@ -97,10 +98,10 @@ const industries = [
    DATA: Stats
    ============================================================ */
 const stats = [
-  { value: "2026", label: "Founded in Ohio" },
-  { value: "1:1", label: "Work Direct with the Founder" },
-  { value: "6–12", label: "Weeks to Launch" },
-  { value: "100%", label: "On-Time Delivery" },
+  { value: "2026", label: "Founded in Ohio", href: undefined },
+  { value: "1:1", label: "Work Direct with the Founder", href: undefined },
+  { value: "6–12", label: "Weeks to Launch", href: undefined },
+  { value: String(FOUNDING_SPOTS_OPEN), label: "Founding Client Spots Open", href: "/founding" },
 ] as const;
 
 /* ============================================================
@@ -154,6 +155,10 @@ export default async function Home() {
 
           {/* Heading */}
           <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading font-bold text-white leading-[0.9] tracking-tight mb-10">
+            <span className="block text-2xl sm:text-3xl md:text-4xl tracking-normal text-gray-300 mb-4">
+              Foundry Frame
+              <span className="sr-only">:</span>
+            </span>
             Ohio Web Design
             <br />
             & Branding Agency
@@ -273,7 +278,13 @@ export default async function Home() {
                   {stat.value}
                 </div>
                 <div className="text-gray-500 text-xs uppercase tracking-widest">
-                  {stat.label}
+                  {stat.href ? (
+                    <Link href={stat.href} className="underline underline-offset-4 hover:text-black transition-colors">
+                      {stat.label}
+                    </Link>
+                  ) : (
+                    stat.label
+                  )}
                 </div>
               </StaggerItem>
             ))}

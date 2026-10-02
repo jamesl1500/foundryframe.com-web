@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState, type FormEvent, type ReactNode } from "react";
-import { BOOKING_URL, trackEvent } from "@/lib/analytics";
+import { BOOKING_URL, newConversionId, trackConversion } from "@/lib/analytics";
 import {
   ADDONS,
   FOUNDATIONS,
@@ -208,17 +208,18 @@ export default function PackageBuilder() {
     setErrorMsg("");
 
     const form = Object.fromEntries(new FormData(event.currentTarget));
+    const conversionId = newConversionId();
 
     try {
       const res = await fetch("/api/package-quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, selection }),
+        body: JSON.stringify({ ...form, selection, conversionId }),
       });
       const json = await res.json().catch(() => null);
       if (!res.ok) throw new Error(json?.error || "Something went wrong.");
 
-      trackEvent("generate_lead", { method: "package_builder", value: quote.oneTimeTotal });
+      trackConversion("package_builder", { value: quote.oneTimeTotal, eventId: conversionId });
       setSubmittedQuote(json?.quote ?? quote);
       setStatus("success");
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -249,7 +250,6 @@ export default function PackageBuilder() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackEvent("book_call_click", { method: "package_builder" })}
               className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
             >
               Book my meeting now

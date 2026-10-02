@@ -11,6 +11,8 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import ContactForm from "@/components/ContactForm";
 import Link from "next/link";
+import { BOOKING_URL } from "@/lib/analytics";
+import { BUSINESS_HOURS_LINES, BUSINESS_HOURS_PHRASE } from "@/lib/site-facts";
 
 export const metadata: Metadata = {
   title: "Contact Us | Ohio Web Design Agency",
@@ -64,8 +66,8 @@ const contactInfo = [
   },
   {
     title: "Hours",
-    value: "Mon – Fri: 9:00 AM – 6:00 PM EST",
-    href: "#",
+    value: BUSINESS_HOURS_LINES.join(" · "),
+    href: BOOKING_URL,
   },
 ] as const;
 
@@ -91,9 +93,13 @@ export default function ContactPage() {
             form below or reach out directly — we typically respond within 24
             hours, and there&apos;s never any pressure to commit.
           </p>
+          <p className="text-gray-400 text-sm max-w-xl mt-4">
+            James takes calls {BUSINESS_HOURS_PHRASE}. The fastest way
+            to talk is to grab a time on the calendar.
+          </p>
           <div className="mt-8 flex gap-4">
             <Link
-              href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+              href={BOOKING_URL}
               className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
             >
               Book a Free Consultation

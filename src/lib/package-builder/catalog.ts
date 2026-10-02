@@ -185,7 +185,7 @@ export const ADDONS: AddonOption[] = [
   },
 ];
 
-export const MEETING_WINDOWS = ["Morning (9am to 12pm)", "Afternoon (12pm to 4pm)", "Evening (4pm to 6pm)"] as const;
+export const MEETING_WINDOWS = ["Weekday evening (6pm to 9pm)", "Saturday morning (10am to 1pm)", "Saturday afternoon (1pm to 4pm)"] as const;
 
 export type PackageSelection = {
   foundationId: string;
