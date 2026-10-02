@@ -49,6 +49,7 @@ export type PublishedCaseStudy = {
   gallery_urls: string[] | null;
   metrics: Array<{ label?: string; value?: string }> | null;
   is_featured: boolean | null;
+  is_in_house: boolean | null;
 };
 
 type CaseStudyTestimonial = {
@@ -100,11 +101,15 @@ function getSupabasePublicClient() {
   return cachedPublicClient;
 }
 
-export async function getPublishedServices(limit?: number): Promise<PublishedService[]> {
+export async function getPublishedServices(
+  limit?: number,
+): Promise<PublishedService[]> {
   const supabase = getSupabasePublicClient();
   let query = supabase
     .from("services")
-    .select("id, name, slug, short_description, description, deliverables, timeline, is_featured")
+    .select(
+      "id, name, slug, short_description, description, deliverables, timeline, is_featured",
+    )
     .eq("is_published", true)
     .order("sort_order", { ascending: true })
     .order("updated_at", { ascending: false });
@@ -127,7 +132,7 @@ export async function getPublishedPackages(): Promise<PublishedPackage[]> {
   const { data, error } = await supabase
     .from("packages")
     .select(
-      "id, name, slug, tagline, description, price, billing_period, cta_url, features, is_featured, sort_order, category_id, category:categories!packages_category_id_fkey(id, name, slug, order_index)"
+      "id, name, slug, tagline, description, price, billing_period, cta_url, features, is_featured, sort_order, category_id, category:categories!packages_category_id_fkey(id, name, slug, order_index)",
     )
     .eq("is_published", true);
 
@@ -150,12 +155,14 @@ export async function getPublishedPackages(): Promise<PublishedPackage[]> {
   });
 }
 
-export async function getPublishedCaseStudies(limit?: number): Promise<PublishedCaseStudy[]> {
+export async function getPublishedCaseStudies(
+  limit?: number,
+): Promise<PublishedCaseStudy[]> {
   const supabase = getSupabasePublicClient();
   let query = supabase
     .from("case_studies")
     .select(
-      "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, is_featured"
+      "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, is_featured, is_in_house",
     )
     .eq("is_published", true)
     .order("sort_order", { ascending: true })
@@ -175,13 +182,13 @@ export async function getPublishedCaseStudies(limit?: number): Promise<Published
 }
 
 export async function getPublishedCaseStudyBySlug(
-  slug: string
+  slug: string,
 ): Promise<PublishedCaseStudy | null> {
   const supabase = getSupabasePublicClient();
   const { data, error } = await supabase
     .from("case_studies")
     .select(
-      "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, is_featured"
+      "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, is_featured, is_in_house",
     )
     .eq("is_published", true)
     .eq("slug", slug)
@@ -194,13 +201,17 @@ export async function getPublishedCaseStudyBySlug(
   return data as PublishedCaseStudy;
 }
 
-export async function getHomepageTestimonials(limit = 3): Promise<HomepageTestimonial[]> {
+export async function getHomepageTestimonials(
+  limit = 3,
+): Promise<HomepageTestimonial[]> {
   const supabase = getSupabasePublicClient();
 
   const [caseStudyResult, clientResult] = await Promise.all([
     supabase
       .from("case_studies")
-      .select("id, testimonial_quote, testimonial_author, client_name, title, is_featured")
+      .select(
+        "id, testimonial_quote, testimonial_author, client_name, title, is_featured",
+      )
       .eq("is_published", true)
       .not("testimonial_quote", "is", null)
       .order("sort_order", { ascending: true })
@@ -251,7 +262,7 @@ export async function getHomepageTestimonials(limit = 3): Promise<HomepageTestim
 
 export function formatPriceLabel(
   price: number | string | null | undefined,
-  billingPeriod: string | null | undefined
+  billingPeriod: string | null | undefined,
 ): string {
   if (price === null || price === undefined || price === "") {
     return "Custom Quote";

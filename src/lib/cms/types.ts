@@ -43,5 +43,6 @@ export type CmsItem = {
   sort_order?: number;
   is_published?: boolean;
   is_featured?: boolean;
+  is_in_house?: boolean | null;
   [key: string]: unknown;
 };

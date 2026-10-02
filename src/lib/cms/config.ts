@@ -1,4 +1,8 @@
-import { CMS_ENTITIES, type CmsEntity, type CmsEntityConfig } from "@/lib/cms/types";
+import {
+  CMS_ENTITIES,
+  type CmsEntity,
+  type CmsEntityConfig,
+} from "@/lib/cms/types";
 
 export const CMS_CONFIG: Record<CmsEntity, CmsEntityConfig> = {
   case_studies: {
@@ -40,7 +44,8 @@ export const CMS_CONFIG: Record<CmsEntity, CmsEntityConfig> = {
         key: "gallery_urls",
         label: "Gallery Images",
         type: "array",
-        description: "Comma-separated image URLs. You can upload multiple images at once.",
+        description:
+          "Comma-separated image URLs. You can upload multiple images at once.",
       },
       { key: "project_url", label: "Project URL", type: "url" },
       {
@@ -62,6 +67,7 @@ export const CMS_CONFIG: Record<CmsEntity, CmsEntityConfig> = {
       { key: "sort_order", label: "Sort Order", type: "number" },
       { key: "is_featured", label: "Featured", type: "checkbox" },
       { key: "is_published", label: "Published", type: "checkbox" },
+      { key: "is_in_house", label: "In House?", type: "checkbox" },
       {
         key: "published_at",
         label: "Published At",
@@ -122,7 +128,13 @@ export const CMS_CONFIG: Record<CmsEntity, CmsEntityConfig> = {
         type: "datetime-local",
       },
     ],
-    listColumns: ["name", "starting_price", "is_published", "is_featured", "updated_at"],
+    listColumns: [
+      "name",
+      "starting_price",
+      "is_published",
+      "is_featured",
+      "updated_at",
+    ],
   },
   packages: {
     label: "Packages",
@@ -202,7 +214,13 @@ export const CMS_CONFIG: Record<CmsEntity, CmsEntityConfig> = {
         type: "datetime-local",
       },
     ],
-    listColumns: ["name", "industry", "is_active", "is_published", "updated_at"],
+    listColumns: [
+      "name",
+      "industry",
+      "is_active",
+      "is_published",
+      "updated_at",
+    ],
   },
 };
 
