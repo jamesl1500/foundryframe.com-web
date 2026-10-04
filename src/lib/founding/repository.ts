@@ -1,5 +1,7 @@
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { LooseSupabaseClient } from "@/lib/supabase/loose-client";
+import type { LeadSource } from "@/lib/lead-source";
+import { insertWithSource } from "@/lib/server/lead-source";
 
 export type FoundingApplicationRecord = {
   id: string;
@@ -13,6 +15,8 @@ export type FoundingApplicationRecord = {
   budget_range: string;
   status: string;
   email_sent: boolean;
+  /** Where the applicant came from; missing on rows saved before migration 20261004000000. */
+  source?: LeadSource | null;
 };
 
 function db() {
@@ -22,7 +26,10 @@ function db() {
 export async function insertFoundingApplication(
   row: Omit<FoundingApplicationRecord, "id" | "created_at" | "updated_at" | "status">
 ): Promise<FoundingApplicationRecord> {
-  const { data, error } = await db().from("founding_applications").insert(row).select("*").single();
+  const { data, error } = await insertWithSource(
+    (values) => db().from("founding_applications").insert(values).select("*").single(),
+    row
+  );
 
   if (error) throw new Error(error.message);
   return data as FoundingApplicationRecord;

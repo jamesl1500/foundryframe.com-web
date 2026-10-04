@@ -17,6 +17,8 @@ import Footer from "@/components/Footer";
 import CalendlyBadge from "@/components/CalendlyBadge";
 import ConversionTracking from "@/components/ConversionTracking";
 import SiteChat from "@/components/SiteChat";
+import HideOnAdPages from "@/components/HideOnAdPages";
+import LeadSourceCapture from "@/components/LeadSourceCapture";
 import { OPENING_HOURS_SPECIFICATION } from "@/lib/site-facts";
 import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID, META_PIXEL_ID } from "@/lib/analytics";
 
@@ -270,23 +272,28 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
 
-        {/* Site-wide navigation header */}
-        <Header />
+        {/* Site-wide navigation header (left off ad landing pages) */}
+        <HideOnAdPages>
+          <Header />
+        </HideOnAdPages>
 
         {/* Main content area - pages render here */}
         <main className="flex-1">{children}</main>
 
-        {/* Site-wide footer */}
-        <Footer />
-
-        {/* Floating consultation booking badge */}
-        <CalendlyBadge />
+        {/* Site-wide footer and floating booking badge (left off ad landing pages) */}
+        <HideOnAdPages>
+          <Footer />
+          <CalendlyBadge />
+        </HideOnAdPages>
 
         {/* Floating AI chat that answers visitor questions */}
         <SiteChat />
 
         {/* Reports lead-intent clicks (booking, phone, email, CTAs) to GA4, Google Ads and Meta */}
         <ConversionTracking />
+
+        {/* Remembers the UTM tags, ad click ID and referrer a visitor arrived with, for lead forms */}
+        <LeadSourceCapture />
       </body>
     </html>
   );

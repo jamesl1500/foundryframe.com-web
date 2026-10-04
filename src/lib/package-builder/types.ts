@@ -1,3 +1,4 @@
+import type { LeadSource } from "@/lib/lead-source";
 import type { PackageSelection, PricedQuote } from "@/lib/package-builder/catalog";
 
 export const QUOTE_STATUSES = ["new", "contacted", "meeting_booked", "won", "lost"] as const;
@@ -21,6 +22,8 @@ export type PackageQuoteRecord = {
   preferred_window: string | null;
   status: QuoteStatus;
   email_sent: boolean;
+  /** Where the visitor came from; missing on rows saved before migration 20261004000000. */
+  source?: LeadSource | null;
 };
 
 export function isQuoteStatus(value: unknown): value is QuoteStatus {

@@ -89,6 +89,22 @@ Before first use, apply `supabase/migrations/20260929000000_package_quotes.sql` 
 
 Before first use, apply `supabase/migrations/20261001000000_founding_applications.sql`. Until then, applications are still emailed but not saved.
 
+## Ad Landing Pages
+
+`/go/<slug>` pages are for ads, social posts and outreach emails: one audience, one offer, one short form, with the site header, footer, booking badge and chat left off. They're `noindex` and not in the sitemap. Content lives in `src/lib/funnels.ts`; add a page by adding an entry. The first one, `/go/no-website`, targets businesses that run on Instagram or Facebook with no website.
+
+The form posts to `/api/ad-lead`, which adds the lead to the admin Leads workbench (`/admin/leads`, status New, with the ad page and lead source in its notes) and emails jlatten@foundryframe.com and leads@foundryframe.com. It reports a `generate_lead` conversion with `method: ad_landing_page`.
+
+## Lead Source Tracking
+
+Every lead records where the visitor came from. `LeadSourceCapture` (root layout) saves the UTM tags, ad click ID (`gclid`, `gbraid`, `wbraid`, `fbclid`, `msclkid`), outside referrer, and landing page in a first-party `ff_src` cookie for 90 days. A visit with UTM tags, a click ID or an outside referrer replaces it; a direct visit never does. The form API routes read the cookie, so no form sends it:
+
+- Founding applications and package quotes save it in a `source` column, shown in `/admin/founding` and `/admin/quotes`. Run `supabase/migrations/20261004000000_lead_source.sql`; until then those rows save without it.
+- Ad page leads include it in their Leads notes.
+- Every notification email (contact, audit, founding, package quote, ad page) ends with a "Where this lead came from" section.
+
+Tag every link you share so leads can be traced back, for example `https://www.foundryframe.com/go/no-website?utm_source=facebook&utm_medium=paid_social&utm_campaign=no-website-oct`. Google Ads adds `gclid` on its own when auto-tagging is on.
+
 ## Conversion Tracking
 
 Audit submits, contact/package builder/founding forms, booking-link clicks, and click-to-call are each sent to GA4 (`generate_lead`, `book_call_click`, `contact_click`), to Google Ads as conversions, and to Meta as `Lead`, `Schedule`, and `Contact`. Meta gets both a browser Pixel event and a Conversions API event with a shared event ID, so it counts each one once. Lead events reach the Conversions API only from the form API routes after a submission succeeds; `/api/track` accepts only the booking and call click events, only from same-site requests, and at most 10 per IP per hour. See `src/lib/analytics.ts` and `src/lib/server/meta-capi.ts`.

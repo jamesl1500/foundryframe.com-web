@@ -15,6 +15,7 @@ import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BOOKING_URL, trackEvent } from "@/lib/analytics";
+import { AD_PAGE_PREFIX } from "@/lib/funnels";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -27,7 +28,7 @@ const SUGGESTIONS = [
   "How long does a project take?",
   "What's included in maintenance?",
 ];
-const HIDDEN_PREFIXES = ["/admin", "/lead-preview"];
+const HIDDEN_PREFIXES = ["/admin", "/lead-preview", AD_PAGE_PREFIX];
 
 function loadHistory(): ChatMessage[] {
   if (typeof window === "undefined") return [];

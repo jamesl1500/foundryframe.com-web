@@ -1,4 +1,5 @@
 import { listFoundingApplications } from "@/lib/founding/repository";
+import { describeLeadSource } from "@/lib/lead-source";
 
 async function loadApplications() {
   try {
@@ -45,6 +46,7 @@ export default async function FoundingApplicationsPage() {
                   <th className="p-4">Website</th>
                   <th className="p-4">Timeline</th>
                   <th className="p-4">Budget</th>
+                  <th className="p-4">Source</th>
                 </tr>
               </thead>
               <tbody>
@@ -67,6 +69,7 @@ export default async function FoundingApplicationsPage() {
                     <td className="p-4 break-all">{application.website_url || "None"}</td>
                     <td className="p-4">{application.timeline}</td>
                     <td className="p-4">{application.budget_range}</td>
+                    <td className="p-4 text-xs text-gray-400 min-w-[220px]">{describeLeadSource(application.source)}</td>
                   </tr>
                 ))}
               </tbody>
