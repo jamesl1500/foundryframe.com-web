@@ -6,8 +6,9 @@
  * touching window.gtag or window.fbq directly.
  *
  * GA4 events (mark the conversion ones as key events in GA4 > Admin > Events):
- *   - generate_lead      audit, contact form, package builder, or founding
- *                        application sent (param: method)
+ *   - generate_lead      audit, contact form, package builder, founding
+ *                        application, or ad landing page form sent
+ *                        (param: method; ad pages also send funnel)
  *   - book_call_click    click on the Google Calendar booking link
  *   - contact_click      click on a tel: or mailto: link (param: method)
  *   - cta_click          click on any link to /audit, /contact or /founding
@@ -44,7 +45,14 @@ const GOOGLE_ADS_LABELS = {
   call: process.env.NEXT_PUBLIC_GOOGLE_ADS_LABEL_CALL || "",
 };
 
-export type ConversionKind = "audit" | "contact" | "package_builder" | "founding" | "booking" | "call";
+export type ConversionKind =
+  | "audit"
+  | "contact"
+  | "package_builder"
+  | "founding"
+  | "ad_page"
+  | "booking"
+  | "call";
 
 /* Meta standard event names this site sends. Lead comes only from form API
    routes; /api/track only forwards the click events. */
@@ -52,7 +60,13 @@ export type MetaEventName = "Lead" | "Schedule" | "Contact";
 export const META_CLICK_EVENT_NAMES = ["Schedule", "Contact"] as const;
 
 /* Form kinds whose Meta Conversions API event is sent by the server. */
-const SERVER_SIDE_KINDS: ReadonlySet<ConversionKind> = new Set(["audit", "contact", "package_builder", "founding"]);
+const SERVER_SIDE_KINDS: ReadonlySet<ConversionKind> = new Set([
+  "audit",
+  "contact",
+  "package_builder",
+  "founding",
+  "ad_page",
+]);
 
 const CONVERSIONS: Record<
   ConversionKind,
@@ -62,6 +76,7 @@ const CONVERSIONS: Record<
   contact: { ga: "generate_lead", gaParams: { method: "contact_form" }, adsLabel: GOOGLE_ADS_LABELS.contact, meta: "Lead" },
   package_builder: { ga: "generate_lead", gaParams: { method: "package_builder" }, adsLabel: GOOGLE_ADS_LABELS.contact, meta: "Lead" },
   founding: { ga: "generate_lead", gaParams: { method: "founding_application" }, adsLabel: GOOGLE_ADS_LABELS.contact, meta: "Lead" },
+  ad_page: { ga: "generate_lead", gaParams: { method: "ad_landing_page" }, adsLabel: GOOGLE_ADS_LABELS.contact, meta: "Lead" },
   booking: { ga: "book_call_click", gaParams: {}, adsLabel: GOOGLE_ADS_LABELS.booking, meta: "Schedule" },
   call: { ga: "contact_click", gaParams: { method: "phone" }, adsLabel: GOOGLE_ADS_LABELS.call, meta: "Contact" },
 };

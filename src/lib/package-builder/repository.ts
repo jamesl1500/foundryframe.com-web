@@ -1,6 +1,7 @@
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { LooseSupabaseClient } from "@/lib/supabase/loose-client";
 import type { PackageQuoteRecord } from "@/lib/package-builder/types";
+import { insertWithSource } from "@/lib/server/lead-source";
 
 export { QUOTE_STATUSES, isQuoteStatus } from "@/lib/package-builder/types";
 export type { PackageQuoteRecord, QuoteStatus } from "@/lib/package-builder/types";
@@ -12,7 +13,10 @@ function db() {
 export async function insertQuote(
   row: Omit<PackageQuoteRecord, "id" | "created_at" | "updated_at" | "status">
 ): Promise<PackageQuoteRecord> {
-  const { data, error } = await db().from("package_quotes").insert(row).select("*").single();
+  const { data, error } = await insertWithSource(
+    (values) => db().from("package_quotes").insert(values).select("*").single(),
+    row
+  );
 
   if (error) throw new Error(error.message);
   return data as PackageQuoteRecord;
