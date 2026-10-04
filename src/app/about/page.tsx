@@ -16,7 +16,7 @@ import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 
 export const metadata: Metadata = {
-  title: "About | Ohio Web Design & Creative Agency",
+  title: "About Foundry Frame | Ohio Web Design & Creative Agency",
   description:
     "Learn about Foundry Frame, an Ohio web design and creative agency in Lorain focused on custom websites, branding, and growth strategy.",
   alternates: {
@@ -100,9 +100,9 @@ export default function AboutPage() {
               Ohio web design & branding agency
             </h1>
             <p className="text-gray-300 text-sm leading-relaxed max-w-2xl mt-6">
-              We build thoughtful websites and brand systems for small businesses,
-              founders, and growth-focused teams in Ohio and across the U.S. —
-              and we&apos;re genuinely glad you&apos;re here.
+              We build thoughtful websites and brand systems for small
+              businesses, founders, and growth-focused teams in Ohio and across
+              the U.S. — and we&apos;re genuinely glad you&apos;re here.
             </p>
           </FadeIn>
         </div>
@@ -115,12 +115,15 @@ export default function AboutPage() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Image */}
-            <FadeIn direction="right" className="aspect-[4/5] relative overflow-hidden">
+            <FadeIn
+              direction="right"
+              className="aspect-[4/5] relative overflow-hidden"
+            >
               <Image
                 src="/james-latten.jpg"
                 alt="James Latten, Founder of Foundry Frame"
                 fill
-                className="object-cover grayscale"
+                className="object-cover"
               />
             </FadeIn>
 
