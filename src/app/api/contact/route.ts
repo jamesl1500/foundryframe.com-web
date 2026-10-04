@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { sendMetaLead } from "@/lib/server/meta-capi";
+import { leadSourceEmailHtml, leadSourceFromRequest } from "@/lib/server/lead-source";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,6 +48,7 @@ export async function POST(request: Request) {
           ${row("Email", email)}
           ${row("Message", message)}
         </table>
+        ${leadSourceEmailHtml(leadSourceFromRequest(request))}
       `,
     });
 
