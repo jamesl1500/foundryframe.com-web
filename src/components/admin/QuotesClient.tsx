@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatLineAmount, formatUsd } from "@/lib/package-builder/catalog";
 import { QUOTE_STATUSES, type PackageQuoteRecord, type QuoteStatus } from "@/lib/package-builder/types";
+import { describeLeadSource } from "@/lib/lead-source";
 
 const statusLabels: Record<QuoteStatus, string> = {
   new: "New",
@@ -160,6 +161,10 @@ export default function QuotesClient({ quotes }: { quotes: PackageQuoteRecord[] 
                       <div>
                         <dt className="text-[10px] uppercase tracking-widest text-gray-500">Timeline shown</dt>
                         <dd className="text-white">{quote.quote.timeline}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-[10px] uppercase tracking-widest text-gray-500">Source</dt>
+                        <dd className="text-gray-300">{describeLeadSource(quote.source)}</dd>
                       </div>
                       {quote.notes && (
                         <div>

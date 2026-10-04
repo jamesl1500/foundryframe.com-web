@@ -20,6 +20,7 @@ import {
   markFoundingApplicationEmailed,
 } from "@/lib/founding/repository";
 import { sendMetaLead } from "@/lib/server/meta-capi";
+import { leadSourceEmailHtml, leadSourceFromRequest } from "@/lib/server/lead-source";
 import { ipBucket, isSameSiteRequest, throttleHit } from "@/lib/server/request-guard";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
@@ -87,6 +88,7 @@ export async function POST(request: Request) {
       return Response.json({ error: TOO_MANY }, { status: 429 });
     }
 
+    const source = leadSourceFromRequest(request);
     let applicationId: string | null = null;
     try {
       const saved = await insertFoundingApplication({
@@ -97,6 +99,7 @@ export async function POST(request: Request) {
         timeline,
         budget_range: budgetRange,
         email_sent: false,
+        source,
       });
       applicationId = saved.id;
     } catch (error) {
@@ -123,6 +126,7 @@ export async function POST(request: Request) {
             ${row("Timeline", timeline)}
             ${row("Budget", budgetRange)}
           </table>
+          ${leadSourceEmailHtml(source)}
           ${applicationId ? `<p><a href="https://www.foundryframe.com/admin/founding">Open in the admin Founding Clients page</a></p>` : "<p><em>This application could not be saved to the admin page; this email is the only copy.</em></p>"}
         `,
       });

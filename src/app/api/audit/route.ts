@@ -11,6 +11,8 @@
 import { Resend } from "resend";
 import { createAudit, AuditApiError } from "@/lib/audit/api";
 import { sendMetaLead } from "@/lib/server/meta-capi";
+import { leadSourceEmailHtml, leadSourceFromRequest } from "@/lib/server/lead-source";
+import type { LeadSource } from "@/lib/lead-source";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -29,7 +31,7 @@ function normalizeUrl(input: string): string {
   return URL_REGEX.test(trimmed) ? trimmed : `https://${trimmed}`;
 }
 
-async function notifyTeam(url: string, email: string, name?: string, company?: string) {
+async function notifyTeam(source: LeadSource | null, url: string, email: string, name?: string, company?: string) {
   if (!resend) return;
 
   try {
@@ -46,6 +48,7 @@ async function notifyTeam(url: string, email: string, name?: string, company?: s
           ${name ? `<tr><td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;">Name</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${esc(name)}</td></tr>` : ""}
           ${company ? `<tr><td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;">Company</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${esc(company)}</td></tr>` : ""}
         </table>
+        ${leadSourceEmailHtml(source)}
       `,
     });
   } catch {
@@ -76,7 +79,7 @@ export async function POST(request: Request) {
       phone: phone ? String(phone) : null,
     });
 
-    void notifyTeam(normalizedUrl, String(email), name ? String(name) : undefined, company ? String(company) : undefined);
+    void notifyTeam(leadSourceFromRequest(request), normalizedUrl, String(email), name ? String(name) : undefined, company ? String(company) : undefined);
 
     await sendMetaLead(request, body, {
       contentName: "audit",

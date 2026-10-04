@@ -20,6 +20,8 @@ import {
 } from "@/lib/package-builder/catalog";
 import { insertQuote, updateQuote } from "@/lib/package-builder/repository";
 import { sendMetaLead } from "@/lib/server/meta-capi";
+import { leadSourceEmailHtml, leadSourceFromRequest } from "@/lib/server/lead-source";
+import type { LeadSource } from "@/lib/lead-source";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const QUOTE_RECIPIENTS = ["jlatten@foundryframe.com", "leads@foundryframe.com"];
@@ -49,7 +51,7 @@ type Contact = {
   preferredWindow: string;
 };
 
-function quoteEmailHtml(contact: Contact, quote: PricedQuote, quoteId: string | null) {
+function quoteEmailHtml(contact: Contact, quote: PricedQuote, quoteId: string | null, source: LeadSource | null) {
   const row = (label: string, value: string) =>
     `<tr><td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;vertical-align:top;">${label}</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${esc(value)}</td></tr>`;
   const lineRow = (label: string, detail: string, amount: string) =>
@@ -79,6 +81,7 @@ function quoteEmailHtml(contact: Contact, quote: PricedQuote, quoteId: string | 
       <tr><td style="padding:10px 12px;font-weight:bold;">Monthly total</td><td style="padding:10px 12px;text-align:right;font-weight:bold;">${formatUsd(quote.monthlyTotal)}${quote.monthlyTotal > 0 ? plus : ""}/mo</td></tr>
     </table>
     ${quote.notes.length ? `<ul>${quote.notes.map((note) => `<li>${esc(note)}</li>`).join("")}</ul>` : ""}
+    ${leadSourceEmailHtml(source)}
     ${quoteId ? `<p><a href="https://www.foundryframe.com/admin/quotes">Open in the admin Quotes page</a></p>` : "<p><em>This quote could not be saved to the admin Quotes page; this email is the only copy.</em></p>"}
   `;
 }
@@ -130,6 +133,7 @@ export async function POST(request: Request) {
       return Response.json({ error: "Add at least one item to your package." }, { status: 400 });
     }
 
+    const source = leadSourceFromRequest(request);
     let quoteId: string | null = null;
     try {
       const saved = await insertQuote({
@@ -146,6 +150,7 @@ export async function POST(request: Request) {
         preferred_date: contact.preferredDate || null,
         preferred_window: contact.preferredWindow || null,
         email_sent: false,
+        source,
       });
       quoteId = saved.id;
     } catch (error) {
@@ -159,7 +164,7 @@ export async function POST(request: Request) {
         to: QUOTE_RECIPIENTS,
         replyTo: contact.email,
         subject: `New Package Quote: ${contact.name}${contact.company ? ` (${contact.company})` : ""} — ${formatUsd(quote.oneTimeTotal)}${quote.monthlyTotal ? ` + ${formatUsd(quote.monthlyTotal)}/mo` : ""}`,
-        html: quoteEmailHtml(contact, quote, quoteId),
+        html: quoteEmailHtml(contact, quote, quoteId, source),
       });
       if (error) {
         console.error("Package quote email failed:", error.message);
