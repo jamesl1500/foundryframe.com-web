@@ -9,13 +9,15 @@ import type {
   SiteCrawlSnapshot,
 } from "@/lib/leads/types";
 
-const DEFAULT_MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-4-20250514";
+const DEFAULT_MODEL = process.env.ANTHROPIC_MODEL || "claude-opus-5-5";
 
 function getAnthropicClient() {
   const apiKey = process.env.ANTHROPIC_API_KEY;
 
   if (!apiKey) {
-    throw new Error("ANTHROPIC_API_KEY is missing. Add it to your environment to run analysis and generation.");
+    throw new Error(
+      "ANTHROPIC_API_KEY is missing. Add it to your environment to run analysis and generation.",
+    );
   }
 
   return new Anthropic({ apiKey });
@@ -64,6 +66,7 @@ Rules:
   const message = await anthropic.messages.create({
     model: DEFAULT_MODEL,
     max_tokens: 2500,
+    cache_control: { type: "ephemeral" },
     system:
       "You are Foundry Frame's senior agency strategist. Return only valid JSON with no markdown fences or prose outside JSON.",
     messages: [{ role: "user", content: prompt }],
@@ -81,7 +84,9 @@ Rules:
 
 function extractTextFromResponse(response: Anthropic.Messages.Message): string {
   return response.content
-    .filter((item): item is Anthropic.Messages.TextBlock => item.type === "text")
+    .filter(
+      (item): item is Anthropic.Messages.TextBlock => item.type === "text",
+    )
     .map((item) => item.text)
     .join("\n")
     .trim();
@@ -143,7 +148,10 @@ async function parseJsonObjectWithRepair<T>(args: {
     const repaired = await repairMalformedJsonWithClaude({
       anthropic: args.anthropic,
       malformed: args.raw,
-      parseError: parseError instanceof Error ? parseError.message : "Unknown JSON parse error.",
+      parseError:
+        parseError instanceof Error
+          ? parseError.message
+          : "Unknown JSON parse error.",
       context: args.context,
     });
 
@@ -151,25 +159,30 @@ async function parseJsonObjectWithRepair<T>(args: {
   }
 }
 
-export async function generateAuditWithClaude(snapshot: SiteCrawlSnapshot): Promise<SiteAuditResult> {
+export async function generateAuditWithClaude(
+  snapshot: SiteCrawlSnapshot,
+): Promise<SiteAuditResult> {
   const anthropic = getAnthropicClient();
 
   const prompt = `Analyze this website crawl snapshot and produce a detailed SEO/UX/conversion audit in strict JSON.\n\nSnapshot JSON:\n${JSON.stringify(
     snapshot,
     null,
-    2
+    2,
   )}\n\nReturn JSON with exact shape:\n{\n  "score": number (0-100),\n  "executiveSummary": string,\n  "strengths": string[],\n  "issues": [{"title": string, "severity": "high"|"medium"|"low", "whyItMatters": string, "recommendation": string}],\n  "recommendations": [{"category": "seo"|"performance"|"ux"|"conversion"|"content", "action": string, "expectedImpact": string}],\n  "markdownReport": string\n}\n\nRules:\n- At least 8 issues and 10 recommendations.\n- Mention technical SEO, on-page SEO, UX hierarchy, conversion friction, trust signals, and content structure.\n- Make recommendations specific and implementation-ready.`;
 
   const message = await anthropic.messages.create({
     model: DEFAULT_MODEL,
     max_tokens: 3000,
+    cache_control: { type: "ephemeral" },
     system:
       "You are a senior SEO strategist and CRO specialist for agency pre-sales audits. Return only valid JSON with no markdown fences.",
     messages: [{ role: "user", content: prompt }],
   });
 
   const raw = extractTextFromResponse(message);
-  const parsed = await parseJsonObjectWithRepair<Omit<SiteAuditResult, "rawModelOutput">>({
+  const parsed = await parseJsonObjectWithRepair<
+    Omit<SiteAuditResult, "rawModelOutput">
+  >({
     anthropic,
     raw,
     context: "SEO and CRO audit output",
@@ -185,21 +198,26 @@ export async function generateLandingPageWithClaude(args: {
   lead: LeadRecord;
   audit: SiteAuditResult;
   packageCatalog: PublishedPackageReference[];
-}): Promise<{ payload: LandingPagePayload; markdown: string; rawModelOutput: string }> {
+}): Promise<{
+  payload: LandingPagePayload;
+  markdown: string;
+  rawModelOutput: string;
+}> {
   const anthropic = getAnthropicClient();
 
   const prompt = `Create a high-conviction sales landing page blueprint for a lead, based on their site audit and offered packages.\n\nLead:\n${JSON.stringify(
     args.lead,
     null,
-    2
+    2,
   )}\n\nAudit:\n${JSON.stringify(args.audit, null, 2)}\n\nPackage catalog:\n${JSON.stringify(
     args.packageCatalog,
     null,
-    2
+    2,
   )}\n\nReturn strict JSON in this exact shape:\n{\n  "pageTitle": string,\n  "heroHeadline": string,\n  "heroSubheadline": string,\n  "analysisHighlights": string[],\n  "seoWins": string[],\n  "packageRecommendations": [{\n    "packageName": string,\n    "rationale": string,\n    "estimatedInvestment": string,\n    "deliverables": string[],\n    "timeline": string\n  }],\n  "sections": [{"title": string, "body": string, "bullets": string[]}],\n  "closingHeadline": string,\n  "closingCopy": string,\n  "primaryCtaText": string,\n  "visualDirection": {\n    "palette": string[],\n    "typographyNotes": string,\n    "layoutNotes": string\n  },\n  "modelNotes": string\n}\n\nRules:\n- Recommend 2-3 package options matched to lead maturity.\n- Sections should map to problems found in audit and explain before/after outcomes.\n- Keep tone premium, clear, and specific, not generic AI phrasing.`;
 
   const message = await anthropic.messages.create({
     model: DEFAULT_MODEL,
+    cache_control: { type: "ephemeral" },
     max_tokens: 3500,
     system:
       "You are an elite web strategy consultant and conversion copywriter. Return only valid JSON and no prose outside JSON.",
@@ -222,9 +240,12 @@ export async function generateLandingPageWithClaude(args: {
 
   const markdown = `# ${payload.pageTitle}\n\n## Hero\n\n${payload.heroHeadline}\n\n${payload.heroSubheadline}\n\n## Recommended Packages\n\n${payload.packageRecommendations
     .map(
-      (pkg) => `### ${pkg.packageName}\n- Why: ${pkg.rationale}\n- Investment: ${pkg.estimatedInvestment}\n- Timeline: ${pkg.timeline}\n- Deliverables:\n${pkg.deliverables.map((entry) => `  - ${entry}`).join("\n")}`
+      (pkg) =>
+        `### ${pkg.packageName}\n- Why: ${pkg.rationale}\n- Investment: ${pkg.estimatedInvestment}\n- Timeline: ${pkg.timeline}\n- Deliverables:\n${pkg.deliverables.map((entry) => `  - ${entry}`).join("\n")}`,
     )
-    .join("\n\n")}\n\n${markdownSections}\n\n## Closing CTA\n\n${payload.closingHeadline}\n\n${payload.closingCopy}`;
+    .join(
+      "\n\n",
+    )}\n\n${markdownSections}\n\n## Closing CTA\n\n${payload.closingHeadline}\n\n${payload.closingCopy}`;
 
   return {
     payload,

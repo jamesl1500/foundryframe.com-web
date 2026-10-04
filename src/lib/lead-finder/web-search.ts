@@ -1,7 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type { ProspectCandidate } from "@/lib/lead-finder/types";
 
-export const LEAD_FINDER_MODEL = process.env.LEAD_FINDER_MODEL || "claude-opus-5";
+export const LEAD_FINDER_MODEL =
+  process.env.LEAD_FINDER_MODEL || "claude-opus-5-5";
 const MAX_CONTINUATIONS = 5;
 
 type RawWebProspect = {
@@ -33,7 +34,9 @@ export async function searchWebForProspects(args: {
 }): Promise<ProspectCandidate[]> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    throw new Error("ANTHROPIC_API_KEY is missing. Add it to run web search prospecting.");
+    throw new Error(
+      "ANTHROPIC_API_KEY is missing. Add it to run web search prospecting.",
+    );
   }
 
   const anthropic = new Anthropic({ apiKey });
@@ -65,23 +68,31 @@ Return only JSON in this exact shape, with no prose before or after it:
 "sourceUrl" is the page where you found the signal. "intentSignal" is one sentence describing the evidence.
 "websiteUrl" is the business's own site, or null if it has none.`;
 
-  const messages: Anthropic.Beta.BetaMessageParam[] = [{ role: "user", content: prompt }];
+  const messages: Anthropic.Beta.BetaMessageParam[] = [
+    { role: "user", content: prompt },
+  ];
   let response: Anthropic.Beta.BetaMessage | null = null;
 
   for (let attempt = 0; attempt <= MAX_CONTINUATIONS; attempt++) {
     response = await anthropic.beta.messages.create({
       model: LEAD_FINDER_MODEL,
       max_tokens: 16000,
+      cache_control: { type: "ephemeral" },
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default",
       system: SYSTEM_PROMPT,
-      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 12 }],
+      tools: [
+        { type: "web_search_20260209", name: "web_search", max_uses: 12 },
+      ],
       messages,
     });
 
     if (response.stop_reason !== "pause_turn") break;
     // The server-side search loop paused; send the partial turn back so it resumes.
-    messages.splice(1, messages.length - 1, { role: "assistant", content: response.content });
+    messages.splice(1, messages.length - 1, {
+      role: "assistant",
+      content: response.content,
+    });
   }
 
   if (!response) return [];
@@ -90,7 +101,9 @@ Return only JSON in this exact shape, with no prose before or after it:
   }
 
   const text = response.content
-    .filter((block): block is Anthropic.Beta.BetaTextBlock => block.type === "text")
+    .filter(
+      (block): block is Anthropic.Beta.BetaTextBlock => block.type === "text",
+    )
     .map((block) => block.text)
     .join("\n");
 
@@ -99,7 +112,7 @@ Return only JSON in this exact shape, with no prose before or after it:
 
 function parseProspects(
   text: string,
-  args: { query: string; location: string }
+  args: { query: string; location: string },
 ): ProspectCandidate[] {
   const start = text.indexOf("{");
   const end = text.lastIndexOf("}");
@@ -107,7 +120,9 @@ function parseProspects(
     throw new Error("Web search prospecting did not return JSON.");
   }
 
-  const parsed = JSON.parse(text.slice(start, end + 1)) as { prospects?: RawWebProspect[] };
+  const parsed = JSON.parse(text.slice(start, end + 1)) as {
+    prospects?: RawWebProspect[];
+  };
   const prospects = Array.isArray(parsed.prospects) ? parsed.prospects : [];
 
   return prospects.flatMap((raw): ProspectCandidate[] => {
@@ -115,7 +130,9 @@ function parseProspects(
     if (!businessName) return [];
 
     const intentStrength =
-      raw.intentStrength === "high" || raw.intentStrength === "medium" || raw.intentStrength === "low"
+      raw.intentStrength === "high" ||
+      raw.intentStrength === "medium" ||
+      raw.intentStrength === "low"
         ? raw.intentStrength
         : null;
 
@@ -149,7 +166,9 @@ function httpUrlOrNull(value: unknown): string | null {
   if (!text) return null;
   try {
     const url = new URL(/^https?:\/\//i.test(text) ? text : `https://${text}`);
-    return url.protocol === "http:" || url.protocol === "https:" ? url.toString() : null;
+    return url.protocol === "http:" || url.protocol === "https:"
+      ? url.toString()
+      : null;
   } catch {
     return null;
   }
