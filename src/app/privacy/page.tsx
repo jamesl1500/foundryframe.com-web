@@ -56,6 +56,13 @@ export default function PrivacyPage() {
             message details when you submit our contact form or communicate with
             us directly.
           </p>
+          <p>
+            When you arrive from an ad, email, or another website, we store a
+            small cookie on your device for up to 90 days noting where you came
+            from (such as the campaign name or referring site). If you later
+            send us a form, that note is attached so we know which of our
+            marketing reached you.
+          </p>
 
           <h2 className="pt-4 text-xl font-heading font-semibold text-white">
             How We Use Information
@@ -83,7 +90,7 @@ export default function PrivacyPage() {
           </p>
 
           <p className="pt-2 text-xs uppercase tracking-wider text-gray-500">
-            Last updated: May 2026
+            Last updated: October 2026
           </p>
         </div>
       </div>
