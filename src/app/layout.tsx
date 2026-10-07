@@ -20,7 +20,11 @@ import SiteChat from "@/components/SiteChat";
 import HideOnAdPages from "@/components/HideOnAdPages";
 import LeadSourceCapture from "@/components/LeadSourceCapture";
 import { OPENING_HOURS_SPECIFICATION } from "@/lib/site-facts";
-import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID, META_PIXEL_ID } from "@/lib/analytics";
+import {
+  GA_MEASUREMENT_ID,
+  GOOGLE_ADS_ID,
+  META_PIXEL_ID,
+} from "@/lib/analytics";
 
 /* --- Font Configuration --- */
 const inter = Inter({
@@ -45,6 +49,7 @@ const structuredData = {
       "@type": ["Organization", "LocalBusiness"],
       "@id": `${siteUrl}/#organization`,
       name: "Foundry Frame",
+      legalName: "Foundry Frame LLC",
       url: siteUrl,
       logo: `${siteUrl}/logo.svg`,
       image: `${siteUrl}/james-latten.jpg`,
@@ -108,10 +113,16 @@ const structuredData = {
     {
       "@type": "ProfessionalService",
       "@id": `${siteUrl}/#service`,
+      legalName: "Foundry Frame LLC",
       name: "Foundry Frame",
       url: siteUrl,
       image: `${siteUrl}/james-latten.jpg`,
-      serviceType: ["Web Design", "Branding", "Digital Strategy", "Social Media"],
+      serviceType: [
+        "Web Design",
+        "Branding",
+        "Digital Strategy",
+        "Social Media",
+      ],
       areaServed: [
         { "@type": "City", name: "Lorain" },
         { "@type": "State", name: "Ohio" },
