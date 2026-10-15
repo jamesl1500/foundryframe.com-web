@@ -288,6 +288,182 @@ export const locations: LocationPage[] = [
       },
     ],
   },
+  {
+    slug: "akron-oh",
+    city: "Akron",
+    county: "Summit County",
+    summary: "Custom websites for Akron small businesses and growth brands, without big-agency overhead.",
+    metaDescription:
+      "Akron web design for small businesses and growing brands. Custom, hand-coded websites from a founder-led Northeast Ohio studio. Starting at $1,500.",
+    intro: [
+      "Akron has plenty of web design agencies, but many of them come with high overhead costs. Foundry Frame is a founder-led studio 30 minutes west in Lorain: you work directly with the person designing and building your site, at small-business pricing.",
+      "We build custom, hand-coded websites for Akron restaurants, contractors, studios, and emerging brands that need to compete online without paying for an agency's office lease.",
+    ],
+    localAngle: [
+      {
+        title: "Founder-led, not account-managed",
+        description:
+          "No layers between you and the work. The person you meet on the discovery call is the one designing and building your site.",
+      },
+      {
+        title: "Stand out in a crowded market",
+        description:
+          "Custom design and messaging that separates you from the dozens of competitors an Akron customer sees in a single search.",
+      },
+      {
+        title: "Measurable results",
+        description:
+          "Analytics and conversion tracking are set up at launch, so you can see how many calls, bookings, and inquiries the site produces.",
+      },
+    ],
+    nearby: ["Canton", "Barberton", "Tallmadge", "Munroe Falls", "Stow", "Hudson"],
+    faqs: [
+      {
+        q: "Do you work with Akron businesses?",
+        a: "Yes. We're based in Lorain, about 30 minutes from downtown Akron, and work with Akron-area clients in person and remotely.",
+      },
+      {
+        q: "How are you different from larger Akron web design agencies?",
+        a: "You work directly with the founder, every site is custom-coded instead of built on a theme, and pricing starts at $1,500 instead of big-agency retainers.",
+      },
+      {
+        q: "Can you help with branding as well as the website?",
+        a: "Yes. We offer brand identity work (logo, color, typography, guidelines) on its own or bundled with a website build.",
+      },
+    ],
+  },
+  {
+    slug: "columbus-oh",
+    city: "Columbus",
+    county: "Franklin County",
+    summary: "Custom websites for Columbus small businesses and growth brands, without big-agency overhead.",
+    metaDescription:
+      "Columbus web design for small businesses and growing brands. Custom, hand-coded websites from a founder-led Ohio studio. Starting at $1,500.",
+    intro: [
+      "Columbus has plenty of web design agencies, but many of them come with high overhead costs. Foundry Frame is a founder-led studio: you work directly with the person designing and building your site, at small-business pricing.",
+      "We build custom, hand-coded websites for Columbus restaurants, contractors, studios, and emerging brands that need to compete online without paying for an agency's office lease.",
+    ],
+    localAngle: [
+      {
+        title: "Founder-led, not account-managed",
+        description:
+          "No layers between you and the work. The person you meet on the discovery call is the one designing and building your site.",
+      },
+      {
+        title: "Stand out in a crowded market",
+        description:
+          "Custom design and messaging that separates you from the dozens of competitors a Columbus customer sees in a single search.",
+      },
+      {
+        title: "Measurable results",
+        description:
+          "Analytics and conversion tracking are set up at launch, so you can see how many calls, bookings, and inquiries the site produces.",
+      },
+    ],
+    nearby: ["Dublin", "Westerville", "Gahanna", "Reynoldsburg", "Hilliard", "Grove City"],
+    faqs: [
+      {
+        q: "Do you work with Columbus businesses?",
+        a: "Yes. We're based in Ohio and work with Columbus-area clients in person and remotely.",
+      },
+      {
+        q: "How are you different from larger Columbus web design agencies?",
+        a: "You work directly with the founder, every site is custom-coded instead of built on a theme, and pricing starts at $1,500 instead of big-agency retainers.",
+      },
+      {
+        q: "Can you help with branding as well as the website?",
+        a: "Yes. We offer brand identity work (logo, color, typography, guidelines) on its own or bundled with a website build.",
+      },
+    ],
+  },
+  {
+    slug: "sheffield-village-oh",
+    city: "Sheffield Village",
+    county: "Lorain County",
+    summary: "Custom websites for Sheffield Village small businesses and growth brands, without big-agency overhead.",
+    metaDescription:
+      "Sheffield Village web design for small businesses and growing brands. Custom, hand-coded websites from a founder-led Ohio studio. Starting at $1,500.",
+    intro: [
+      "Sheffield Village has plenty of web design agencies, but many of them come with high overhead costs. Foundry Frame is a founder-led studio: you work directly with the person designing and building your site, at small-business pricing.",
+      "We build custom, hand-coded websites for Sheffield Village restaurants, contractors, studios, and emerging brands that need to compete online without paying for an agency's office lease.",
+    ],
+    localAngle: [
+      {
+        title: "Founder-led, not account-managed",
+        description:
+          "No layers between you and the work. The person you meet on the discovery call is the one designing and building your site.",
+      },
+      {
+        title: "Stand out in a crowded market",
+        description:
+          "Custom design and messaging that separates you from the dozens of competitors a Sheffield Village customer sees in a single search.",
+      },
+      {
+        title: "Measurable results",
+        description:
+          "Analytics and conversion tracking are set up at launch, so you can see how many calls, bookings, and inquiries the site produces.",
+      },
+    ],
+    nearby: ["Lorain", "Elyria", "Avon", "North Ridgeville", "Oberlin"],
+    faqs: [
+      {
+        q: "Do you work with Sheffield Village businesses?",
+        a: "Yes. We're based in Ohio and work with Sheffield Village-area clients in person and remotely.",
+      },
+      {
+        q: "How are you different from larger Sheffield Village web design agencies?",
+        a: "You work directly with the founder, every site is custom-coded instead of built on a theme, and pricing starts at $1,500 instead of big-agency retainers.",
+      },
+      {
+        q: "Can you help with branding as well as the website?",
+        a: "Yes. We offer brand identity work (logo, color, typography, guidelines) on its own or bundled with a website build.",
+      },
+    ],
+  },
+  {
+    slug: "sheffield-lake-oh",
+    city: "Sheffield Lake",
+    county: "Lorain County",
+    summary: "Custom websites for Sheffield Lake small businesses and growth brands, without big-agency overhead.",
+    metaDescription:
+      "Sheffield Lake web design for small businesses and growing brands. Custom, hand-coded websites from a founder-led Ohio studio. Starting at $1,500.",
+    intro: [
+      "Sheffield Lake has plenty of web design agencies, but many of them come with high overhead costs. Foundry Frame is a founder-led studio: you work directly with the person designing and building your site, at small-business pricing.",
+      "We build custom, hand-coded websites for Sheffield Lake restaurants, contractors, studios, and emerging brands that need to compete online without paying for an agency's office lease.",
+    ],
+    localAngle: [
+      {
+        title: "Founder-led, not account-managed",
+        description:
+          "No layers between you and the work. The person you meet on the discovery call is the one designing and building your site.",
+      },
+      {
+        title: "Stand out in a crowded market",
+        description:
+          "Custom design and messaging that separates you from the dozens of competitors a Sheffield Lake customer sees in a single search.",
+      },
+      {
+        title: "Measurable results",
+        description:
+          "Analytics and conversion tracking are set up at launch, so you can see how many calls, bookings, and inquiries the site produces.",
+      },
+    ],
+    nearby: ["Lorain", "Elyria", "Avon", "North Ridgeville", "Oberlin"],
+    faqs: [
+      {
+        q: "Do you work with Sheffield Lake businesses?",
+        a: "Yes. We're based in Ohio and work with Sheffield Lake-area clients in person and remotely.",
+      },
+      {
+        q: "How are you different from larger Sheffield Lake web design agencies?",
+        a: "You work directly with the founder, every site is custom-coded instead of built on a theme, and pricing starts at $1,500 instead of big-agency retainers.",
+      },
+      {
+        q: "Can you help with branding as well as the website?",
+        a: "Yes. We offer brand identity work (logo, color, typography, guidelines) on its own or bundled with a website build.",
+      },
+    ],
+  }
 ];
 
 export function getLocation(slug: string) {
