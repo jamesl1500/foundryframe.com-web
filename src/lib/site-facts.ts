@@ -8,6 +8,26 @@
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
+/* --- Name, address, phone ---
+   Keep these identical everywhere (site, schema, Google Business Profile,
+   directory listings): Google matches citations on exact NAP details. */
+export const BUSINESS_PHONE = "+1-216-889-7822";
+export const BUSINESS_EMAIL = "jlatten@foundryframe.com";
+export const POSTAL_ADDRESS = {
+  "@type": "PostalAddress",
+  addressLocality: "Lorain",
+  addressRegion: "OH",
+  postalCode: "44053",
+  addressCountry: "US",
+};
+export const GEO_COORDINATES = {
+  "@type": "GeoCoordinates",
+  latitude: 41.468,
+  longitude: -82.1884,
+};
+// Google Business Profile share link.
+export const GOOGLE_MAPS_URL = "https://share.google/MfrKTPNLPCBWTl4O0";
+
 /* --- Availability ---
    James answers calls and email on weekday evenings and Saturdays. The site
    pushes everyone to the booking link rather than promising daytime hours. */

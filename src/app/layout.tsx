@@ -19,7 +19,15 @@ import ConversionTracking from "@/components/ConversionTracking";
 import SiteChat from "@/components/SiteChat";
 import HideOnAdPages from "@/components/HideOnAdPages";
 import LeadSourceCapture from "@/components/LeadSourceCapture";
-import { OPENING_HOURS_SPECIFICATION } from "@/lib/site-facts";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_PHONE,
+  GEO_COORDINATES,
+  GOOGLE_MAPS_URL,
+  OPENING_HOURS_SPECIFICATION,
+  POSTAL_ADDRESS,
+} from "@/lib/site-facts";
+import { citiesOf, locations } from "@/lib/seo/locations";
 import {
   GA_MEASUREMENT_ID,
   GOOGLE_ADS_ID,
@@ -40,8 +48,14 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const siteUrl = "https://www.foundryframe.com";
-// Google Business Profile share link.
-const GOOGLE_MAPS_URL = "https://share.google/MfrKTPNLPCBWTl4O0";
+// Every city with a /locations page, so the sitewide schema matches the pages.
+const areaServed = [
+  ...locations.flatMap((location) =>
+    citiesOf(location).map((name) => ({ "@type": "City", name }))
+  ),
+  { "@type": "State", name: "Ohio" },
+  { "@type": "AdministrativeArea", name: "United States" },
+];
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -56,8 +70,8 @@ const structuredData = {
       foundingDate: "2026",
       description:
         "Foundry Frame is a creative design agency in Ohio specializing in branding, web design, social media, and digital strategy.",
-      telephone: "+1-216-889-7822",
-      email: "jlatten@foundryframe.com",
+      telephone: BUSINESS_PHONE,
+      email: BUSINESS_EMAIL,
       priceRange: "$$",
       founder: {
         "@type": "Person",
@@ -73,23 +87,9 @@ const structuredData = {
         "Conversion Rate Optimization",
         "Digital Strategy",
       ],
-      areaServed: [
-        { "@type": "City", name: "Lorain" },
-        { "@type": "State", name: "Ohio" },
-        { "@type": "AdministrativeArea", name: "United States" },
-      ],
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Lorain",
-        addressRegion: "OH",
-        postalCode: "44053",
-        addressCountry: "US",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: 41.468,
-        longitude: -82.1884,
-      },
+      areaServed,
+      address: POSTAL_ADDRESS,
+      geo: GEO_COORDINATES,
       openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
       hasMap: GOOGLE_MAPS_URL,
       sameAs: [
@@ -123,21 +123,11 @@ const structuredData = {
         "Digital Strategy",
         "Social Media",
       ],
-      areaServed: [
-        { "@type": "City", name: "Lorain" },
-        { "@type": "State", name: "Ohio" },
-        { "@type": "AdministrativeArea", name: "United States" },
-      ],
+      areaServed,
       priceRange: "$$",
-      telephone: "+1-216-889-7822",
-      email: "jlatten@foundryframe.com",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Lorain",
-        addressRegion: "OH",
-        postalCode: "44053",
-        addressCountry: "US",
-      },
+      telephone: BUSINESS_PHONE,
+      email: BUSINESS_EMAIL,
+      address: POSTAL_ADDRESS,
       sameAs: [
         "https://www.linkedin.com/company/foundry-frame/",
         "https://www.instagram.com/foundry_frame/",

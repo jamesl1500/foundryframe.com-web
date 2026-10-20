@@ -44,6 +44,8 @@ const footerColumns = [
       { label: "Lorain Web Design", href: "/locations/lorain-oh" },
       { label: "Elyria Web Design", href: "/locations/elyria-oh" },
       { label: "Cleveland Web Design", href: "/locations/cleveland-oh" },
+      { label: "Westlake Web Design", href: "/locations/westlake-oh" },
+      { label: "Columbus Web Design", href: "/locations/columbus-oh" },
       { label: "All Areas We Serve", href: "/locations" },
       { label: "Restaurant Websites", href: "/industries/restaurants" },
       { label: "Contractor Websites", href: "/industries/contractors" },

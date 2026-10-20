@@ -11,8 +11,23 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import LandingPage from "@/components/seo/LandingPage";
-import { getLocation, locations } from "@/lib/seo/locations";
+import {
+  citiesOf,
+  findLocationByName,
+  getLocation,
+  locations,
+  relatedLocations,
+} from "@/lib/seo/locations";
 import { industries } from "@/lib/seo/industries";
+import { parsePriceSpecification } from "@/lib/schema-price";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_PHONE,
+  GEO_COORDINATES,
+  GOOGLE_MAPS_URL,
+  OPENING_HOURS_SPECIFICATION,
+  POSTAL_ADDRESS,
+} from "@/lib/site-facts";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -64,9 +79,35 @@ export default async function LocationPage({
   if (!location) notFound();
 
   const pageUrl = `${siteUrl}/locations/${location.slug}`;
-  const cities = location.city.split(" & ");
+  const ohio = { "@type": "State", name: "Ohio" };
+  const areaServed = [
+    ...citiesOf(location).map((name) => ({ "@type": "City", name, containedInPlace: ohio })),
+    ...location.nearby.flatMap((name) =>
+      name.split(" & ").map((place) => ({ "@type": "Place", name: `${place}, OH` }))
+    ),
+    { "@type": "AdministrativeArea", name: `${location.county}, Ohio` },
+  ];
 
   const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "@id": `${pageUrl}#business`,
+      name: "Foundry Frame",
+      description: location.metaDescription,
+      url: pageUrl,
+      image: `${siteUrl}/james-latten.jpg`,
+      logo: `${siteUrl}/logo.svg`,
+      telephone: BUSINESS_PHONE,
+      email: BUSINESS_EMAIL,
+      priceRange: "$$",
+      address: POSTAL_ADDRESS,
+      geo: GEO_COORDINATES,
+      hasMap: GOOGLE_MAPS_URL,
+      openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
+      areaServed,
+      parentOrganization: { "@id": `${siteUrl}/#organization` },
+    },
     {
       "@context": "https://schema.org",
       "@type": "Service",
@@ -74,12 +115,13 @@ export default async function LocationPage({
       serviceType: "Web Design",
       url: pageUrl,
       description: location.metaDescription,
-      provider: { "@id": `${siteUrl}/#organization` },
-      areaServed: [
-        ...cities.map((name) => ({ "@type": "City", name })),
-        ...location.nearby.map((name) => ({ "@type": "Place", name })),
-        { "@type": "AdministrativeArea", name: location.county },
-      ],
+      provider: { "@id": `${pageUrl}#business` },
+      areaServed,
+      offers: {
+        "@type": "Offer",
+        description: "Custom 5-page small business website",
+        priceSpecification: parsePriceSpecification("Starting at $1,500"),
+      },
     },
     {
       "@context": "https://schema.org",
@@ -112,14 +154,42 @@ export default async function LocationPage({
       featuresHeading={`A local web designer for ${location.city}`}
       features={location.localAngle}
       checklistHeading={`Also serving businesses near ${location.city}`}
-      checklist={location.nearby}
+      checklist={location.nearby.map((name) => {
+        const page = findLocationByName(name);
+        return page && page !== location
+          ? { label: name, href: `/locations/${page.slug}` }
+          : name;
+      })}
       faqHeading={`${location.city} web design FAQ`}
       faqs={location.faqs}
-      relatedHeading="Websites for your industry"
-      related={industries.map((industry) => ({
-        label: industry.name,
-        href: `/industries/${industry.slug}`,
-      }))}
+      related={[
+        {
+          heading: "More areas we serve",
+          links: [
+            ...relatedLocations(location).map((other) => ({
+              label: `${other.city} web design`,
+              href: `/locations/${other.slug}`,
+            })),
+            { label: "All areas", href: "/locations" },
+          ],
+        },
+        {
+          heading: "Websites for your industry",
+          links: industries.map((industry) => ({
+            label: industry.name,
+            href: `/industries/${industry.slug}`,
+          })),
+        },
+        {
+          heading: "Services and pricing",
+          links: [
+            { label: "Web design", href: "/services/web-design" },
+            { label: "Branding", href: "/services/branding" },
+            { label: "Website packages", href: "/packages/website" },
+            { label: "Free website audit", href: "/audit" },
+          ],
+        },
+      ]}
       auditHeading={`How does your ${location.city} business website score?`}
     />
   );
