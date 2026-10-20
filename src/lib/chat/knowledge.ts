@@ -89,6 +89,7 @@ The case studies on /case-studies (Syllaplan and PrereqPilot) are Foundry Frame'
 - All packages overview: /packages
 - About James and the studio: /about
 - Industries served: /industries
+- Cities and areas served (Lorain County, Westlake, Lakewood, Cleveland, Akron, Columbus, and more): /locations
 - Blog: /blog
 - FAQ: /faq
 `.trim();
