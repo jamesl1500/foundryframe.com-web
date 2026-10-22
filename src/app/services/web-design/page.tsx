@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
+import { citiesOf, locations } from "@/lib/seo/locations";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -236,7 +237,9 @@ const serviceStructuredData = {
     },
   },
   areaServed: [
-    { "@type": "City", name: "Lorain" },
+    ...locations.flatMap((location) =>
+      citiesOf(location).map((name) => ({ "@type": "City", name }))
+    ),
     { "@type": "State", name: "Ohio" },
     { "@type": "AdministrativeArea", name: "United States" },
   ],
@@ -595,6 +598,21 @@ export default function WebDesignServicePage() {
             >
               Graphic Design &rarr;
             </Link>
+          </div>
+
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mt-12 mb-6">
+            Web Design Near You
+          </p>
+          <div className="flex flex-wrap gap-4">
+            {locations.map((location) => (
+              <Link
+                key={location.slug}
+                href={`/locations/${location.slug}`}
+                className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+              >
+                {location.city} &rarr;
+              </Link>
+            ))}
           </div>
         </div>
       </section>

@@ -17,6 +17,7 @@ import { BOOKING_URL } from "@/lib/analytics";
 type Feature = { title: string; description: string };
 type Faq = { q: string; a: string };
 type RelatedLink = { label: string; href: string };
+type RelatedGroup = { heading: string; links: RelatedLink[] };
 
 interface LandingPageProps {
   structuredData: object[];
@@ -28,11 +29,11 @@ interface LandingPageProps {
   featuresHeading: string;
   features: Feature[];
   checklistHeading: string;
-  checklist: string[];
+  /** Plain items, or links when the item has its own page (e.g. a nearby town). */
+  checklist: (string | RelatedLink)[];
   faqHeading: string;
   faqs: Faq[];
-  relatedHeading: string;
-  related: RelatedLink[];
+  related: RelatedGroup[];
   auditHeading: string;
 }
 
@@ -49,7 +50,6 @@ export default function LandingPage({
   checklist,
   faqHeading,
   faqs,
-  relatedHeading,
   related,
   auditHeading,
 }: LandingPageProps) {
@@ -142,11 +142,20 @@ export default function LandingPage({
           </h2>
           <ul className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-px bg-black/10">
             {checklist.map((item) => (
-              <li key={item} className="bg-white p-5 text-gray-700 text-sm flex gap-3">
+              <li
+                key={typeof item === "string" ? item : item.href}
+                className="bg-white p-5 text-gray-700 text-sm flex gap-3"
+              >
                 <span className="text-accent font-bold" aria-hidden="true">
                   &#10003;
                 </span>
-                {item}
+                {typeof item === "string" ? (
+                  item
+                ) : (
+                  <Link href={item.href} className="underline underline-offset-4 hover:text-black">
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -202,19 +211,23 @@ export default function LandingPage({
           RELATED
           ============================================= */}
       <section className="py-16 bg-black border-b border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">{relatedHeading}</p>
-          <div className="flex flex-wrap gap-4">
-            {related.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
-              >
-                {link.label} &rarr;
-              </Link>
-            ))}
-          </div>
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 space-y-12">
+          {related.map((group) => (
+            <nav key={group.heading} aria-label={group.heading}>
+              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">{group.heading}</p>
+              <div className="flex flex-wrap gap-4">
+                {group.links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+                  >
+                    {link.label} &rarr;
+                  </Link>
+                ))}
+              </div>
+            </nav>
+          ))}
         </div>
       </section>
 
