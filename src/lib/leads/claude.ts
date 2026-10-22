@@ -1,7 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type {
   LandingPagePayload,
+  LeadAuditRecord,
+  LeadGeneratedPageRecord,
   LeadRecord,
+  OutreachEmailDraft,
   ProposalContent,
   ProposalLineItem,
   PublishedPackageReference,
@@ -252,4 +255,104 @@ export async function generateLandingPageWithClaude(args: {
     markdown,
     rawModelOutput: raw,
   };
+}
+
+export async function generateOutreachEmailWithClaude(args: {
+  lead: LeadRecord;
+  audit: LeadAuditRecord;
+  page: LeadGeneratedPageRecord | null;
+  previewUrl: string | null;
+}): Promise<OutreachEmailDraft> {
+  const anthropic = getAnthropicClient();
+  const topIssues = (args.audit.seo_issues ?? [])
+    .slice()
+    .sort((a, b) => severityRank(a.severity) - severityRank(b.severity))
+    .slice(0, 5);
+
+  const prompt = `Write a first-touch cold email from James Latten at Foundry Frame (a web design agency) to this business, based on the website audit we ran on their site${
+    args.page ? " and the custom landing page concept we built for them" : ""
+  }.
+
+Lead:
+${JSON.stringify(
+  {
+    contactName: args.lead.name,
+    company: args.lead.company_name,
+    website: args.lead.website_url,
+    industry: args.lead.industry,
+    location: args.lead.location,
+  },
+  null,
+  2,
+)}
+
+Audit:
+${JSON.stringify(
+  {
+    score: args.audit.score,
+    executiveSummary: args.audit.executive_summary,
+    strengths: (args.audit.strengths ?? []).slice(0, 3),
+    topIssues,
+  },
+  null,
+  2,
+)}
+${
+  args.page
+    ? `
+Landing page concept:
+${JSON.stringify(
+  {
+    title: args.page.page_title,
+    headline: args.page.hero_headline,
+    subheadline: args.page.hero_subheadline,
+    packages: (args.page.package_recommendations ?? []).map((pkg) => pkg.packageName),
+  },
+  null,
+  2,
+)}
+Preview link: ${args.previewUrl}
+`
+    : ""
+}
+Return strict JSON with this exact shape:
+{
+  "subject": string,
+  "body": string
+}
+
+Rules:
+- Plain text body, 120-180 words, short paragraphs separated by blank lines. No markdown, no bullet symbols other than "-".
+- Greet the contact by first name if one is given, otherwise the company.
+- Open with one genuine strength of their current site, then name 2-3 specific issues from the audit in plain language a business owner understands, and why each costs them customers.
+${
+  args.page
+    ? "- Mention we put together a free concept page showing how their site could look and perform, and include the preview link on its own line exactly as given.\n"
+    : ""
+}- End with a low-pressure ask for a 15-minute call this week.
+- Sign off as:
+James Latten
+Foundry Frame
+(216) 889-7822 | jlatten@foundryframe.com
+- Subject under 60 characters, specific to their business, no clickbait or all caps.
+- Do not invent metrics, prices, guarantees, or facts not in the supplied data. Do not mention the numeric audit score.`;
+
+  const message = await anthropic.messages.create({
+    model: DEFAULT_MODEL,
+    max_tokens: 1200,
+    system:
+      "You are a friendly, direct small-agency founder writing personal outreach emails. Return only valid JSON with no markdown fences or prose outside JSON.",
+    messages: [{ role: "user", content: prompt }],
+  });
+
+  const raw = extractTextFromResponse(message);
+  return parseJsonObjectWithRepair<OutreachEmailDraft>({
+    anthropic,
+    raw,
+    context: "client outreach email",
+  });
+}
+
+function severityRank(severity: string): number {
+  return severity === "high" ? 0 : severity === "medium" ? 1 : 2;
 }

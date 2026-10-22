@@ -74,6 +74,11 @@ export type SiteAuditResult = {
   rawModelOutput: string;
 };
 
+export type OutreachEmailDraft = {
+  subject: string;
+  body: string;
+};
+
 export type LeadAuditRecord = {
   id: string;
   lead_id: string;

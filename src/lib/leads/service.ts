@@ -1,6 +1,7 @@
 import {
   generateAuditWithClaude,
   generateLandingPageWithClaude,
+  generateOutreachEmailWithClaude,
   generateProposalWithClaude,
 } from "@/lib/leads/claude";
 import {
@@ -10,6 +11,7 @@ import {
   createLeadAudit,
   createLeadProposal,
   deleteLeadProposal,
+  getLatestGeneratedLeadPage,
   getLatestLeadAudit,
   listPublishedPackagesForLeads,
   mapLandingPayloadColumns,
@@ -101,6 +103,22 @@ export async function generateLeadLandingPage(lead: LeadRecord) {
   });
 
   return page;
+}
+
+export async function draftLeadOutreachEmail(lead: LeadRecord, baseUrl: string) {
+  const [audit, page] = await Promise.all([
+    getLatestLeadAudit(lead.id),
+    getLatestGeneratedLeadPage(lead.id),
+  ]);
+
+  if (!audit) {
+    throw new Error("Analyze the lead website first before drafting an email.");
+  }
+
+  const previewUrl = page ? `${baseUrl.replace(/\/$/, "")}/lead-preview/${page.slug}` : null;
+  const draft = await generateOutreachEmailWithClaude({ lead, audit, page, previewUrl });
+
+  return { ...draft, to: lead.contact_email, previewUrl };
 }
 
 export async function generateLeadProposal(args: {
