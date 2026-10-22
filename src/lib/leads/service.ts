@@ -3,7 +3,6 @@ import {
   generateLandingPageWithClaude,
   generateProposalWithClaude,
 } from "@/lib/leads/claude";
-import { crawlWebsiteWithPlaywright } from "@/lib/leads/playwright-analyzer";
 import {
   buildLeadProposalStoragePath,
   buildLeadPageStoragePath,
@@ -25,6 +24,9 @@ import type { LeadRecord, ProposalLineItem } from "@/lib/leads/types";
 import { slugify } from "@/lib/leads/utils";
 
 export async function analyzeLeadWebsite(lead: LeadRecord) {
+  /* Loaded lazily so the landing page and proposal routes, which share this
+     module, don't pull Playwright into their functions. */
+  const { crawlWebsiteWithPlaywright } = await import("@/lib/leads/playwright-analyzer");
   const crawlResult = await crawlWebsiteWithPlaywright(lead.website_url);
   const audit = await generateAuditWithClaude(crawlResult.snapshot);
 
