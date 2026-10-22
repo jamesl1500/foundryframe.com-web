@@ -1,4 +1,4 @@
-import { chromium } from "playwright";
+import { chromium, type Browser } from "playwright-core";
 import type { SiteCrawlSnapshot } from "@/lib/leads/types";
 import { clipText } from "@/lib/leads/utils";
 
@@ -7,8 +7,24 @@ interface CrawlResult {
   screenshotBuffer: Buffer;
 }
 
+/* Serverless functions (Vercel, Lambda) have no Playwright browser cache, so
+   launch the Chromium build shipped in @sparticuz/chromium there. Locally,
+   use the browser installed by `npx playwright install chromium`. */
+async function launchBrowser(): Promise<Browser> {
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    const { default: serverlessChromium } = await import("@sparticuz/chromium");
+    return chromium.launch({
+      executablePath: await serverlessChromium.executablePath(),
+      args: serverlessChromium.args,
+      headless: true,
+    });
+  }
+
+  return chromium.launch({ headless: true });
+}
+
 export async function crawlWebsiteWithPlaywright(url: string): Promise<CrawlResult> {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await launchBrowser();
 
   try {
     const page = await browser.newPage({
