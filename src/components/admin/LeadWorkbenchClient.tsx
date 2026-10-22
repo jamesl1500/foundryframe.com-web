@@ -84,6 +84,9 @@ export default function LeadWorkbenchClient({
   const [activeTab, setActiveTab] = useState<WorkbenchTab>("details");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [draftingEmail, setDraftingEmail] = useState(false);
+  const [emailDraft, setEmailDraft] = useState<{ subject: string; body: string } | null>(null);
+  const [copiedField, setCopiedField] = useState<"" | "subject" | "body">("");
 
   const issueCount = useMemo(() => latestAudit?.seo_issues?.length ?? 0, [latestAudit]);
   const normalizedRecommendations = useMemo(() => {
@@ -309,6 +312,43 @@ export default function LeadWorkbenchClient({
     setSuccess("Lead preview generated successfully.");
     setActiveTab("analysis");
     router.refresh();
+  }
+
+  async function draftOutreachEmail() {
+    setDraftingEmail(true);
+    setError("");
+    setSuccess("");
+
+    const response = await fetch(`/api/admin/leads/${lead.id}/outreach-email`, {
+      method: "POST",
+    });
+
+    const result = (await response.json()) as {
+      error?: string;
+      data?: { subject: string; body: string };
+    };
+
+    setDraftingEmail(false);
+
+    if (!response.ok || !result.data) {
+      setError(result.error ?? "Unable to draft the client email.");
+      return;
+    }
+
+    setEmailDraft({ subject: result.data.subject, body: result.data.body });
+    setActiveTab("analysis");
+  }
+
+  async function copyEmailField(field: "subject" | "body") {
+    if (!emailDraft) return;
+
+    try {
+      await navigator.clipboard.writeText(emailDraft[field]);
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(""), 2000);
+    } catch {
+      setError("Couldn't copy to the clipboard. Select the text and copy it manually.");
+    }
   }
 
   async function sendProposalEmail() {
@@ -825,6 +865,85 @@ export default function LeadWorkbenchClient({
                 >
                   Open Landing Preview
                 </Link>
+              </div>
+            )}
+          </article>
+
+          <article className="border border-white/10 p-6 bg-black lg:col-span-2">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+              <div>
+                <p className="text-xs uppercase tracking-widest text-gray-500">Client Email</p>
+                <p className="text-sm text-gray-400 mt-1">
+                  A personal outreach email built from the analysis{latestPage ? " and landing preview" : ""}. Edit it, then copy it into your mail app.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={draftOutreachEmail}
+                disabled={draftingEmail || !latestAudit}
+                className="px-4 py-3 bg-white text-black text-xs font-bold uppercase tracking-wider hover:bg-gray-200 disabled:opacity-50"
+              >
+                {draftingEmail ? "Drafting..." : emailDraft ? "Redraft Email" : "Draft Email"}
+              </button>
+            </div>
+            {!latestAudit ? (
+              <p className="text-sm text-gray-400">Run Analyze Website first. The email is written from the audit findings.</p>
+            ) : !emailDraft ? (
+              <p className="text-sm text-gray-400">
+                No draft yet.{latestPage ? "" : " Generate a landing page first if you want the email to include a preview link."}
+              </p>
+            ) : (
+              <div className="space-y-4">
+                {state.contact_email ? (
+                  <p className="text-sm text-gray-400">
+                    To: <span className="text-white">{state.contact_email}</span>
+                  </p>
+                ) : (
+                  <p className="text-sm text-amber-200">No contact email on this lead yet. Add one in Lead Details.</p>
+                )}
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label htmlFor="outreach-subject" className="text-[10px] uppercase tracking-widest text-gray-500">Subject</label>
+                    <button
+                      type="button"
+                      onClick={() => copyEmailField("subject")}
+                      className="text-[10px] uppercase tracking-widest text-cyan-200 hover:text-white"
+                    >
+                      {copiedField === "subject" ? "Copied" : "Copy Subject"}
+                    </button>
+                  </div>
+                  <input
+                    id="outreach-subject"
+                    value={emailDraft.subject}
+                    onChange={(event) => setEmailDraft({ ...emailDraft, subject: event.target.value })}
+                    className="w-full bg-white/5 border border-white/20 text-white text-sm px-4 py-3"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <label htmlFor="outreach-body" className="text-[10px] uppercase tracking-widest text-gray-500">Body</label>
+                    <button
+                      type="button"
+                      onClick={() => copyEmailField("body")}
+                      className="text-[10px] uppercase tracking-widest text-cyan-200 hover:text-white"
+                    >
+                      {copiedField === "body" ? "Copied" : "Copy Body"}
+                    </button>
+                  </div>
+                  <textarea
+                    id="outreach-body"
+                    value={emailDraft.body}
+                    onChange={(event) => setEmailDraft({ ...emailDraft, body: event.target.value })}
+                    rows={16}
+                    className="w-full bg-white/5 border border-white/20 text-white text-sm px-4 py-3 leading-relaxed"
+                  />
+                </div>
+                <a
+                  href={`mailto:${encodeURIComponent(state.contact_email)}?subject=${encodeURIComponent(emailDraft.subject)}&body=${encodeURIComponent(emailDraft.body)}`}
+                  className="inline-flex px-4 py-3 border border-cyan-300/40 text-cyan-200 text-xs font-bold uppercase tracking-widest hover:bg-cyan-500/10"
+                >
+                  Open in Mail App
+                </a>
               </div>
             )}
           </article>
