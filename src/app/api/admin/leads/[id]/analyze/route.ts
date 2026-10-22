@@ -3,6 +3,9 @@ import { requireAdmin } from "@/app/api/admin/_utils";
 import { getLeadById } from "@/lib/leads/repository";
 import { analyzeLeadWebsite } from "@/lib/leads/service";
 
+/* Headless Chromium crawl plus the Claude audit can outlast the default limit. */
+export const maxDuration = 300;
+
 export async function POST(
   request: Request,
   context: RouteContext<"/api/admin/leads/[id]/analyze">
