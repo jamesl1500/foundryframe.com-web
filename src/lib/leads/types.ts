@@ -49,6 +49,47 @@ export type SiteCrawlSnapshot = {
   sampleInternalLinks: string[];
   sampleExternalLinks: string[];
   aboveTheFoldText: string;
+  /* Absent on audits captured before PageSpeed was added. */
+  pageSpeed?: PageSpeedSummary;
+};
+
+export type PageSpeedStrategy = "mobile" | "desktop";
+
+export type PageSpeedOpportunity = {
+  title: string;
+  displayValue: string;
+  savingsMs: number;
+};
+
+export type PageSpeedResult = {
+  strategy: PageSpeedStrategy;
+  performanceScore: number | null;
+  accessibilityScore: number | null;
+  bestPracticesScore: number | null;
+  seoScore: number | null;
+  /* Lighthouse lab run on Google's servers. */
+  lab: {
+    firstContentfulPaintMs: number | null;
+    largestContentfulPaintMs: number | null;
+    totalBlockingTimeMs: number | null;
+    speedIndexMs: number | null;
+    cumulativeLayoutShift: number | null;
+  };
+  /* Real-visitor Chrome UX Report data; null when the site has too little traffic. */
+  field: {
+    overallCategory: string | null;
+    largestContentfulPaintMs: number | null;
+    interactionToNextPaintMs: number | null;
+    cumulativeLayoutShift: number | null;
+  } | null;
+  opportunities: PageSpeedOpportunity[];
+};
+
+export type PageSpeedSummary = {
+  fetchedAt: string;
+  mobile: PageSpeedResult | null;
+  desktop: PageSpeedResult | null;
+  error: string | null;
 };
 
 export type AuditIssue = {
