@@ -18,6 +18,7 @@ type Status = "idle" | "sending" | "success" | "error";
 
 const inputClass =
   "w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-accent transition-colors";
+const selectClass = inputClass.replace("bg-transparent", "bg-black");
 const labelClass = "block text-xs uppercase tracking-wider text-gray-500 mb-2";
 
 export default function FoundingForm() {
@@ -118,7 +119,7 @@ export default function FoundingForm() {
           <label htmlFor="fd-timeline" className={labelClass}>
             Timeline *
           </label>
-          <select id="fd-timeline" name="timeline" required defaultValue="" className={`${inputClass} bg-black`}>
+          <select id="fd-timeline" name="timeline" required defaultValue="" className={selectClass}>
             <option value="" disabled>
               Pick one
             </option>
@@ -133,7 +134,7 @@ export default function FoundingForm() {
           <label htmlFor="fd-budget" className={labelClass}>
             Budget range *
           </label>
-          <select id="fd-budget" name="budget" required defaultValue="" className={`${inputClass} bg-black`}>
+          <select id="fd-budget" name="budget" required defaultValue="" className={selectClass}>
             <option value="" disabled>
               Pick one
             </option>

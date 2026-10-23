@@ -21,6 +21,7 @@ type Status = "idle" | "sending" | "success" | "error";
 
 const inputClass =
   "w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-accent transition-colors";
+const selectClass = inputClass.replace("bg-transparent", "bg-black");
 const labelClass = "block text-xs uppercase tracking-wider text-gray-500 mb-2";
 
 function tomorrow() {
@@ -425,7 +426,7 @@ export default function PackageBuilder() {
                 <label htmlFor="pb-window" className={labelClass}>
                   Preferred time
                 </label>
-                <select id="pb-window" name="preferredWindow" className={`${inputClass} bg-black`} defaultValue="">
+                <select id="pb-window" name="preferredWindow" className={selectClass} defaultValue="">
                   <option value="">Any time</option>
                   {MEETING_WINDOWS.map((slot) => (
                     <option key={slot} value={slot}>
