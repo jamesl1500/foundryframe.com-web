@@ -120,7 +120,7 @@ async function repairMalformedJsonWithClaude(args: {
 }): Promise<string> {
   const repairMessage = await args.anthropic.messages.create({
     model: DEFAULT_MODEL,
-    max_tokens: 3500,
+    max_tokens: 8000,
     system:
       "You fix malformed JSON. Return only valid JSON with no markdown fences, comments, or prose.",
     messages: [
@@ -175,7 +175,7 @@ export async function generateAuditWithClaude(
 
   const message = await anthropic.messages.create({
     model: DEFAULT_MODEL,
-    max_tokens: 3000,
+    max_tokens: 8000,
     cache_control: { type: "ephemeral" },
     system:
       "You are a senior SEO strategist and CRO specialist for agency pre-sales audits. Return only valid JSON with no markdown fences.",
@@ -212,7 +212,7 @@ export async function generateLandingPageWithClaude(args: {
     args.lead,
     null,
     2,
-  )}\n\nAudit:\n${JSON.stringify(args.audit, null, 2)}\n\nPackage catalog:\n${JSON.stringify(
+  )}\n\nAudit:\n${JSON.stringify({ ...args.audit, rawModelOutput: undefined }, null, 2)}\n\nPackage catalog:\n${JSON.stringify(
     args.packageCatalog,
     null,
     2,
@@ -221,18 +221,20 @@ export async function generateLandingPageWithClaude(args: {
   const message = await anthropic.messages.create({
     model: DEFAULT_MODEL,
     cache_control: { type: "ephemeral" },
-    max_tokens: 3500,
+    max_tokens: 8000,
     system:
       "You are an elite web strategy consultant and conversion copywriter. Return only valid JSON and no prose outside JSON.",
     messages: [{ role: "user", content: prompt }],
   });
 
   const raw = extractTextFromResponse(message);
-  const payload = await parseJsonObjectWithRepair<LandingPagePayload>({
-    anthropic,
-    raw,
-    context: "lead landing page generation output",
-  });
+  const payload = normalizeLandingPayload(
+    await parseJsonObjectWithRepair<Partial<LandingPagePayload>>({
+      anthropic,
+      raw,
+      context: "lead landing page generation output",
+    }),
+  );
 
   const markdownSections = payload.sections
     .map((section) => {
@@ -254,6 +256,56 @@ export async function generateLandingPageWithClaude(args: {
     payload,
     markdown,
     rawModelOutput: raw,
+  };
+}
+
+function asText(value: unknown): string {
+  return typeof value === "string" ? value : "";
+}
+
+function asTextList(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
+}
+
+function asObjectList(value: unknown): Record<string, unknown>[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object")
+    : [];
+}
+
+/* Claude occasionally drops or nulls a field (most often when a long
+   response is cut off and then repaired), so fill every list with a
+   default instead of letting a later .map() crash the request. */
+function normalizeLandingPayload(raw: Partial<LandingPagePayload>): LandingPagePayload {
+  const visual = (raw.visualDirection ?? {}) as Partial<LandingPagePayload["visualDirection"]>;
+
+  return {
+    pageTitle: asText(raw.pageTitle),
+    heroHeadline: asText(raw.heroHeadline),
+    heroSubheadline: asText(raw.heroSubheadline),
+    analysisHighlights: asTextList(raw.analysisHighlights),
+    seoWins: asTextList(raw.seoWins),
+    packageRecommendations: asObjectList(raw.packageRecommendations).map((pkg) => ({
+      packageName: asText(pkg.packageName),
+      rationale: asText(pkg.rationale),
+      estimatedInvestment: asText(pkg.estimatedInvestment),
+      deliverables: asTextList(pkg.deliverables),
+      timeline: asText(pkg.timeline),
+    })),
+    sections: asObjectList(raw.sections).map((section) => ({
+      title: asText(section.title),
+      body: asText(section.body),
+      bullets: asTextList(section.bullets),
+    })),
+    closingHeadline: asText(raw.closingHeadline),
+    closingCopy: asText(raw.closingCopy),
+    primaryCtaText: asText(raw.primaryCtaText),
+    visualDirection: {
+      palette: asTextList(visual.palette),
+      typographyNotes: asText(visual.typographyNotes),
+      layoutNotes: asText(visual.layoutNotes),
+    },
+    modelNotes: asText(raw.modelNotes),
   };
 }
 
