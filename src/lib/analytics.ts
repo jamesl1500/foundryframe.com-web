@@ -15,7 +15,8 @@
  *
  * On the production deployment, every conversion is also sent to Google Ads
  * (when that conversion has a label; the contact form and package builder
- * report to the "Request quote" conversion action) and to
+ * report to the "Request quote" conversion action, the founding application
+ * to "Founding Client Form") and to
  * Meta as a Pixel event plus a matching Conversions API event. Form leads are
  * sent to the Conversions API by the form's own API route after a successful
  * submission; click conversions (booking, call) go through /api/track. Both
@@ -48,6 +49,8 @@ const GOOGLE_ADS_LABELS = {
   call: process.env.NEXT_PUBLIC_GOOGLE_ADS_LABEL_CALL || "",
   // "Request quote" conversion action.
   quote: process.env.NEXT_PUBLIC_GOOGLE_ADS_LABEL_QUOTE || "iXrQCJC7rqcdEOLP5O9E",
+  // "Founding Client Form" conversion action.
+  founding: process.env.NEXT_PUBLIC_GOOGLE_ADS_LABEL_FOUNDING || "5mL6CNH2rqcdEOLP5O9E",
 };
 
 export type ConversionKind =
@@ -80,7 +83,7 @@ const CONVERSIONS: Record<
   audit: { ga: "generate_lead", gaParams: { method: "website_audit" }, adsLabel: GOOGLE_ADS_LABELS.audit, meta: "Lead" },
   contact: { ga: "generate_lead", gaParams: { method: "contact_form" }, adsLabel: GOOGLE_ADS_LABELS.quote, meta: "Lead" },
   package_builder: { ga: "generate_lead", gaParams: { method: "package_builder" }, adsLabel: GOOGLE_ADS_LABELS.quote, meta: "Lead" },
-  founding: { ga: "generate_lead", gaParams: { method: "founding_application" }, adsLabel: GOOGLE_ADS_LABELS.contact, meta: "Lead" },
+  founding: { ga: "generate_lead", gaParams: { method: "founding_application" }, adsLabel: GOOGLE_ADS_LABELS.founding, meta: "Lead" },
   ad_page: { ga: "generate_lead", gaParams: { method: "ad_landing_page" }, adsLabel: GOOGLE_ADS_LABELS.contact, meta: "Lead" },
   booking: { ga: "book_call_click", gaParams: {}, adsLabel: GOOGLE_ADS_LABELS.booking, meta: "Schedule" },
   call: { ga: "contact_click", gaParams: { method: "phone" }, adsLabel: GOOGLE_ADS_LABELS.call, meta: "Contact" },

@@ -42,7 +42,7 @@ export default function FoundingForm() {
       const json = await res.json().catch(() => null);
       if (!res.ok) throw new Error(json?.error || "Something went wrong.");
 
-      trackConversion("founding", { eventId: conversionId });
+      trackConversion("founding", { value: 1, eventId: conversionId });
       setStatus("success");
       form.reset();
     } catch (err) {
