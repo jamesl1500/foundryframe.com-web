@@ -829,6 +829,18 @@ export default function LeadWorkbenchClient({
                     <p className="text-2xl font-bold text-white">{recommendationCount}</p>
                   </div>
                 </div>
+                {latestAudit.crawl_snapshot?.pageSpeed?.mobile || latestAudit.crawl_snapshot?.pageSpeed?.desktop ? (
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="border border-white/10 p-3">
+                      <p className="text-[10px] uppercase tracking-widest text-gray-500">PageSpeed Mobile</p>
+                      <p className="text-2xl font-bold text-white">{latestAudit.crawl_snapshot.pageSpeed.mobile?.performanceScore ?? "-"}</p>
+                    </div>
+                    <div className="border border-white/10 p-3">
+                      <p className="text-[10px] uppercase tracking-widest text-gray-500">PageSpeed Desktop</p>
+                      <p className="text-2xl font-bold text-white">{latestAudit.crawl_snapshot.pageSpeed.desktop?.performanceScore ?? "-"}</p>
+                    </div>
+                  </div>
+                ) : null}
                 <div className="grid grid-cols-2 gap-3">
                     <Link
                     href={`/admin/leads/${lead.id}/analysis`}

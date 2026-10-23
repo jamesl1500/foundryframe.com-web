@@ -22,6 +22,7 @@ import {
   uploadLeadProposalDocument,
 } from "@/lib/leads/repository";
 import { renderDocx } from "@/lib/leads/documents";
+import { runPageSpeedAudit } from "@/lib/leads/pagespeed";
 import type { LeadRecord, ProposalLineItem } from "@/lib/leads/types";
 import { slugify } from "@/lib/leads/utils";
 
@@ -29,7 +30,11 @@ export async function analyzeLeadWebsite(lead: LeadRecord) {
   /* Loaded lazily so the landing page and proposal routes, which share this
      module, don't pull Playwright into their functions. */
   const { crawlWebsiteWithPlaywright } = await import("@/lib/leads/playwright-analyzer");
-  const crawlResult = await crawlWebsiteWithPlaywright(lead.website_url);
+  const [crawlResult, pageSpeed] = await Promise.all([
+    crawlWebsiteWithPlaywright(lead.website_url),
+    runPageSpeedAudit(lead.website_url),
+  ]);
+  crawlResult.snapshot.pageSpeed = pageSpeed;
   const audit = await generateAuditWithClaude(crawlResult.snapshot);
 
   const screenshotPath = buildLeadPageStoragePath(lead.id);
