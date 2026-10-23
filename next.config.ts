@@ -55,6 +55,18 @@ const adTrackingEnabled =
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  /* Playwright and the serverless Chromium binary load files at runtime that
+     output tracing can't see (playwright-core/browsers.json, the compressed
+     Chromium in @sparticuz/chromium/bin), so ship them with the lead routes.
+     Every route under /api/admin/leads/[id] shares src/lib/leads/service.ts,
+     so they all get the files in case the bundler loads Playwright eagerly. */
+  serverExternalPackages: ["playwright-core", "@sparticuz/chromium"],
+  outputFileTracingIncludes: {
+    "/api/admin/leads/*/*": [
+      "./node_modules/playwright-core/**/*",
+      "./node_modules/@sparticuz/chromium/bin/**/*",
+    ],
+  },
   env: {
     AD_TRACKING_ENABLED: adTrackingEnabled ? "true" : "false",
   },

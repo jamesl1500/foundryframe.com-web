@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLeadById, getLatestLeadAudit } from "@/lib/leads/repository";
+import type { PageSpeedResult, PageSpeedSummary } from "@/lib/leads/types";
 
 function severityClasses(severity: "high" | "medium" | "low") {
   if (severity === "high") {
@@ -78,6 +79,132 @@ function normalizeRecommendations(input: unknown) {
     .filter((item): item is { category: string; action: string; expectedImpact: string } => item !== null);
 }
 
+/* Lighthouse's own colour bands: 90+ good, 50-89 needs improvement. */
+function scoreClasses(score: number | null) {
+  if (score === null) return "border-white/20 text-gray-400";
+  if (score >= 90) return "border-emerald-300/40 text-emerald-200";
+  if (score >= 50) return "border-amber-300/40 text-amber-200";
+  return "border-red-400/40 text-red-200";
+}
+
+function formatSeconds(ms: number | null) {
+  return ms === null ? "-" : `${(ms / 1000).toFixed(1)}s`;
+}
+
+function formatMs(ms: number | null) {
+  return ms === null ? "-" : `${Math.round(ms)}ms`;
+}
+
+function formatCls(value: number | null) {
+  return value === null ? "-" : value.toFixed(2);
+}
+
+function PageSpeedPanel({ result }: { result: PageSpeedResult }) {
+  const scores: Array<[string, number | null]> = [
+    ["Performance", result.performanceScore],
+    ["Accessibility", result.accessibilityScore],
+    ["Best Practices", result.bestPracticesScore],
+    ["SEO", result.seoScore],
+  ];
+  const labMetrics: Array<[string, string]> = [
+    ["First Contentful Paint", formatSeconds(result.lab.firstContentfulPaintMs)],
+    ["Largest Contentful Paint", formatSeconds(result.lab.largestContentfulPaintMs)],
+    ["Total Blocking Time", formatMs(result.lab.totalBlockingTimeMs)],
+    ["Speed Index", formatSeconds(result.lab.speedIndexMs)],
+    ["Cumulative Layout Shift", formatCls(result.lab.cumulativeLayoutShift)],
+  ];
+
+  return (
+    <div className="border border-white/10 p-4 space-y-4">
+      <p className="text-sm font-semibold text-white capitalize">{result.strategy}</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        {scores.map(([label, score]) => (
+          <div key={label} className={`border p-3 ${scoreClasses(score)}`}>
+            <p className="text-[10px] uppercase tracking-widest text-gray-500">{label}</p>
+            <p className="text-2xl font-heading font-bold">{score ?? "-"}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-2">Lab Metrics</p>
+        <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-sm">
+          {labMetrics.map(([label, value]) => (
+            <div key={label} className="flex justify-between gap-3 border-b border-white/5 py-1">
+              <dt className="text-gray-400">{label}</dt>
+              <dd className="text-white">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      {result.field ? (
+        <div>
+          <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-2">
+            Real Visitors (Chrome UX Report){result.field.overallCategory ? `: ${result.field.overallCategory.toLowerCase()}` : ""}
+          </p>
+          <dl className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-1 text-sm">
+            <div className="flex justify-between gap-3 border-b border-white/5 py-1">
+              <dt className="text-gray-400">LCP</dt>
+              <dd className="text-white">{formatSeconds(result.field.largestContentfulPaintMs)}</dd>
+            </div>
+            <div className="flex justify-between gap-3 border-b border-white/5 py-1">
+              <dt className="text-gray-400">INP</dt>
+              <dd className="text-white">{formatMs(result.field.interactionToNextPaintMs)}</dd>
+            </div>
+            <div className="flex justify-between gap-3 border-b border-white/5 py-1">
+              <dt className="text-gray-400">CLS</dt>
+              <dd className="text-white">{formatCls(result.field.cumulativeLayoutShift)}</dd>
+            </div>
+          </dl>
+        </div>
+      ) : (
+        <p className="text-xs text-gray-500">No real-visitor data. The site doesn&apos;t get enough Chrome traffic for Google to report it.</p>
+      )}
+      {result.opportunities.length > 0 ? (
+        <div>
+          <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-2">Biggest Opportunities</p>
+          <ul className="space-y-1 text-sm text-gray-300">
+            {result.opportunities.map((opportunity) => (
+              <li key={opportunity.title} className="flex justify-between gap-3">
+                <span>{opportunity.title}</span>
+                <span className="text-gray-500 shrink-0">~{formatSeconds(opportunity.savingsMs)} saved</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function PageSpeedSection({ pageSpeed }: { pageSpeed: PageSpeedSummary | undefined }) {
+  if (!pageSpeed) {
+    return (
+      <article className="border border-white/10 p-6 bg-black space-y-2">
+        <p className="text-xs uppercase tracking-widest text-gray-500">Google PageSpeed</p>
+        <p className="text-sm text-gray-400">This analysis ran before PageSpeed was added. Run Analyze Website again to include it.</p>
+      </article>
+    );
+  }
+
+  const results = [pageSpeed.mobile, pageSpeed.desktop].filter(
+    (result): result is PageSpeedResult => result !== null,
+  );
+
+  return (
+    <article className="border border-white/10 p-6 bg-black space-y-4">
+      <p className="text-xs uppercase tracking-widest text-gray-500">Google PageSpeed</p>
+      {pageSpeed.error ? <p className="text-sm text-amber-200">PageSpeed issue: {pageSpeed.error}</p> : null}
+      {results.length > 0 ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {results.map((result) => (
+            <PageSpeedPanel key={result.strategy} result={result} />
+          ))}
+        </div>
+      ) : null}
+    </article>
+  );
+}
+
 export default async function LeadAnalysisPage({
   params,
 }: {
@@ -137,6 +264,8 @@ export default async function LeadAnalysisPage({
               <p className="text-xs uppercase tracking-widest text-gray-500">Executive Summary</p>
               <p className="text-sm text-gray-300 leading-relaxed">{latestAudit.executive_summary || "No summary provided."}</p>
             </article>
+
+            <PageSpeedSection pageSpeed={latestAudit.crawl_snapshot?.pageSpeed} />
 
             {Array.isArray(latestAudit.strengths) && latestAudit.strengths.length > 0 ? (
               <article className="border border-white/10 p-6 bg-black space-y-3">

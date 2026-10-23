@@ -1,9 +1,9 @@
 import {
   generateAuditWithClaude,
   generateLandingPageWithClaude,
+  generateOutreachEmailWithClaude,
   generateProposalWithClaude,
 } from "@/lib/leads/claude";
-import { crawlWebsiteWithPlaywright } from "@/lib/leads/playwright-analyzer";
 import {
   buildLeadProposalStoragePath,
   buildLeadPageStoragePath,
@@ -11,6 +11,7 @@ import {
   createLeadAudit,
   createLeadProposal,
   deleteLeadProposal,
+  getLatestGeneratedLeadPage,
   getLatestLeadAudit,
   listPublishedPackagesForLeads,
   mapLandingPayloadColumns,
@@ -21,11 +22,19 @@ import {
   uploadLeadProposalDocument,
 } from "@/lib/leads/repository";
 import { renderDocx } from "@/lib/leads/documents";
+import { runPageSpeedAudit } from "@/lib/leads/pagespeed";
 import type { LeadRecord, ProposalLineItem } from "@/lib/leads/types";
 import { slugify } from "@/lib/leads/utils";
 
 export async function analyzeLeadWebsite(lead: LeadRecord) {
-  const crawlResult = await crawlWebsiteWithPlaywright(lead.website_url);
+  /* Loaded lazily so the landing page and proposal routes, which share this
+     module, don't pull Playwright into their functions. */
+  const { crawlWebsiteWithPlaywright } = await import("@/lib/leads/playwright-analyzer");
+  const [crawlResult, pageSpeed] = await Promise.all([
+    crawlWebsiteWithPlaywright(lead.website_url),
+    runPageSpeedAudit(lead.website_url),
+  ]);
+  crawlResult.snapshot.pageSpeed = pageSpeed;
   const audit = await generateAuditWithClaude(crawlResult.snapshot);
 
   const screenshotPath = buildLeadPageStoragePath(lead.id);
@@ -99,6 +108,22 @@ export async function generateLeadLandingPage(lead: LeadRecord) {
   });
 
   return page;
+}
+
+export async function draftLeadOutreachEmail(lead: LeadRecord, baseUrl: string) {
+  const [audit, page] = await Promise.all([
+    getLatestLeadAudit(lead.id),
+    getLatestGeneratedLeadPage(lead.id),
+  ]);
+
+  if (!audit) {
+    throw new Error("Analyze the lead website first before drafting an email.");
+  }
+
+  const previewUrl = page ? `${baseUrl.replace(/\/$/, "")}/lead-preview/${page.slug}` : null;
+  const draft = await generateOutreachEmailWithClaude({ lead, audit, page, previewUrl });
+
+  return { ...draft, to: lead.contact_email, previewUrl };
 }
 
 export async function generateLeadProposal(args: {

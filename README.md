@@ -41,6 +41,7 @@ Optional:
 - `ANTHROPIC_API_KEY` (required for lead analysis and generated previews)
 - `ANTHROPIC_MODEL` (defaults to `claude-sonnet-4-20250514`)
 - `GOOGLE_PLACES_API_KEY` (Lead Finder's Google Places source; enable "Places API (New)" in Google Cloud)
+- `GOOGLE_PAGESPEED_API_KEY` (PageSpeed scores in the Leads Workbench analysis; enable "PageSpeed Insights API" in Google Cloud. Falls back to `GOOGLE_PLACES_API_KEY` if that key is allowed to call PageSpeed)
 - `LEAD_FINDER_MODEL` (Lead Finder's web search model, defaults to `claude-opus-5`)
 - `CRON_SECRET` (protects the daily Lead Finder job at `/api/cron/lead-finder`)
 

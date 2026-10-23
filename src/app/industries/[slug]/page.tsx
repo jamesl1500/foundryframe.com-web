@@ -114,11 +114,15 @@ export default async function IndustryPage({
       checklist={industry.mustHaves}
       faqHeading="Common questions"
       faqs={industry.faqs}
-      relatedHeading="Areas we serve"
-      related={locations.map((location) => ({
-        label: `${location.city} web design`,
-        href: `/locations/${location.slug}`,
-      }))}
+      related={[
+        {
+          heading: "Areas we serve",
+          links: locations.map((location) => ({
+            label: `${location.city} web design`,
+            href: `/locations/${location.slug}`,
+          })),
+        },
+      ]}
       auditHeading="See how your current website scores"
     />
   );

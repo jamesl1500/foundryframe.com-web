@@ -1,7 +1,10 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type {
   LandingPagePayload,
+  LeadAuditRecord,
+  LeadGeneratedPageRecord,
   LeadRecord,
+  OutreachEmailDraft,
   ProposalContent,
   ProposalLineItem,
   PublishedPackageReference,
@@ -117,7 +120,7 @@ async function repairMalformedJsonWithClaude(args: {
 }): Promise<string> {
   const repairMessage = await args.anthropic.messages.create({
     model: DEFAULT_MODEL,
-    max_tokens: 3500,
+    max_tokens: 8000,
     system:
       "You fix malformed JSON. Return only valid JSON with no markdown fences, comments, or prose.",
     messages: [
@@ -168,11 +171,11 @@ export async function generateAuditWithClaude(
     snapshot,
     null,
     2,
-  )}\n\nReturn JSON with exact shape:\n{\n  "score": number (0-100),\n  "executiveSummary": string,\n  "strengths": string[],\n  "issues": [{"title": string, "severity": "high"|"medium"|"low", "whyItMatters": string, "recommendation": string}],\n  "recommendations": [{"category": "seo"|"performance"|"ux"|"conversion"|"content", "action": string, "expectedImpact": string}],\n  "markdownReport": string\n}\n\nRules:\n- At least 8 issues and 10 recommendations.\n- Mention technical SEO, on-page SEO, UX hierarchy, conversion friction, trust signals, and content structure.\n- Make recommendations specific and implementation-ready.`;
+  )}\n\nReturn JSON with exact shape:\n{\n  "score": number (0-100),\n  "executiveSummary": string,\n  "strengths": string[],\n  "issues": [{"title": string, "severity": "high"|"medium"|"low", "whyItMatters": string, "recommendation": string}],\n  "recommendations": [{"category": "seo"|"performance"|"ux"|"conversion"|"content", "action": string, "expectedImpact": string}],\n  "markdownReport": string\n}\n\nRules:\n- At least 8 issues and 10 recommendations.\n- Mention technical SEO, on-page SEO, UX hierarchy, conversion friction, trust signals, and content structure.\n- Make recommendations specific and implementation-ready.\n- If snapshot.pageSpeed has mobile/desktop results, base performance findings on those Google PageSpeed (Lighthouse) scores, Core Web Vitals, and opportunities, quoting the real numbers (mobile first). Prefer field data (real visitors) over lab data when present. Treat loadTimeMs as a rough secondary signal.\n- If snapshot.pageSpeed is missing or has an error, don't invent PageSpeed numbers.`;
 
   const message = await anthropic.messages.create({
     model: DEFAULT_MODEL,
-    max_tokens: 3000,
+    max_tokens: 8000,
     cache_control: { type: "ephemeral" },
     system:
       "You are a senior SEO strategist and CRO specialist for agency pre-sales audits. Return only valid JSON with no markdown fences.",
@@ -209,7 +212,7 @@ export async function generateLandingPageWithClaude(args: {
     args.lead,
     null,
     2,
-  )}\n\nAudit:\n${JSON.stringify(args.audit, null, 2)}\n\nPackage catalog:\n${JSON.stringify(
+  )}\n\nAudit:\n${JSON.stringify({ ...args.audit, rawModelOutput: undefined }, null, 2)}\n\nPackage catalog:\n${JSON.stringify(
     args.packageCatalog,
     null,
     2,
@@ -218,18 +221,20 @@ export async function generateLandingPageWithClaude(args: {
   const message = await anthropic.messages.create({
     model: DEFAULT_MODEL,
     cache_control: { type: "ephemeral" },
-    max_tokens: 3500,
+    max_tokens: 8000,
     system:
       "You are an elite web strategy consultant and conversion copywriter. Return only valid JSON and no prose outside JSON.",
     messages: [{ role: "user", content: prompt }],
   });
 
   const raw = extractTextFromResponse(message);
-  const payload = await parseJsonObjectWithRepair<LandingPagePayload>({
-    anthropic,
-    raw,
-    context: "lead landing page generation output",
-  });
+  const payload = normalizeLandingPayload(
+    await parseJsonObjectWithRepair<Partial<LandingPagePayload>>({
+      anthropic,
+      raw,
+      context: "lead landing page generation output",
+    }),
+  );
 
   const markdownSections = payload.sections
     .map((section) => {
@@ -252,4 +257,154 @@ export async function generateLandingPageWithClaude(args: {
     markdown,
     rawModelOutput: raw,
   };
+}
+
+function asText(value: unknown): string {
+  return typeof value === "string" ? value : "";
+}
+
+function asTextList(value: unknown): string[] {
+  return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
+}
+
+function asObjectList(value: unknown): Record<string, unknown>[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is Record<string, unknown> => Boolean(item) && typeof item === "object")
+    : [];
+}
+
+/* Claude occasionally drops or nulls a field (most often when a long
+   response is cut off and then repaired), so fill every list with a
+   default instead of letting a later .map() crash the request. */
+function normalizeLandingPayload(raw: Partial<LandingPagePayload>): LandingPagePayload {
+  const visual = (raw.visualDirection ?? {}) as Partial<LandingPagePayload["visualDirection"]>;
+
+  return {
+    pageTitle: asText(raw.pageTitle),
+    heroHeadline: asText(raw.heroHeadline),
+    heroSubheadline: asText(raw.heroSubheadline),
+    analysisHighlights: asTextList(raw.analysisHighlights),
+    seoWins: asTextList(raw.seoWins),
+    packageRecommendations: asObjectList(raw.packageRecommendations).map((pkg) => ({
+      packageName: asText(pkg.packageName),
+      rationale: asText(pkg.rationale),
+      estimatedInvestment: asText(pkg.estimatedInvestment),
+      deliverables: asTextList(pkg.deliverables),
+      timeline: asText(pkg.timeline),
+    })),
+    sections: asObjectList(raw.sections).map((section) => ({
+      title: asText(section.title),
+      body: asText(section.body),
+      bullets: asTextList(section.bullets),
+    })),
+    closingHeadline: asText(raw.closingHeadline),
+    closingCopy: asText(raw.closingCopy),
+    primaryCtaText: asText(raw.primaryCtaText),
+    visualDirection: {
+      palette: asTextList(visual.palette),
+      typographyNotes: asText(visual.typographyNotes),
+      layoutNotes: asText(visual.layoutNotes),
+    },
+    modelNotes: asText(raw.modelNotes),
+  };
+}
+
+export async function generateOutreachEmailWithClaude(args: {
+  lead: LeadRecord;
+  audit: LeadAuditRecord;
+  page: LeadGeneratedPageRecord | null;
+  previewUrl: string | null;
+}): Promise<OutreachEmailDraft> {
+  const anthropic = getAnthropicClient();
+  const topIssues = (args.audit.seo_issues ?? [])
+    .slice()
+    .sort((a, b) => severityRank(a.severity) - severityRank(b.severity))
+    .slice(0, 5);
+
+  const prompt = `Write a first-touch cold email from James Latten at Foundry Frame (a web design agency) to this business, based on the website audit we ran on their site${
+    args.page ? " and the custom landing page concept we built for them" : ""
+  }.
+
+Lead:
+${JSON.stringify(
+  {
+    contactName: args.lead.name,
+    company: args.lead.company_name,
+    website: args.lead.website_url,
+    industry: args.lead.industry,
+    location: args.lead.location,
+  },
+  null,
+  2,
+)}
+
+Audit:
+${JSON.stringify(
+  {
+    score: args.audit.score,
+    executiveSummary: args.audit.executive_summary,
+    strengths: (args.audit.strengths ?? []).slice(0, 3),
+    topIssues,
+  },
+  null,
+  2,
+)}
+${
+  args.page
+    ? `
+Landing page concept:
+${JSON.stringify(
+  {
+    title: args.page.page_title,
+    headline: args.page.hero_headline,
+    subheadline: args.page.hero_subheadline,
+    packages: (args.page.package_recommendations ?? []).map((pkg) => pkg.packageName),
+  },
+  null,
+  2,
+)}
+Preview link: ${args.previewUrl}
+`
+    : ""
+}
+Return strict JSON with this exact shape:
+{
+  "subject": string,
+  "body": string
+}
+
+Rules:
+- Plain text body, 120-180 words, short paragraphs separated by blank lines. No markdown, no bullet symbols other than "-".
+- Greet the contact by first name if one is given, otherwise the company.
+- Open with one genuine strength of their current site, then name 2-3 specific issues from the audit in plain language a business owner understands, and why each costs them customers.
+${
+  args.page
+    ? "- Mention we put together a free concept page showing how their site could look and perform, and include the preview link on its own line exactly as given.\n"
+    : ""
+}- End with a low-pressure ask for a 15-minute call this week.
+- Sign off as:
+James Latten
+Foundry Frame
+(216) 889-7822 | jlatten@foundryframe.com
+- Subject under 60 characters, specific to their business, no clickbait or all caps.
+- Do not invent metrics, prices, guarantees, or facts not in the supplied data. Do not mention the numeric audit score.`;
+
+  const message = await anthropic.messages.create({
+    model: DEFAULT_MODEL,
+    max_tokens: 1200,
+    system:
+      "You are a friendly, direct small-agency founder writing personal outreach emails. Return only valid JSON with no markdown fences or prose outside JSON.",
+    messages: [{ role: "user", content: prompt }],
+  });
+
+  const raw = extractTextFromResponse(message);
+  return parseJsonObjectWithRepair<OutreachEmailDraft>({
+    anthropic,
+    raw,
+    context: "client outreach email",
+  });
+}
+
+function severityRank(severity: string): number {
+  return severity === "high" ? 0 : severity === "medium" ? 1 : 2;
 }
