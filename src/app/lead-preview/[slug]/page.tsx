@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getGeneratedLeadPageBySlug } from "@/lib/leads/repository";
+import { BUSINESS_EMAIL } from "@/lib/site-facts";
 
 function asString(value: unknown, fallback = ""): string {
   return typeof value === "string" ? value : fallback;
@@ -156,7 +157,9 @@ export default async function LeadPreviewPage({
           <h2 className="text-4xl font-heading font-bold text-white mb-4">{closingHeadline}</h2>
           <p className="text-gray-300 text-sm max-w-3xl mb-6">{closingCopy}</p>
           <a
-            href={`mailto:${generatedPage.lead.contact_email || "hello@foundryframe.com"}?subject=Website%20Roadmap`}
+            href={`mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(
+              `Website Roadmap: ${generatedPage.lead.company_name || generatedPage.lead.name}`,
+            )}`}
             className="inline-flex px-6 py-3 bg-accent text-black text-xs font-bold uppercase tracking-widest hover:bg-accent-glow"
           >
             {primaryCtaText}
