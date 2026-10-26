@@ -24,25 +24,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/founding",
   },
+  /* Share images come from opengraph-image.tsx / twitter-image.tsx in this
+     folder. This object replaces the root openGraph rather than merging with
+     it, so siteName and locale are repeated here. */
   openGraph: {
     title: "Become a Foundry Frame Founding Client",
     description: pageDescription,
     url: "/founding",
     type: "website",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Foundry Frame Founding Client program",
-      },
-    ],
+    siteName: "Foundry Frame",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: "Become a Foundry Frame Founding Client",
     description: pageDescription,
-    images: ["/twitter-image"],
   },
 };
 

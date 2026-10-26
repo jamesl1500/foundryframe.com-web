@@ -41,7 +41,12 @@ const cornerBracket = (
   );
 };
 
-export function OgImageContent() {
+/* Defaults are the site-wide image; route segments with their own share image
+   (e.g. /founding) pass a headline (one entry per line) and footer tagline. */
+export function OgImageContent({
+  headline = ["Creative Design", "Agency"],
+  tagline = "Branding · Web Design · Marketing · Advertising · Digital Strategy",
+}: { headline?: string[]; tagline?: string } = {}) {
   return (
     <div
       style={{
@@ -109,30 +114,21 @@ export function OgImageContent() {
             marginTop: 32,
           }}
         >
-          <span
-            style={{
-              fontSize: 96,
-              fontWeight: 800,
-              color: "#FFFFFF",
-              letterSpacing: -2,
-              lineHeight: 1.05,
-              textTransform: "uppercase",
-            }}
-          >
-            Creative Design
-          </span>
-          <span
-            style={{
-              fontSize: 96,
-              fontWeight: 800,
-              color: "#FFFFFF",
-              letterSpacing: -2,
-              lineHeight: 1.05,
-              textTransform: "uppercase",
-            }}
-          >
-            Agency
-          </span>
+          {headline.map((line) => (
+            <span
+              key={line}
+              style={{
+                fontSize: 96,
+                fontWeight: 800,
+                color: "#FFFFFF",
+                letterSpacing: -2,
+                lineHeight: 1.05,
+                textTransform: "uppercase",
+              }}
+            >
+              {line}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -152,7 +148,7 @@ export function OgImageContent() {
             letterSpacing: 1,
           }}
         >
-          Branding &middot; Web Design &middot; Marketing &middot; Advertising &middot; Digital Strategy
+          {tagline}
         </span>
         <span
           style={{
