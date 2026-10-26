@@ -49,11 +49,13 @@ const spaceGrotesk = Space_Grotesk({
 
 const siteUrl = "https://www.foundryframe.com";
 // Every city with a /locations page, so the sitewide schema matches the pages.
+// containedInPlace pins names like Columbus or Avon to Ohio, not another state.
+const ohio = { "@type": "State", name: "Ohio" };
 const areaServed = [
   ...locations.flatMap((location) =>
-    citiesOf(location).map((name) => ({ "@type": "City", name }))
+    citiesOf(location).map((name) => ({ "@type": "City", name, containedInPlace: ohio }))
   ),
-  { "@type": "State", name: "Ohio" },
+  ohio,
   { "@type": "AdministrativeArea", name: "United States" },
 ];
 const structuredData = {

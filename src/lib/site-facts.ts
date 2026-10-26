@@ -31,9 +31,9 @@ export const GOOGLE_MAPS_URL = "https://share.google/MfrKTPNLPCBWTl4O0";
 /* --- Availability ---
    James answers calls and email on weekday evenings and Saturdays. The site
    pushes everyone to the booking link rather than promising daytime hours. */
-export const BUSINESS_HOURS_PHRASE = "on weekday evenings and Saturdays";
+export const BUSINESS_HOURS_PHRASE = "on weekdays and Saturdays";
 export const BUSINESS_HOURS_LINES = [
-  "Mon – Fri: 6:00 PM – 9:00 PM ET",
+  "Mon – Fri: 9:00 AM – 5:00 PM ET",
   "Sat: 10:00 AM – 4:00 PM ET",
 ] as const;
 
@@ -42,8 +42,8 @@ export const OPENING_HOURS_SPECIFICATION = [
   {
     "@type": "OpeningHoursSpecification",
     dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    opens: "18:00",
-    closes: "21:00",
+    opens: "09:00",
+    closes: "17:00",
   },
   {
     "@type": "OpeningHoursSpecification",
