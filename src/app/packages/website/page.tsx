@@ -213,7 +213,7 @@ export default function WebsitePackagesPage() {
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[0].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-4">{packages[0].description}</p>
               <p className="text-xs text-gray-600 uppercase tracking-widest mb-8">
-                Best for: {packages[0].bestFor}
+                Best for: {packages[0].bestFor.join(", ")}
               </p>
               <div className="border-t border-white/10 flex-1">
                 {packages[0].features.map(({ label: f }) => (
@@ -253,7 +253,7 @@ export default function WebsitePackagesPage() {
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[1].tagline}&rdquo;</p>
               <p className="text-sm text-gray-600 leading-relaxed mb-4">{packages[1].description}</p>
               <p className="text-xs text-gray-400 uppercase tracking-widest mb-8">
-                Best for: {packages[1].bestFor}
+                Best for: {packages[1].bestFor.join(", ")}
               </p>
               <div className="border-t border-black/10 flex-1">
                 {packages[1].features.map(({ label: f }) => (
@@ -290,7 +290,7 @@ export default function WebsitePackagesPage() {
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[2].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-4">{packages[2].description}</p>
               <p className="text-xs text-gray-600 uppercase tracking-widest mb-8">
-                Best for: {packages[2].bestFor}
+                Best for: {packages[2].bestFor.join(", ")}
               </p>
               <div className="border-t border-white/10 flex-1">
                 {packages[2].features.map(({ label: f }) => (
@@ -330,7 +330,7 @@ export default function WebsitePackagesPage() {
               <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[3].tagline}&rdquo;</p>
               <p className="text-sm text-gray-400 leading-relaxed mb-4">{packages[3].description}</p>
               <p className="text-xs text-gray-600 uppercase tracking-widest mb-8">
-                Best for: {packages[3].bestFor}
+                Best for: {packages[3].bestFor.join(", ")}
               </p>
               <div className="border-t border-white/10 flex-1">
                 {packages[3].features.map(({ label: f }) => (

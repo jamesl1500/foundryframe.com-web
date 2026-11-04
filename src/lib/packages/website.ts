@@ -31,7 +31,7 @@ export type WebsitePackage = {
   price: string;
   tagline: string;
   description: string;
-  bestFor: string;
+  bestFor: string[];
   badge: string | null;
   features: Feature[];
   cta: string;
@@ -69,8 +69,12 @@ export const websitePackages: WebsitePackage[] = [
     tagline: "Your business, online — done right the first time.",
     description:
       "You've built something worth showing the world. Now it's time to show it. The Spark is our entry-level website package — but there's nothing entry-level about what you get. This is a fully custom, professionally designed website built for performance and first impressions, not a template with your name dropped in.",
-    bestFor:
-      "New business owners, freelancers & consultants, local service providers, side hustles turning full-time",
+    bestFor: [
+      "New business owners",
+      "freelancers & consultants",
+      "local service providers",
+      "side hustles turning full-time",
+    ],
     badge: null,
     features: [
       {
@@ -235,8 +239,12 @@ export const websitePackages: WebsitePackage[] = [
     tagline: "A real business deserves a real website.",
     description:
       "Your business has outgrown a basic website. The Blueprint hits the sweet spot: custom design, advanced features, and a strategy-first approach that sets you apart from competitors relying on the same off-the-shelf template. We build it to be your most effective sales tool.",
-    bestFor:
-      "Established small businesses, growing brands building credibility, service companies with multiple offerings, businesses investing in SEO",
+    bestFor: [
+      "Established small businesses",
+      "growing brands building credibility",
+      "service companies with multiple offerings",
+      "businesses investing in SEO",
+    ],
     badge: "Most Popular",
     features: [
       {
@@ -398,8 +406,12 @@ export const websitePackages: WebsitePackage[] = [
     tagline: "Scale-ready. Strategy-first. Built to lead your market in search.",
     description:
       "Some websites are brochures. The Architect is a growth machine. Built for scaling companies with complex needs — multiple service lines, e-commerce, integrations, and serious traffic goals — it doesn't just look the part. It performs. Every engagement starts with a deep strategic session.",
-    bestFor:
-      "Growth-stage companies, e-commerce brands, businesses with dedicated marketing teams, organizations where the website drives revenue",
+    bestFor: [
+      "Growth-stage companies",
+      "e-commerce brands",
+      "businesses with dedicated marketing teams",
+      "organizations where the website drives revenue",
+    ],
     badge: null,
     features: [
       {
@@ -571,8 +583,12 @@ export const websitePackages: WebsitePackage[] = [
     tagline: "For organizations where the website is a flagship asset.",
     description:
       "The Monument is our enterprise-grade engagement — fully custom, fully bespoke, built for organizations where the digital presence is a flagship asset, not a cost center. Monument clients get a dedicated project team, and scope and pricing are shaped around your goals in a discovery session. This isn't a project. It's a partnership.",
-    bestFor:
-      "Enterprise organizations, regional or national brands, regulated industries (healthcare, finance, legal), businesses replacing a legacy digital platform",
+    bestFor: [
+      "Enterprise organizations",
+      "regional or national brands",
+      "regulated industries (healthcare, finance, legal)",
+      "businesses replacing a legacy digital platform",
+    ],
     badge: "Enterprise",
     features: [
       {

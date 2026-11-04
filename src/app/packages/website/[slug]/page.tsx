@@ -209,7 +209,7 @@ export default async function WebsitePackagePage({
             </h2>
           </div>
           <ul className="lg:col-span-8 flex flex-wrap gap-3 content-start">
-            {pkg.bestFor.split(", ").map((audience) => (
+            {pkg.bestFor.map((audience) => (
               <li
                 key={audience}
                 className="px-5 py-3 border border-white/10 text-gray-300 text-sm"
