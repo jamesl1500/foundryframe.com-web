@@ -16,7 +16,7 @@ export default function GoogleReviews({ className = "bg-black" }: { className?: 
     <section className={`py-20 lg:py-24 border-t border-white/10 ${className}`}>
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12">
         <div className="lg:col-span-4">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">
             From Our Google Reviews
           </p>
           <a

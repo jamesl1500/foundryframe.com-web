@@ -449,7 +449,7 @@ export default async function WebsitePackagePage({
           </div>
         </nav>
         <nav aria-label="Areas we serve" className="max-w-[1400px] mx-auto px-6 lg:px-10 mt-12">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Areas We Serve</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">Areas We Serve</p>
           <div className="flex flex-wrap gap-3">
             {locations.map((location) => (
               <Link
