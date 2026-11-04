@@ -601,7 +601,7 @@ export default function WebDesignServicePage() {
             </Link>
           </div>
 
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mt-12 mb-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mt-12 mb-6">
             Website Packages
           </p>
           <div className="flex flex-wrap gap-4">
