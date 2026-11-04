@@ -10,6 +10,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { websitePackages as packages } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
 
 const siteUrl = "https://www.foundryframe.com";
@@ -44,110 +45,6 @@ export const metadata: Metadata = {
     images: ["/twitter-image"],
   },
 };
-
-/* ============================================================
-   DATA: Website Packages
-   ============================================================ */
-const packages = [
-  {
-    tier: "01",
-    name: "The Spark",
-    pricePrefix: "Starting at",
-    price: "$1,500",
-    tagline: "Your business, online — done right the first time.",
-    description:
-      "You've built something worth showing the world. Now it's time to show it. The Spark is our entry-level website package — but there's nothing entry-level about what you get. This is a fully custom, professionally designed website built for performance and first impressions, not a template with your name dropped in.",
-    bestFor:
-      "New business owners, freelancers & consultants, local service providers, side hustles turning full-time",
-    badge: null,
-    features: [
-      "Up to 5 fully custom-designed pages (Home, About, Services, Contact + 1 more)",
-      "100% mobile-responsive across all devices and screen sizes",
-      "Contact form with email notifications",
-      "Google Maps integration (for local businesses)",
-      "On-page SEO foundations (meta titles, descriptions, schema markup)",
-      "Basic Google Analytics setup",
-      "2 structured revision rounds",
-      "30-day post-launch support window",
-    ],
-    cta: "Get Started with The Spark",
-    variant: "dark" as const,
-  },
-  {
-    tier: "02",
-    name: "The Blueprint",
-    pricePrefix: "Starting at",
-    price: "$3,500",
-    tagline: "A real business deserves a real website.",
-    description:
-      "Your business has outgrown a basic website. The Blueprint hits the sweet spot: custom design, advanced features, and a strategy-first approach that sets you apart from competitors relying on the same off-the-shelf template. We build it to be your most effective sales tool.",
-    bestFor:
-      "Established small businesses, growing brands building credibility, service companies with multiple offerings, businesses investing in SEO",
-    badge: "Most Popular",
-    features: [
-      "Up to 10 fully custom-designed pages",
-      "Custom design system (your own colors, typography, and component library)",
-      "CMS integration — edit your own content, no developer required",
-      "Blog or resources section with categories and search",
-      "Advanced on-page SEO + page speed optimization",
-      "Google Analytics 4 setup with conversion event tracking",
-      "CMS training session (30 min recorded walkthrough)",
-      "3 revision rounds + optional stakeholder review presentation",
-    ],
-    cta: "Start Your Blueprint",
-    variant: "light" as const,
-  },
-  {
-    tier: "03",
-    name: "The Architect",
-    pricePrefix: "Starting at",
-    price: "$7,000",
-    tagline: "Scale-ready. Strategy-first. Built to lead your market in search.",
-    description:
-      "Some websites are brochures. The Architect is a growth machine. Built for scaling companies with complex needs — multiple service lines, e-commerce, integrations, and serious traffic goals — it doesn't just look the part. It performs. Every engagement starts with a deep strategic session.",
-    bestFor:
-      "Growth-stage companies, e-commerce brands, businesses with dedicated marketing teams, organizations where the website drives revenue",
-    badge: null,
-    features: [
-      "Up to 20 pages + custom section templates your team can reuse",
-      "E-commerce functionality (Shopify storefront or WooCommerce)",
-      "CRM integration (HubSpot, Salesforce, or equivalent)",
-      "Email marketing platform connection (Mailchimp, Klaviyo, etc.)",
-      "Custom micro-animations and scroll-triggered effects",
-      "Core Web Vitals optimization targeting 90+ Lighthouse score",
-      "Full technical SEO audit + content strategy brief",
-      "4 revision rounds with dedicated project manager",
-      "3-month post-launch performance check-in",
-    ],
-    cta: "Build Your Architect Site",
-    variant: "dark" as const,
-  },
-  {
-    tier: "04",
-    name: "The Monument",
-    pricePrefix: null,
-    price: "Custom",
-    tagline: "For organizations where the website is a flagship asset.",
-    description:
-      "The Monument is our enterprise-grade engagement — fully custom, fully bespoke, built for organizations where the digital presence is a flagship asset, not a cost center. Monument clients get a dedicated project team, and scope and pricing are shaped around your goals in a discovery session. This isn't a project. It's a partnership.",
-    bestFor:
-      "Enterprise organizations, regional or national brands, regulated industries (healthcare, finance, legal), businesses replacing a legacy digital platform",
-    badge: "Enterprise",
-    features: [
-      "Fully custom scope — no page limits, no feature restrictions",
-      "Multi-language and multi-location support",
-      "Custom API integrations (ERP, CRM, POS, booking, any third-party system)",
-      "WCAG 2.1 AA accessibility compliance",
-      "Dedicated project manager and lead developer",
-      "Unlimited revisions within the agreed project scope",
-      "Comprehensive QA across all major browsers and devices",
-      "Priority 6-month post-launch support retainer",
-      "Full technical documentation and team training sessions",
-    ],
-    cta: "Request a Discovery Session",
-    variant: "dark-accent" as const,
-  },
-];
 
 /* ============================================================
    DATA: Add-ons
@@ -211,6 +108,7 @@ const offersStructuredData = {
     "@type": "Offer",
     name: pkg.name,
     description: pkg.tagline,
+    url: `${siteUrl}/packages/website/${pkg.slug}`,
     priceSpecification: parsePriceSpecification(
       pkg.pricePrefix ? `${pkg.pricePrefix} ${pkg.price}` : pkg.price
     ),
@@ -274,7 +172,11 @@ export default function WebsitePackagesPage() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
             {packages.map((pkg) => (
-              <div key={`strip-${pkg.tier}`} className="py-6 px-4 lg:px-8">
+              <Link
+                key={`strip-${pkg.tier}`}
+                href={`/packages/website/${pkg.slug}`}
+                className="py-6 px-4 lg:px-8 hover:bg-white/5 transition-colors"
+              >
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-1">
                   {pkg.tier}
                 </span>
@@ -285,7 +187,7 @@ export default function WebsitePackagesPage() {
                   {pkg.pricePrefix ? `${pkg.pricePrefix} ` : ""}
                   {pkg.price}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -314,7 +216,7 @@ export default function WebsitePackagesPage() {
                 Best for: {packages[0].bestFor}
               </p>
               <div className="border-t border-white/10 flex-1">
-                {packages[0].features.map((f) => (
+                {packages[0].features.map(({ label: f }) => (
                   <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
                     <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
                     <span className="text-gray-400 text-sm">{f}</span>
@@ -322,8 +224,14 @@ export default function WebsitePackagesPage() {
                 ))}
               </div>
               <Link
+                href={`/packages/website/${packages[0].slug}`}
+                className="self-start mt-8 text-xs uppercase tracking-wider border-b pb-1 transition-colors text-gray-400 hover:text-white border-gray-500 hover:border-white"
+              >
+                Full details: {packages[0].name} &rarr;
+              </Link>
+              <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="block text-center mt-6 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
               >
                 {packages[0].cta}
               </Link>
@@ -348,7 +256,7 @@ export default function WebsitePackagesPage() {
                 Best for: {packages[1].bestFor}
               </p>
               <div className="border-t border-black/10 flex-1">
-                {packages[1].features.map((f) => (
+                {packages[1].features.map(({ label: f }) => (
                   <div key={f} className="flex items-start gap-3 py-3 border-b border-black/10">
                     <span className="text-gray-400 mt-0.5 shrink-0">&mdash;</span>
                     <span className="text-gray-700 text-sm">{f}</span>
@@ -356,8 +264,14 @@ export default function WebsitePackagesPage() {
                 ))}
               </div>
               <Link
+                href={`/packages/website/${packages[1].slug}`}
+                className="self-start mt-8 text-xs uppercase tracking-wider border-b pb-1 transition-colors text-gray-500 hover:text-black border-gray-400 hover:border-black"
+              >
+                Full details: {packages[1].name} &rarr;
+              </Link>
+              <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-black text-white hover:bg-gray-800 transition-colors"
+                className="block text-center mt-6 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-black text-white hover:bg-gray-800 transition-colors"
               >
                 {packages[1].cta}
               </Link>
@@ -379,7 +293,7 @@ export default function WebsitePackagesPage() {
                 Best for: {packages[2].bestFor}
               </p>
               <div className="border-t border-white/10 flex-1">
-                {packages[2].features.map((f) => (
+                {packages[2].features.map(({ label: f }) => (
                   <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
                     <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
                     <span className="text-gray-400 text-sm">{f}</span>
@@ -387,8 +301,14 @@ export default function WebsitePackagesPage() {
                 ))}
               </div>
               <Link
+                href={`/packages/website/${packages[2].slug}`}
+                className="self-start mt-8 text-xs uppercase tracking-wider border-b pb-1 transition-colors text-gray-400 hover:text-white border-gray-500 hover:border-white"
+              >
+                Full details: {packages[2].name} &rarr;
+              </Link>
+              <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="block text-center mt-6 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
               >
                 {packages[2].cta}
               </Link>
@@ -413,7 +333,7 @@ export default function WebsitePackagesPage() {
                 Best for: {packages[3].bestFor}
               </p>
               <div className="border-t border-white/10 flex-1">
-                {packages[3].features.map((f) => (
+                {packages[3].features.map(({ label: f }) => (
                   <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
                     <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
                     <span className="text-gray-400 text-sm">{f}</span>
@@ -421,8 +341,14 @@ export default function WebsitePackagesPage() {
                 ))}
               </div>
               <Link
+                href={`/packages/website/${packages[3].slug}`}
+                className="self-start mt-8 text-xs uppercase tracking-wider border-b pb-1 transition-colors text-gray-400 hover:text-white border-gray-500 hover:border-white"
+              >
+                Full details: {packages[3].name} &rarr;
+              </Link>
+              <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="block text-center mt-6 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
               >
                 {packages[3].cta}
               </Link>
