@@ -12,11 +12,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import GoogleReviews from "@/components/GoogleReviews";
 import { BOOKING_URL } from "@/lib/analytics";
 import { getWebsitePackage, websitePackages } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
 import { citiesOf, locations } from "@/lib/seo/locations";
-import { GOOGLE_MAPS_URL, GOOGLE_REVIEWS } from "@/lib/site-facts";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -489,43 +489,7 @@ export default async function WebsitePackagePage({
         </div>
       </section>
 
-      {/* =============================================
-          REVIEWS
-          ============================================= */}
-      <section className="py-24 lg:py-28 bg-black border-b border-white/10">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-10">
-            From Our Google Reviews
-          </p>
-          <div className="space-y-12">
-            {GOOGLE_REVIEWS.map((review) => (
-              <figure key={review.author} className="max-w-4xl">
-                <p
-                  className="text-accent text-lg tracking-widest mb-6"
-                  role="img"
-                  aria-label={`${review.rating} out of 5 stars`}
-                >
-                  {"★".repeat(review.rating)}
-                </p>
-                <blockquote className="text-3xl sm:text-4xl font-heading font-bold text-white leading-tight">
-                  &ldquo;{review.quote}&rdquo;
-                </blockquote>
-                <figcaption className="mt-6 text-sm text-gray-400">
-                  {review.author} &middot;{" "}
-                  <a
-                    href={GOOGLE_MAPS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-white"
-                  >
-                    Google review
-                  </a>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
+      <GoogleReviews />
 
       {/* =============================================
           CTA
