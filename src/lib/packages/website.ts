@@ -36,6 +36,10 @@ export type WebsitePackage = {
   features: Feature[];
   cta: string;
   variant: "dark" | "light" | "dark-accent";
+  /** Search-friendly line shown under the name in the page's h1. */
+  headline: string;
+  /** Descriptive anchor text for links to this page from elsewhere on the site. */
+  linkLabel: string;
   metaTitle: string;
   metaDescription: string;
   intro: string;
@@ -128,6 +132,8 @@ export const websitePackages: WebsitePackage[] = [
     ],
     cta: "Get Started with The Spark",
     variant: "dark",
+    headline: "Custom 5-page websites for small businesses",
+    linkLabel: "5-page small business website from $1,500",
     metaTitle: "The Spark: Custom 5-Page Website from $1,500",
     metaDescription:
       "The Spark is a fully custom, hand-coded 5-page website from $1,500. Mobile-first, SEO-ready, with a contact form, analytics, 2 revision rounds, and 30 days of support.",
@@ -298,6 +304,8 @@ export const websitePackages: WebsitePackage[] = [
     ],
     cta: "Start Your Blueprint",
     variant: "light",
+    headline: "Custom 10-page business websites with a CMS",
+    linkLabel: "10-page business website with CMS from $3,500",
     metaTitle: "The Blueprint: Custom 10-Page Website with CMS from $3,500",
     metaDescription:
       "The Blueprint is our most popular website package: up to 10 custom pages, your own design system, a CMS, a blog, advanced SEO, and GA4 conversion tracking, from $3,500.",
@@ -471,11 +479,13 @@ export const websitePackages: WebsitePackage[] = [
     ],
     cta: "Build Your Architect Site",
     variant: "dark",
+    headline: "Growth websites with e-commerce and integrations",
+    linkLabel: "E-commerce & growth website from $7,000",
     metaTitle: "The Architect: 20-Page Growth Website with E-Commerce from $7,000",
     metaDescription:
       "The Architect is a 20-page growth website with e-commerce, CRM and email integrations, a 90+ Lighthouse performance target, and a technical SEO strategy, from $7,000.",
     intro:
-      "Every Architect engagement starts with a deep strategy session. At this level the website is tied into how you sell: your store, your CRM, your email list, and the search traffic you're trying to win. We plan all of it before we design any of it.",
+      "At this level the website is tied into how you sell: your store, your CRM, your email list, and the search traffic you're trying to win. We plan all of it before we design any of it.",
     glance: [
       { label: "Pages", value: "Up to 20 + templates" },
       { label: "Revisions", value: "4 rounds" },
@@ -648,6 +658,8 @@ export const websitePackages: WebsitePackage[] = [
     ],
     cta: "Request a Discovery Session",
     variant: "dark-accent",
+    headline: "Enterprise website design and development",
+    linkLabel: "Enterprise website design & development",
     metaTitle: "The Monument: Enterprise Website Design & Development",
     metaDescription:
       "The Monument is Foundry Frame's enterprise website engagement: no page limits, custom API integrations, multi-language support, WCAG 2.1 AA accessibility, and a dedicated team.",
