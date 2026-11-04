@@ -19,6 +19,7 @@ import {
   relatedLocations,
 } from "@/lib/seo/locations";
 import { industries } from "@/lib/seo/industries";
+import { websitePackages } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
 import {
   BUSINESS_EMAIL,
@@ -178,6 +179,13 @@ export default async function LocationPage({
           links: industries.map((industry) => ({
             label: industry.name,
             href: `/industries/${industry.slug}`,
+          })),
+        },
+        {
+          heading: "Website packages",
+          links: websitePackages.map((pkg) => ({
+            label: pkg.linkLabel,
+            href: `/packages/website/${pkg.slug}`,
           })),
         },
         {

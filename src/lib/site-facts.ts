@@ -53,6 +53,19 @@ export const OPENING_HOURS_SPECIFICATION = [
   },
 ];
 
+/* --- Google reviews ---
+   Copied word for word from the Google Business Profile. Shown as visible
+   testimonials only: Google ignores review markup a business adds about
+   itself, so these get no Review/AggregateRating schema. */
+export const GOOGLE_REVIEWS = [
+  {
+    author: "Corina Gift",
+    rating: 5,
+    quote:
+      "Working with James was such a pleasure. He is fast but efficient and gets the job done!!",
+  },
+] as const;
+
 /* --- Founding Client offer --- */
 export const FOUNDING_SPOTS_OPEN = 3;
 export const FOUNDING_DISCOUNT_PERCENT = 20;

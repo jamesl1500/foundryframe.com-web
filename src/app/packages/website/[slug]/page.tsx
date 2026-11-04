@@ -15,6 +15,8 @@ import { notFound } from "next/navigation";
 import { BOOKING_URL } from "@/lib/analytics";
 import { getWebsitePackage, websitePackages } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
+import { citiesOf, locations } from "@/lib/seo/locations";
+import { GOOGLE_MAPS_URL, GOOGLE_REVIEWS } from "@/lib/site-facts";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -35,6 +37,9 @@ export async function generateMetadata({
 
   const url = `/packages/website/${pkg.slug}`;
 
+  /* Share images come from opengraph-image.tsx / twitter-image.tsx in this
+     folder. This object replaces the root openGraph rather than merging with
+     it, so siteName and locale are repeated here. */
   return {
     title: pkg.metaTitle,
     description: pkg.metaDescription,
@@ -44,13 +49,13 @@ export async function generateMetadata({
       description: pkg.metaDescription,
       url,
       type: "website",
-      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: pkg.metaTitle }],
+      siteName: "Foundry Frame",
+      locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title: pkg.metaTitle,
       description: pkg.metaDescription,
-      images: ["/twitter-image"],
     },
   };
 }
@@ -78,6 +83,13 @@ export default async function WebsitePackagePage({
       url: pageUrl,
       description: pkg.metaDescription,
       provider: { "@id": `${siteUrl}/#organization` },
+      areaServed: [
+        ...locations.flatMap((location) =>
+          citiesOf(location).map((name) => ({ "@type": "City", name }))
+        ),
+        { "@type": "State", name: "Ohio" },
+        { "@type": "AdministrativeArea", name: "United States" },
+      ],
       offers: {
         "@type": "Offer",
         name: pkg.name,
@@ -141,13 +153,21 @@ export default async function WebsitePackagePage({
             <div className="lg:col-span-8">
               <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight">
                 {pkg.name}
+                <span className="sr-only">: </span>
+                <span className="block mt-5 text-2xl sm:text-3xl text-gray-400 tracking-normal leading-tight">
+                  {pkg.headline}
+                </span>
               </h1>
-              <p className="mt-6 text-xl sm:text-2xl text-gray-300 font-heading max-w-3xl">
-                {pkg.tagline}
+              <p className="mt-6 text-lg text-gray-300 italic max-w-3xl">
+                &ldquo;{pkg.tagline}&rdquo;
               </p>
               <div className="mt-8 max-w-3xl space-y-4 text-gray-400 text-base leading-relaxed">
                 <p>{pkg.description}</p>
                 <p>{pkg.intro}</p>
+                <p>
+                  Designed and built in Lorain, Ohio, for businesses across Northeast Ohio and
+                  nationwide.
+                </p>
               </div>
             </div>
             <div className="lg:col-span-4 glass-card p-8">
@@ -428,6 +448,20 @@ export default async function WebsitePackagePage({
             })}
           </div>
         </nav>
+        <nav aria-label="Areas we serve" className="max-w-[1400px] mx-auto px-6 lg:px-10 mt-12">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Areas We Serve</p>
+          <div className="flex flex-wrap gap-3">
+            {locations.map((location) => (
+              <Link
+                key={location.slug}
+                href={`/locations/${location.slug}`}
+                className="px-4 py-2 border border-white/10 text-gray-400 text-xs hover:border-white/30 hover:text-white transition-colors"
+              >
+                {location.city} web design
+              </Link>
+            ))}
+          </div>
+        </nav>
       </section>
 
       {/* =============================================
@@ -450,6 +484,44 @@ export default async function WebsitePackagePage({
                 </summary>
                 <div className="pb-5 text-gray-400 text-sm leading-relaxed">{faq.a}</div>
               </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* =============================================
+          REVIEWS
+          ============================================= */}
+      <section className="py-24 lg:py-28 bg-black border-b border-white/10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-10">
+            From Our Google Reviews
+          </p>
+          <div className="space-y-12">
+            {GOOGLE_REVIEWS.map((review) => (
+              <figure key={review.author} className="max-w-4xl">
+                <p
+                  className="text-accent text-lg tracking-widest mb-6"
+                  role="img"
+                  aria-label={`${review.rating} out of 5 stars`}
+                >
+                  {"★".repeat(review.rating)}
+                </p>
+                <blockquote className="text-3xl sm:text-4xl font-heading font-bold text-white leading-tight">
+                  &ldquo;{review.quote}&rdquo;
+                </blockquote>
+                <figcaption className="mt-6 text-sm text-gray-400">
+                  {review.author} &middot;{" "}
+                  <a
+                    href={GOOGLE_MAPS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:text-white"
+                  >
+                    Google review
+                  </a>
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>

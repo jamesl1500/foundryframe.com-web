@@ -11,6 +11,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import LandingPage from "@/components/seo/LandingPage";
+import { websitePackages } from "@/lib/packages/website";
 import { getIndustry, industries } from "@/lib/seo/industries";
 import { locations } from "@/lib/seo/locations";
 
@@ -115,6 +116,13 @@ export default async function IndustryPage({
       faqHeading="Common questions"
       faqs={industry.faqs}
       related={[
+        {
+          heading: "Website packages",
+          links: websitePackages.map((pkg) => ({
+            label: pkg.linkLabel,
+            href: `/packages/website/${pkg.slug}`,
+          })),
+        },
         {
           heading: "Areas we serve",
           links: locations.map((location) => ({
