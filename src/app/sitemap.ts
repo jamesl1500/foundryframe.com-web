@@ -3,6 +3,7 @@ import { generateStaticParams as generateBlogStaticParams } from "@/app/blog/[sl
 import { generateStaticParams as generateCaseStudyStaticParams } from "@/app/case-studies/[slug]/page";
 import { industries } from "@/lib/seo/industries";
 import { locations } from "@/lib/seo/locations";
+import { websitePackages } from "@/lib/packages/website";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
@@ -65,6 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const landingUrls: MetadataRoute.Sitemap = [
     ...locations.map(({ slug }) => `/locations/${slug}`),
     ...industries.map(({ slug }) => `/industries/${slug}`),
+    ...websitePackages.map(({ slug }) => `/packages/website/${slug}`),
   ].map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: now,
