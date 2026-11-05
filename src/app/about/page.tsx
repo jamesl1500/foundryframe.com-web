@@ -170,7 +170,7 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="mt-10 flex items-center gap-6">
+              <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
                 <a
                   href="/contact"
                   className="btn btn-primary"
