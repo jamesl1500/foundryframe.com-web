@@ -117,19 +117,25 @@ hr {
 
 /* --- Site backdrop ---
    Soft color fields fixed behind every page, so the frosted glass always
-   has something to blur. Plain gradients rather than filter: blur(), so
-   the layer is cheap to paint. */
+   has something to blur. AnimatedBackdrop drifts each field slowly; they're
+   plain radial gradients moved with transforms, so they're cheap to paint. */
 .site-backdrop {
   position: fixed;
-  inset: 0;
+  /* Extends past the viewport so it still covers the screen while mobile
+     browsers resize the viewport as the address bar shows and hides, and
+     while the scroll parallax shifts it up. */
+  inset: -25vh 0;
   z-index: -1;
+  overflow: hidden;
   pointer-events: none;
-  background:
-    radial-gradient(40vmax 40vmax at 0% 0%, rgba(224, 154, 40, 0.42), transparent 70%),
-    radial-gradient(38vmax 38vmax at 100% 10%, rgba(142, 197, 240, 0.45), transparent 70%),
-    radial-gradient(45vmax 35vmax at 55% 75%, rgba(245, 185, 156, 0.38), transparent 70%),
-    radial-gradient(35vmax 35vmax at 0% 100%, rgba(185, 200, 245, 0.4), transparent 70%),
-    var(--color-canvas);
+  background: var(--color-canvas);
+}
+.site-backdrop-field {
+  position: absolute;
+  width: 80vmax;
+  height: 80vmax;
+  border-radius: 999px;
+  will-change: transform;
 }
 
 /* --- Marquee animation --- */
@@ -239,11 +245,11 @@ button[type="submit"]{
 
   /* Floating nav capsule and mobile menu */
   .glass-nav {
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.85);
     box-shadow: 0 10px 40px rgba(60, 40, 10, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
   }
 
   /* Brass-tinted glass: badges, highlights, the floating booking pill */
@@ -273,6 +279,25 @@ button[type="submit"]{
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    position: relative;
+    isolation: isolate;
+  }
+  /* Mouse-following highlight; GlassSheen sets the variables. Sits under
+     the card's content (z-index -1 inside the card's stacking context). */
+  .glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      320px circle at var(--sheen-x, 50%) var(--sheen-y, 0%),
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0) 70%
+    );
+    opacity: var(--sheen-opacity, 0);
+    transition: opacity 0.35s ease;
   }
   .glass-card:hover {
     transform: translateY(-2px);
@@ -341,7 +366,7 @@ button[type="submit"]{
     text-transform: uppercase;
     color: var(--color-muted);
     background-color: rgba(255, 255, 255, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(22,19,15, 0.2);
   }
 
 
@@ -379,7 +404,7 @@ button[type="submit"]{
     .glass-accent { background-color: #F3E6CF; }
     .glass-dark { background-color: var(--color-ink); }
     .glow-field::before { display: none; }
-    .site-backdrop { background: var(--color-canvas); }
+    .site-backdrop-field { display: none; }
   }
 }
 

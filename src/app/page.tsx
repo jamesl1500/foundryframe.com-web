@@ -15,10 +15,15 @@ import AuditForm from "@/components/AuditForm";
 import GoogleReviews from "@/components/GoogleReviews";
 import PackageHighlights from "@/components/PackageHighlights";
 import FadeIn from "@/components/motion/FadeIn";
+import Float from "@/components/motion/Float";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import { getPublishedServices } from "@/lib/cms/public-data";
 import { websitePackages } from "@/lib/packages/website";
 import { FOUNDING_SPOTS_OPEN, GOOGLE_REVIEWS } from "@/lib/site-facts";
+
+/* Reads from the Supabase CMS. Admin saves refresh this page right away
+   (see lib/cms/revalidate.ts); this is the fallback for other edits. */
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: { absolute: "Foundry Frame | Ohio Web Design & Branding Agency" },
@@ -102,7 +107,11 @@ const stats = [
   { value: "2026", label: "Founded in Ohio", href: undefined },
   { value: "1:1", label: "Work Direct with the Founder", href: undefined },
   { value: "6–12", label: "Weeks to Launch", href: undefined },
-  { value: String(FOUNDING_SPOTS_OPEN), label: "Founding Client Spots Open", href: "/founding" },
+  {
+    value: String(FOUNDING_SPOTS_OPEN),
+    label: "Founding Client Spots Open",
+    href: "/founding",
+  },
 ] as const;
 
 /* ============================================================
@@ -138,7 +147,10 @@ export default async function Home() {
             <div className="flex flex-wrap items-center gap-3 mb-8">
               <span className="eyebrow">Creative Agency — Ohio</span>
               <span className="glass-accent inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-accent-deep">
-                <span aria-hidden="true" className="w-2 h-2 rounded-full bg-accent shadow-[0_0_0_4px_rgba(196,130,26,0.2)]" />
+                <span
+                  aria-hidden="true"
+                  className="w-2 h-2 rounded-full bg-accent shadow-[0_0_0_4px_rgba(196,130,26,0.2)]"
+                />
                 Booking New Projects
               </span>
             </div>
@@ -154,9 +166,9 @@ export default async function Home() {
 
             <p className="mt-8 max-w-xl text-body text-lg leading-relaxed">
               Foundry Frame builds custom websites, brand systems, and digital
-              strategy for small businesses and growth-focused brands across Ohio
-              and beyond. Friendly, founder-led, and focused on results you can
-              measure.
+              strategy for small businesses and growth-focused brands across
+              Ohio and beyond. Friendly, founder-led, and focused on results you
+              can measure.
             </p>
             <div className="flex flex-wrap gap-3 mt-10">
               <Link href="/audit" className="btn btn-primary min-h-13 px-7">
@@ -172,57 +184,82 @@ export default async function Home() {
           {/* Floating bubbles */}
           <div className="lg:col-span-5 flex flex-col gap-5">
             {spark && (
-              <Link
-                href={`/packages/website/${spark.slug}`}
-                className="glass-card rounded-card p-7 self-end w-full max-w-sm"
-              >
-                <span className="flex items-center justify-between gap-3">
-                  <span className="text-xs uppercase tracking-[0.14em] text-muted">Entry-Level Package</span>
-                  <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
-                    {spark.badge}
-                  </span>
-                </span>
-                <span className="block mt-4 font-heading font-bold text-3xl tracking-tight text-ink">
-                  {spark.name}
-                </span>
-                <span className="block mt-1 text-sm text-muted">
-                  {spark.headline} &middot; {spark.pricePrefix?.toLowerCase()}{" "}
-                  <span className="font-semibold text-ink">{spark.price}</span>
-                </span>
-                <span className="mt-5 flex flex-col gap-2.5">
-                  {spark.features.slice(0, 3).map((feature) => (
-                    <span key={feature.title} className="flex gap-2.5 text-sm text-ink-soft">
-                      <span aria-hidden="true" className="font-bold text-accent-ink">&#10003;</span>
-                      {feature.title}
+              <Float className="self-end w-full max-w-sm" distance={10}>
+                <Link
+                  href={`/packages/website/${spark.slug}`}
+                  className="glass-card rounded-card p-7 block"
+                >
+                  <span className="flex items-center justify-between gap-3">
+                    <span className="text-xs uppercase tracking-[0.14em] text-muted">
+                      Entry-Level Package
                     </span>
-                  ))}
-                </span>
-                <span className="mt-5 inline-flex text-sm font-semibold text-accent-deep">
-                  See what&apos;s included &rarr;
-                </span>
-              </Link>
+                    <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
+                      {spark.badge}
+                    </span>
+                  </span>
+                  <span className="block mt-4 font-heading font-bold text-3xl tracking-tight text-ink">
+                    {spark.name}
+                  </span>
+                  <span className="block mt-1 text-sm text-muted">
+                    {spark.headline} &middot; {spark.pricePrefix?.toLowerCase()}{" "}
+                    <span className="font-semibold text-ink">
+                      {spark.price}
+                    </span>
+                  </span>
+                  <span className="mt-5 flex flex-col gap-2.5">
+                    {spark.features.slice(0, 3).map((feature) => (
+                      <span
+                        key={feature.title}
+                        className="flex gap-2.5 text-sm text-ink-soft"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="font-bold text-accent-ink"
+                        >
+                          &#10003;
+                        </span>
+                        {feature.title}
+                      </span>
+                    ))}
+                  </span>
+                  <span className="mt-5 inline-flex text-sm font-semibold text-accent-deep">
+                    See what&apos;s included &rarr;
+                  </span>
+                </Link>
+              </Float>
             )}
             <div className="flex flex-wrap items-center gap-5">
-              <div className="glass shrink-0 w-32 h-32 rounded-full flex flex-col items-center justify-center text-center">
-                <span className="font-heading font-bold text-3xl tracking-tight text-ink">6–12</span>
-                <span className="text-xs text-muted">weeks to launch</span>
-              </div>
+              <Float className="shrink-0" delay={1.2} distance={6} duration={6}>
+                <div className="glass w-32 h-32 rounded-full flex flex-col items-center justify-center text-center">
+                  <span className="font-heading font-bold text-3xl tracking-tight text-ink">
+                    6–12
+                  </span>
+                  <span className="text-xs text-muted">weeks to launch</span>
+                </div>
+              </Float>
               {review && (
-                <figure className="glass rounded-card p-6 flex-1 min-w-[14rem] max-w-sm">
-                  <p
-                    className="text-accent tracking-[0.15em]"
-                    role="img"
-                    aria-label={`${review.rating} out of 5 stars`}
-                  >
-                    {"★".repeat(review.rating)}
-                  </p>
-                  <blockquote className="mt-2 text-[15px] leading-relaxed text-ink">
-                    &ldquo;{review.quote}&rdquo;
-                  </blockquote>
-                  <figcaption className="mt-2 text-xs text-muted">
-                    {review.author} &middot; Google review
-                  </figcaption>
-                </figure>
+                <Float
+                  className="flex-1 min-w-[14rem] max-w-sm"
+                  delay={2.4}
+                  distance={7}
+                  duration={8}
+                >
+                  <figure className="glass rounded-card p-6">
+                    <p
+                      className="text-accent tracking-[0.15em]"
+                      role="img"
+                      aria-label={`${review.rating} out of 5 stars`}
+                    >
+                      {"★".repeat(review.rating)}
+                    </p>
+                    <blockquote className="mt-2 text-[15px] leading-relaxed text-ink">
+                      &ldquo;{review.quote}&rdquo;
+                    </blockquote>
+                    <figcaption className="mt-2 text-xs text-muted">
+                      {review.author} &middot; Google review
+                    </figcaption>
+                  </figure>
+                </Float>
               )}
             </div>
           </div>
@@ -238,7 +275,10 @@ export default async function Home() {
             {stats.map((stat) => (
               <StaggerItem key={stat.label}>
                 {stat.href ? (
-                  <Link href={stat.href} className="glass-accent block h-full rounded-card p-7 lg:p-8">
+                  <Link
+                    href={stat.href}
+                    className="glass-accent block h-full rounded-card p-7 lg:p-8"
+                  >
                     <span className="block text-5xl font-heading font-bold tracking-tight text-ink">
                       {stat.value}
                     </span>
@@ -248,7 +288,9 @@ export default async function Home() {
                   </Link>
                 ) : (
                   <div className="glass h-full rounded-card p-7 lg:p-8">
-                    <div className="text-5xl font-heading font-bold tracking-tight text-ink">{stat.value}</div>
+                    <div className="text-5xl font-heading font-bold tracking-tight text-ink">
+                      {stat.value}
+                    </div>
                     <div className="mt-2 text-sm text-muted">{stat.label}</div>
                   </div>
                 )}
@@ -279,7 +321,10 @@ export default async function Home() {
           {/* Grid */}
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {services.map((service, i) => (
-              <StaggerItem key={service.title} className="glass rounded-card p-8">
+              <StaggerItem
+                key={service.title}
+                className="glass rounded-card p-8"
+              >
                 <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/80 text-sm font-semibold text-muted">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -306,7 +351,8 @@ export default async function Home() {
               Custom websites, built for results
             </h2>
             <p className="mt-4 max-w-xl text-body text-lg leading-relaxed">
-              Every site is designed from scratch and hand-coded. No templates, no shortcuts.
+              Every site is designed from scratch and hand-coded. No templates,
+              no shortcuts.
             </p>
           </FadeIn>
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -319,26 +365,36 @@ export default async function Home() {
                   className={`${featured ? "glass-dark" : "glass"} rounded-card p-8 flex flex-col`}
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <span className={`text-xs uppercase tracking-[0.14em] ${featured ? "text-white/70" : "text-muted"}`}>
+                    <span
+                      className={`text-xs uppercase tracking-[0.14em] ${featured ? "text-white/70" : "text-muted"}`}
+                    >
                       Tier {pkg.tier}
                     </span>
                     {pkg.badge && (
                       <span
                         className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                          featured ? "bg-accent text-ink" : "border border-ink/20 text-ink-soft"
+                          featured
+                            ? "bg-accent text-ink"
+                            : "border border-ink/20 text-ink-soft"
                         }`}
                       >
                         {pkg.badge}
                       </span>
                     )}
                   </div>
-                  <h3 className={`mt-4 font-heading font-bold text-2xl tracking-tight ${featured ? "text-white" : "text-ink"}`}>
+                  <h3
+                    className={`mt-4 font-heading font-bold text-2xl tracking-tight ${featured ? "text-white" : "text-ink"}`}
+                  >
                     {pkg.name}
                   </h3>
-                  <p className={`mt-4 text-sm ${featured ? "text-white/70" : "text-muted"}`}>
+                  <p
+                    className={`mt-4 text-sm ${featured ? "text-white/70" : "text-muted"}`}
+                  >
                     {pkg.pricePrefix ?? "Scoped in discovery"}
                   </p>
-                  <p className={`font-heading font-bold text-4xl tracking-tight ${featured ? "text-white" : "text-ink"}`}>
+                  <p
+                    className={`font-heading font-bold text-4xl tracking-tight ${featured ? "text-white" : "text-ink"}`}
+                  >
                     {pkg.price}
                   </p>
                   <ul className="mt-5 mb-8 flex flex-col gap-2.5">
@@ -347,7 +403,10 @@ export default async function Home() {
                         key={feature.title}
                         className={`flex gap-2.5 text-sm ${featured ? "text-white/85" : "text-ink-soft"}`}
                       >
-                        <span aria-hidden="true" className={`font-bold ${featured ? "text-accent" : "text-accent-ink"}`}>
+                        <span
+                          aria-hidden="true"
+                          className={`font-bold ${featured ? "text-accent" : "text-accent-ink"}`}
+                        >
                           &#10003;
                         </span>
                         {feature.title}
@@ -358,7 +417,8 @@ export default async function Home() {
                     href={`/packages/website/${pkg.slug}`}
                     className={`btn mt-auto ${featured ? "btn-accent" : "btn-glass"}`}
                   >
-                    Full details <span className="sr-only">on {pkg.name}</span> &rarr;
+                    Full details <span className="sr-only">on {pkg.name}</span>{" "}
+                    &rarr;
                   </Link>
                 </StaggerItem>
               );
@@ -435,7 +495,9 @@ export default async function Home() {
       <section className="py-16 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <FadeIn className="glass-dark rounded-panel p-8 sm:p-12 lg:p-16">
-            <span className="text-xs uppercase tracking-[0.14em] text-white/70">Start a Project</span>
+            <span className="text-xs uppercase tracking-[0.14em] text-white/70">
+              Start a Project
+            </span>
             <h2 className="mt-5 max-w-3xl text-4xl sm:text-6xl font-heading font-bold tracking-[-0.03em] leading-[0.95] text-white">
               Let&apos;s build your next client-winning website.
             </h2>

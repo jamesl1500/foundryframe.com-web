@@ -13,6 +13,8 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
+import AnimatedBackdrop from "@/components/motion/AnimatedBackdrop";
+import GlassSheen from "@/components/motion/GlassSheen";
 import Footer from "@/components/Footer";
 import CalendlyBadge from "@/components/CalendlyBadge";
 import ConversionTracking from "@/components/ConversionTracking";
@@ -276,7 +278,8 @@ export default function RootLayout({
         />
 
         {/* Soft color fields fixed behind every page for the glass to blur */}
-        <div className="site-backdrop" aria-hidden="true" />
+        <AnimatedBackdrop />
+        <GlassSheen />
 
         {/* Site-wide navigation header (left off ad landing pages) */}
         <HideOnAdPages>

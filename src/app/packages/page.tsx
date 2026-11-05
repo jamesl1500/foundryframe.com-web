@@ -19,6 +19,10 @@ import {
   type PublishedPackage,
 } from "@/lib/cms/public-data";
 
+/* Reads from the Supabase CMS. Admin saves refresh this page right away
+   (see lib/cms/revalidate.ts); this is the fallback for other edits. */
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   title: "Web Design Packages & Pricing",
   description:

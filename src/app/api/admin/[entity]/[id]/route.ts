@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { getSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { LooseSupabaseClient } from "@/lib/supabase/loose-client";
+import { revalidateCmsPages } from "@/lib/cms/revalidate";
 import { validateCmsPayload } from "@/lib/cms/validation";
 import type { CmsEntity } from "@/lib/cms/types";
 import { badRequest, parseEntityOrFail, requireAdmin } from "@/app/api/admin/_utils";
@@ -64,6 +65,7 @@ export async function PATCH(
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    revalidateCmsPages(entity as CmsEntity);
     return NextResponse.json({ data });
   } catch {
     return badRequest("Invalid JSON payload.");
@@ -93,5 +95,6 @@ export async function DELETE(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
+  revalidateCmsPages(entity as CmsEntity);
   return NextResponse.json({ success: true });
 }

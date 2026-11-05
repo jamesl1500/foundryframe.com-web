@@ -116,7 +116,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             {/* --- Form --- */}
             <div className="lg:col-span-7">
-              <p className="eyebrow mb-8">
+              <p className="eyebrow mb-8 border-b border-ink/10">
                 Project Inquiry
               </p>
 
@@ -125,7 +125,7 @@ export default function ContactPage() {
 
             {/* --- Sidebar --- */}
             <div className="lg:col-span-5">
-              <p className="eyebrow mb-8">
+              <p className="eyebrow mb-8 border-b border-ink/10">
                 Details
               </p>
 
@@ -147,7 +147,7 @@ export default function ContactPage() {
               </div>
 
               <div className="glass rounded-card mt-12 p-6">
-                <p className="eyebrow mb-6">
+                <p className="eyebrow mb-6 border-b border-ink/10">
                   Common Questions
                 </p>
                 <div className="border-t border-ink/10">
