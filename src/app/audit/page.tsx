@@ -17,7 +17,7 @@ import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
 
 const siteUrl = "https://www.foundryframe.com";
-const pageTitle = "Free Website Audit — SEO, Speed & Design Check";
+const pageTitle = "Free Website Audit: SEO, Speed & Design";
 const pageDescription =
   "Get a free website audit in about a minute. Score your site's SEO, speed, mobile design, and accessibility, with a prioritized fix list. No credit card needed.";
 
@@ -219,25 +219,25 @@ export default function AuditPage() {
       {/* =============================================
           HERO + FORM
           ============================================= */}
-      <section className="glow-field pt-32 pb-16 lg:pt-40 lg:pb-20 bg-black border-b border-white/10">
+      <section className="pt-32 pb-16 lg:pt-40 lg:pb-20">
         <div className="max-w-[900px] mx-auto px-6 lg:px-10 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-accent mb-5">
+          <p className="eyebrow mb-5">
             Free Website Audit
           </p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold leading-[0.95] mb-6">
             Free website audit: what&apos;s holding your site back?
           </h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-10">
+          <p className="text-lg text-body max-w-2xl mx-auto mb-10">
             Drop your URL in below. In about a minute, you&apos;ll see your site&apos;s
             SEO, speed, design, and accessibility score — plus a prioritized list
             of what to fix first. Free, no credit card, no obligation.
           </p>
 
-          <div className="glass max-w-2xl mx-auto text-left p-5 sm:p-6">
+          <div className="glass rounded-card max-w-2xl mx-auto text-left p-5 sm:p-6">
             <AuditForm />
           </div>
 
-          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-widest text-gray-500">
+          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-widest text-muted">
             <li>100% free</li>
             <li>Results in ~1 minute</li>
             <li>No pushy sales calls</li>
@@ -248,21 +248,21 @@ export default function AuditPage() {
       {/* =============================================
           WHAT WE CHECK
           ============================================= */}
-      <section className="py-20 lg:py-28 bg-black border-b border-white/10">
+      <section className="py-20 lg:py-28">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-3 text-center">
+          <p className="text-xs uppercase tracking-widest text-muted mb-3 text-center">
             What&apos;s Inside
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white text-center mb-12">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink text-center mb-12">
             What our website audit checks
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {checks.map((check) => (
-              <div key={check.title} className="glass-card p-6">
-                <h3 className="text-white font-heading font-bold text-lg mb-2">
+              <div key={check.title} className="glass-card rounded-card p-6">
+                <h3 className="text-ink font-heading font-bold text-lg mb-2">
                   {check.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-body text-sm leading-relaxed">
                   {check.description}
                 </p>
               </div>
@@ -274,21 +274,21 @@ export default function AuditPage() {
       {/* =============================================
           HOW IT WORKS
           ============================================= */}
-      <section className="py-20 lg:py-28 bg-black border-b border-white/10">
+      <section className="py-20 lg:py-28">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-10 text-center">
+          <p className="text-xs uppercase tracking-widest text-muted mb-10 text-center">
             How It Works
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {steps.map((step) => (
-              <div key={step.number} className="bg-black p-6">
-                <p className="text-3xl font-heading font-bold text-accent mb-3">
+              <div key={step.number} className="glass rounded-card p-6">
+                <p className="text-3xl font-heading font-bold text-accent-ink mb-3">
                   {step.number}
                 </p>
-                <h3 className="text-white font-heading font-bold text-lg mb-2">
+                <h3 className="text-ink font-heading font-bold text-lg mb-2">
                   {step.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-body text-sm leading-relaxed">
                   {step.description}
                 </p>
               </div>
@@ -300,24 +300,24 @@ export default function AuditPage() {
       {/* =============================================
           FAQ
           ============================================= */}
-      <section className="py-20 lg:py-28 bg-black border-b border-white/10">
+      <section className="py-20 lg:py-28">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-3">
+          <p className="text-xs uppercase tracking-widest text-muted mb-3">
             Questions
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-10">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-10">
             Website audit FAQ
           </h2>
-          <div className="border-t border-white/10">
+          <div className="border-t border-ink/10">
             {faqs.map((faq) => (
-              <details key={faq.q} className="group border-b border-white/10">
-                <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+              <details key={faq.q} className="group border-b border-ink/10">
+                <summary className="flex items-center justify-between cursor-pointer py-5 text-ink text-sm font-medium hover:text-ink-soft transition-colors list-none">
                   <span className="pr-6">{faq.q}</span>
-                  <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                  <span className="text-muted text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <div className="pb-5 text-gray-500 text-sm leading-relaxed">
+                <div className="pb-5 text-muted text-sm leading-relaxed">
                   {faq.a}
                 </div>
               </details>
@@ -329,25 +329,25 @@ export default function AuditPage() {
       {/* =============================================
           NEXT STEP
           ============================================= */}
-      <section className="py-20 lg:py-28 bg-black">
+      <section className="py-20 lg:py-28">
         <div className="max-w-[900px] mx-auto px-6 lg:px-10 text-center">
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-4">
             Want a human to walk you through the results?
           </h2>
-          <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-xl mx-auto">
+          <p className="text-body text-sm leading-relaxed mb-8 max-w-xl mx-auto">
             Run your audit first, then book a free call and we&apos;ll go over the
             findings together — no pitch, no pressure.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-              className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+              className="btn btn-primary"
             >
               Book a Free Call
             </Link>
             <Link
               href="/services/web-design"
-              className="glass-light px-8 py-4 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/15 transition-colors"
+              className="btn btn-glass"
             >
               Explore Web Design
             </Link>

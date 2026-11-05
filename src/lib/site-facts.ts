@@ -29,9 +29,9 @@ export const GEO_COORDINATES = {
 export const GOOGLE_MAPS_URL = "https://share.google/MfrKTPNLPCBWTl4O0";
 
 /* --- Availability ---
-   James answers calls and email on weekday evenings and Saturdays. The site
-   pushes everyone to the booking link rather than promising daytime hours. */
-export const BUSINESS_HOURS_PHRASE = "on weekdays and Saturdays";
+   Mon-Fri 9am to 5pm and Sat 10am to 4pm, Eastern. Every hours mention on
+   the site (footer, contact, chat, schema, meeting slots) reads from here. */
+export const BUSINESS_HOURS_PHRASE = "Monday to Friday, 9am to 5pm, and Saturdays, 10am to 4pm (Eastern)";
 export const BUSINESS_HOURS_LINES = [
   "Mon – Fri: 9:00 AM – 5:00 PM ET",
   "Sat: 10:00 AM – 4:00 PM ET",

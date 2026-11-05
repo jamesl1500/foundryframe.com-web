@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { seoTitle, summarize } from "@/lib/seo/meta";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
@@ -113,12 +114,6 @@ const blogPosts: Record<
 
 /** Cuts a paragraph to ~155 characters on a word boundary so search
     results show a whole meta description instead of a truncated one. */
-function summarize(text: string, max = 155) {
-  if (text.length <= max) return text;
-  const cut = text.slice(0, max);
-  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:—-]\s*$/, "")}…`;
-}
-
 export async function generateMetadata({
   params,
 }: {
@@ -132,7 +127,7 @@ export async function generateMetadata({
   const description = summarize(post.content[0]);
 
   return {
-    title: post.title,
+    title: seoTitle(post.title),
     description,
     alternates: {
       canonical: url,
@@ -258,25 +253,25 @@ export default async function BlogPostPage({
             className="object-cover grayscale"
             priority
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-canvas/80" />
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link
             href="/blog"
-            className="text-xs uppercase tracking-wider text-gray-400 hover:text-white transition-colors mb-8 inline-block"
+            className="btn btn-glass min-h-10 px-4 text-sm mb-8"
           >
             ← All Posts
           </Link>
 
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-4">
+          <p className="eyebrow mb-4">
             {post.category} — {post.readTime}
           </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white leading-[1.05] tracking-tight max-w-4xl mb-8">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-ink leading-[1.05] tracking-tight max-w-4xl mb-8">
             {post.title}
           </h1>
 
-          <div className="flex items-center gap-4 border-t border-white/20 pt-6">
+          <div className="flex items-center gap-4 border-t border-ink/15 pt-6">
             <Image
               src={post.authorImage}
               alt={post.author}
@@ -285,8 +280,8 @@ export default async function BlogPostPage({
               className="grayscale object-cover"
             />
             <div>
-              <p className="text-white text-sm font-medium">{post.author}</p>
-              <p className="text-gray-400 text-xs">
+              <p className="text-ink text-sm font-medium">{post.author}</p>
+              <p className="text-body text-xs">
                 {post.authorRole} · {post.date}
               </p>
             </div>
@@ -297,14 +292,14 @@ export default async function BlogPostPage({
       {/* =============================================
           ARTICLE
           ============================================= */}
-      <section className="py-20 lg:py-28 bg-black">
+      <section className="py-20 lg:py-28">
         <article className="max-w-3xl mx-auto px-6 lg:px-10">
           <div className="space-y-6">
             {post.content.map((paragraph, index) => (
               <p
                 key={index}
-                className={`text-gray-400 text-lg leading-relaxed ${
-                  index === 0 ? "text-gray-300 text-xl" : ""
+                className={`text-body text-lg leading-relaxed ${
+                  index === 0 ? "text-ink-soft text-xl" : ""
                 }`}
               >
                 {paragraph}
@@ -317,15 +312,15 @@ export default async function BlogPostPage({
       {/* =============================================
           POST CTA
           ============================================= */}
-      <section className="py-20 lg:py-28 bg-gray-900 border-t border-white/10">
+      <section className="py-20 lg:py-28">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+          <p className="eyebrow mb-4">
             Work With Us
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink leading-tight mb-4">
             Ready to apply this to your business?
           </h2>
-          <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-md">
+          <p className="text-body text-sm leading-relaxed mb-8 max-w-md">
             We build custom websites and brand experiences for small businesses
             across Ohio and beyond. Book a free 30-min call and let&apos;s talk
             about your goals.
@@ -333,13 +328,13 @@ export default async function BlogPostPage({
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/contact"
-              className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+              className="btn btn-primary text-center"
             >
               Book a Free Call
             </Link>
             <Link
               href="/packages"
-              className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+              className="btn btn-glass text-center"
             >
               See Our Packages
             </Link>
@@ -351,27 +346,27 @@ export default async function BlogPostPage({
           RELATED POSTS
           ============================================= */}
       {related.length > 0 && (
-        <section className="py-20 lg:py-28 bg-black border-t border-white/10">
+        <section className="py-20 lg:py-28">
           <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-10">
+            <p className="eyebrow mb-10">
               More Articles
             </p>
-            <div className="border-t border-white/10">
+            <div className="border-t border-ink/10">
               {related.map(([relSlug, relPost]) => (
                 <Link
                   key={relSlug}
                   href={`/blog/${relSlug}`}
-                  className="group flex items-center justify-between py-6 border-b border-white/10"
+                  className="group flex items-center justify-between py-6 border-b border-ink/10"
                 >
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">
+                    <p className="text-xs uppercase tracking-wider text-muted mb-1">
                       {relPost.category} — {relPost.date}
                     </p>
-                    <h3 className="text-lg font-heading font-semibold text-white group-hover:text-gray-300 transition-colors">
+                    <h3 className="text-lg font-heading font-semibold text-ink group-hover:text-ink-soft transition-colors">
                       {relPost.title}
                     </h3>
                   </div>
-                  <span className="text-gray-500 text-sm hidden sm:block">
+                  <span className="text-muted text-sm hidden sm:block">
                     →
                   </span>
                 </Link>
@@ -384,11 +379,11 @@ export default async function BlogPostPage({
       {/* =============================================
           BACK
           ============================================= */}
-      <section className="py-16 bg-gray-900 border-t border-white/10">
+      <section className="py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 text-center">
           <Link
             href="/blog"
-            className="inline-block px-8 py-3 bg-accent text-black text-sm font-medium uppercase tracking-wider hover:bg-accent-glow transition-colors"
+            className="btn btn-primary"
           >
             Back to Blog
           </Link>

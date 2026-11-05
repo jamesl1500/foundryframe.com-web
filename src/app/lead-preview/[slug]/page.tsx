@@ -59,17 +59,17 @@ export default async function LeadPreviewPage({
   const primaryCtaText = asString(payload.primaryCtaText, asString(cta.text, "Schedule A Strategy Call"));
 
   return (
-    <main className="min-h-screen bg-black text-white border-b border-white/10">
+    <main className="min-h-screen text-ink">
       <section className="pt-32 pb-14 lg:pt-40">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">Proposed Website Direction</p>
+          <p className="text-xs uppercase tracking-[0.3em] text-muted mb-4">Proposed Website Direction</p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold leading-[0.95] mb-5">
             {heroHeadline}
           </h1>
-          <p className="text-lg text-gray-300 max-w-3xl">{heroSubheadline}</p>
+          <p className="text-lg text-ink-soft max-w-3xl">{heroSubheadline}</p>
           <div className="mt-8 flex flex-wrap gap-2">
             {palette.map((color) => (
-              <span key={color} className="border border-white/20 px-2 py-1 text-[10px] uppercase tracking-widest text-gray-400">
+              <span key={color} className="border border-ink/15 px-2 py-1 text-xs uppercase tracking-widest text-body rounded-full">
                 {color}
               </span>
             ))}
@@ -79,18 +79,18 @@ export default async function LeadPreviewPage({
 
       <section className="pb-6">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <article className="border border-white/10 p-6 bg-white/[0.02]">
-            <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">What We Found</p>
-            <ul className="space-y-2 text-sm text-gray-300">
+          <article className="glass rounded-card p-6">
+            <p className="text-xs uppercase tracking-widest text-muted mb-4">What We Found</p>
+            <ul className="space-y-2 text-sm text-ink-soft">
               {analysisHighlights.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
             </ul>
           </article>
 
-          <article className="border border-white/10 p-6 bg-white/[0.02]">
-            <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">SEO Improvements</p>
-            <ul className="space-y-2 text-sm text-gray-300">
+          <article className="glass rounded-card p-6">
+            <p className="text-xs uppercase tracking-widest text-muted mb-4">SEO Improvements</p>
+            <ul className="space-y-2 text-sm text-ink-soft">
               {seoWins.map((item) => (
                 <li key={item}>• {item}</li>
               ))}
@@ -101,8 +101,8 @@ export default async function LeadPreviewPage({
 
       <section className="pb-6">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-5">Recommended Packages</p>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px gap-6 bg-white/10 border border-white/10">
+          <p className="text-xs uppercase tracking-widest text-muted mb-5">Recommended Packages</p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 gap-6 border border-ink/10">
             {packageRecommendations.map((pkg) => {
               const packageRecord = asRecord(pkg);
               const packageName = asString(packageRecord.packageName, "Recommended Package");
@@ -112,11 +112,11 @@ export default async function LeadPreviewPage({
               const deliverables = asStringArray(packageRecord.deliverables);
 
               return (
-              <article key={pkg.packageName} className="bg-black p-6">
-                <h2 className="text-2xl font-heading font-bold text-white mb-2">{packageName}</h2>
-                <p className="text-xs uppercase tracking-widest text-gray-500 mb-3">{estimatedInvestment} • {timeline}</p>
-                <p className="text-sm text-gray-300 mb-4">{rationale}</p>
-                <ul className="space-y-2 text-sm text-gray-300">
+              <article key={pkg.packageName} className="glass rounded-card p-6">
+                <h2 className="text-2xl font-heading font-bold text-ink mb-2">{packageName}</h2>
+                <p className="text-xs uppercase tracking-widest text-muted mb-3">{estimatedInvestment} • {timeline}</p>
+                <p className="text-sm text-ink-soft mb-4">{rationale}</p>
+                <ul className="space-y-2 text-sm text-ink-soft">
                   {deliverables.map((deliverable) => (
                     <li key={deliverable}>• {deliverable}</li>
                   ))}
@@ -137,10 +137,10 @@ export default async function LeadPreviewPage({
             const sectionBullets = asStringArray(sectionRecord.bullets);
 
             return (
-            <article key={`${sectionTitle}-${index}`} className="border border-white/10 p-6 bg-white/[0.02]">
-              <h3 className="text-3xl font-heading font-bold text-white mb-3">{sectionTitle}</h3>
-              <p className="text-sm text-gray-300 mb-4 leading-relaxed">{sectionBody}</p>
-              <ul className="space-y-2 text-sm text-gray-300">
+            <article key={`${sectionTitle}-${index}`} className="glass rounded-card p-6">
+              <h3 className="text-3xl font-heading font-bold text-ink mb-3">{sectionTitle}</h3>
+              <p className="text-sm text-ink-soft mb-4 leading-relaxed">{sectionBody}</p>
+              <ul className="space-y-2 text-sm text-ink-soft">
                 {sectionBullets.map((bullet) => (
                   <li key={bullet}>• {bullet}</li>
                 ))}
@@ -152,15 +152,15 @@ export default async function LeadPreviewPage({
       </section>
 
       <section className="pb-6">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-10 border border-white/10 p-8 bg-white/[0.02]">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-3">Next Step</p>
-          <h2 className="text-4xl font-heading font-bold text-white mb-4">{closingHeadline}</h2>
-          <p className="text-gray-300 text-sm max-w-3xl mb-6">{closingCopy}</p>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-10 glass rounded-panel p-8">
+          <p className="text-xs uppercase tracking-[0.3em] text-muted mb-3">Next Step</p>
+          <h2 className="text-4xl font-heading font-bold text-ink mb-4">{closingHeadline}</h2>
+          <p className="text-ink-soft text-sm max-w-3xl mb-6">{closingCopy}</p>
           <a
             href={`mailto:${BUSINESS_EMAIL}?subject=${encodeURIComponent(
               `Website Roadmap: ${generatedPage.lead.company_name || generatedPage.lead.name}`,
             )}`}
-            className="inline-flex px-6 py-3 bg-accent text-black text-xs font-bold uppercase tracking-widest hover:bg-accent-glow"
+            className="btn btn-primary inline-flex"
           >
             {primaryCtaText}
           </a>

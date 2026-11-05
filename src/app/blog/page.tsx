@@ -107,22 +107,22 @@ export default function BlogPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Blog
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
             Insights & ideas
           </h1>
-          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+          <p className="text-muted text-sm mt-6 max-w-lg">
             Design, strategy, and business insights from the team at Foundry
             Frame — practical takeaways you can use today.
           </p>
           <div className="mt-8">
             <Link
               href="/contact"
-              className="text-white text-xs uppercase tracking-wider border-b border-white/30 pb-0.5 hover:border-white transition-colors"
+              className="btn btn-glass min-h-10 px-5 text-sm"
             >
               Ready to work with us? Book a free call →
             </Link>
@@ -134,68 +134,72 @@ export default function BlogPage() {
           FEATURED POST
           ============================================= */}
       {featured && (
-        <section className="bg-black border-b border-white/10">
-          <Link
-            href={`/blog/${featured.slug}`}
-            className="group grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10"
-          >
-            <div className="aspect-[4/3] lg:aspect-auto relative overflow-hidden bg-black">
-              <Image
-                src={featured.image}
-                alt={featured.title}
-                fill
-                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-              />
-            </div>
-            <div className="p-8 lg:p-16 flex flex-col justify-center bg-black">
-              <p className="text-xs uppercase tracking-wider text-gray-500 mb-4">
-                {featured.category} — {featured.date}
-              </p>
-              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-4 group-hover:text-gray-300 transition-colors">
-                {featured.title}
-              </h2>
-              <p className="text-gray-500 text-sm leading-relaxed">
-                {featured.excerpt}
-              </p>
-              <span className="mt-6 text-xs uppercase tracking-wider text-gray-400 border-b border-gray-400 self-start pb-1">
-                Read Article
-              </span>
-            </div>
-          </Link>
+        <section>
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+            <Link
+              href={`/blog/${featured.slug}`}
+              className="glass-card group grid grid-cols-1 lg:grid-cols-2 gap-2 p-2 rounded-panel"
+            >
+              <div className="aspect-[4/3] lg:aspect-auto lg:min-h-[22rem] relative overflow-hidden rounded-card">
+                <Image
+                  src={featured.image}
+                  alt={featured.title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+              </div>
+              <div className="p-6 lg:p-12 flex flex-col justify-center">
+                <p className="text-xs uppercase tracking-wider text-muted mb-4">
+                  Featured &middot; {featured.category} — {featured.date}
+                </p>
+                <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-4">
+                  {featured.title}
+                </h2>
+                <p className="text-body text-base leading-relaxed">
+                  {featured.excerpt}
+                </p>
+                <span className="btn btn-primary mt-6 self-start">
+                  Read Article &rarr;
+                </span>
+              </div>
+            </Link>
+          </div>
         </section>
       )}
 
       {/* =============================================
           POSTS GRID
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="py-16 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="border-t border-white/10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {rest.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group grid grid-cols-1 md:grid-cols-12 gap-6 py-8 border-b border-white/10"
+                className="glass-card group flex flex-col p-2 rounded-card"
               >
-                {/* Image */}
-                <div className="md:col-span-3 aspect-[4/3] md:aspect-[3/2] relative overflow-hidden">
+                <div className="aspect-[3/2] relative overflow-hidden rounded-bubble">
                   <Image
                     src={post.image}
                     alt={post.title}
                     fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                   />
                 </div>
-
-                {/* Content */}
-                <div className="md:col-span-9 flex flex-col justify-center">
-                  <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">
+                <div className="p-5 flex flex-col flex-1">
+                  <p className="text-xs uppercase tracking-wider text-muted mb-2">
                     {post.category} — {post.date}
                   </p>
-                  <h3 className="text-xl font-heading font-semibold text-white mb-2 group-hover:text-gray-300 transition-colors">
+                  <h3 className="text-xl font-heading font-semibold text-ink mb-2">
                     {post.title}
                   </h3>
-                  <p className="text-gray-500 text-sm">{post.excerpt}</p>
+                  <p className="text-body text-sm leading-relaxed">{post.excerpt}</p>
+                  <span className="mt-auto pt-4 text-sm font-semibold text-accent-ink">
+                    Read article &rarr;
+                  </span>
                 </div>
               </Link>
             ))}

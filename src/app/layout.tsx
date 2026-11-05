@@ -212,8 +212,8 @@ export const metadata: Metadata = {
 
 /* --- Global Viewport --- */
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  colorScheme: "dark",
+  themeColor: "#F4F1EC",
+  colorScheme: "light",
 };
 
 /* --- Root Layout Component --- */
@@ -274,6 +274,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
+
+        {/* Soft color fields fixed behind every page for the glass to blur */}
+        <div className="site-backdrop" aria-hidden="true" />
 
         {/* Site-wide navigation header (left off ad landing pages) */}
         <HideOnAdPages>

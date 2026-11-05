@@ -52,9 +52,9 @@ export function toTitleCase(key: string): string {
 }
 
 export function scoreTone(score: number): { text: string; bar: string } {
-  if (score >= 80) return { text: "text-green-400", bar: "bg-green-400" };
-  if (score >= 50) return { text: "text-accent", bar: "bg-accent" };
-  return { text: "text-red-400", bar: "bg-red-400" };
+  if (score >= 80) return { text: "text-green-700", bar: "bg-green-400" };
+  if (score >= 50) return { text: "text-accent-ink", bar: "bg-accent" };
+  return { text: "text-red-700", bar: "bg-red-400" };
 }
 
 /** Coerce a numeric-ish category score value into a 0-100 number, or null if not numeric. */

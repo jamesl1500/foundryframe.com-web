@@ -14,7 +14,7 @@ import Link from "next/link";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
-  title: "FAQ",
+  title: "Web Design & Pricing FAQ",
   description:
     "Frequently asked questions about Foundry Frame's creative services, pricing, process, timelines, and more.",
   alternates: {
@@ -79,6 +79,10 @@ const faqCategories = [
       {
         q: "What does your creative process look like?",
         a: "Our process follows five phases: Discovery (understanding your business, audience, and goals), Strategy (defining the approach and roadmap), Design (crafting every page and asset around your brand), Build (hand-coding and producing the work), and Launch (deploying, connecting analytics, and training your team). You're involved at every stage and nothing moves forward without your sign-off.",
+      },
+      {
+        q: "Do you build WordPress websites?",
+        a: "Yes, when it's the right fit. Most of our sites are hand-coded with Next.js and React for speed and security, but we also build on WordPress when it makes more sense, for example if your team already knows it, you need a particular plugin, or you're keeping an existing WordPress site. We'll recommend a platform on the discovery call, and our Maintenance Plans keep either kind of site updated.",
       },
       {
         q: "How long does a typical project take?",
@@ -163,20 +167,20 @@ export default function FAQPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             FAQ
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl mb-6">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl mb-6">
             Questions & answers
           </h1>
-          <p className="text-gray-500 text-lg max-w-xl">
+          <p className="text-muted text-lg max-w-xl">
             Everything you need to know about working with us.
             Can&apos;t find what you&apos;re looking for?{" "}
             <Link
               href="/contact"
-              className="text-white border-b border-white/20 pb-0.5 hover:border-white transition-colors"
+              className="text-ink border-b border-ink/15 pb-0.5 hover:border-ink transition-colors"
             >
               Get in touch
             </Link>
@@ -188,28 +192,28 @@ export default function FAQPage() {
       {/* =============================================
           FAQ CONTENT
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="py-24 lg:py-32">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
           <div className="space-y-16">
             {faqCategories.map((cat) => (
               <div key={cat.category}>
-                <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+                <p className="eyebrow mb-6">
                   {cat.category}
                 </p>
 
-                <div className="border-t border-white/10">
+                <div className="border-t border-ink/10">
                   {cat.questions.map((faq) => (
                     <details
                       key={faq.q}
-                      className="group border-b border-white/10"
+                      className="group border-b border-ink/10"
                     >
-                      <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+                      <summary className="flex items-center justify-between cursor-pointer py-5 text-ink text-sm font-medium hover:text-ink-soft transition-colors list-none">
                         <span className="pr-6">{faq.q}</span>
-                        <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                        <span className="text-muted text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
                           +
                         </span>
                       </summary>
-                      <div className="pb-5 text-gray-500 text-sm leading-relaxed">
+                      <div className="pb-5 text-muted text-sm leading-relaxed">
                         {faq.a}
                       </div>
                     </details>
@@ -224,16 +228,16 @@ export default function FAQPage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+            <p className="eyebrow mb-6">
               Next Step
             </p>
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-4">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-4">
               Book your free 30-min strategy call
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
+            <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
               Bring your questions, your goals, and your budget. We&apos;ll
               tell you exactly what&apos;s possible and what it would take to
               get there. No pitch, no pressure.
@@ -241,13 +245,13 @@ export default function FAQPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-                className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+                className="btn btn-primary text-center"
               >
                 Book a Free Call
               </Link>
               <a
                 href="mailto:jlatten@foundryframe.com"
-                className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+                className="btn btn-glass text-center"
               >
                 Email Directly
               </a>

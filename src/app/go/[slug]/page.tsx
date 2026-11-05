@@ -69,28 +69,28 @@ export default async function AdLandingPage({
   return (
     <>
       {/* Minimal top bar: brand and phone only, no menu */}
-      <div className="border-b border-white/10 bg-black">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
-          <span className="text-white font-heading font-bold text-lg tracking-tight uppercase">Foundry Frame</span>
-          <a href={PHONE_HREF} className="text-sm text-gray-300 hover:text-white" data-track="Ad page phone">
+      <div className="px-3 sm:px-6 pt-3">
+        <div className="glass-nav max-w-[1200px] mx-auto rounded-full h-14 pl-5 pr-2 flex items-center justify-between">
+          <span className="text-ink font-heading font-bold text-lg tracking-tight">Foundry Frame</span>
+          <a href={PHONE_HREF} className="btn btn-glass min-h-10 px-4 text-sm" data-track="Ad page phone">
             {PHONE_DISPLAY}
           </a>
         </div>
       </div>
 
       {/* HERO + FORM */}
-      <section className="py-14 lg:py-20 bg-black border-b border-white/10">
+      <section className="py-14 lg:py-20">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           <div className="lg:col-span-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-accent mb-6">{funnel.eyebrow}</p>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white leading-[0.95] tracking-tight mb-6">
+            <p className="eyebrow mb-6">{funnel.eyebrow}</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-ink leading-[0.95] tracking-tight mb-6">
               {funnel.headline}
             </h1>
-            <p className="text-gray-400 text-lg mb-8">{funnel.subhead}</p>
-            <ul className="border-t border-white/10">
+            <p className="text-body text-lg mb-8">{funnel.subhead}</p>
+            <ul className="border-t border-ink/10">
               {funnel.includes.map((item) => (
-                <li key={item} className="py-3 border-b border-white/10 text-white text-sm flex gap-3">
-                  <span className="text-accent" aria-hidden="true">
+                <li key={item} className="py-3 border-b border-ink/10 text-ink text-sm flex gap-3">
+                  <span className="text-accent-ink" aria-hidden="true">
                     ✓
                   </span>
                   {item}
@@ -100,9 +100,9 @@ export default async function AdLandingPage({
           </div>
 
           <div id="get-started" className="lg:col-span-6 scroll-mt-8">
-            <div className="border border-white/10 p-6 sm:p-8 lg:p-10">
-              <h2 className="text-3xl font-heading font-bold text-white mb-3">{funnel.form.heading}</h2>
-              <p className="text-gray-400 text-sm mb-8">{funnel.form.body}</p>
+            <div className="glass rounded-card p-6 sm:p-8 lg:p-10">
+              <h2 className="text-3xl font-heading font-bold text-ink mb-3">{funnel.form.heading}</h2>
+              <p className="text-body text-sm mb-8">{funnel.form.body}</p>
               <AdPageForm funnel={funnel} />
             </div>
           </div>
@@ -110,13 +110,13 @@ export default async function AdLandingPage({
       </section>
 
       {/* THE PROBLEM */}
-      <section className="py-16 lg:py-24 bg-black border-b border-white/10">
+      <section className="py-16 lg:py-24">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {funnel.problems.map((problem) => (
-              <div key={problem.title} className="bg-black p-8">
-                <h2 className="text-xl font-heading font-bold text-white mb-3">{problem.title}</h2>
-                <p className="text-sm text-gray-400 leading-relaxed">{problem.body}</p>
+              <div key={problem.title} className="glass rounded-card p-8">
+                <h2 className="text-xl font-heading font-bold text-ink mb-3">{problem.title}</h2>
+                <p className="text-sm text-body leading-relaxed">{problem.body}</p>
               </div>
             ))}
           </div>
@@ -124,25 +124,25 @@ export default async function AdLandingPage({
       </section>
 
       {/* PRICE + HOW IT WORKS */}
-      <section className="py-16 lg:py-24 bg-black border-b border-white/10">
+      <section className="py-16 lg:py-24">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">{funnel.price.label}</p>
-            <p className="text-6xl font-heading font-bold text-accent-glow mb-4">{funnel.price.amount}</p>
-            <p className="text-gray-400 text-sm max-w-md mb-6">{funnel.price.note}</p>
+            <p className="eyebrow mb-4">{funnel.price.label}</p>
+            <p className="text-6xl font-heading font-bold text-accent-ink mb-4">{funnel.price.amount}</p>
+            <p className="text-body text-sm max-w-md mb-6">{funnel.price.note}</p>
             {funnel.offer ? (
-              <p className="border border-accent/40 bg-accent/5 p-4 text-sm text-white max-w-md">{funnel.offer}</p>
+              <p className="glass-accent rounded-bubble p-4 text-sm text-ink max-w-md">{funnel.offer}</p>
             ) : null}
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">How it works</p>
-            <ol className="border-t border-white/10">
+            <p className="eyebrow mb-6">How it works</p>
+            <ol className="border-t border-ink/10">
               {funnel.steps.map((step, index) => (
-                <li key={step.title} className="py-4 border-b border-white/10 flex gap-6">
-                  <span className="text-xs text-gray-600 pt-0.5">{String(index + 1).padStart(2, "0")}</span>
+                <li key={step.title} className="py-4 border-b border-ink/10 flex gap-6">
+                  <span className="text-xs text-muted pt-0.5">{String(index + 1).padStart(2, "0")}</span>
                   <span>
-                    <span className="block text-white text-sm font-medium">{step.title}</span>
-                    <span className="block text-gray-500 text-sm">{step.body}</span>
+                    <span className="block text-ink text-sm font-medium">{step.title}</span>
+                    <span className="block text-muted text-sm">{step.body}</span>
                   </span>
                 </li>
               ))}
@@ -152,20 +152,20 @@ export default async function AdLandingPage({
       </section>
 
       {/* FAQ + LAST CALL */}
-      <section className="py-16 lg:py-24 bg-black">
+      <section className="py-16 lg:py-24">
         <div className="max-w-[1200px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Questions</p>
-          <dl className="border-t border-white/10 mb-14">
+          <p className="eyebrow mb-6">Questions</p>
+          <dl className="border-t border-ink/10 mb-14">
             {funnel.faqs.map((faq) => (
-              <div key={faq.question} className="py-5 border-b border-white/10">
-                <dt className="text-white font-medium mb-2">{faq.question}</dt>
-                <dd className="text-gray-400 text-sm leading-relaxed">{faq.answer}</dd>
+              <div key={faq.question} className="py-5 border-b border-ink/10">
+                <dt className="text-ink font-medium mb-2">{faq.question}</dt>
+                <dd className="text-body text-sm leading-relaxed">{faq.answer}</dd>
               </div>
             ))}
           </dl>
           <a
             href="#get-started"
-            className="inline-block px-10 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+            className="btn btn-primary"
           >
             {funnel.form.submitLabel}
           </a>
@@ -173,14 +173,14 @@ export default async function AdLandingPage({
       </section>
 
       {/* Minimal footer: legal only */}
-      <footer className="border-t border-white/10 bg-black">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-10 py-8 flex flex-col sm:flex-row gap-3 justify-between text-xs text-gray-600">
+      <footer>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-10 py-8 flex flex-col sm:flex-row gap-3 justify-between text-xs text-muted">
           <span>© {new Date().getFullYear()} Foundry Frame · Lorain, Ohio</span>
           <span className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white">
+            <Link href="/privacy" className="hover:text-ink">
               Privacy
             </Link>
-            <Link href="/terms" className="hover:text-white">
+            <Link href="/terms" className="hover:text-ink">
               Terms
             </Link>
           </span>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { seoTitle, summarize } from "@/lib/seo/meta";
 import {
   getPublishedCaseStudies,
   getPublishedCaseStudyBySlug,
@@ -32,14 +33,14 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${study.title} | Case Study`,
-    description: study.summary || "Foundry Frame case study.",
+    title: seoTitle(`${study.title} | Case Study`),
+    description: summarize(study.summary || "Foundry Frame case study."),
     alternates: {
       canonical: `/case-studies/${study.slug}`,
     },
     openGraph: {
       title: `${study.title} | Case Study | Foundry Frame`,
-      description: study.summary || "Foundry Frame case study.",
+      description: summarize(study.summary || "Foundry Frame case study."),
       url: `/case-studies/${study.slug}`,
       type: "article",
       images: [
@@ -54,7 +55,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${study.title} | Case Study | Foundry Frame`,
-      description: study.summary || "Foundry Frame case study.",
+      description: summarize(study.summary || "Foundry Frame case study."),
       images: [study.cover_image_url || "/twitter-image"],
     },
   };
@@ -83,35 +84,35 @@ export default async function CaseStudyDetailPage({
 
   return (
     <>
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black min-h-screen border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 min-h-screen">
         <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
           <Link
             href="/case-studies"
-            className="text-[10px] uppercase tracking-[0.3em] text-gray-600 hover:text-gray-400 transition-colors mb-6 inline-block"
+            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
           >
             &larr; All Case Studies
           </Link>
 
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500">
+            <p className="eyebrow">
               Case Study
             </p>
             {inHouse ? (
-              <span className="text-[10px] uppercase tracking-widest border border-accent/40 text-accent-glow px-2 py-1">
+              <span className="text-xs uppercase tracking-widest border border-accent/40 text-accent-ink px-2 py-1 rounded-full">
                 In-house product
               </span>
             ) : null}
           </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.95] mb-4">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.95] mb-4">
             {study.title}
           </h1>
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-8">
+          <p className="text-xs uppercase tracking-widest text-muted mb-8">
             {study.client_name}
             {study.industry ? ` · ${study.industry}` : ""}
           </p>
 
           {inHouse ? (
-            <p className="text-sm text-gray-400 leading-relaxed border-l-2 border-accent/40 pl-4 mb-8">
+            <p className="text-sm text-body leading-relaxed border-l-2 border-accent/40 pl-4 mb-8">
               {study.client_name || study.title} is Foundry Frame&apos;s own
               product. We designed, built, and run it ourselves, so this is a
               look at our work rather than a client engagement.
@@ -119,7 +120,7 @@ export default async function CaseStudyDetailPage({
           ) : null}
 
           {study.summary ? (
-            <p className="text-gray-300 text-base leading-relaxed mb-10">
+            <p className="text-ink-soft text-base leading-relaxed mb-10">
               {study.summary}
             </p>
           ) : null}
@@ -130,13 +131,13 @@ export default async function CaseStudyDetailPage({
               alt={study.title}
               width={1600}
               height={900}
-              className="w-full h-auto border border-white/10 mb-10"
+              className="w-full h-auto border border-ink/10 mb-10"
             />
           ) : null}
 
           {galleryImages.length > 0 ? (
             <div className="mb-10">
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">
+              <p className="text-xs uppercase tracking-widest text-muted mb-4">
                 Project Gallery
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -147,51 +148,51 @@ export default async function CaseStudyDetailPage({
                     alt={`${study.title} gallery image ${index + 1}`}
                     width={1000}
                     height={750}
-                    className="w-full h-48 object-cover border border-white/10"
+                    className="w-full h-48 object-cover border border-ink/10"
                   />
                 ))}
               </div>
             </div>
           ) : null}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border border-white/10 mb-10">
-            <div className="bg-black p-6">
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+            <div className="glass rounded-card p-6">
+              <p className="text-xs uppercase tracking-widest text-muted mb-2">
                 Challenge
               </p>
-              <p className="text-sm text-gray-300 leading-relaxed">
+              <p className="text-sm text-ink-soft leading-relaxed">
                 {study.challenge || "Not specified."}
               </p>
             </div>
-            <div className="bg-black p-6">
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+            <div className="glass rounded-card p-6">
+              <p className="text-xs uppercase tracking-widest text-muted mb-2">
                 Solution
               </p>
-              <p className="text-sm text-gray-300 leading-relaxed">
+              <p className="text-sm text-ink-soft leading-relaxed">
                 {study.solution || "Not specified."}
               </p>
             </div>
-            <div className="bg-black p-6">
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">
+            <div className="glass rounded-card p-6">
+              <p className="text-xs uppercase tracking-widest text-muted mb-2">
                 Results
               </p>
-              <p className="text-sm text-gray-300 leading-relaxed">
+              <p className="text-sm text-ink-soft leading-relaxed">
                 {study.results || "Not specified."}
               </p>
             </div>
           </div>
 
           {metricItems.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 border border-white/10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {metricItems.map((metric, index) => (
                 <div
                   key={`${metric.label || "metric"}-${index}`}
-                  className="bg-black p-6 text-center"
+                  className="glass rounded-card p-6 text-center"
                 >
-                  <p className="text-3xl font-heading font-bold text-white mb-2">
+                  <p className="text-3xl font-heading font-bold text-ink mb-2">
                     {metric.value || "-"}
                   </p>
-                  <p className="text-[10px] uppercase tracking-widest text-gray-500">
+                  <p className="text-xs uppercase tracking-widest text-muted">
                     {metric.label || "Metric"}
                   </p>
                 </div>
@@ -204,17 +205,17 @@ export default async function CaseStudyDetailPage({
       {/* =============================================
         CASE STUDY CTA
         ============================================= */}
-      <section className="py-20 lg:py-28 bg-gray-900 border-b border-white/10">
+      <section className="py-20 lg:py-28">
         <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+          <p className="eyebrow mb-4">
             Work With Us
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white leading-tight mb-4">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink leading-tight mb-4">
             {inHouse
               ? "Want something like this built for you?"
               : "Want results like these for your business?"}
           </h2>
-          <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-md">
+          <p className="text-body text-sm leading-relaxed mb-8 max-w-md">
             We build custom websites and brand experiences for small businesses
             across Ohio and beyond. Book a free 30-min call and let&apos;s talk
             about your goals.
@@ -223,13 +224,13 @@ export default async function CaseStudyDetailPage({
             <Link
               href="/contact"
               data-track="Case study CTA: Book a Free Call"
-              className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+              className="btn btn-primary text-center"
             >
               Book a Free Call
             </Link>
             <Link
               href="/case-studies"
-              className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+              className="btn btn-glass text-center"
             >
               More Case Studies
             </Link>

@@ -40,15 +40,15 @@ export default async function AuditDetailsPage({
   }
 
   return (
-    <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+    <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
       <div className="max-w-[900px] mx-auto px-6 lg:px-10">
-        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">
+        <p className="eyebrow mb-4">
           Your Free Website Audit
         </p>
         <h1 className="text-4xl sm:text-5xl font-heading font-bold leading-[0.95] mb-2 break-all">
           {audit.url}
         </h1>
-        <p className="text-gray-500 text-sm mb-10">
+        <p className="text-muted text-sm mb-10">
           Scanned {new Date(audit.created_at).toLocaleDateString(undefined, {
             year: "numeric",
             month: "long",
@@ -59,16 +59,16 @@ export default async function AuditDetailsPage({
         {audit.status === "completed" && <AuditResults audit={audit} />}
 
         {audit.status === "failed" && (
-          <div className="border border-red-400/30 p-8 text-center">
-            <p className="text-white font-heading font-bold text-xl mb-2">
+          <div className="glass rounded-card border-red-400/40 p-8 text-center">
+            <p className="text-ink font-heading font-bold text-xl mb-2">
               This audit didn&apos;t complete
             </p>
-            <p className="text-gray-400 text-sm mb-6">
+            <p className="text-body text-sm mb-6">
               {audit.error_message || "Something went wrong while scanning this site."}
             </p>
             <Link
               href="/audit"
-              className="inline-block px-8 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
+              className="btn btn-primary"
             >
               Start A New Audit
             </Link>

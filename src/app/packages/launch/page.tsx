@@ -228,21 +228,21 @@ export default function LaunchBundlesPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link
             href="/packages"
-            className="text-[10px] uppercase tracking-[0.3em] text-gray-600 hover:text-gray-400 transition-colors mb-6 inline-block"
+            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
           >
             &larr; All Packages
           </Link>
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Launch Bundles &middot; From $2,500
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
             Website + brand, in one move
           </h1>
-          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+          <p className="text-muted text-sm mt-6 max-w-lg">
             Our launch bundles combine a custom website, brand identity, and
             ongoing support into a single cohesive engagement. One team. One
             timeline. One point of contact.
@@ -253,18 +253,18 @@ export default function LaunchBundlesPage() {
       {/* =============================================
           BUNDLE OVERVIEW STRIP
           ============================================= */}
-      <section className="bg-black border-b border-white/10">
+      <section>
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {bundles.map((b) => (
-              <div key={`strip-${b.number}`} className="py-6 px-4 lg:px-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-1">
+              <div key={`strip-${b.number}`} className="glass rounded-bubble py-5 px-5 lg:px-6">
+                <span className="text-xs uppercase tracking-[0.3em] text-muted block mb-1">
                   {b.number}
                 </span>
-                <span className="text-white font-heading font-bold text-base sm:text-lg block">
+                <span className="text-ink font-heading font-bold text-base sm:text-lg block">
                   {b.name}
                 </span>
-                <span className="text-gray-500 text-xs mt-0.5 block">
+                <span className="text-muted text-xs mt-0.5 block">
                   {b.pricePrefix ? `${b.pricePrefix} ` : ""}
                   {b.price}
                 </span>
@@ -277,123 +277,123 @@ export default function LaunchBundlesPage() {
       {/* =============================================
           BUNDLE CARDS — 2x2 grid
           ============================================= */}
-      <section className="glow-field py-24 lg:py-32 bg-black">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
             {/* ---- Ignite (dark) ---- */}
-            <div className="glass-card p-8 lg:p-10 flex flex-col">
+            <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Bundle 01</span>
+                <span className="text-xs uppercase tracking-[0.3em] text-muted">Bundle 01</span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{bundles[0].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{bundles[0].name}</p>
               {bundles[0].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{bundles[0].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-muted block">{bundles[0].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-white mb-2">{bundles[0].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{bundles[0].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-400 leading-relaxed mb-8">{bundles[0].description}</p>
-              <div className="border-t border-white/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{bundles[0].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{bundles[0].tagline}&rdquo;</p>
+              <p className="text-sm text-body leading-relaxed mb-8">{bundles[0].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {bundles[0].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
-                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-400 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-body text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {bundles[0].cta}
               </Link>
             </div>
 
             {/* ---- Velocity (light / highlighted) ---- */}
-            <div className="bg-white p-8 lg:p-10 flex flex-col">
+            <div className="glass rounded-card ring-2 ring-accent/40 p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">Bundle 02</span>
-                <span className="text-[10px] uppercase tracking-widest bg-black text-white px-3 py-1 font-bold">
+                <span className="text-xs uppercase tracking-[0.3em] text-body">Bundle 02</span>
+                <span className="text-xs uppercase tracking-widest bg-ink text-white px-3 py-1 font-bold rounded-full">
                   Most Popular
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{bundles[1].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{bundles[1].name}</p>
               {bundles[1].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-400 block">{bundles[1].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-body block">{bundles[1].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-black mb-2">{bundles[1].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{bundles[1].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-600 leading-relaxed mb-8">{bundles[1].description}</p>
-              <div className="border-t border-black/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{bundles[1].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{bundles[1].tagline}&rdquo;</p>
+              <p className="text-sm text-muted leading-relaxed mb-8">{bundles[1].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {bundles[1].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-black/10">
-                    <span className="text-gray-400 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-700 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-ink-soft text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-black text-white hover:bg-gray-800 transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {bundles[1].cta}
               </Link>
             </div>
 
             {/* ---- Ascend (dark) ---- */}
-            <div className="glass-card p-8 lg:p-10 flex flex-col">
+            <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Bundle 03</span>
+                <span className="text-xs uppercase tracking-[0.3em] text-muted">Bundle 03</span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{bundles[2].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{bundles[2].name}</p>
               {bundles[2].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{bundles[2].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-muted block">{bundles[2].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-white mb-2">{bundles[2].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{bundles[2].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-400 leading-relaxed mb-8">{bundles[2].description}</p>
-              <div className="border-t border-white/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{bundles[2].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{bundles[2].tagline}&rdquo;</p>
+              <p className="text-sm text-body leading-relaxed mb-8">{bundles[2].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {bundles[2].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
-                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-400 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-body text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {bundles[2].cta}
               </Link>
             </div>
 
             {/* ---- Apex (dark + white accent top border) ---- */}
-            <div className="glass-card p-8 lg:p-10 flex flex-col border-t-2 border-white">
+            <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col border-t-2 border-ink/20">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Bundle 04</span>
-                <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-400 px-3 py-1">
+                <span className="text-xs uppercase tracking-[0.3em] text-muted">Bundle 04</span>
+                <span className="text-xs uppercase tracking-widest border border-ink/20 text-body px-3 py-1 rounded-full">
                   Full Service
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{bundles[3].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{bundles[3].name}</p>
               {bundles[3].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{bundles[3].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-muted block">{bundles[3].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-white mb-2">{bundles[3].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{bundles[3].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-400 leading-relaxed mb-8">{bundles[3].description}</p>
-              <div className="border-t border-white/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{bundles[3].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{bundles[3].tagline}&rdquo;</p>
+              <p className="text-sm text-body leading-relaxed mb-8">{bundles[3].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {bundles[3].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
-                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-400 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-body text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {bundles[3].cta}
               </Link>
@@ -406,34 +406,34 @@ export default function LaunchBundlesPage() {
       {/* =============================================
           FAQ
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900 border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+          <p className="eyebrow mb-4">
             Questions
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-12">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-12">
             Launch bundle FAQ
           </h2>
-          <div className="border-t border-white/10">
+          <div className="border-t border-ink/10">
             {faqs.map((faq) => (
-              <details key={faq.q} className="group border-b border-white/10">
-                <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+              <details key={faq.q} className="group border-b border-ink/10">
+                <summary className="flex items-center justify-between cursor-pointer py-5 text-ink text-sm font-medium hover:text-ink-soft transition-colors list-none">
                   <span className="pr-6">{faq.q}</span>
-                  <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                  <span className="text-muted text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <div className="pb-5 text-gray-400 text-sm leading-relaxed">
+                <div className="pb-5 text-body text-sm leading-relaxed">
                   {faq.a}
                 </div>
               </details>
             ))}
           </div>
-          <p className="text-gray-500 text-sm mt-10">
+          <p className="text-muted text-sm mt-10">
             Already have a website?{" "}
             <Link
               href="/packages/maintenance"
-              className="text-white border-b border-white/30 pb-0.5 hover:border-white transition-colors"
+              className="text-ink border-b border-ink/20 pb-0.5 hover:border-ink transition-colors"
             >
               Website Maintenance Plans
             </Link>{" "}
@@ -445,20 +445,20 @@ export default function LaunchBundlesPage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-6">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-6">
               Not sure which bundle fits?
             </h2>
-            <p className="text-gray-500 text-sm mb-8 max-w-lg">
+            <p className="text-muted text-sm mb-8 max-w-lg">
               Every Foundry Frame engagement starts with a conversation. Tell us
               where you are and where you want to go — we&apos;ll recommend the
               right bundle or build a custom scope.
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+              className="btn btn-primary"
             >
               Get in Touch
             </Link>

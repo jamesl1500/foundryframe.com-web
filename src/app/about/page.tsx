@@ -12,11 +12,12 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
+import SparkSpotlight from "@/components/SparkSpotlight";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 
 export const metadata: Metadata = {
-  title: "About Foundry Frame | Ohio Web Design & Creative Agency",
+  title: "About Foundry Frame | Ohio Web Design Agency",
   description:
     "Learn about Foundry Frame, an Ohio web design and creative agency in Lorain focused on custom websites, branding, and growth strategy.",
   alternates: {
@@ -88,18 +89,18 @@ export default function AboutPage() {
             fill
             className="object-cover grayscale"
           />
-          <div className="absolute inset-0 bg-black/70" />
+          <div className="absolute inset-0 bg-canvas/80" />
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
-          <FadeIn className="glass max-w-3xl p-6 sm:p-8">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
+          <FadeIn className="glass rounded-card max-w-3xl p-6 sm:p-8">
+            <p className="eyebrow mb-6">
               About Us
             </p>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.9] tracking-tight">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.9] tracking-tight">
               Ohio web design & branding agency
             </h1>
-            <p className="text-gray-300 text-sm leading-relaxed max-w-2xl mt-6">
+            <p className="text-ink-soft text-sm leading-relaxed max-w-2xl mt-6">
               We build thoughtful websites and brand systems for small
               businesses, founders, and growth-focused teams in Ohio and across
               the U.S. — and we&apos;re genuinely glad you&apos;re here.
@@ -111,31 +112,32 @@ export default function AboutPage() {
       {/* =============================================
           FOUNDER BIO
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Image */}
             <FadeIn
               direction="right"
-              className="aspect-[4/5] relative overflow-hidden"
+              className="aspect-[4/5] relative overflow-hidden rounded-panel glass p-0"
             >
               <Image
                 src="/james-latten.jpg"
                 alt="James Latten, Founder of Foundry Frame"
                 fill
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="object-cover"
               />
             </FadeIn>
 
             {/* Copy */}
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+              <p className="eyebrow mb-6">
                 The Founder
               </p>
-              <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white leading-tight mb-8">
+              <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink leading-tight mb-8">
                 Hi, I&apos;m James.
               </h2>
-              <div className="space-y-5 text-gray-400 text-sm leading-relaxed">
+              <div className="space-y-5 text-body text-sm leading-relaxed">
                 <p>
                   I&apos;m a software engineer and designer from Lorain, Ohio. I
                   built Foundry Frame in 2026 after years of watching great
@@ -168,10 +170,10 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <div className="mt-10 flex items-center gap-6">
+              <div className="mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
                 <a
                   href="/contact"
-                  className="px-6 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
+                  className="btn btn-primary"
                 >
                   Work With James
                 </a>
@@ -179,7 +181,7 @@ export default function AboutPage() {
                   href="https://www.linkedin.com/company/foundry-frame/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-500 pb-0.5 hover:text-white hover:border-white transition-colors"
+                  className="btn btn-glass min-h-10 px-5 text-sm"
                 >
                   LinkedIn
                 </a>
@@ -187,7 +189,7 @@ export default function AboutPage() {
                   href="https://x.com/FoundryFrame"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-500 pb-0.5 hover:text-white hover:border-white transition-colors"
+                  className="btn btn-glass min-h-10 px-5 text-sm"
                 >
                   X
                 </a>
@@ -195,7 +197,7 @@ export default function AboutPage() {
                   href="https://www.facebook.com/foundry.frame"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-500 pb-0.5 hover:text-white hover:border-white transition-colors"
+                  className="btn btn-glass min-h-10 px-5 text-sm"
                 >
                   Facebook
                 </a>
@@ -208,30 +210,30 @@ export default function AboutPage() {
       {/* =============================================
           VALUES
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <FadeIn>
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+            <p className="eyebrow mb-4">
               Core Values
             </p>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16">
+            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-16">
               What drives us
             </h2>
           </FadeIn>
 
-          <StaggerContainer className="border-t border-white/10">
+          <StaggerContainer className="border-t border-ink/10">
             {values.map((value, i) => (
               <StaggerItem
                 key={value.title}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-white/10"
+                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-ink/10"
               >
-                <div className="md:col-span-1 text-gray-500 text-xs font-mono">
+                <div className="md:col-span-1 text-muted text-xs font-mono">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <h3 className="md:col-span-4 text-white font-heading font-semibold text-lg">
+                <h3 className="md:col-span-4 text-ink font-heading font-semibold text-lg">
                   {value.title}
                 </h3>
-                <p className="md:col-span-7 text-gray-500 text-sm leading-relaxed">
+                <p className="md:col-span-7 text-muted text-sm leading-relaxed">
                   {value.description}
                 </p>
               </StaggerItem>
@@ -241,15 +243,24 @@ export default function AboutPage() {
       </section>
 
       {/* =============================================
+
+          THE SPARK
+
+          ============================================= */}
+
+      <SparkSpotlight heading="Work with us, starting with The Spark" />
+
+
+      {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-4">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-4">
               Want to work together?
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
+            <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
               James takes on a limited number of projects each quarter. If
               you&apos;re serious about growing your business, let&apos;s talk
               before the next slot fills.
@@ -257,7 +268,7 @@ export default function AboutPage() {
             <div className="flex gap-4">
               <Link
                 href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-                className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+                className="btn btn-primary"
               >
                 Book a Free Discovery Call
               </Link>

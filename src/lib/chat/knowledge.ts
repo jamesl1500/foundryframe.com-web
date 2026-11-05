@@ -21,14 +21,14 @@ Foundry Frame is a founder-led creative design agency in Lorain, Ohio, founded i
 ## Contact
 - Phone: (216) 889-7822 (link: tel:+12168897822)
 - Email: jlatten@foundryframe.com (link: mailto:jlatten@foundryframe.com)
-- Hours: ${BUSINESS_HOURS_LINES.join("; ")}. James runs Foundry Frame around a day job, so he answers calls and email in those windows. The fastest way to reach him is to book a time on the calendar.
+- Hours: ${BUSINESS_HOURS_LINES.join("; ")}. James answers calls and email during those hours. The fastest way to reach him is to book a time on the calendar.
 - Book a free consultation: ${BOOKING_URL}
 - Contact form: /contact
 - Free website audit (scores SEO, speed, design and accessibility in about a minute): /audit
 - Package builder: /packages/builder. Visitors pick the services they want, see pricing right away, send the package to Foundry Frame, and schedule a meeting. It's the best next step for anyone asking what their specific project would cost.
 
 ## Services (/services)
-- Web Design & Development (/services/web-design), the flagship service: custom-coded Next.js and React sites, no templates or page builders. Custom design, e-commerce, technical SEO.
+- Web Design & Development (/services/web-design), the flagship service: custom-coded Next.js and React sites by default, and WordPress builds when that's the better fit (an existing WordPress site, a team that knows it, or a plugin the client needs). No off-the-shelf templates. Custom design, e-commerce, technical SEO.
 - Branding & Identity (/services/branding): logo, positioning, visual system, brand guidelines.
 - Social Media (/services/social-media): content strategy, content creation, paid social, reporting.
 - Graphic Design (/services/graphic-design): marketing collateral, packaging, print and digital assets.
@@ -53,6 +53,7 @@ Website, brand, and support combined in one engagement, one team, one timeline.
 4. Apex, starting at $28,000. The Monument enterprise website, a custom web application feature or client portal, brand strategy workshop, 6 months of SEO, 3 months of paid ads management (Google and Meta), 12 months of Elite maintenance, quarterly strategy reviews, dedicated account manager.
 
 ## Maintenance Plans (/packages/maintenance)
+Every plan covers WordPress core, plugin and theme updates on WordPress sites, and Next.js and dependency updates on Next.js sites.
 1. Steady, from $99/mo. Monthly updates, basic security monitoring and firewall, 24/7 uptime monitoring, monthly offsite backup, quarterly performance report, email support with 48-hour response.
 2. Active, from $249/mo (most popular). Bi-weekly updates, advanced security and malware scanning, weekly backups, 1 developer hour per month, up to 2 content updates per month, monthly report with recommendations, email and chat support with 24-hour response.
 3. Elite, from $499/mo. Weekly updates and security patches, enterprise-grade security and intrusion detection, daily backups with one-click restore, 3 developer hours per month, up to 6 content updates per month, weekly and monthly reports, emergency site recovery included, priority phone and email support with a 4-hour response.
@@ -63,6 +64,7 @@ Website, brand, and support combined in one engagement, one team, one timeline.
 3. Dominate, from $2,500/mo. Full SEO strategy and execution, Google Ads and Meta Ads management (ad spend billed separately), social media on 4 platforms (20 posts/month), 4 long-form blog posts per month, weekly email plus 3 automation sequences, landing page A/B testing, custom growth dashboard, bi-weekly strategy calls.
 
 ## FAQ
+- Platforms: Next.js and React by default; WordPress when it's the right fit. Maintenance Plans cover both, including WordPress core, plugin and theme updates and Next.js updates.
 - Timelines: brand identity usually takes 4 to 8 weeks, a custom website 6 to 12 weeks, a full brand plus web package 8 to 16 weeks. An exact timeline comes after the free consultation.
 - Revisions: The Spark 2 rounds, The Blueprint 3, The Architect 4, The Monument unlimited within scope. Extra rounds can be added for a fee.
 - Pricing: every listed price is a starting point. The exact number comes after a free, no-obligation call.

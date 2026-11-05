@@ -18,8 +18,8 @@ import type { Funnel } from "@/lib/funnels";
 type Status = "idle" | "sending" | "success" | "error";
 
 const inputClass =
-  "w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-accent transition-colors";
-const labelClass = "block text-xs uppercase tracking-wider text-gray-500 mb-2";
+  "w-full px-4 py-3 bg-white/70 border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl";
+const labelClass = "block text-xs uppercase tracking-wider text-muted mb-2";
 
 export default function AdPageForm({ funnel }: { funnel: Funnel }) {
   const [status, setStatus] = useState<Status>("idle");
@@ -55,16 +55,16 @@ export default function AdPageForm({ funnel }: { funnel: Funnel }) {
   if (status === "success") {
     return (
       <div className="py-8">
-        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">Sent</p>
-        <p className="text-white text-2xl font-heading font-bold mb-3">James has your details.</p>
-        <p className="text-gray-400 text-sm mb-8 max-w-md">
+        <p className="eyebrow mb-4">Sent</p>
+        <p className="text-ink text-2xl font-heading font-bold mb-3">James has your details.</p>
+        <p className="text-body text-sm mb-8 max-w-md">
           Watch your inbox for your plan. If you&apos;d rather talk it through, grab a time on the calendar.
         </p>
         <a
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+          className="btn btn-primary"
         >
           Book a free call
         </a>
@@ -144,7 +144,7 @@ export default function AdPageForm({ funnel }: { funnel: Funnel }) {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full sm:w-auto px-10 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors disabled:opacity-60"
+        className="btn btn-primary w-full sm:w-auto disabled:opacity-60"
       >
         {status === "sending" ? "Sending..." : funnel.form.submitLabel}
       </button>

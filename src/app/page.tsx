@@ -1,16 +1,15 @@
 /**
  * Homepage - Foundry Frame
  * =========================
- * Bold typographic landing page — large type, thin rule dividers,
- * B&W with a sparse molten-brass accent and a light frosted-glass
- * layer on floating elements.
+ * Light glass landing page: a hero with floating glass bubbles (a package,
+ * the launch timeline, a Google review), then stats, services, website
+ * packages, reviews, industries, the free audit, and a closing CTA.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
 import GoogleReviews from "@/components/GoogleReviews";
@@ -18,7 +17,8 @@ import PackageHighlights from "@/components/PackageHighlights";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 import { getPublishedServices } from "@/lib/cms/public-data";
-import { FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
+import { websitePackages } from "@/lib/packages/website";
+import { FOUNDING_SPOTS_OPEN, GOOGLE_REVIEWS } from "@/lib/site-facts";
 
 export const metadata: Metadata = {
   title: { absolute: "Foundry Frame | Ohio Web Design & Branding Agency" },
@@ -121,115 +121,172 @@ export default async function Home() {
         }))
       : fallbackServices;
 
+  const spark = websitePackages.find((pkg) => pkg.slug === "spark");
+  const review = GOOGLE_REVIEWS[0];
+
   return (
     <>
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="relative min-h-screen flex items-end pb-20 pt-32 overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0">
-          <Image
-            src="/images/stock/hero-workspace-bw.jpg"
-            alt="Creative workspace"
-            fill
-            sizes="100vw"
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
-
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 w-full">
+      <section className="pt-32 pb-16 lg:pt-40 lg:pb-24">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Hero copy is static (no FadeIn) so the headline — the page's LCP
               element — paints immediately instead of after hydration. */}
+          <div className="lg:col-span-7">
+            {/* Eyebrow + availability badge */}
+            <div className="flex flex-wrap items-center gap-3 mb-8">
+              <span className="eyebrow">Creative Agency — Ohio</span>
+              <span className="glass-accent inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.08em] text-accent-deep">
+                <span aria-hidden="true" className="w-2 h-2 rounded-full bg-accent shadow-[0_0_0_4px_rgba(196,130,26,0.2)]" />
+                Booking New Projects
+              </span>
+            </div>
 
-          {/* Eyebrow + availability badge */}
-          <div className="flex flex-wrap items-center gap-4 mb-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-400">
-              Creative Agency — Ohio
-            </p>
-            <span className="glass-accent text-xs uppercase tracking-[0.15em] font-bold text-white px-3 py-1">
-              Booking New Projects
-            </span>
-          </div>
+            {/* Heading */}
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.95] tracking-[-0.035em]">
+              <span className="block text-2xl sm:text-3xl font-medium tracking-normal text-muted mb-5">
+                Foundry Frame
+                <span className="sr-only">:</span>
+              </span>
+              Ohio Web Design & Branding Agency
+            </h1>
 
-          {/* Heading */}
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] font-heading font-bold text-white leading-[0.9] tracking-tight mb-10">
-            <span className="block text-2xl sm:text-3xl md:text-4xl tracking-normal text-gray-300 mb-4">
-              Foundry Frame
-              <span className="sr-only">:</span>
-            </span>
-            Ohio Web Design
-            <br />
-            & Branding Agency
-          </h1>
-
-          {/* Sub */}
-          <div
-            className="glass flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8 p-6 sm:p-8"
-          >
-            <p className="max-w-md text-gray-300 text-sm leading-relaxed">
+            <p className="mt-8 max-w-xl text-body text-lg leading-relaxed">
               Foundry Frame builds custom websites, brand systems, and digital
               strategy for small businesses and growth-focused brands across Ohio
               and beyond. Friendly, founder-led, and focused on results you can
               measure.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/audit"
-                className="px-6 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
-              >
+            <div className="flex flex-wrap gap-3 mt-10">
+              <Link href="/audit" className="btn btn-primary min-h-13 px-7">
                 Get a Free Website Audit
+                <span aria-hidden="true">&rarr;</span>
               </Link>
-              <Link
-                href="/packages"
-                className="glass-light px-6 py-3 text-white text-sm font-bold uppercase tracking-wider hover:bg-white/15 transition-colors"
-              >
+              <Link href="/packages" className="btn btn-glass min-h-13 px-7">
                 See Our Packages
               </Link>
+            </div>
+          </div>
+
+          {/* Floating bubbles */}
+          <div className="lg:col-span-5 flex flex-col gap-5">
+            {spark && (
+              <Link
+                href={`/packages/website/${spark.slug}`}
+                className="glass-card rounded-card p-7 self-end w-full max-w-sm"
+              >
+                <span className="flex items-center justify-between gap-3">
+                  <span className="text-xs uppercase tracking-[0.14em] text-muted">Entry-Level Package</span>
+                  <span className="rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
+                    {spark.badge}
+                  </span>
+                </span>
+                <span className="block mt-4 font-heading font-bold text-3xl tracking-tight text-ink">
+                  {spark.name}
+                </span>
+                <span className="block mt-1 text-sm text-muted">
+                  {spark.headline} &middot; {spark.pricePrefix?.toLowerCase()}{" "}
+                  <span className="font-semibold text-ink">{spark.price}</span>
+                </span>
+                <span className="mt-5 flex flex-col gap-2.5">
+                  {spark.features.slice(0, 3).map((feature) => (
+                    <span key={feature.title} className="flex gap-2.5 text-sm text-ink-soft">
+                      <span aria-hidden="true" className="font-bold text-accent-ink">&#10003;</span>
+                      {feature.title}
+                    </span>
+                  ))}
+                </span>
+                <span className="mt-5 inline-flex text-sm font-semibold text-accent-deep">
+                  See what&apos;s included &rarr;
+                </span>
+              </Link>
+            )}
+            <div className="flex flex-wrap items-center gap-5">
+              <div className="glass shrink-0 w-32 h-32 rounded-full flex flex-col items-center justify-center text-center">
+                <span className="font-heading font-bold text-3xl tracking-tight text-ink">6–12</span>
+                <span className="text-xs text-muted">weeks to launch</span>
+              </div>
+              {review && (
+                <figure className="glass rounded-card p-6 flex-1 min-w-[14rem] max-w-sm">
+                  <p
+                    className="text-accent tracking-[0.15em]"
+                    role="img"
+                    aria-label={`${review.rating} out of 5 stars`}
+                  >
+                    {"★".repeat(review.rating)}
+                  </p>
+                  <blockquote className="mt-2 text-[15px] leading-relaxed text-ink">
+                    &ldquo;{review.quote}&rdquo;
+                  </blockquote>
+                  <figcaption className="mt-2 text-xs text-muted">
+                    {review.author} &middot; Google review
+                  </figcaption>
+                </figure>
+              )}
             </div>
           </div>
         </div>
       </section>
 
       {/* =============================================
+          STATS
+          ============================================= */}
+      <section className="pb-16 lg:pb-24">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {stats.map((stat) => (
+              <StaggerItem key={stat.label}>
+                {stat.href ? (
+                  <Link href={stat.href} className="glass-accent block h-full rounded-card p-7 lg:p-8">
+                    <span className="block text-5xl font-heading font-bold tracking-tight text-ink">
+                      {stat.value}
+                    </span>
+                    <span className="block mt-2 text-sm font-semibold text-accent-deep">
+                      {stat.label} &rarr;
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="glass h-full rounded-card p-7 lg:p-8">
+                    <div className="text-5xl font-heading font-bold tracking-tight text-ink">{stat.value}</div>
+                    <div className="mt-2 text-sm text-muted">{stat.label}</div>
+                  </div>
+                )}
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* =============================================
           SERVICES
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="py-16 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           {/* Header */}
-          <FadeIn className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-16">
+          <FadeIn className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 mb-12">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
-                Services
-              </p>
-              <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white">
+              <span className="eyebrow">Services</span>
+              <h2 className="mt-5 max-w-3xl text-4xl sm:text-5xl lg:text-6xl font-heading font-bold tracking-[-0.03em] leading-none text-ink">
                 Web Design, Branding & Digital Strategy
               </h2>
             </div>
-            <Link
-              href="/services"
-              className="text-xs uppercase tracking-wider text-gray-400 hover:text-white border-b border-gray-400 hover:border-white pb-1 transition-colors"
-            >
-              All Services
+            <Link href="/services" className="btn btn-glass shrink-0">
+              All Services &rarr;
             </Link>
           </FadeIn>
 
           {/* Grid */}
-          <StaggerContainer className="border-t border-white/10">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {services.map((service, i) => (
-              <StaggerItem
-                key={service.title}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-white/10"
-              >
-                <div className="md:col-span-1 text-gray-500 text-xs font-mono">
+              <StaggerItem key={service.title} className="glass rounded-card p-8">
+                <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-white/80 text-sm font-semibold text-muted">
                   {String(i + 1).padStart(2, "0")}
-                </div>
-                <h3 className="md:col-span-4 text-white font-heading font-semibold text-lg">
+                </span>
+                <h3 className="mt-6 text-ink font-heading font-semibold text-xl">
                   {service.title}
                 </h3>
-                <p className="md:col-span-7 text-gray-500 text-sm leading-relaxed">
+                <p className="mt-2 text-body text-[15px] leading-relaxed">
                   {service.description}
                 </p>
               </StaggerItem>
@@ -239,128 +296,166 @@ export default async function Home() {
       </section>
 
       {/* =============================================
-          PACKAGES
+          WEBSITE PACKAGES
           ============================================= */}
-      <PackageHighlights />
-
-      {/* =============================================
-          INDUSTRIES MARQUEE
-          ============================================= */}
-      <section className="py-16 bg-black border-y border-white/10 overflow-hidden">
-        <FadeIn className="max-w-[1400px] mx-auto px-6 lg:px-10 mb-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500">
-            Industries We Serve
-          </p>
-        </FadeIn>
-        <div className="flex gap-12 animate-marquee whitespace-nowrap">
-          {[...industries, ...industries].map((industry, i) => (
-            <span
-              key={`${industry}-${i}`}
-              className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-white hover:text-white/20 transition-colors cursor-default"
-            >
-              {industry}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* =============================================
-          STATS
-          ============================================= */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-16 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-black/10">
-            {stats.map((stat) => (
-              <StaggerItem
-                key={stat.label}
-                className="bg-white p-8 lg:p-12 text-center"
-              >
-                <div className="text-5xl sm:text-6xl font-heading font-bold text-black mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-gray-500 text-xs uppercase tracking-widest">
-                  {stat.href ? (
-                    <Link href={stat.href} className="underline underline-offset-4 hover:text-black transition-colors">
-                      {stat.label}
-                    </Link>
-                  ) : (
-                    stat.label
-                  )}
-                </div>
-              </StaggerItem>
-            ))}
+          <FadeIn className="mb-12">
+            <span className="eyebrow">Website Packages</span>
+            <h2 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-heading font-bold tracking-[-0.03em] leading-none text-ink">
+              Custom websites, built for results
+            </h2>
+            <p className="mt-4 max-w-xl text-body text-lg leading-relaxed">
+              Every site is designed from scratch and hand-coded. No templates, no shortcuts.
+            </p>
+          </FadeIn>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {websitePackages.map((pkg) => {
+              // The Spark, our entry-level package, is the one we point people to first.
+              const featured = pkg.slug === "spark";
+              return (
+                <StaggerItem
+                  key={pkg.slug}
+                  className={`${featured ? "glass-dark" : "glass"} rounded-card p-8 flex flex-col`}
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span className={`text-xs uppercase tracking-[0.14em] ${featured ? "text-white/70" : "text-muted"}`}>
+                      Tier {pkg.tier}
+                    </span>
+                    {pkg.badge && (
+                      <span
+                        className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                          featured ? "bg-accent text-ink" : "border border-ink/20 text-ink-soft"
+                        }`}
+                      >
+                        {pkg.badge}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className={`mt-4 font-heading font-bold text-2xl tracking-tight ${featured ? "text-white" : "text-ink"}`}>
+                    {pkg.name}
+                  </h3>
+                  <p className={`mt-4 text-sm ${featured ? "text-white/70" : "text-muted"}`}>
+                    {pkg.pricePrefix ?? "Scoped in discovery"}
+                  </p>
+                  <p className={`font-heading font-bold text-4xl tracking-tight ${featured ? "text-white" : "text-ink"}`}>
+                    {pkg.price}
+                  </p>
+                  <ul className="mt-5 mb-8 flex flex-col gap-2.5">
+                    {pkg.features.slice(0, 3).map((feature) => (
+                      <li
+                        key={feature.title}
+                        className={`flex gap-2.5 text-sm ${featured ? "text-white/85" : "text-ink-soft"}`}
+                      >
+                        <span aria-hidden="true" className={`font-bold ${featured ? "text-accent" : "text-accent-ink"}`}>
+                          &#10003;
+                        </span>
+                        {feature.title}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={`/packages/website/${pkg.slug}`}
+                    className={`btn mt-auto ${featured ? "btn-accent" : "btn-glass"}`}
+                  >
+                    Full details <span className="sr-only">on {pkg.name}</span> &rarr;
+                  </Link>
+                </StaggerItem>
+              );
+            })}
           </StaggerContainer>
         </div>
       </section>
 
       {/* =============================================
+          LAUNCH BUNDLES + MAINTENANCE
+          ============================================= */}
+      <PackageHighlights />
+
+      {/* =============================================
           REVIEWS
           ============================================= */}
-      <GoogleReviews className="bg-gray-900" />
+      <GoogleReviews />
+
+      {/* =============================================
+          INDUSTRIES
+          ============================================= */}
+      <section className="py-16 lg:py-24">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+          <FadeIn>
+            <span className="eyebrow">Industries We Serve</span>
+          </FadeIn>
+          <div className="mt-8 flex flex-wrap gap-3">
+            {industries.map((industry) => (
+              <span
+                key={industry}
+                className="glass rounded-full px-6 py-3.5 font-heading font-semibold text-lg sm:text-2xl tracking-tight text-ink"
+              >
+                {industry}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* =============================================
           AUDIT LEAD CAPTURE
           ============================================= */}
-      <section
-        id="audit"
-        className="py-24 lg:py-32 bg-black border-t border-white/10"
-      >
+      <section id="audit" className="py-16 lg:py-24 scroll-mt-20">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <FadeIn className="max-w-2xl mb-10">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
-              Free Website Audit
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-4">
-              Is your website losing you clients?
-            </h2>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Enter your URL and get a free website audit in about a minute —
-              your SEO, speed, design, and accessibility scores, plus a
-              prioritized fix list. No pitch, no obligation.{" "}
-              <Link
-                href="/audit"
-                className="text-white border-b border-white/30 pb-0.5 hover:border-white transition-colors"
-              >
-                See how the audit works
-              </Link>
-              .
-            </p>
-          </FadeIn>
-          <FadeIn delay={0.15}>
-            <AuditForm />
-          </FadeIn>
+          <div className="glass glow-field rounded-panel overflow-hidden p-8 sm:p-12 lg:p-16">
+            <FadeIn className="max-w-2xl mb-10">
+              <span className="eyebrow">Free Website Audit</span>
+              <h2 className="mt-5 text-4xl sm:text-5xl font-heading font-bold tracking-[-0.03em] text-ink mb-4">
+                Is your website losing you clients?
+              </h2>
+              <p className="text-body text-base leading-relaxed">
+                Enter your URL and get a free website audit in about a minute —
+                your SEO, speed, design, and accessibility scores, plus a
+                prioritized fix list. No pitch, no obligation.{" "}
+                <Link
+                  href="/audit"
+                  className="text-ink font-semibold underline underline-offset-4 decoration-ink/30 hover:decoration-ink transition-colors"
+                >
+                  See how the audit works
+                </Link>
+                .
+              </p>
+            </FadeIn>
+            <FadeIn delay={0.15}>
+              <AuditForm />
+            </FadeIn>
+          </div>
         </div>
       </section>
 
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-white border-t border-white/10">
+      <section className="py-16 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <FadeIn className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
-              Start a Project
-            </p>
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-black leading-[0.95] mb-4">
+          <FadeIn className="glass-dark rounded-panel p-8 sm:p-12 lg:p-16">
+            <span className="text-xs uppercase tracking-[0.14em] text-white/70">Start a Project</span>
+            <h2 className="mt-5 max-w-3xl text-4xl sm:text-6xl font-heading font-bold tracking-[-0.03em] leading-[0.95] text-white">
               Let&apos;s build your next client-winning website.
             </h2>
-            <p className="text-gray-500 text-xs uppercase tracking-widest mb-8 font-bold">
+            <p className="mt-6 text-accent-glow text-xs uppercase tracking-[0.14em] font-semibold">
               We take on a limited number of projects each quarter
             </p>
-            <p className="text-gray-500 text-sm leading-relaxed mb-10 max-w-lg">
+            <p className="mt-4 text-white/80 text-base leading-relaxed max-w-lg">
               Custom websites starting at $1,500. No templates, no fluff — built
               to turn visitors into paying clients and delivered in 6–12 weeks.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-3 mt-10">
               <Link
                 href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-                className="px-8 py-4 bg-black text-white font-bold text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors"
+                className="btn btn-accent"
               >
                 Book a Free Discovery Call
               </Link>
               <Link
                 href="/contact"
-                className="px-8 py-4 border border-black/20 text-black font-bold text-sm uppercase tracking-wider hover:bg-black/5 transition-colors"
+                className="btn border border-white/25 text-white hover:bg-white/10"
               >
                 Contact Us
               </Link>

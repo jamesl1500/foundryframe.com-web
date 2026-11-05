@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import PackageHighlights from "@/components/PackageHighlights";
 import Link from "next/link";
+import SparkSpotlight from "@/components/SparkSpotlight";
 import {
   formatPriceLabel,
   getPublishedPackages,
@@ -161,15 +162,15 @@ export default async function PackagesPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Packages
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
             Simple, transparent pricing
           </h1>
-          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+          <p className="text-muted text-sm mt-6 max-w-lg">
             Four categories. Every scope. One team. Every price below is a
             starting point — we&apos;ll confirm the exact number on a free call,
             with no obligation to move forward.
@@ -177,13 +178,13 @@ export default async function PackagesPage() {
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
               href="/contact"
-              className="px-6 py-3 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+              className="btn btn-primary text-center"
             >
               Book a Free Call
             </Link>
             <Link
               href="/packages/builder"
-              className="px-6 py-3 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+              className="btn btn-glass text-center"
             >
               Build Your Package
             </Link>
@@ -200,49 +201,58 @@ export default async function PackagesPage() {
       />
 
       {/* =============================================
+
+          THE SPARK
+
+          ============================================= */}
+
+      <SparkSpotlight heading="New here? Start with The Spark" />
+
+
+      {/* =============================================
           CATEGORY GRID
           ============================================= */}
-      <section className="glow-field bg-black">
+      <section>
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {categories.map((cat) => (
               <a
                 key={cat.number}
                 href={cat.href}
-                className="glass-card group p-10 lg:p-14 flex flex-col"
+                className="glass-card rounded-card group p-10 lg:p-14 flex flex-col"
               >
                 <div className="flex items-start justify-between mb-8">
-                  <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">
+                  <span className="text-xs uppercase tracking-[0.3em] text-muted">
                     {cat.number}
                   </span>
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-gray-600 group-hover:text-white transition-colors">
+                  <span className="text-xs uppercase tracking-[0.2em] text-muted group-hover:text-ink transition-colors">
                     View &rarr;
                   </span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-2 leading-tight">
+                <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-2 leading-tight">
                   {cat.name}
                 </h2>
-                <p className="text-xs uppercase tracking-widest text-gray-500 mb-6">
+                <p className="text-xs uppercase tracking-widest text-muted mb-6">
                   {cat.tagline}
                 </p>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8 max-w-sm">
+                <p className="text-body text-sm leading-relaxed mb-8 max-w-sm">
                   {cat.description}
                 </p>
                 <div className="mt-auto">
-                  <p className="text-xs text-gray-600 uppercase tracking-widest mb-3">
+                  <p className="text-xs text-muted uppercase tracking-widest mb-3">
                     Tiers
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {cat.tiers.map((tier) => (
                       <span
                         key={tier}
-                        className="text-[10px] uppercase tracking-widest border border-white/10 text-gray-500 px-2 py-1"
+                        className="text-xs uppercase tracking-widest border border-ink/10 text-muted px-2 py-1 rounded-full"
                       >
                         {tier}
                       </span>
                     ))}
                   </div>
-                  <p className="text-white font-heading font-bold text-lg mt-6">
+                  <p className="text-ink font-heading font-bold text-lg mt-6">
                     {cat.priceRange}
                   </p>
                 </div>
@@ -255,13 +265,13 @@ export default async function PackagesPage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-6">
-              Not sure where to start?
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-6">
+              Need a custom mix?
             </h2>
-            <p className="text-gray-500 text-sm mb-8 max-w-lg">
+            <p className="text-muted text-sm mb-8 max-w-lg">
               Every engagement starts with a conversation. Tell us about your
               goals and we&apos;ll point you toward the right package — or build
               a custom scope that fits exactly.
@@ -269,13 +279,13 @@ export default async function PackagesPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/packages/builder"
-                className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+                className="btn btn-primary text-center"
               >
                 Build Your Package
               </Link>
               <Link
                 href="/contact"
-                className="inline-block px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors text-center"
+                className="btn btn-glass text-center"
               >
                 Get in Touch
               </Link>

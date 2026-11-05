@@ -211,15 +211,15 @@ export default async function ServicesPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Services
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
             What we do best
           </h1>
-          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+          <p className="text-muted text-sm mt-6 max-w-lg">
             Six disciplines, one team. Web design and development is our
             flagship — everything else is built to support it.
           </p>
@@ -229,54 +229,52 @@ export default async function ServicesPage() {
       {/* =============================================
           SERVICES GRID
           ============================================= */}
-      <section className="bg-black">
+      <section>
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {services.map((service) => (
               <Link
                 key={service.id}
                 href={service.href}
-                className={`group p-10 lg:p-14 flex flex-col transition-colors ${
-                  service.featured
-                    ? "bg-white hover:bg-gray-100 lg:col-span-2"
-                    : "bg-black hover:bg-gray-950"
+                className={`glass-card group p-10 lg:p-14 flex flex-col rounded-panel ${
+                  service.featured ? "ring-2 ring-accent/40 lg:col-span-2" : ""
                 }`}
               >
                 <div className="flex items-start justify-between mb-8">
                   <span
-                    className={`text-[10px] uppercase tracking-[0.3em] ${
-                      service.featured ? "text-gray-500" : "text-gray-600"
+                    className={`text-xs uppercase tracking-[0.3em] ${
+                      service.featured ? "text-muted" : "text-muted"
                     }`}
                   >
                     {service.number}
                   </span>
                   {service.featured ? (
-                    <span className="text-[10px] uppercase tracking-widest bg-black text-white px-3 py-1 font-bold">
+                    <span className="text-xs uppercase tracking-widest bg-ink text-white px-3 py-1 font-bold rounded-full">
                       Flagship Service
                     </span>
                   ) : (
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-gray-600 group-hover:text-white transition-colors">
+                    <span className="text-xs uppercase tracking-[0.2em] text-muted group-hover:text-ink transition-colors">
                       View &rarr;
                     </span>
                   )}
                 </div>
                 <h2
                   className={`text-3xl sm:text-4xl font-heading font-bold mb-2 leading-tight ${
-                    service.featured ? "text-black" : "text-white"
+                    service.featured ? "text-ink" : "text-ink"
                   }`}
                 >
                   {service.title}
                 </h2>
                 <p
                   className={`text-xs uppercase tracking-widest mb-6 ${
-                    service.featured ? "text-gray-500" : "text-gray-500"
+                    service.featured ? "text-muted" : "text-muted"
                   }`}
                 >
                   {service.tagline}
                 </p>
                 <p
                   className={`text-sm leading-relaxed mb-8 max-w-xl ${
-                    service.featured ? "text-gray-600" : "text-gray-400"
+                    service.featured ? "text-muted" : "text-body"
                   }`}
                 >
                   {service.description}
@@ -285,10 +283,10 @@ export default async function ServicesPage() {
                   {service.highlights.map((h) => (
                     <span
                       key={h}
-                      className={`text-[10px] uppercase tracking-widest border px-2 py-1 ${
+                      className={`text-xs uppercase tracking-widest border px-2 py-1 rounded-full ${
                         service.featured
-                          ? "border-black/10 text-gray-500"
-                          : "border-white/10 text-gray-500"
+                          ? "border-ink/10 text-muted"
+                          : "border-ink/10 text-muted"
                       }`}
                     >
                       {h}
@@ -304,28 +302,28 @@ export default async function ServicesPage() {
       {/* =============================================
           PROCESS
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">
+          <p className="eyebrow mb-4">
             How We Work
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-black mb-16">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-16">
             Our Process
           </h2>
 
-          <div className="border-t border-black/10">
+          <div className="border-t border-ink/10">
             {process.map((item, i) => (
               <div
                 key={item.step}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-black/10"
+                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-ink/10"
               >
-                <div className="md:col-span-1 text-gray-400 text-xs font-mono">
+                <div className="md:col-span-1 text-body text-xs font-mono">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <h3 className="md:col-span-3 text-black font-heading font-semibold text-lg">
+                <h3 className="md:col-span-3 text-ink font-heading font-semibold text-lg">
                   {item.step}
                 </h3>
-                <p className="md:col-span-8 text-gray-500 text-sm leading-relaxed">
+                <p className="md:col-span-8 text-muted text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -337,16 +335,16 @@ export default async function ServicesPage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+            <p className="eyebrow mb-6">
               Next Step
             </p>
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-4">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-4">
               Book your free 30-min strategy call
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
+            <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
               Tell us about your goals. We&apos;ll walk you through exactly
               how we&apos;d approach them — and what it would cost. No
               obligation, no hard sell.
@@ -354,13 +352,13 @@ export default async function ServicesPage() {
             <div className="flex gap-4">
               <Link
                 href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-                className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+                className="btn btn-primary"
               >
                 Book a Free Call
               </Link>
               <Link
                 href="/contact"
-                className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors"
+                className="btn btn-glass"
               >
                 Contact Us
               </Link>

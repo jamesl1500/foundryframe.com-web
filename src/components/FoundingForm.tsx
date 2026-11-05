@@ -17,9 +17,8 @@ import { FOUNDING_BUDGETS, FOUNDING_TIMELINES } from "@/lib/founding/options";
 type Status = "idle" | "sending" | "success" | "error";
 
 const inputClass =
-  "w-full px-4 py-3 bg-transparent border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-accent transition-colors";
-const selectClass = inputClass.replace("bg-transparent", "bg-black");
-const labelClass = "block text-xs uppercase tracking-wider text-gray-500 mb-2";
+  "w-full px-4 py-3 bg-white/70 border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl";
+const labelClass = "block text-xs uppercase tracking-wider text-muted mb-2";
 
 export default function FoundingForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -55,9 +54,9 @@ export default function FoundingForm() {
   if (status === "success") {
     return (
       <div className="py-12">
-        <p className="text-xs uppercase tracking-[0.3em] text-accent mb-4">Application sent</p>
-        <p className="text-white text-2xl font-heading font-bold mb-3">James has your application.</p>
-        <p className="text-gray-400 text-sm mb-8 max-w-md">
+        <p className="eyebrow mb-4">Application sent</p>
+        <p className="text-ink text-2xl font-heading font-bold mb-3">James has your application.</p>
+        <p className="text-body text-sm mb-8 max-w-md">
           You&apos;ll hear back by email. Want to skip the wait? Grab a time on the calendar and we&apos;ll
           talk through your project.
         </p>
@@ -65,7 +64,7 @@ export default function FoundingForm() {
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+          className="btn btn-primary"
         >
           Book a call now
         </a>
@@ -119,7 +118,7 @@ export default function FoundingForm() {
           <label htmlFor="fd-timeline" className={labelClass}>
             Timeline *
           </label>
-          <select id="fd-timeline" name="timeline" required defaultValue="" className={selectClass}>
+          <select id="fd-timeline" name="timeline" required defaultValue="" className={inputClass}>
             <option value="" disabled>
               Pick one
             </option>
@@ -134,7 +133,7 @@ export default function FoundingForm() {
           <label htmlFor="fd-budget" className={labelClass}>
             Budget range *
           </label>
-          <select id="fd-budget" name="budget" required defaultValue="" className={selectClass}>
+          <select id="fd-budget" name="budget" required defaultValue="" className={inputClass}>
             <option value="" disabled>
               Pick one
             </option>
@@ -157,7 +156,7 @@ export default function FoundingForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full sm:w-auto px-10 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors disabled:opacity-60"
+        className="btn btn-primary w-full sm:w-auto disabled:opacity-60"
       >
         {status === "sending" ? "Sending..." : "Apply for a founding spot"}
       </button>

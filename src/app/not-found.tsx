@@ -11,29 +11,29 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-black">
+    <section className="min-h-screen flex items-center justify-center">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-10 text-center">
-        <div className="text-[10rem] sm:text-[14rem] font-heading font-bold text-white/5 leading-none select-none">
+        <div className="text-[10rem] sm:text-[14rem] font-heading font-bold text-muted leading-none select-none">
           404
         </div>
 
-        <h1 className="text-4xl sm:text-5xl font-heading font-bold text-white -mt-16 mb-4">
+        <h1 className="text-4xl sm:text-5xl font-heading font-bold text-ink -mt-16 mb-4">
           Page not found
         </h1>
-        <p className="text-gray-500 text-sm mb-10 max-w-md mx-auto">
+        <p className="text-muted text-sm mb-10 max-w-md mx-auto">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/"
-            className="px-8 py-3 bg-accent text-black text-sm font-medium uppercase tracking-wider hover:bg-accent-glow transition-colors"
+            className="btn btn-primary"
           >
             Back to Home
           </Link>
           <Link
             href="/contact"
-            className="px-8 py-3 border border-white/20 text-white text-sm font-medium uppercase tracking-wider hover:bg-white/5 transition-colors"
+            className="btn btn-glass"
           >
             Contact Us
           </Link>

@@ -40,15 +40,15 @@ export default function AuditPendingNotice({ auditId }: { auditId: string }) {
   }, [auditId, router]);
 
   return (
-    <div className="border border-white/20 p-8 sm:p-12 text-center">
+    <div className="glass rounded-card p-8 sm:p-12 text-center">
       <div className="mx-auto mb-6 h-12 w-12 relative">
         <div className="absolute inset-0 border-2 border-accent/30 rounded-full" />
         <div className="absolute inset-0 border-2 border-t-accent border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin" />
       </div>
-      <p className="text-white font-heading font-bold text-xl mb-2">
+      <p className="text-ink font-heading font-bold text-xl mb-2">
         Your audit is still running
       </p>
-      <p className="text-gray-400 text-sm">
+      <p className="text-body text-sm">
         This page will update automatically. You can also refresh it later — we&apos;ll email
         you a link to come back to these results.
       </p>

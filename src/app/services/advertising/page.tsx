@@ -233,22 +233,22 @@ export default function AdvertisingServicePage() {
             className="object-cover grayscale"
             priority
           />
-          <div className="absolute inset-0 bg-black/75" />
+          <div className="absolute inset-0 bg-canvas/80" />
         </div>
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link
             href="/services"
-            className="text-[10px] uppercase tracking-[0.3em] text-gray-400 hover:text-white transition-colors mb-6 inline-block"
+            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
           >
             &larr; All Services
           </Link>
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
+          <p className="eyebrow mb-6">
             Advertising
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
             Reach the right people
           </h1>
-          <p className="text-gray-300 text-lg mt-6 max-w-2xl leading-relaxed">
+          <p className="text-ink-soft text-lg mt-6 max-w-2xl leading-relaxed">
             Strategic advertising that puts your brand in front of the right
             audience. We combine creative excellence with data-driven
             targeting.
@@ -256,13 +256,13 @@ export default function AdvertisingServicePage() {
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
               href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-              className="px-6 py-3 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+              className="btn btn-primary text-center"
             >
               Book a Free Call
             </Link>
             <Link
               href="/packages/marketing"
-              className="px-6 py-3 border border-white/30 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/10 transition-colors text-center"
+              className="btn btn-glass text-center"
             >
               See Marketing Packages
             </Link>
@@ -273,24 +273,24 @@ export default function AdvertisingServicePage() {
       {/* =============================================
           CAPABILITIES
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-b border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+          <p className="eyebrow mb-4">
             What&apos;s Included
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-16">
             Ads built around real targeting
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {capabilities.map((cap, i) => (
-              <div key={cap.title} className="bg-black p-8">
-                <p className="text-xs font-mono text-gray-600 mb-4">
+              <div key={cap.title} className="glass rounded-card p-8">
+                <p className="text-xs font-mono text-muted mb-4">
                   {String(i + 1).padStart(2, "0")}
                 </p>
-                <h3 className="text-white font-heading font-bold text-lg mb-3">
+                <h3 className="text-ink font-heading font-bold text-lg mb-3">
                   {cap.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-body text-sm leading-relaxed">
                   {cap.description}
                 </p>
               </div>
@@ -302,27 +302,27 @@ export default function AdvertisingServicePage() {
       {/* =============================================
           PROCESS
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">
+          <p className="eyebrow mb-4">
             How We Work
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-black mb-16">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-16">
             Our advertising process
           </h2>
-          <div className="border-t border-black/10">
+          <div className="border-t border-ink/10">
             {process.map((item, i) => (
               <div
                 key={item.step}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-black/10"
+                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-ink/10"
               >
-                <div className="md:col-span-1 text-gray-400 text-xs font-mono">
+                <div className="md:col-span-1 text-body text-xs font-mono">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <h3 className="md:col-span-3 text-black font-heading font-semibold text-lg">
+                <h3 className="md:col-span-3 text-ink font-heading font-semibold text-lg">
                   {item.step}
                 </h3>
-                <p className="md:col-span-8 text-gray-500 text-sm leading-relaxed">
+                <p className="md:col-span-8 text-muted text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -334,24 +334,24 @@ export default function AdvertisingServicePage() {
       {/* =============================================
           FAQ
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900 border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+          <p className="eyebrow mb-4">
             Questions
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-12">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-12">
             Advertising FAQ
           </h2>
-          <div className="border-t border-white/10">
+          <div className="border-t border-ink/10">
             {faqs.map((faq) => (
-              <details key={faq.q} className="group border-b border-white/10">
-                <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+              <details key={faq.q} className="group border-b border-ink/10">
+                <summary className="flex items-center justify-between cursor-pointer py-5 text-ink text-sm font-medium hover:text-ink-soft transition-colors list-none">
                   <span className="pr-6">{faq.q}</span>
-                  <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                  <span className="text-muted text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <div className="pb-5 text-gray-500 text-sm leading-relaxed">
+                <div className="pb-5 text-muted text-sm leading-relaxed">
                   {faq.a}
                 </div>
               </details>
@@ -363,27 +363,27 @@ export default function AdvertisingServicePage() {
       {/* =============================================
           RELATED SERVICES
           ============================================= */}
-      <section className="py-16 bg-black border-t border-white/10">
+      <section className="py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Pairs Well With
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
               href="/services/social-media"
-              className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
             >
               Social Media &rarr;
             </Link>
             <Link
               href="/services/strategy"
-              className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
             >
               Digital Strategy &rarr;
             </Link>
             <Link
               href="/services/graphic-design"
-              className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
             >
               Graphic Design &rarr;
             </Link>
@@ -394,16 +394,16 @@ export default function AdvertisingServicePage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+            <p className="eyebrow mb-6">
               Next Step
             </p>
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-4">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-4">
               Ready to put your brand in front of the right people?
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
+            <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
               Tell us about your goals. We&apos;ll walk you through exactly
               how we&apos;d approach your advertising — and what it would
               cost. No obligation, no hard sell.
@@ -411,13 +411,13 @@ export default function AdvertisingServicePage() {
             <div className="flex gap-4">
               <Link
                 href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-                className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+                className="btn btn-primary"
               >
                 Book a Free Call
               </Link>
               <Link
                 href="/contact"
-                className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors"
+                className="btn btn-glass"
               >
                 Contact Us
               </Link>

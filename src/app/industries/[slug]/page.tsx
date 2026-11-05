@@ -32,7 +32,9 @@ export async function generateMetadata({
   const industry = getIndustry(slug);
   if (!industry) return {};
 
-  const title = `Website Design for ${industry.name}`;
+  // Long industry names would push the title past what Google shows.
+  const fullTitle = `Website Design for ${industry.name}`;
+  const title = fullTitle.length <= 44 ? fullTitle : `Websites for ${industry.name}`;
   const url = `/industries/${industry.slug}`;
 
   return {
