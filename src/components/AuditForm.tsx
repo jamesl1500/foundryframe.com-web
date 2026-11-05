@@ -165,16 +165,16 @@ export default function AuditForm() {
                 placeholder="yourwebsite.com"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="flex-1 bg-white/5 border border-white/20 text-white text-sm px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-accent transition-colors"
+                className="flex-1 bg-white/50 border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
               />
               <button
                 type="submit"
-                className="px-8 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors whitespace-nowrap"
+                className="btn btn-primary whitespace-nowrap"
               >
                 Start My Free Audit
               </button>
             </div>
-            <p className="text-gray-500 text-xs mt-3">
+            <p className="text-muted text-xs mt-3">
               Takes about a minute. No credit card, no obligation.
             </p>
           </form>
@@ -184,10 +184,10 @@ export default function AuditForm() {
           <form
             key="contact"
             onSubmit={handleContactSubmit}
-            className="animate-step-in glass p-6 sm:p-8"
+            className="glass rounded-card animate-step-in p-6 sm:p-8"
           >
-            <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">Auditing</p>
-            <p className="text-white font-heading font-bold text-xl mb-6 break-all">{url}</p>
+            <p className="text-xs uppercase tracking-widest text-muted mb-1">Auditing</p>
+            <p className="text-ink font-heading font-bold text-xl mb-6 break-all">{url}</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
               <input
@@ -197,14 +197,14 @@ export default function AuditForm() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-white/5 border border-white/20 text-white text-sm px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-accent transition-colors"
+                className="bg-white/50 border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
               />
               <input
                 type="text"
                 placeholder="Your name (optional)"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="bg-white/5 border border-white/20 text-white text-sm px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-accent transition-colors"
+                className="bg-white/50 border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
               />
             </div>
             <input
@@ -212,25 +212,25 @@ export default function AuditForm() {
               placeholder="Company (optional)"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
-              className="w-full bg-white/5 border border-white/20 text-white text-sm px-4 py-3 placeholder:text-gray-500 focus:outline-none focus:border-accent transition-colors mb-4"
+              className="w-full bg-white/50 border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors mb-4 rounded-2xl"
             />
 
             <div className="flex items-center gap-3">
               <button
                 type="submit"
-                className="flex-1 px-8 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors whitespace-nowrap"
+                className="btn btn-primary flex-1 whitespace-nowrap"
               >
                 Send Me My Free Audit
               </button>
               <button
                 type="button"
                 onClick={() => setStep("url")}
-                className="text-gray-500 text-xs uppercase tracking-widest hover:text-white transition-colors"
+                className="text-muted text-xs uppercase tracking-widest hover:text-ink transition-colors"
               >
                 Back
               </button>
             </div>
-            <p className="text-gray-500 text-xs mt-3">
+            <p className="text-muted text-xs mt-3">
               We&apos;ll email your full report and never spam you.
             </p>
           </form>
@@ -239,19 +239,19 @@ export default function AuditForm() {
         {step === "scanning" && (
           <div
             key="scanning"
-            className="animate-step-in glass p-8 sm:p-12 text-center"
+            className="glass rounded-card animate-step-in p-8 sm:p-12 text-center"
           >
             <div className="mx-auto mb-6 h-16 w-16 relative">
               <div className="absolute inset-0 border-2 border-accent/30 rounded-full" />
               <div className="absolute inset-0 border-2 border-t-accent border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin" />
             </div>
-            <p className="text-white font-heading font-bold text-xl mb-2">
+            <p className="text-ink font-heading font-bold text-xl mb-2">
               Scanning {url}
             </p>
-            <p key={stageIndex} className="animate-stage-in text-gray-400 text-sm">
+            <p key={stageIndex} className="animate-stage-in text-body text-sm">
               {SCAN_STAGES[stageIndex]}
             </p>
-            <div className="mt-6 h-1 w-full max-w-sm mx-auto bg-white/10 overflow-hidden">
+            <div className="mt-6 h-1 w-full max-w-sm mx-auto bg-white/60 overflow-hidden">
               <div
                 className="h-full bg-accent"
                 style={{ animation: `scan-progress ${POLL_TIMEOUT_MS / 1000}s linear forwards` }}
@@ -263,15 +263,15 @@ export default function AuditForm() {
         {step === "error" && (
           <div
             key="error"
-            className="animate-step-in glass border-red-400/30 p-8 text-center"
+            className="glass rounded-card animate-step-in border-red-400/30 p-8 text-center"
           >
-            <p className="text-white font-heading font-bold text-xl mb-2">
+            <p className="text-ink font-heading font-bold text-xl mb-2">
               We hit a snag
             </p>
-            <p className="text-gray-400 text-sm mb-6">{error}</p>
+            <p className="text-body text-sm mb-6">{error}</p>
             <button
               onClick={reset}
-              className="px-8 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
+              className="btn btn-primary"
             >
               Try Again
             </button>

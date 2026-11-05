@@ -131,37 +131,37 @@ export default async function WebsitePackagePage({
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-24 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link
             href="/packages/website"
-            className="text-[10px] uppercase tracking-[0.3em] text-gray-400 hover:text-white transition-colors mb-6 inline-block"
+            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
           >
             &larr; Website Packages
           </Link>
           <div className="flex flex-wrap items-center gap-4 mb-6">
-            <p className="text-xs uppercase tracking-[0.3em] text-accent-glow">
+            <p className="eyebrow">
               Website Package &middot; Tier {pkg.tier}
             </p>
             {pkg.badge && (
-              <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-300 px-3 py-1">
+              <span className="glass-accent text-xs font-semibold uppercase tracking-widest text-accent-deep px-3 py-1.5 rounded-full">
                 {pkg.badge}
               </span>
             )}
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
             <div className="lg:col-span-8">
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight">
+              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight">
                 {pkg.name}
                 <span className="sr-only">: </span>
-                <span className="block mt-5 text-2xl sm:text-3xl text-gray-400 tracking-normal leading-tight">
+                <span className="block mt-5 text-2xl sm:text-3xl text-body tracking-normal leading-tight">
                   {pkg.headline}
                 </span>
               </h1>
-              <p className="mt-6 text-lg text-gray-300 italic max-w-3xl">
+              <p className="mt-6 text-lg text-ink-soft italic max-w-3xl">
                 &ldquo;{pkg.tagline}&rdquo;
               </p>
-              <div className="mt-8 max-w-3xl space-y-4 text-gray-400 text-base leading-relaxed">
+              <div className="mt-8 max-w-3xl space-y-4 text-body text-base leading-relaxed">
                 <p>{pkg.description}</p>
                 <p>{pkg.intro}</p>
                 <p>
@@ -170,17 +170,17 @@ export default async function WebsitePackagePage({
                 </p>
               </div>
             </div>
-            <div className="lg:col-span-4 glass-card p-8">
+            <div className="glass-card rounded-card lg:col-span-4 p-8">
               {pkg.pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">
+                <span className="text-xs uppercase tracking-widest text-muted block">
                   {pkg.pricePrefix}
                 </span>
               )}
-              <p className="text-5xl font-heading font-bold text-white mb-6">{pkg.price}</p>
+              <p className="text-5xl font-heading font-bold text-ink mb-6">{pkg.price}</p>
               <Link
                 href="/contact"
                 data-track={`Package details hero: ${pkg.name}`}
-                className="block text-center px-6 py-3 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+                className="btn btn-primary flex text-center"
               >
                 {pkg.cta}
               </Link>
@@ -188,7 +188,7 @@ export default async function WebsitePackagePage({
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-light block text-center mt-3 px-6 py-3 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/15 transition-colors"
+                className="btn btn-glass flex text-center mt-3"
               >
                 Book a Free Call
               </a>
@@ -200,15 +200,15 @@ export default async function WebsitePackagePage({
       {/* =============================================
           AT A GLANCE
           ============================================= */}
-      <section className="bg-black border-b border-white/10">
+      <section>
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <dl className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10">
+          <dl className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {[...pkg.glance, { label: "Timeline", value: pkg.timeline }].map((item) => (
-              <div key={item.label} className="py-6 px-4 lg:px-8">
-                <dt className="text-[10px] uppercase tracking-[0.3em] text-gray-600 mb-1">
+              <div key={item.label} className="glass rounded-bubble py-5 px-5 lg:px-6">
+                <dt className="text-xs uppercase tracking-[0.3em] text-muted mb-1">
                   {item.label}
                 </dt>
-                <dd className="text-white font-heading font-bold text-base sm:text-lg">
+                <dd className="text-ink font-heading font-bold text-base sm:text-lg">
                   {item.value}
                 </dd>
               </div>
@@ -220,11 +220,11 @@ export default async function WebsitePackagePage({
       {/* =============================================
           WHO IT'S FOR
           ============================================= */}
-      <section className="py-20 lg:py-24 bg-gray-900 border-b border-white/10">
+      <section className="py-20 lg:py-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">Best For</p>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white">
+            <p className="eyebrow mb-4">Best For</p>
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink">
               Who {pkg.name} is built for
             </h2>
           </div>
@@ -232,7 +232,7 @@ export default async function WebsitePackagePage({
             {pkg.bestFor.map((audience) => (
               <li
                 key={audience}
-                className="px-5 py-3 border border-white/10 text-gray-300 text-sm"
+                className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm"
               >
                 {audience}
               </li>
@@ -244,20 +244,20 @@ export default async function WebsitePackagePage({
       {/* =============================================
           WHAT'S INCLUDED
           ============================================= */}
-      <section className="glow-field py-24 lg:py-32 bg-black border-b border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">What&apos;s Included</p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16 max-w-4xl">
+          <p className="eyebrow mb-4">What&apos;s Included</p>
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-16 max-w-4xl">
             Everything in {pkg.name}, explained
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {pkg.features.map((feature, i) => (
-              <div key={feature.title} className="glass-card p-8">
-                <p className="text-xs font-mono text-gray-600 mb-4">
+              <div key={feature.title} className="glass-card rounded-card p-8">
+                <p className="text-xs font-mono text-muted mb-4">
                   {String(i + 1).padStart(2, "0")}
                 </p>
-                <h3 className="text-white font-heading font-bold text-lg mb-3">{feature.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{feature.detail}</p>
+                <h3 className="text-ink font-heading font-bold text-lg mb-3">{feature.title}</h3>
+                <p className="text-body text-sm leading-relaxed">{feature.detail}</p>
               </div>
             ))}
           </div>
@@ -267,34 +267,34 @@ export default async function WebsitePackagePage({
       {/* =============================================
           HOW IT WORKS
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">How It Works</p>
-            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-black mb-6">
+            <p className="eyebrow mb-4">How It Works</p>
+            <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-6">
               From first call to launch day
             </h2>
-            <p className="text-gray-600 text-sm leading-relaxed max-w-sm">
+            <p className="text-muted text-sm leading-relaxed max-w-sm">
               {isCustom ? (
                 "Timelines are set during discovery, around your launch date and internal approvals."
               ) : (
                 <>
                   Most {pkg.name} projects launch in{" "}
-                  <span className="text-black font-semibold">{pkg.timeline}</span>. You&apos;ll get a
+                  <span className="text-ink font-semibold">{pkg.timeline}</span>. You&apos;ll get a
                   specific schedule after the discovery call.
                 </>
               )}
             </p>
           </div>
-          <ol className="lg:col-span-8 border-t border-black/10">
+          <ol className="lg:col-span-8 border-t border-ink/10">
             {pkg.process.map((item, i) => (
-              <li key={item.step} className="grid grid-cols-[3rem_1fr] gap-4 py-6 border-b border-black/10">
-                <span className="text-xs font-mono text-gray-400 pt-1">
+              <li key={item.step} className="grid grid-cols-[3rem_1fr] gap-4 py-6 border-b border-ink/10">
+                <span className="text-xs font-mono text-body pt-1">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="text-black font-heading font-bold text-lg mb-2">{item.step}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                  <h3 className="text-ink font-heading font-bold text-lg mb-2">{item.step}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{item.description}</p>
                 </div>
               </li>
             ))}
@@ -305,20 +305,20 @@ export default async function WebsitePackagePage({
       {/* =============================================
           WHAT WE NEED + GOOD TO KNOW
           ============================================= */}
-      <section className="py-24 lg:py-28 bg-gray-900 border-b border-white/10">
+      <section className="py-24 lg:py-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">Your Part</p>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-10">
+            <p className="eyebrow mb-4">Your Part</p>
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-10">
               What we&apos;ll need from you
             </h2>
-            <ul className="border-t border-white/10">
+            <ul className="border-t border-ink/10">
               {pkg.fromYou.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-3 py-4 border-b border-white/10 text-gray-300 text-sm"
+                  className="flex items-start gap-3 py-4 border-b border-ink/10 text-ink-soft text-sm"
                 >
-                  <span className="text-accent font-bold" aria-hidden="true">
+                  <span className="text-accent-ink font-bold" aria-hidden="true">
                     &#10003;
                   </span>
                   {item}
@@ -327,15 +327,15 @@ export default async function WebsitePackagePage({
             </ul>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">Good To Know</p>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white mb-10">
+            <p className="eyebrow mb-4">Good To Know</p>
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-10">
               Before you get started
             </h2>
-            <div className="border-t border-white/10">
+            <div className="border-t border-ink/10">
               {pkg.goodToKnow.map((item) => (
-                <div key={item.title} className="py-4 border-b border-white/10">
-                  <h3 className="text-white text-sm font-semibold mb-1">{item.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
+                <div key={item.title} className="py-4 border-b border-ink/10">
+                  <h3 className="text-ink text-sm font-semibold mb-1">{item.title}</h3>
+                  <p className="text-body text-sm leading-relaxed">{item.description}</p>
                 </div>
               ))}
             </div>
@@ -346,58 +346,58 @@ export default async function WebsitePackagePage({
       {/* =============================================
           UPGRADE + BUNDLE
           ============================================= */}
-      <section className="py-24 lg:py-28 bg-black border-b border-white/10">
+      <section className="py-24 lg:py-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10">
-            <div className="glass-card p-8 lg:p-10 flex flex-col">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-start justify-between gap-4 mb-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-accent">
+                <p className="eyebrow">
                   {pkg.bundle.name} Launch Bundle
                 </p>
-                <p className="text-white font-heading font-bold text-lg whitespace-nowrap">
+                <p className="text-ink font-heading font-bold text-lg whitespace-nowrap">
                   {pkg.bundle.price}
                 </p>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed mb-8">{pkg.bundle.pitch}</p>
+              <p className="text-ink-soft text-sm leading-relaxed mb-8">{pkg.bundle.pitch}</p>
               <Link
                 href="/packages/launch"
-                className="mt-auto self-start text-xs uppercase tracking-wider text-gray-300 hover:text-white border-b border-gray-400 hover:border-white pb-1 transition-colors"
+                className="btn btn-glass min-h-10 px-5 text-sm mt-auto self-start"
               >
                 Compare Launch Bundles &rarr;
               </Link>
             </div>
             {upgrade && pkg.upgrade ? (
-              <div className="glass-card p-8 lg:p-10 flex flex-col">
+              <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col">
                 <div className="flex items-start justify-between gap-4 mb-6">
-                  <p className="text-xs uppercase tracking-[0.3em] text-gray-500">
+                  <p className="eyebrow">
                     Next Tier &middot; {upgrade.name}
                   </p>
-                  <p className="text-white font-heading font-bold text-lg whitespace-nowrap">
+                  <p className="text-ink font-heading font-bold text-lg whitespace-nowrap">
                     {upgrade.pricePrefix ? `From ${upgrade.price}` : upgrade.price}
                   </p>
                 </div>
-                <p className="text-white font-heading font-bold text-2xl mb-3">{pkg.upgrade.reason}</p>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8">{upgrade.tagline}</p>
+                <p className="text-ink font-heading font-bold text-2xl mb-3">{pkg.upgrade.reason}</p>
+                <p className="text-body text-sm leading-relaxed mb-8">{upgrade.tagline}</p>
                 <Link
                   href={`/packages/website/${upgrade.slug}`}
-                  className="mt-auto self-start text-xs uppercase tracking-wider text-gray-300 hover:text-white border-b border-gray-400 hover:border-white pb-1 transition-colors"
+                  className="btn btn-glass min-h-10 px-5 text-sm mt-auto self-start"
                 >
                   See {upgrade.name} &rarr;
                 </Link>
               </div>
             ) : (
-              <div className="glass-card p-8 lg:p-10 flex flex-col">
-                <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Not Sure Yet?</p>
-                <p className="text-white font-heading font-bold text-2xl mb-3">
+              <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col">
+                <p className="eyebrow mb-6">Not Sure Yet?</p>
+                <p className="text-ink font-heading font-bold text-2xl mb-3">
                   Build a package around what you need
                 </p>
-                <p className="text-gray-400 text-sm leading-relaxed mb-8">
+                <p className="text-body text-sm leading-relaxed mb-8">
                   Mix a website tier with branding, marketing, and maintenance and see an estimate in
                   a couple of minutes.
                 </p>
                 <Link
                   href="/packages/builder"
-                  className="mt-auto self-start text-xs uppercase tracking-wider text-gray-300 hover:text-white border-b border-gray-400 hover:border-white pb-1 transition-colors"
+                  className="btn btn-glass min-h-10 px-5 text-sm mt-auto self-start"
                 >
                   Open the Package Builder &rarr;
                 </Link>
@@ -410,10 +410,10 @@ export default async function WebsitePackagePage({
       {/* =============================================
           COMPARE TIERS
           ============================================= */}
-      <section className="py-16 bg-black border-b border-white/10">
+      <section className="py-16">
         <nav aria-label="Website packages" className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">All Website Packages</p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/10">
+          <p className="eyebrow mb-6">All Website Packages</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {websitePackages.map((other) => {
               const current = other.slug === pkg.slug;
               return (
@@ -421,25 +421,23 @@ export default async function WebsitePackagePage({
                   key={other.slug}
                   href={`/packages/website/${other.slug}`}
                   aria-current={current ? "page" : undefined}
-                  className={`p-6 transition-colors ${
-                    current ? "bg-white" : "bg-black hover:bg-gray-900"
-                  }`}
+                  className={`glass-card p-6 rounded-card ${current ? "ring-2 ring-accent/50" : ""}`}
                 >
                   <span
-                    className={`text-[10px] uppercase tracking-[0.3em] block mb-1 ${
-                      current ? "text-gray-400" : "text-gray-600"
+                    className={`text-xs uppercase tracking-[0.3em] block mb-1 ${
+                      current ? "text-body" : "text-muted"
                     }`}
                   >
                     {other.tier}
                   </span>
                   <span
                     className={`font-heading font-bold text-base sm:text-lg block ${
-                      current ? "text-black" : "text-white"
+                      current ? "text-ink" : "text-ink"
                     }`}
                   >
                     {other.name}
                   </span>
-                  <span className={`text-xs mt-0.5 block ${current ? "text-gray-600" : "text-gray-500"}`}>
+                  <span className={`text-xs mt-0.5 block ${current ? "text-muted" : "text-muted"}`}>
                     {other.pricePrefix ? `${other.pricePrefix} ` : ""}
                     {other.price}
                   </span>
@@ -449,13 +447,13 @@ export default async function WebsitePackagePage({
           </div>
         </nav>
         <nav aria-label="Areas we serve" className="max-w-[1400px] mx-auto px-6 lg:px-10 mt-12">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">Areas We Serve</p>
+          <p className="eyebrow mb-6">Areas We Serve</p>
           <div className="flex flex-wrap gap-3">
             {locations.map((location) => (
               <Link
                 key={location.slug}
                 href={`/locations/${location.slug}`}
-                className="px-4 py-2 border border-white/10 text-gray-400 text-xs hover:border-white/30 hover:text-white transition-colors"
+                className="glass rounded-full inline-flex items-center min-h-10 px-4 text-body text-xs hover:bg-white/80 hover:text-ink transition-colors"
               >
                 {location.city} web design
               </Link>
@@ -467,22 +465,22 @@ export default async function WebsitePackagePage({
       {/* =============================================
           FAQ
           ============================================= */}
-      <section className="py-24 lg:py-28 bg-gray-900 border-b border-white/10">
+      <section className="py-24 lg:py-28">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">Questions</p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-12">
+          <p className="eyebrow mb-4">Questions</p>
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-12">
             {pkg.name} FAQ
           </h2>
-          <div className="border-t border-white/10">
+          <div className="border-t border-ink/10">
             {pkg.faqs.map((faq) => (
-              <details key={faq.q} className="group border-b border-white/10">
-                <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+              <details key={faq.q} className="group border-b border-ink/10">
+                <summary className="flex items-center justify-between cursor-pointer py-5 text-ink text-sm font-medium hover:text-ink-soft transition-colors list-none">
                   <span className="pr-6">{faq.q}</span>
-                  <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                  <span className="text-muted text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <div className="pb-5 text-gray-400 text-sm leading-relaxed">{faq.a}</div>
+                <div className="pb-5 text-body text-sm leading-relaxed">{faq.a}</div>
               </details>
             ))}
           </div>
@@ -494,16 +492,16 @@ export default async function WebsitePackagePage({
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Next Step</p>
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-black leading-[0.95] mb-6">
+            <p className="eyebrow mb-6">Next Step</p>
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-6">
               {isCustom
                 ?`Let's scope your ${pkg.name.replace("The ", "")} project.`
                 : `Ready to start ${pkg.name}?`}
             </h2>
-            <p className="text-gray-600 text-sm leading-relaxed mb-10 max-w-lg">
+            <p className="text-muted text-sm leading-relaxed mb-10 max-w-lg">
               Tell us about your business and what you need the site to do. You&apos;ll talk with
               James, the founder, and get an honest recommendation and an exact quote, even if you
               don&apos;t hire us.
@@ -512,7 +510,7 @@ export default async function WebsitePackagePage({
               <Link
                 href="/contact"
                 data-track={`Package details CTA: ${pkg.name}`}
-                className="px-8 py-4 bg-black text-white font-bold text-sm uppercase tracking-wider hover:bg-gray-800 transition-colors text-center"
+                className="btn btn-primary text-center"
               >
                 {pkg.cta}
               </Link>
@@ -520,14 +518,14 @@ export default async function WebsitePackagePage({
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 border border-black/20 text-black font-bold text-sm uppercase tracking-wider hover:bg-black/5 transition-colors text-center"
+                className="btn btn-glass text-center"
               >
                 Book a Free Call
               </a>
             </div>
-            <p className="mt-6 text-gray-500 text-xs">
+            <p className="mt-6 text-muted text-xs">
               Prefer to talk now?{" "}
-              <a href="tel:+12168897822" className="underline hover:text-black">
+              <a href="tel:+12168897822" className="underline hover:text-ink">
                 Call (216) 889-7822
               </a>
             </p>

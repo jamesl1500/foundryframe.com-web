@@ -191,7 +191,7 @@ export const locations: LocationPage[] = [
       {
         title: "Low-maintenance by design",
         description:
-          "No WordPress plugins to update or break. Your site stays fast and secure without a monthly babysitting bill.",
+          "Built on a platform that suits how you work, kept lean so it stays fast and secure without a monthly babysitting bill.",
       },
       {
         title: "A local contact",

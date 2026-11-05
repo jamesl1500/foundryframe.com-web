@@ -16,7 +16,7 @@ const siteUrl = "https://www.foundryframe.com";
 export const metadata: Metadata = {
   title: "Website Maintenance Plans from $99/mo",
   description:
-    "Website maintenance plans from $99/mo. We handle updates, security, backups, uptime monitoring, and content changes for Ohio small business websites.",
+    "Website maintenance from $99/mo: WordPress plugin, theme & core updates, Next.js updates, security, backups, and uptime monitoring for Ohio businesses.",
   alternates: {
     canonical: "/packages/maintenance",
   },
@@ -57,7 +57,7 @@ const plans = [
     description:
       "Steady is the essential layer of protection every business website needs. We handle software updates, monitor for security threats, and watch your uptime around the clock — so your site stays live and secure while you stay focused on what you do best. Think of Steady as the lock on your digital front door.",
     features: [
-      "Monthly software and plugin updates",
+      "Monthly WordPress core, plugin & theme updates, or Next.js & dependency updates",
       "Basic security monitoring and firewall protection",
       "24/7 uptime monitoring with instant alerts",
       "Monthly offsite backup",
@@ -77,7 +77,7 @@ const plans = [
     description:
       "Active clients don't just keep their site alive — they keep it growing. With bi-weekly updates, included developer time, and content change requests built right into the plan, Active is for businesses that treat their website as a living, working sales tool. New team member to add? Service description to update? Just send the changes.",
     features: [
-      "Bi-weekly software and plugin updates",
+      "Bi-weekly WordPress core, plugin & theme updates, or Next.js & dependency updates",
       "Advanced security monitoring and malware scanning",
       "Weekly offsite backups",
       "1 included developer hour per month",
@@ -98,7 +98,7 @@ const plans = [
     description:
       "Elite is white-glove digital site management for businesses where every minute of downtime is lost revenue. Daily backups, weekly updates, emergency recovery coverage, and priority phone support — plus 3 included development hours per month. Elite clients don't have a maintenance plan. They have a retained digital team.",
     features: [
-      "Weekly software updates and security patches",
+      "Weekly WordPress or Next.js updates and security patches",
       "Enterprise-grade security monitoring and intrusion detection",
       "Daily offsite backups with one-click restore",
       "3 included developer hours per month",
@@ -122,7 +122,7 @@ const offersStructuredData = {
   name: "Website Maintenance Plans",
   serviceType: "Website maintenance",
   description:
-    "Managed website maintenance: software updates, security monitoring, backups, uptime monitoring, and content updates.",
+    "Managed website maintenance for WordPress and Next.js sites: plugin, theme and framework updates, security monitoring, backups, uptime monitoring, and content updates.",
   url: `${siteUrl}/packages/maintenance`,
   provider: { "@id": `${siteUrl}/#organization` },
   areaServed: [
@@ -150,7 +150,11 @@ const offersStructuredData = {
 const faqs = [
   {
     q: "What does a website maintenance plan include?",
-    a: "Every plan covers software and plugin updates, security monitoring, 24/7 uptime monitoring, offsite backups, and performance reporting. Active adds bi-weekly updates, weekly backups, a developer hour, and up to 2 content updates a month. Elite adds weekly updates, daily backups, 3 developer hours, up to 6 content updates, emergency recovery, and priority phone support.",
+    a: "Every plan covers platform updates (WordPress core, plugin and theme updates on WordPress sites; Next.js and dependency updates on Next.js sites), security monitoring, 24/7 uptime monitoring, offsite backups, and performance reporting. Active adds bi-weekly updates, weekly backups, a developer hour, and up to 2 content updates a month. Elite adds weekly updates, daily backups, 3 developer hours, up to 6 content updates, emergency recovery, and priority phone support.",
+  },
+  {
+    q: "Do you maintain WordPress sites?",
+    a: "Yes. On WordPress sites we update WordPress core, plugins, and themes, test that nothing breaks, and roll back if an update causes a problem. On Next.js sites we keep Next.js, React, and the site's other dependencies current. Every plan covers both, including sites we didn't build.",
   },
   {
     q: "How much does website maintenance cost?",
@@ -208,23 +212,24 @@ export default function MaintenancePlansPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link
             href="/packages"
-            className="text-[10px] uppercase tracking-[0.3em] text-gray-600 hover:text-gray-400 transition-colors mb-6 inline-block"
+            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
           >
             &larr; All Packages
           </Link>
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Maintenance Plans &middot; From $99/mo
           </p>
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
             Website maintenance, handled
           </h1>
-          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+          <p className="text-muted text-sm mt-6 max-w-lg">
             Launch is day one, not the finish line. A site that goes unmaintained gets hacked, slows down, breaks on
-            updates, and falls in search rankings. Our plans keep your digital
+            updates, and falls in search rankings. Whether you run WordPress or Next.js, we handle the plugin, theme,
+            and framework updates for you. Our plans keep your digital
             presence fast, secure, and continuously improving — without you ever
             having to think about it.
           </p>
@@ -234,18 +239,18 @@ export default function MaintenancePlansPage() {
       {/* =============================================
           PLAN OVERVIEW STRIP
           ============================================= */}
-      <section className="bg-black border-b border-white/10">
+      <section>
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-3 divide-x divide-white/10">
+          <div className="grid grid-cols-3 gap-3">
             {plans.map((p) => (
-              <div key={`strip-${p.number}`} className="py-6 px-4 lg:px-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-1">
+              <div key={`strip-${p.number}`} className="glass rounded-bubble py-5 px-5 lg:px-6">
+                <span className="text-xs uppercase tracking-[0.3em] text-muted block mb-1">
                   {p.number}
                 </span>
-                <span className="text-white font-heading font-bold text-base sm:text-lg block">
+                <span className="text-ink font-heading font-bold text-base sm:text-lg block">
                   {p.name}
                 </span>
-                <span className="text-gray-500 text-xs mt-0.5 block">
+                <span className="text-muted text-xs mt-0.5 block">
                   {p.pricePrefix ? `${p.pricePrefix} ` : ""}
                   {p.price}
                 </span>
@@ -258,95 +263,95 @@ export default function MaintenancePlansPage() {
       {/* =============================================
           PLAN CARDS — 3 columns
           ============================================= */}
-      <section className="glow-field py-24 lg:py-32 bg-black">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
             {/* ---- Steady (dark) ---- */}
-            <div className="glass-card p-8 lg:p-10 flex flex-col">
+            <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Plan 01</span>
+                <span className="text-xs uppercase tracking-[0.3em] text-muted">Plan 01</span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{plans[0].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{plans[0].name}</p>
               {plans[0].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{plans[0].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-muted block">{plans[0].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-white mb-2">{plans[0].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{plans[0].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-400 leading-relaxed mb-8">{plans[0].description}</p>
-              <div className="border-t border-white/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{plans[0].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{plans[0].tagline}&rdquo;</p>
+              <p className="text-sm text-body leading-relaxed mb-8">{plans[0].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {plans[0].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
-                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-400 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-body text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {plans[0].cta}
               </Link>
             </div>
 
             {/* ---- Active (light / highlighted) ---- */}
-            <div className="bg-white p-8 lg:p-10 flex flex-col">
+            <div className="glass rounded-card ring-2 ring-accent/40 p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">Plan 02</span>
-                <span className="text-[10px] uppercase tracking-widest bg-black text-white px-3 py-1 font-bold">
+                <span className="text-xs uppercase tracking-[0.3em] text-body">Plan 02</span>
+                <span className="text-xs uppercase tracking-widest bg-ink text-white px-3 py-1 font-bold rounded-full">
                   Most Popular
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{plans[1].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{plans[1].name}</p>
               {plans[1].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-400 block">{plans[1].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-body block">{plans[1].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-black mb-2">{plans[1].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{plans[1].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-600 leading-relaxed mb-8">{plans[1].description}</p>
-              <div className="border-t border-black/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{plans[1].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{plans[1].tagline}&rdquo;</p>
+              <p className="text-sm text-muted leading-relaxed mb-8">{plans[1].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {plans[1].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-black/10">
-                    <span className="text-gray-400 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-700 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-ink-soft text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-black text-white hover:bg-gray-800 transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {plans[1].cta}
               </Link>
             </div>
 
             {/* ---- Elite (dark + white accent top border) ---- */}
-            <div className="glass-card p-8 lg:p-10 flex flex-col border-t-2 border-white">
+            <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col border-t-2 border-ink/20">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Plan 03</span>
-                <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-400 px-3 py-1">
+                <span className="text-xs uppercase tracking-[0.3em] text-muted">Plan 03</span>
+                <span className="text-xs uppercase tracking-widest border border-ink/20 text-body px-3 py-1 rounded-full">
                   White Glove
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{plans[2].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{plans[2].name}</p>
               {plans[2].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{plans[2].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-muted block">{plans[2].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-white mb-2">{plans[2].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{plans[2].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-400 leading-relaxed mb-8">{plans[2].description}</p>
-              <div className="border-t border-white/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{plans[2].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{plans[2].tagline}&rdquo;</p>
+              <p className="text-sm text-body leading-relaxed mb-8">{plans[2].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {plans[2].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
-                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-400 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-body text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {plans[2].cta}
               </Link>
@@ -359,34 +364,34 @@ export default function MaintenancePlansPage() {
       {/* =============================================
           FAQ
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900 border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+          <p className="eyebrow mb-4">
             Questions
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-12">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-12">
             Website maintenance FAQ
           </h2>
-          <div className="border-t border-white/10">
+          <div className="border-t border-ink/10">
             {faqs.map((faq) => (
-              <details key={faq.q} className="group border-b border-white/10">
-                <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+              <details key={faq.q} className="group border-b border-ink/10">
+                <summary className="flex items-center justify-between cursor-pointer py-5 text-ink text-sm font-medium hover:text-ink-soft transition-colors list-none">
                   <span className="pr-6">{faq.q}</span>
-                  <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                  <span className="text-muted text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <div className="pb-5 text-gray-400 text-sm leading-relaxed">
+                <div className="pb-5 text-body text-sm leading-relaxed">
                   {faq.a}
                 </div>
               </details>
             ))}
           </div>
-          <p className="text-gray-500 text-sm mt-10">
+          <p className="text-muted text-sm mt-10">
             Launching a new site?{" "}
             <Link
               href="/packages/launch"
-              className="text-white border-b border-white/30 pb-0.5 hover:border-white transition-colors"
+              className="text-ink border-b border-ink/20 pb-0.5 hover:border-ink transition-colors"
             >
               Launch Bundles
             </Link>{" "}
@@ -398,20 +403,20 @@ export default function MaintenancePlansPage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-6">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-6">
               Already a client?
             </h2>
-            <p className="text-gray-500 text-sm mb-8 max-w-lg">
+            <p className="text-muted text-sm mb-8 max-w-lg">
               Maintenance plans can be added to any existing Foundry Frame
               website. Get in touch and we&apos;ll get you set up on the right
               plan.
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+              className="btn btn-primary"
             >
               Get in Touch
             </Link>

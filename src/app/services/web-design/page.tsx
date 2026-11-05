@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
+import SparkSpotlight from "@/components/SparkSpotlight";
 import { websitePackages } from "@/lib/packages/website";
 import { citiesOf, locations } from "@/lib/seo/locations";
 
@@ -196,8 +197,8 @@ const faqs = [
     a: "Yes. Upon full payment, you own everything — the code, the design files, and the content. There's no vendor lock-in and no proprietary platform holding your site hostage.",
   },
   {
-    q: "Do you use WordPress or a page builder?",
-    a: "No. We hand-code every site with Next.js and React. It takes more craft than dragging blocks into a template, but it means faster load times, fewer plugin conflicts, and a site that's actually yours instead of borrowed from a theme marketplace.",
+    q: "Do you build WordPress websites?",
+    a: "Yes, when it's the right fit. Most of our sites are hand-coded with Next.js and React for speed and security, but we also build on WordPress when it makes more sense, for example if your team already knows it, you need a particular plugin, or you're keeping an existing WordPress site. We'll recommend a platform on the discovery call, and our Maintenance Plans keep either kind of site updated.",
   },
   {
     q: "Can I update the website myself after launch?",
@@ -318,36 +319,36 @@ export default function WebDesignServicePage() {
             className="object-cover grayscale"
             priority
           />
-          <div className="absolute inset-0 bg-black/75" />
+          <div className="absolute inset-0 bg-canvas/80" />
         </div>
         <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link
             href="/services"
-            className="text-[10px] uppercase tracking-[0.3em] text-gray-400 hover:text-white transition-colors mb-6 inline-block"
+            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
           >
             &larr; All Services
           </Link>
-          <div className="glass max-w-3xl p-6 sm:p-8">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-6">
+          <div className="glass rounded-card max-w-3xl p-6 sm:p-8">
+          <p className="eyebrow mb-6">
             Our Flagship Service
           </p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-white leading-[0.9] tracking-tight">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.9] tracking-tight">
             Web Design & Development
           </h1>
-          <p className="text-gray-300 text-lg mt-6 max-w-2xl leading-relaxed">
+          <p className="text-ink-soft text-lg mt-6 max-w-2xl leading-relaxed">
             Custom-coded, conversion-focused websites — built with Next.js and
             React, not templates. This is the work we&apos;re best known for.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
               href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-              className="px-6 py-3 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+              className="btn btn-primary text-center"
             >
               Book a Free Call
             </Link>
             <Link
               href="/packages/website"
-              className="glass-light px-6 py-3 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/15 transition-colors text-center"
+              className="btn btn-glass text-center"
             >
               See Pricing — Starting at $1,500
             </Link>
@@ -359,18 +360,18 @@ export default function WebDesignServicePage() {
       {/* =============================================
           OVERVIEW
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-b border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+              <p className="eyebrow mb-4">
                 Overview
               </p>
-              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-white">
+              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink">
                 Your website is your hardest-working salesperson
               </h2>
             </div>
-            <div className="lg:col-span-8 space-y-5 text-gray-400 text-sm leading-relaxed">
+            <div className="lg:col-span-8 space-y-5 text-body text-sm leading-relaxed">
               <p>
                 Most small business websites are built from the same handful
                 of templates — swap the logo, swap the colors, ship it. They
@@ -395,24 +396,24 @@ export default function WebDesignServicePage() {
       {/* =============================================
           CAPABILITIES
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900 border-b border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+          <p className="eyebrow mb-4">
             What&apos;s Included
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-16">
             Everything a modern website needs
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {capabilities.map((cap, i) => (
-              <div key={cap.title} className="bg-gray-900 p-8">
-                <p className="text-xs font-mono text-gray-600 mb-4">
+              <div key={cap.title} className="glass rounded-card p-8">
+                <p className="text-xs font-mono text-muted mb-4">
                   {String(i + 1).padStart(2, "0")}
                 </p>
-                <h3 className="text-white font-heading font-bold text-lg mb-3">
+                <h3 className="text-ink font-heading font-bold text-lg mb-3">
                   {cap.title}
                 </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
+                <p className="text-body text-sm leading-relaxed">
                   {cap.description}
                 </p>
               </div>
@@ -422,29 +423,38 @@ export default function WebDesignServicePage() {
       </section>
 
       {/* =============================================
+
+          THE SPARK
+
+          ============================================= */}
+
+      <SparkSpotlight />
+
+
+      {/* =============================================
           TYPES OF WEBSITES
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-b border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+          <p className="eyebrow mb-4">
             Range
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-16">
             Types of websites we build
           </h2>
-          <div className="border-t border-white/10">
+          <div className="border-t border-ink/10">
             {websiteTypes.map((type, i) => (
               <div
                 key={type.title}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-white/10"
+                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-ink/10"
               >
-                <div className="md:col-span-1 text-gray-500 text-xs font-mono">
+                <div className="md:col-span-1 text-muted text-xs font-mono">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <h3 className="md:col-span-3 text-white font-heading font-semibold text-lg">
+                <h3 className="md:col-span-3 text-ink font-heading font-semibold text-lg">
                   {type.title}
                 </h3>
-                <p className="md:col-span-8 text-gray-500 text-sm leading-relaxed">
+                <p className="md:col-span-8 text-muted text-sm leading-relaxed">
                   {type.description}
                 </p>
               </div>
@@ -456,18 +466,18 @@ export default function WebDesignServicePage() {
       {/* =============================================
           TECHNOLOGY + PERFORMANCE
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-white">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Tech stack */}
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">
+              <p className="eyebrow mb-4">
                 Technology
               </p>
-              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-black mb-6">
+              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-6">
                 What we build with
               </h2>
-              <p className="text-gray-600 text-sm leading-relaxed mb-8">
+              <p className="text-muted text-sm leading-relaxed mb-8">
                 No page builders, no bloated plugin stacks. We build on the
                 same modern, production-grade technology that powers this
                 site you&apos;re reading right now.
@@ -476,7 +486,7 @@ export default function WebDesignServicePage() {
                 {stack.map((tech) => (
                   <span
                     key={tech}
-                    className="text-xs uppercase tracking-widest border border-black/10 text-gray-700 px-3 py-2"
+                    className="btn btn-glass"
                   >
                     {tech}
                   </span>
@@ -486,13 +496,13 @@ export default function WebDesignServicePage() {
 
             {/* Performance & SEO */}
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mb-3">
+              <p className="eyebrow mb-4">
                 Performance & SEO
               </p>
-              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-black mb-6">
+              <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-6">
                 Built to be found and to load fast
               </h2>
-              <div className="space-y-4 text-gray-600 text-sm leading-relaxed">
+              <div className="space-y-4 text-muted text-sm leading-relaxed">
                 <p>
                   Speed and search visibility aren&apos;t an afterthought —
                   they&apos;re part of the build. Every site ships with
@@ -514,27 +524,27 @@ export default function WebDesignServicePage() {
       {/* =============================================
           PROCESS
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+          <p className="eyebrow mb-4">
             How We Work
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-16">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-16">
             Our web design process
           </h2>
-          <div className="border-t border-white/10">
+          <div className="border-t border-ink/10">
             {process.map((item, i) => (
               <div
                 key={item.step}
-                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-white/10"
+                className="grid grid-cols-1 md:grid-cols-12 gap-4 py-8 border-b border-ink/10"
               >
-                <div className="md:col-span-1 text-gray-500 text-xs font-mono">
+                <div className="md:col-span-1 text-muted text-xs font-mono">
                   {String(i + 1).padStart(2, "0")}
                 </div>
-                <h3 className="md:col-span-3 text-white font-heading font-semibold text-lg">
+                <h3 className="md:col-span-3 text-ink font-heading font-semibold text-lg">
                   {item.step}
                 </h3>
-                <p className="md:col-span-8 text-gray-400 text-sm leading-relaxed">
+                <p className="md:col-span-8 text-body text-sm leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -546,24 +556,24 @@ export default function WebDesignServicePage() {
       {/* =============================================
           FAQ
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-gray-900 border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-3xl mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-3">
+          <p className="eyebrow mb-4">
             Questions
           </p>
-          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-white mb-12">
+          <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-12">
             Web design FAQ
           </h2>
-          <div className="border-t border-white/10">
+          <div className="border-t border-ink/10">
             {faqs.map((faq) => (
-              <details key={faq.q} className="group border-b border-white/10">
-                <summary className="flex items-center justify-between cursor-pointer py-5 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+              <details key={faq.q} className="group border-b border-ink/10">
+                <summary className="flex items-center justify-between cursor-pointer py-5 text-ink text-sm font-medium hover:text-ink-soft transition-colors list-none">
                   <span className="pr-6">{faq.q}</span>
-                  <span className="text-gray-500 text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                  <span className="text-muted text-lg flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
                     +
                   </span>
                 </summary>
-                <div className="pb-5 text-gray-500 text-sm leading-relaxed">
+                <div className="pb-5 text-muted text-sm leading-relaxed">
                   {faq.a}
                 </div>
               </details>
@@ -575,33 +585,33 @@ export default function WebDesignServicePage() {
       {/* =============================================
           RELATED SERVICES
           ============================================= */}
-      <section className="py-16 bg-black border-t border-white/10">
+      <section className="py-16">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Pairs Well With
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
               href="/services/branding"
-              className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
             >
               Branding & Identity &rarr;
             </Link>
             <Link
               href="/services/strategy"
-              className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
             >
               Digital Strategy &rarr;
             </Link>
             <Link
               href="/services/graphic-design"
-              className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
             >
               Graphic Design &rarr;
             </Link>
           </div>
 
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-400 mt-12 mb-6">
+          <p className="eyebrow mt-12 mb-6">
             Website Packages
           </p>
           <div className="flex flex-wrap gap-4">
@@ -609,14 +619,14 @@ export default function WebDesignServicePage() {
               <Link
                 key={pkg.slug}
                 href={`/packages/website/${pkg.slug}`}
-                className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+                className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
               >
                 {pkg.linkLabel} &rarr;
               </Link>
             ))}
           </div>
 
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mt-12 mb-6">
+          <p className="eyebrow mt-12 mb-6">
             Web Design Near You
           </p>
           <div className="flex flex-wrap gap-4">
@@ -624,7 +634,7 @@ export default function WebDesignServicePage() {
               <Link
                 key={location.slug}
                 href={`/locations/${location.slug}`}
-                className="px-5 py-3 border border-white/10 text-gray-300 text-sm hover:border-white/30 hover:text-white transition-colors"
+                className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
               >
                 {location.city} &rarr;
               </Link>
@@ -636,16 +646,16 @@ export default function WebDesignServicePage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+            <p className="eyebrow mb-6">
               Next Step
             </p>
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-4">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-4">
               Let&apos;s build your next client-winning website.
             </h2>
-            <p className="text-gray-400 text-sm leading-relaxed mb-10 max-w-lg">
+            <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
               Custom websites starting at $1,500. No templates, no fluff — built
               to convert visitors into paying clients and delivered in 6–12
               weeks.
@@ -653,13 +663,13 @@ export default function WebDesignServicePage() {
             <div className="flex gap-4">
               <Link
                 href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-                className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+                className="btn btn-primary"
               >
                 Book a Free Discovery Call
               </Link>
               <Link
                 href="/contact"
-                className="px-8 py-4 border border-white/20 text-white font-bold text-sm uppercase tracking-wider hover:bg-white/5 transition-colors"
+                className="btn btn-glass"
               >
                 Contact Us
               </Link>

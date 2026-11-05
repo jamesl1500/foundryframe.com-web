@@ -159,21 +159,21 @@ export default function MarketingPackagesPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link
             href="/packages"
-            className="text-[10px] uppercase tracking-[0.3em] text-gray-600 hover:text-gray-400 transition-colors mb-6 inline-block"
+            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
           >
             &larr; All Packages
           </Link>
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Marketing Packages
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
             Get found by the people looking for you
           </h1>
-          <p className="text-gray-500 text-sm mt-6 max-w-lg">
+          <p className="text-muted text-sm mt-6 max-w-lg">
             A great website only works when people can find it. Our marketing
             packages turn your digital presence into a consistent, measurable
             lead generation engine.
@@ -184,18 +184,18 @@ export default function MarketingPackagesPage() {
       {/* =============================================
           PACKAGE OVERVIEW STRIP
           ============================================= */}
-      <section className="bg-black border-b border-white/10">
+      <section>
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-3 divide-x divide-white/10">
+          <div className="grid grid-cols-3 gap-3">
             {packages.map((p) => (
-              <div key={`strip-${p.number}`} className="py-6 px-4 lg:px-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600 block mb-1">
+              <div key={`strip-${p.number}`} className="glass rounded-bubble py-5 px-5 lg:px-6">
+                <span className="text-xs uppercase tracking-[0.3em] text-muted block mb-1">
                   {p.number}
                 </span>
-                <span className="text-white font-heading font-bold text-base sm:text-lg block">
+                <span className="text-ink font-heading font-bold text-base sm:text-lg block">
                   {p.name}
                 </span>
-                <span className="text-gray-500 text-xs mt-0.5 block">
+                <span className="text-muted text-xs mt-0.5 block">
                   {p.pricePrefix ? `${p.pricePrefix} ` : ""}
                   {p.price}
                 </span>
@@ -208,95 +208,95 @@ export default function MarketingPackagesPage() {
       {/* =============================================
           PACKAGE CARDS — 3 columns
           ============================================= */}
-      <section className="glow-field py-24 lg:py-32 bg-black">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
             {/* ---- Presence (dark) ---- */}
-            <div className="glass-card p-8 lg:p-10 flex flex-col">
+            <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Plan 01</span>
+                <span className="text-xs uppercase tracking-[0.3em] text-muted">Plan 01</span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[0].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{packages[0].name}</p>
               {packages[0].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{packages[0].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-muted block">{packages[0].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-white mb-2">{packages[0].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[0].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-400 leading-relaxed mb-8">{packages[0].description}</p>
-              <div className="border-t border-white/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{packages[0].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{packages[0].tagline}&rdquo;</p>
+              <p className="text-sm text-body leading-relaxed mb-8">{packages[0].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {packages[0].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
-                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-400 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-body text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {packages[0].cta}
               </Link>
             </div>
 
             {/* ---- Momentum (light / highlighted) ---- */}
-            <div className="bg-white p-8 lg:p-10 flex flex-col">
+            <div className="glass rounded-card ring-2 ring-accent/40 p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400">Plan 02</span>
-                <span className="text-[10px] uppercase tracking-widest bg-black text-white px-3 py-1 font-bold">
+                <span className="text-xs uppercase tracking-[0.3em] text-body">Plan 02</span>
+                <span className="text-xs uppercase tracking-widest bg-ink text-white px-3 py-1 font-bold rounded-full">
                   Most Popular
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[1].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{packages[1].name}</p>
               {packages[1].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-400 block">{packages[1].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-body block">{packages[1].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-black mb-2">{packages[1].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[1].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-600 leading-relaxed mb-8">{packages[1].description}</p>
-              <div className="border-t border-black/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{packages[1].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{packages[1].tagline}&rdquo;</p>
+              <p className="text-sm text-muted leading-relaxed mb-8">{packages[1].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {packages[1].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-black/10">
-                    <span className="text-gray-400 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-700 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-ink-soft text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-black text-white hover:bg-gray-800 transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {packages[1].cta}
               </Link>
             </div>
 
             {/* ---- Dominate (dark + white accent top border) ---- */}
-            <div className="glass-card p-8 lg:p-10 flex flex-col border-t-2 border-white">
+            <div className="glass-card rounded-card p-8 lg:p-10 flex flex-col border-t-2 border-ink/20">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-600">Plan 03</span>
-                <span className="text-[10px] uppercase tracking-widest border border-white/30 text-gray-400 px-3 py-1">
+                <span className="text-xs uppercase tracking-[0.3em] text-muted">Plan 03</span>
+                <span className="text-xs uppercase tracking-widest border border-ink/20 text-body px-3 py-1 rounded-full">
                   Full Service
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-gray-500 mb-1">{packages[2].name}</p>
+              <p className="text-xs uppercase tracking-widest text-muted mb-1">{packages[2].name}</p>
               {packages[2].pricePrefix && (
-                <span className="text-[10px] uppercase tracking-widest text-gray-500 block">{packages[2].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-muted block">{packages[2].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-white mb-2">{packages[2].price}</div>
-              <p className="text-xs italic text-gray-500 mb-4">&ldquo;{packages[2].tagline}&rdquo;</p>
-              <p className="text-sm text-gray-400 leading-relaxed mb-8">{packages[2].description}</p>
-              <div className="border-t border-white/10 flex-1">
+              <div className="text-4xl font-heading font-bold text-ink mb-2">{packages[2].price}</div>
+              <p className="text-xs italic text-muted mb-4">&ldquo;{packages[2].tagline}&rdquo;</p>
+              <p className="text-sm text-body leading-relaxed mb-8">{packages[2].description}</p>
+              <div className="border-t border-ink/10 flex-1">
                 {packages[2].features.map((f) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-white/10">
-                    <span className="text-gray-600 mt-0.5 shrink-0">&mdash;</span>
-                    <span className="text-gray-400 text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
+                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-body text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href="/contact"
-                className="block text-center mt-8 px-6 py-3 text-sm font-bold uppercase tracking-wider bg-accent text-black hover:bg-accent-glow transition-colors"
+                className="btn btn-primary flex text-center mt-8"
               >
                 {packages[2].cta}
               </Link>
@@ -309,20 +309,20 @@ export default function MarketingPackagesPage() {
       {/* =============================================
           CTA
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black border-t border-white/10">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="max-w-3xl">
-            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-white leading-[0.95] mb-6">
+            <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-6">
               Ready to grow?
             </h2>
-            <p className="text-gray-500 text-sm mb-8 max-w-lg">
+            <p className="text-muted text-sm mb-8 max-w-lg">
               Every marketing engagement starts with understanding your goals,
               your industry, and your definition of winning. Let&apos;s talk
               about what growth looks like for you.
             </p>
             <Link
               href="/contact"
-              className="inline-block px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors"
+              className="btn btn-primary"
             >
               Start the Conversation
             </Link>

@@ -80,27 +80,27 @@ export default function ContactPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-black border-b border-white/10">
+      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+          <p className="eyebrow mb-6">
             Contact
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-white leading-[0.9] tracking-tight max-w-4xl mb-6">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl mb-6">
             Let&apos;s talk
           </h1>
-          <p className="text-gray-500 text-lg max-w-xl">
+          <p className="text-muted text-lg max-w-xl">
             Have a project in mind? We&apos;d love to hear about it. Fill out the
             form below or reach out directly — we typically respond within 24
             hours, and there&apos;s never any pressure to commit.
           </p>
-          <p className="text-gray-400 text-sm max-w-xl mt-4">
+          <p className="text-body text-sm max-w-xl mt-4">
             James takes calls {BUSINESS_HOURS_PHRASE}. The fastest way
             to talk is to grab a time on the calendar.
           </p>
           <div className="mt-8 flex gap-4">
             <Link
               href={BOOKING_URL}
-              className="px-8 py-4 bg-accent text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-glow transition-colors text-center"
+              className="btn btn-primary text-center"
             >
               Book a Free Consultation
             </Link>
@@ -111,12 +111,12 @@ export default function ContactPage() {
       {/* =============================================
           FORM & INFO
           ============================================= */}
-      <section className="py-24 lg:py-32 bg-black">
+      <section className="py-24 lg:py-32">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             {/* --- Form --- */}
             <div className="lg:col-span-7">
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-8">
+              <p className="eyebrow mb-8">
                 Project Inquiry
               </p>
 
@@ -125,32 +125,32 @@ export default function ContactPage() {
 
             {/* --- Sidebar --- */}
             <div className="lg:col-span-5">
-              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-8">
+              <p className="eyebrow mb-8">
                 Details
               </p>
 
-              <div className="border-t border-white/10">
+              <div className="border-t border-ink/10">
                 {contactInfo.map((info) => (
                   <a
                     key={info.title}
                     href={info.href}
-                    className="flex justify-between items-start py-5 border-b border-white/10 group"
+                    className="flex justify-between items-start py-5 border-b border-ink/10 group"
                   >
-                    <span className="text-xs uppercase tracking-wider text-gray-500">
+                    <span className="text-xs uppercase tracking-wider text-muted">
                       {info.title}
                     </span>
-                    <span className="text-white text-sm text-right group-hover:text-gray-300 transition-colors">
+                    <span className="text-ink text-sm text-right group-hover:text-ink-soft transition-colors">
                       {info.value}
                     </span>
                   </a>
                 ))}
               </div>
 
-              <div className="glass mt-12 p-6">
-                <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+              <div className="glass rounded-card mt-12 p-6">
+                <p className="eyebrow mb-6">
                   Common Questions
                 </p>
-                <div className="border-t border-white/10">
+                <div className="border-t border-ink/10">
                   {[
                     {
                       q: "How much does a custom website cost?",
@@ -165,14 +165,14 @@ export default function ContactPage() {
                       a: "Discovery → Strategy → Design → Build → Launch. You're involved at each stage and we don't move forward without your sign-off. No surprises.",
                     },
                   ].map(({ q, a }) => (
-                    <details key={q} className="group border-b border-white/10">
-                      <summary className="flex items-center justify-between cursor-pointer py-4 text-white text-sm font-medium hover:text-gray-300 transition-colors list-none">
+                    <details key={q} className="group border-b border-ink/10">
+                      <summary className="flex items-center justify-between cursor-pointer py-4 text-ink text-sm font-medium hover:text-ink-soft transition-colors list-none">
                         <span className="pr-4">{q}</span>
-                        <span className="text-gray-500 flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
+                        <span className="text-muted flex-shrink-0 transition-transform duration-200 group-open:rotate-45">
                           +
                         </span>
                       </summary>
-                      <p className="pb-4 text-gray-500 text-sm leading-relaxed">
+                      <p className="pb-4 text-muted text-sm leading-relaxed">
                         {a}
                       </p>
                     </details>

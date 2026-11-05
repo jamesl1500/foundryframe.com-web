@@ -33,22 +33,22 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <section className="bg-black py-20 lg:py-28">
+    <section className="py-20 lg:py-28">
       <div className="mx-auto max-w-4xl px-6 lg:px-10">
-        <p className="mb-4 text-xs uppercase tracking-[0.3em] text-gray-500">
+        <p className="eyebrow mb-4">
           Legal
         </p>
-        <h1 className="mb-8 text-4xl font-heading font-bold text-white sm:text-5xl">
+        <h1 className="mb-8 text-4xl font-heading font-bold text-ink sm:text-5xl">
           Privacy Policy
         </h1>
-        <div className="space-y-6 text-sm leading-relaxed text-gray-300">
+        <div className="space-y-6 text-sm leading-relaxed text-ink-soft">
           <p>
             Foundry Frame respects your privacy. This policy explains how we
             collect, use, and protect the information you share with us through
             this website.
           </p>
 
-          <h2 className="pt-4 text-xl font-heading font-semibold text-white">
+          <h2 className="pt-4 text-xl font-heading font-semibold text-ink">
             Information We Collect
           </h2>
           <p>
@@ -64,7 +64,7 @@ export default function PrivacyPage() {
             marketing reached you.
           </p>
 
-          <h2 className="pt-4 text-xl font-heading font-semibold text-white">
+          <h2 className="pt-4 text-xl font-heading font-semibold text-ink">
             How We Use Information
           </h2>
           <p>
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
             updates.
           </p>
 
-          <h2 className="pt-4 text-xl font-heading font-semibold text-white">
+          <h2 className="pt-4 text-xl font-heading font-semibold text-ink">
             Data Sharing
           </h2>
           <p>
@@ -82,14 +82,14 @@ export default function PrivacyPage() {
             services.
           </p>
 
-          <h2 className="pt-4 text-xl font-heading font-semibold text-white">
+          <h2 className="pt-4 text-xl font-heading font-semibold text-ink">
             Contact
           </h2>
           <p>
             For privacy questions, contact us at jlatten@foundryframe.com.
           </p>
 
-          <p className="pt-2 text-xs uppercase tracking-wider text-gray-500">
+          <p className="pt-2 text-xs uppercase tracking-wider text-muted">
             Last updated: October 2026
           </p>
         </div>

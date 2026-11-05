@@ -51,7 +51,7 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
   return (
     <div className="space-y-8">
       {/* --- Overall Score --- */}
-      <div className="border border-white/20 p-8 flex flex-col sm:flex-row items-center gap-8">
+      <div className="glass rounded-card p-8 flex flex-col sm:flex-row items-center gap-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -59,11 +59,11 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
           className={`text-6xl font-heading font-bold ${tone.text}`}
         >
           {overallScore}
-          <span className="text-2xl text-gray-500">/100</span>
+          <span className="text-2xl text-muted">/100</span>
         </motion.div>
         <div className="flex-1 text-center sm:text-left">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">Overall Site Score</p>
-          <p className="text-gray-300 text-sm leading-relaxed">
+          <p className="text-xs uppercase tracking-widest text-muted mb-2">Overall Site Score</p>
+          <p className="text-ink-soft text-sm leading-relaxed">
             {audit.ai_summary || "Here's what we found when we scanned your website."}
           </p>
         </div>
@@ -71,18 +71,18 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
 
       {/* --- Category Breakdown --- */}
       {categoryEntries.length > 0 && (
-        <div className="border border-white/20 p-6 sm:p-8">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-5">Category Breakdown</p>
+        <div className="glass rounded-card p-6 sm:p-8">
+          <p className="text-xs uppercase tracking-widest text-muted mb-5">Category Breakdown</p>
           <div className="space-y-4">
             {categoryEntries.map(({ key, score }) => {
               const categoryTone = scoreTone(score);
               return (
                 <div key={key}>
                   <div className="flex justify-between text-sm mb-1">
-                    <span className="text-white">{toTitleCase(key)}</span>
+                    <span className="text-ink">{toTitleCase(key)}</span>
                     <span className={categoryTone.text}>{score}/100</span>
                   </div>
-                  <div className="h-1.5 w-full bg-white/10 overflow-hidden">
+                  <div className="h-1.5 w-full bg-white/60 overflow-hidden">
                     <motion.div
                       className={`h-full ${categoryTone.bar}`}
                       initial={{ width: 0 }}
@@ -91,7 +91,7 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
                     />
                   </div>
                   {extractList(findingsRecord[key]).slice(0, 3).map((finding, idx) => (
-                    <p key={idx} className="text-gray-500 text-xs mt-2 pl-1">• {finding}</p>
+                    <p key={idx} className="text-muted text-xs mt-2 pl-1">• {finding}</p>
                   ))}
                 </div>
               );
@@ -102,13 +102,13 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
 
       {/* --- Lighthouse / PageSpeed Deep-Dive --- */}
       {audit.lighthouse_error ? (
-        <p className="text-gray-500 text-xs">
+        <p className="text-muted text-xs">
           Performance deep-dive unavailable: {audit.lighthouse_error}
         </p>
       ) : (
         (lighthouseEntries.length > 0 || lighthouseMetrics.length > 0 || lighthouseOpportunities.length > 0) && (
-          <div className="border border-white/20 p-6 sm:p-8">
-            <p className="text-xs uppercase tracking-widest text-gray-500 mb-5">Performance Deep-Dive (PageSpeed)</p>
+          <div className="glass rounded-card p-6 sm:p-8">
+            <p className="text-xs uppercase tracking-widest text-muted mb-5">Performance Deep-Dive (PageSpeed)</p>
 
             {lighthouseEntries.length > 0 && (
               <div className="space-y-4 mb-6">
@@ -117,10 +117,10 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
                   return (
                     <div key={key}>
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-white">{toTitleCase(key)}</span>
+                        <span className="text-ink">{toTitleCase(key)}</span>
                         <span className={categoryTone.text}>{score}/100</span>
                       </div>
-                      <div className="h-1.5 w-full bg-white/10 overflow-hidden">
+                      <div className="h-1.5 w-full bg-white/60 overflow-hidden">
                         <motion.div
                           className={`h-full ${categoryTone.bar}`}
                           initial={{ width: 0 }}
@@ -137,9 +137,9 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
             {lighthouseMetrics.length > 0 && (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
                 {lighthouseMetrics.map(([key, value]) => (
-                  <div key={key} className="border border-white/10 p-3">
-                    <p className="text-gray-500 text-[10px] uppercase tracking-widest mb-1">{toTitleCase(key)}</p>
-                    <p className="text-white text-sm font-bold">{formatMetricValue(value)}</p>
+                  <div key={key} className="rounded-bubble bg-white/60 border border-white p-3">
+                    <p className="text-muted text-xs uppercase tracking-widest mb-1">{toTitleCase(key)}</p>
+                    <p className="text-ink text-sm font-bold">{formatMetricValue(value)}</p>
                   </div>
                 ))}
               </div>
@@ -147,8 +147,8 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
 
             {lighthouseOpportunities.length > 0 && (
               <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-2">Opportunities To Improve Speed</p>
-                <ul className="space-y-2 text-sm text-gray-300">
+                <p className="text-muted text-xs uppercase tracking-widest mb-2">Opportunities To Improve Speed</p>
+                <ul className="space-y-2 text-sm text-ink-soft">
                   {lighthouseOpportunities.map((opportunity, idx) => (
                     <li key={idx}>• {opportunity}</li>
                   ))}
@@ -161,9 +161,9 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
 
       {/* --- AI Recommendations --- */}
       {generalRecommendations.length > 0 && (
-        <div className="border border-white/20 p-6 sm:p-8">
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">What We&apos;d Fix First</p>
-          <ul className="space-y-2 text-sm text-gray-300">
+        <div className="glass rounded-card p-6 sm:p-8">
+          <p className="text-xs uppercase tracking-widest text-muted mb-4">What We&apos;d Fix First</p>
+          <ul className="space-y-2 text-sm text-ink-soft">
             {generalRecommendations.map((rec, idx) => (
               <li key={idx}>• {rec}</li>
             ))}
@@ -174,8 +174,8 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
       {/* --- Recommended Services/Packages --- */}
       {priorityCategories.length > 0 && (
         <div>
-          <p className="text-xs uppercase tracking-widest text-gray-500 mb-4">How Foundry Frame Can Help</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/10 border border-white/10">
+          <p className="text-xs uppercase tracking-widest text-muted mb-4">How Foundry Frame Can Help</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {priorityCategories.map(({ key }, idx) => {
               const rec = getCategoryRecommendation(key);
               return (
@@ -184,12 +184,12 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: idx * 0.1, ease: easeOut }}
-                  className="bg-black p-6"
+                  className="glass rounded-card p-6"
                 >
-                  <p className="text-[10px] uppercase tracking-widest text-accent mb-2">{toTitleCase(key)}</p>
-                  <h3 className="text-white font-heading font-bold text-lg mb-2">{rec.label}</h3>
-                  <p className="text-gray-400 text-sm mb-4">{rec.blurb}</p>
-                  <Link href={rec.href} className="text-accent text-xs uppercase tracking-widest hover:text-accent-glow transition-colors">
+                  <p className="text-xs uppercase tracking-widest text-accent-ink mb-2">{toTitleCase(key)}</p>
+                  <h3 className="text-ink font-heading font-bold text-lg mb-2">{rec.label}</h3>
+                  <p className="text-body text-sm mb-4">{rec.blurb}</p>
+                  <Link href={rec.href} className="text-accent-ink text-xs uppercase tracking-widest hover:text-accent-ink transition-colors">
                     Learn More →
                   </Link>
                 </motion.div>
@@ -199,16 +199,16 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
         </div>
       )}
 
-      <div className="border border-white/20 p-8 text-center">
-        <p className="text-white font-heading font-bold text-2xl mb-2">
+      <div className="glass rounded-card p-8 text-center">
+        <p className="text-ink font-heading font-bold text-2xl mb-2">
           Ready to fix what&apos;s holding your site back?
         </p>
-        <p className="text-gray-400 text-sm mb-6">
+        <p className="text-body text-sm mb-6">
           Talk to our team about the fastest path to a better-performing website.
         </p>
         <Link
           href="/contact"
-          className="inline-block px-8 py-3 bg-accent text-black text-sm font-bold uppercase tracking-wider hover:bg-accent-glow transition-colors"
+          className="btn btn-primary"
         >
           Book A Strategy Call
         </Link>

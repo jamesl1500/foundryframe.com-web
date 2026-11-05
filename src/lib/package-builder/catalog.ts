@@ -139,7 +139,7 @@ export const FOUNDATIONS: FoundationOption[] = [
 ];
 
 export const MAINTENANCE_PLANS: MonthlyOption[] = [
-  { id: "steady", name: "Steady", price: 99, summary: "Updates, security, uptime monitoring, monthly backups." },
+  { id: "steady", name: "Steady", price: 99, summary: "WordPress or Next.js updates, security, uptime monitoring, monthly backups." },
   { id: "active", name: "Active", price: 249, summary: "Weekly backups, 1 dev hour and 2 content updates a month." },
   { id: "elite", name: "Elite", price: 499, summary: "Daily backups, 3 dev hours, 6 content updates, 4-hour SLA." },
 ];
@@ -185,7 +185,12 @@ export const ADDONS: AddonOption[] = [
   },
 ];
 
-export const MEETING_WINDOWS = ["Weekday evening (6pm to 9pm)", "Saturday morning (10am to 1pm)", "Saturday afternoon (1pm to 4pm)"] as const;
+/* Inside business hours: Mon-Fri 9am to 5pm, Sat 10am to 4pm ET (see site-facts). */
+export const MEETING_WINDOWS = [
+  "Weekday morning (9am to 12pm)",
+  "Weekday afternoon (12pm to 5pm)",
+  "Saturday (10am to 4pm)",
+] as const;
 
 export type PackageSelection = {
   foundationId: string;

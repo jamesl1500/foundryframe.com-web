@@ -33,21 +33,21 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <section className="bg-black py-20 lg:py-28">
+    <section className="py-20 lg:py-28">
       <div className="mx-auto max-w-4xl px-6 lg:px-10">
-        <p className="mb-4 text-xs uppercase tracking-[0.3em] text-gray-500">
+        <p className="eyebrow mb-4">
           Legal
         </p>
-        <h1 className="mb-8 text-4xl font-heading font-bold text-white sm:text-5xl">
+        <h1 className="mb-8 text-4xl font-heading font-bold text-ink sm:text-5xl">
           Terms of Service
         </h1>
-        <div className="space-y-6 text-sm leading-relaxed text-gray-300">
+        <div className="space-y-6 text-sm leading-relaxed text-ink-soft">
           <p>
             By accessing this website or engaging Foundry Frame services, you
             agree to these terms.
           </p>
 
-          <h2 className="pt-4 text-xl font-heading font-semibold text-white">
+          <h2 className="pt-4 text-xl font-heading font-semibold text-ink">
             Use of Website
           </h2>
           <p>
@@ -55,7 +55,7 @@ export default function TermsPage() {
             to misuse, copy, or republish content without written permission.
           </p>
 
-          <h2 className="pt-4 text-xl font-heading font-semibold text-white">
+          <h2 className="pt-4 text-xl font-heading font-semibold text-ink">
             Service Agreements
           </h2>
           <p>
@@ -64,7 +64,7 @@ export default function TermsPage() {
             when applicable.
           </p>
 
-          <h2 className="pt-4 text-xl font-heading font-semibold text-white">
+          <h2 className="pt-4 text-xl font-heading font-semibold text-ink">
             Limitation of Liability
           </h2>
           <p>
@@ -73,14 +73,14 @@ export default function TermsPage() {
             allowed by law.
           </p>
 
-          <h2 className="pt-4 text-xl font-heading font-semibold text-white">
+          <h2 className="pt-4 text-xl font-heading font-semibold text-ink">
             Contact
           </h2>
           <p>
             Questions about these terms can be sent to jlatten@foundryframe.com.
           </p>
 
-          <p className="pt-2 text-xs uppercase tracking-wider text-gray-500">
+          <p className="pt-2 text-xs uppercase tracking-wider text-muted">
             Last updated: May 2026
           </p>
         </div>

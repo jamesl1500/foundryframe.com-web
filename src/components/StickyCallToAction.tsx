@@ -22,19 +22,19 @@ export default function StickyCallToAction() {
   if (!visible || dismissed) return null;
 
   return (
-    <div className="glass-accent fixed bottom-6 left-6 z-40 flex items-center gap-3 text-white px-5 py-3">
-      <span className="text-xs text-white/60 hidden sm:block">
+    <div className="glass-accent fixed bottom-6 left-6 z-40 flex items-center gap-3 text-ink px-5 py-3 rounded-full">
+      <span className="text-xs text-muted hidden sm:block">
         Ready to start?
       </span>
       <Link
         href="/contact"
-        className="text-xs font-bold uppercase tracking-wider whitespace-nowrap hover:text-accent-glow transition-colors"
+        className="text-xs font-bold uppercase tracking-wider whitespace-nowrap hover:text-accent-ink transition-colors"
       >
         Book a Free Call →
       </Link>
       <button
         onClick={() => setDismissed(true)}
-        className="text-white/40 hover:text-white transition-colors text-lg leading-none ml-1"
+        className="text-muted hover:text-ink transition-colors text-lg leading-none ml-1"
         aria-label="Dismiss"
       >
         ×

@@ -71,14 +71,14 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
     const key = `${keyPrefix}-${match.index}`;
 
     if (match[1]) {
-      nodes.push(<strong key={key} className="font-semibold text-white">{match[1]}</strong>);
+      nodes.push(<strong key={key} className="font-semibold text-ink">{match[1]}</strong>);
     } else {
       const [, , label, href] = match;
       if (!isAllowedHref(href)) {
         nodes.push(label);
       } else if (href.startsWith("/")) {
         nodes.push(
-          <Link key={key} href={href} className="text-accent-glow underline underline-offset-2 hover:text-white">
+          <Link key={key} href={href} className="text-accent-ink underline underline-offset-2 hover:text-ink">
             {label}
           </Link>
         );
@@ -89,7 +89,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
             key={key}
             href={href}
             {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className="text-accent-glow underline underline-offset-2 hover:text-white"
+            className="text-accent-ink underline underline-offset-2 hover:text-ink"
           >
             {label}
           </a>
@@ -226,12 +226,12 @@ export default function SiteChat() {
         <section
           role="dialog"
           aria-label="Chat with Foundry Frame"
-          className="fixed z-50 bottom-24 right-4 sm:right-5 w-[calc(100vw-2rem)] sm:w-[380px] h-[min(560px,calc(100dvh-8rem))] flex flex-col bg-gray-900/95 backdrop-blur-xl border border-white/10 shadow-2xl text-sm text-white/85"
+          className="fixed z-50 bottom-24 right-4 sm:right-5 w-[calc(100vw-2rem)] sm:w-[380px] h-[min(560px,calc(100dvh-8rem))] flex flex-col glass-light rounded-panel overflow-hidden text-sm text-ink-soft"
         >
-          <header className="flex items-start justify-between gap-3 px-5 py-4 border-b border-white/10">
+          <header className="flex items-start justify-between gap-3 px-5 py-4 border-b border-ink/10">
             <div>
-              <p className="font-heading font-bold uppercase tracking-wider text-white">Ask Foundry Frame</p>
-              <p className="text-xs text-white/50 mt-0.5">AI assistant, answers from our site. Replies may be imperfect.</p>
+              <p className="font-heading font-bold text-ink">Ask Foundry Frame</p>
+              <p className="text-xs text-muted mt-0.5">AI assistant, answers from our site. Replies may be imperfect.</p>
             </div>
             <div className="flex items-center gap-3">
               {messages.length > 0 && (
@@ -239,7 +239,7 @@ export default function SiteChat() {
                   type="button"
                   onClick={reset}
                   disabled={pending}
-                  className="text-xs text-white/50 hover:text-white uppercase tracking-wider disabled:opacity-40"
+                  className="text-xs text-muted hover:text-ink disabled:opacity-40"
                 >
                   Clear
                 </button>
@@ -248,7 +248,7 @@ export default function SiteChat() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close chat"
-                className="text-white/50 hover:text-white text-2xl leading-none"
+                className="text-muted hover:text-ink text-2xl leading-none"
               >
                 ×
               </button>
@@ -256,7 +256,7 @@ export default function SiteChat() {
           </header>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-4 space-y-4" aria-live="polite">
-            <div className="bg-white/5 border border-white/10 px-4 py-3 leading-relaxed">{GREETING}</div>
+            <div className="bg-white/85 border border-white px-4 py-3 leading-relaxed rounded-bubble rounded-tl-md">{GREETING}</div>
 
             {messages.length === 0 && (
               <div className="flex flex-wrap gap-2">
@@ -265,7 +265,7 @@ export default function SiteChat() {
                     key={s}
                     type="button"
                     onClick={() => send(s)}
-                    className="text-xs border border-accent/40 text-accent-glow px-3 py-1.5 hover:bg-accent hover:text-black transition-colors text-left"
+                    className="text-xs border border-accent/40 text-accent-deep bg-white/60 px-3 py-1.5 rounded-full hover:bg-accent hover:text-ink transition-colors text-left"
                   >
                     {s}
                   </button>
@@ -275,18 +275,18 @@ export default function SiteChat() {
 
             {messages.map((m, i) =>
               m.role === "user" ? (
-                <div key={i} className="ml-8 bg-accent/20 border border-accent/30 px-4 py-3 text-white leading-relaxed whitespace-pre-wrap">
+                <div key={i} className="ml-8 bg-accent/20 border border-accent/30 px-4 py-3 text-ink leading-relaxed whitespace-pre-wrap rounded-bubble rounded-br-md">
                   {m.content}
                 </div>
               ) : (
-                <div key={i} className="mr-4 bg-white/5 border border-white/10 px-4 py-3 leading-relaxed">
+                <div key={i} className="mr-4 bg-white/85 border border-white px-4 py-3 leading-relaxed rounded-bubble rounded-tl-md">
                   {m.content ? (
                     <MessageBody text={m.content} />
                   ) : (
                     <span className="inline-flex gap-1" aria-label="Typing">
-                      <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce" />
-                      <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce [animation-delay:150ms]" />
-                      <span className="w-1.5 h-1.5 bg-white/50 rounded-full animate-bounce [animation-delay:300ms]" />
+                      <span className="w-1.5 h-1.5 bg-muted rounded-full animate-bounce" />
+                      <span className="w-1.5 h-1.5 bg-muted rounded-full animate-bounce [animation-delay:150ms]" />
+                      <span className="w-1.5 h-1.5 bg-muted rounded-full animate-bounce [animation-delay:300ms]" />
                     </span>
                   )}
                 </div>
@@ -299,7 +299,7 @@ export default function SiteChat() {
               e.preventDefault();
               send(input);
             }}
-            className="border-t border-white/10 p-3 flex gap-2"
+            className="border-t border-ink/10 p-3 flex gap-2"
           >
             <label htmlFor="site-chat-input" className="sr-only">
               Your question
@@ -318,24 +318,24 @@ export default function SiteChat() {
               rows={1}
               maxLength={1500}
               placeholder="Type your question"
-              className="flex-1 resize-none bg-black/40 border border-white/15 px-3 py-2 text-base sm:text-sm text-white placeholder:text-white/35 focus:outline-none focus:border-accent"
+              className="flex-1 resize-none bg-white/85 border border-ink/15 px-4 py-2.5 text-base sm:text-sm text-ink placeholder:text-muted focus:outline-none focus:border-accent rounded-2xl"
             />
             <button
               type="submit"
               disabled={pending || !input.trim()}
-              className="bg-accent text-black font-bold uppercase tracking-wider text-xs px-4 hover:bg-accent-glow transition-colors disabled:opacity-40"
+              className="btn btn-primary min-h-11 px-5 text-sm disabled:opacity-40"
             >
               Send
             </button>
           </form>
 
-          <p className="px-5 pb-3 text-xs text-white/45">
+          <p className="px-5 pb-3 text-xs text-muted">
             Prefer a person?{" "}
-            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="text-accent-glow hover:text-white">
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="text-accent-ink hover:text-ink">
               Book a free consultation
             </a>{" "}
             or call{" "}
-            <a href="tel:+12168897822" className="text-accent-glow hover:text-white">
+            <a href="tel:+12168897822" className="text-accent-ink hover:text-ink">
               (216) 889-7822
             </a>
             .
@@ -348,7 +348,7 @@ export default function SiteChat() {
         onClick={toggle}
         aria-expanded={open}
         aria-label={open ? "Close chat" : "Ask a question"}
-        className="glass-accent fixed bottom-5 right-4 sm:right-5 z-40 flex items-center gap-2 text-white text-sm font-bold px-4 sm:px-5 py-3 uppercase tracking-wider hover:bg-accent hover:text-black transition-colors"
+        className="btn btn-primary fixed bottom-5 right-4 sm:right-5 z-40 flex items-center gap-2"
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
           {open ? (
