@@ -12,6 +12,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FoundingForm from "@/components/FoundingForm";
+import { launchBundles } from "@/lib/packages/launch";
 import { BOOKING_URL } from "@/lib/analytics";
 import { BUSINESS_HOURS_PHRASE, FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
 
@@ -42,13 +43,6 @@ export const metadata: Metadata = {
   },
 };
 
-/* Launch bundle starting prices (keep in sync with /packages/launch). */
-const bundlePrices = [
-  { name: "Ignite", price: 2500 },
-  { name: "Velocity", price: 6500 },
-  { name: "Ascend", price: 14000 },
-  { name: "Apex", price: 28000 },
-] as const;
 
 const formatUsd = (value: number) => `$${value.toLocaleString("en-US")}`;
 
@@ -136,15 +130,20 @@ export default function FoundingPage() {
           <div className="mt-20">
             <p className="eyebrow mb-6">Founding pricing</p>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              {bundlePrices.map((bundle) => (
-                <div key={bundle.name} className="glass rounded-card p-6 lg:p-8">
+              {launchBundles.map((bundle) => (
+                <Link
+                  key={bundle.slug}
+                  href={`/packages/launch/${bundle.slug}`}
+                  className="glass-card rounded-card p-6 lg:p-8"
+                >
                   <p className="text-ink font-heading font-bold text-xl mb-3">{bundle.name}</p>
-                  <p className="text-muted text-sm line-through">{formatUsd(bundle.price)}</p>
+                  <p className="text-muted text-sm line-through">{formatUsd(bundle.priceValue)}</p>
                   <p className="text-accent-ink text-3xl font-heading font-bold">
-                    {formatUsd(Math.round(bundle.price * (1 - FOUNDING_DISCOUNT_PERCENT / 100)))}
+                    {formatUsd(Math.round(bundle.priceValue * (1 - FOUNDING_DISCOUNT_PERCENT / 100)))}
                   </p>
                   <p className="text-muted text-xs uppercase tracking-widest mt-2">Starting price</p>
-                </div>
+                  <p className="mt-4 text-sm font-semibold text-accent-ink">What&apos;s included &rarr;</p>
+                </Link>
               ))}
             </div>
             <p className="text-muted text-xs mt-4">

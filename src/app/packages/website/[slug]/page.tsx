@@ -360,10 +360,10 @@ export default async function WebsitePackagePage({
               </div>
               <p className="text-ink-soft text-sm leading-relaxed mb-8">{pkg.bundle.pitch}</p>
               <Link
-                href="/packages/launch"
+                href={`/packages/launch/${pkg.bundle.name.toLowerCase()}`}
                 className="btn btn-glass min-h-10 px-5 text-sm mt-auto self-start"
               >
-                Compare Launch Bundles &rarr;
+                See the {pkg.bundle.name} bundle &rarr;
               </Link>
             </div>
             {upgrade && pkg.upgrade ? (

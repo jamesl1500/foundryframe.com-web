@@ -94,7 +94,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     summary: "Spark website, logo design, social profile setup, domain and hosting.",
     timeline: "6 to 8 weeks",
     includedMaintenanceMonths: 1,
-    href: "/packages/launch",
+    href: "/packages/launch/ignite",
   },
   {
     id: "velocity",
@@ -104,7 +104,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     summary: "Blueprint website, full brand identity kit, SEO strategy, competitor analysis.",
     timeline: "8 to 12 weeks",
     includedMaintenanceMonths: 3,
-    href: "/packages/launch",
+    href: "/packages/launch/velocity",
   },
   {
     id: "ascend",
@@ -115,7 +115,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     timeline: "10 to 14 weeks",
     includedMaintenanceMonths: 6,
     includesEcommerce: true,
-    href: "/packages/launch",
+    href: "/packages/launch/ascend",
   },
   {
     id: "apex",
@@ -126,7 +126,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     timeline: "12 to 16 weeks",
     includedMaintenanceMonths: 12,
     includesEcommerce: true,
-    href: "/packages/launch",
+    href: "/packages/launch/apex",
   },
   {
     id: "none",

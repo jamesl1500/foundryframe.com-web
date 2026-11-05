@@ -46,7 +46,7 @@ Process: Discovery, Strategy, Design, Build, Launch. The client is involved at e
 Website add-ons: E-Commerce Setup $2,500+ (custom headless storefront); Social Media Management from $250/mo; Additional web pages $500/page; SEO Audit & Optimization $800.
 
 ## Launch Bundles (/packages/launch)
-Website, brand, and support combined in one engagement, one team, one timeline.
+Website, brand, and support combined in one engagement, one team, one timeline. Each bundle has its own page: /packages/launch/ignite, /packages/launch/velocity, /packages/launch/ascend, /packages/launch/apex.
 1. Ignite, starting at $2,500. The Spark 5-page website, logo design (3 concepts, 2 revision rounds), social profile setup on up to 3 platforms, 1 month of Steady maintenance, domain and hosting setup.
 2. Velocity, starting at $6,500 (most popular). The Blueprint 10-page website with CMS, full brand identity kit (logo, colors, typography, guidelines PDF), SEO audit plus 90-day keyword strategy, GA4 and Search Console setup, competitor analysis of the top 5 competitors, 3 months of Active maintenance.
 3. Ascend, starting at $14,000. The Architect 20-page growth website, full brand identity and style guide, landing page plus paid ad funnel (Google or Meta), 3 months of social media management (3 platforms, 12 posts/month), ad campaign setup and first-month optimization, monthly reporting, 6 months of Active maintenance.

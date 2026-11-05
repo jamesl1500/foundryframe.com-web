@@ -3,7 +3,12 @@ import { generateStaticParams as generateBlogStaticParams } from "@/app/blog/[sl
 import { generateStaticParams as generateCaseStudyStaticParams } from "@/app/case-studies/[slug]/page";
 import { industries } from "@/lib/seo/industries";
 import { locations } from "@/lib/seo/locations";
+import { launchBundles } from "@/lib/packages/launch";
 import { websitePackages } from "@/lib/packages/website";
+
+/* Reads from the Supabase CMS. Admin saves refresh this page right away
+   (see lib/cms/revalidate.ts); this is the fallback for other edits. */
+export const revalidate = 60;
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
@@ -67,6 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...locations.map(({ slug }) => `/locations/${slug}`),
     ...industries.map(({ slug }) => `/industries/${slug}`),
     ...websitePackages.map(({ slug }) => `/packages/website/${slug}`),
+    ...launchBundles.map(({ slug }) => `/packages/launch/${slug}`),
   ].map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: now,

@@ -12,6 +12,10 @@ import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import { getPublishedServices } from "@/lib/cms/public-data";
 
+/* Reads from the Supabase CMS. Admin saves refresh this page right away
+   (see lib/cms/revalidate.ts); this is the fallback for other edits. */
+export const revalidate = 60;
+
 const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {

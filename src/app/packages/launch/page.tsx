@@ -10,6 +10,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { launchBundles as bundles } from "@/lib/packages/launch";
 import { parsePriceSpecification } from "@/lib/schema-price";
 
 const siteUrl = "https://www.foundryframe.com";
@@ -46,94 +47,6 @@ export const metadata: Metadata = {
 };
 
 /* ============================================================
-   DATA: Launch Bundles
-   ============================================================ */
-const bundles = [
-  {
-    number: "01",
-    name: "Ignite",
-    pricePrefix: "Starting at",
-    price: "$2,500",
-    tagline: "From zero to online in one move.",
-    description:
-      "Starting a business is hard enough. Getting your digital presence right shouldn't be a months-long ordeal. Ignite packages everything a new business needs to launch online with confidence — a custom website, a professional logo, and a social media presence — all delivered in one seamless engagement.",
-    features: [
-      "The Spark — 5-page custom website",
-      "Logo design (3 concept directions, 2 revision rounds, all file formats)",
-      "Social media profile setup and optimization on up to 3 platforms",
-      "1 month of Steady Maintenance included",
-      "Domain registration and hosting configuration",
-    ],
-    cta: "Light the fuse — get started",
-    badge: null,
-    variant: "dark" as const,
-  },
-  {
-    number: "02",
-    name: "Velocity",
-    pricePrefix: "Starting at",
-    price: "$6,500",
-    tagline: "Everything a real business needs to compete online.",
-    description:
-      "Velocity is the complete digital launchpad for businesses that are serious about their online presence from day one. In a single engagement, you get a conversion-optimized website, a full brand identity system, a clear roadmap for search visibility, and three months of Active Maintenance — all handled by one team, on one timeline.",
-    features: [
-      "The Blueprint — 10-page custom website with CMS",
-      "Full brand identity kit (logo, color palette, typography system, brand guidelines PDF)",
-      "SEO audit + 90-day keyword strategy and content roadmap",
-      "Google Analytics 4 and Google Search Console setup and verification",
-      "Competitor analysis report (top 5 competitors in your market)",
-      "3 months of Active Maintenance",
-    ],
-    cta: "Start with Velocity",
-    badge: "Most Popular",
-    variant: "light" as const,
-  },
-  {
-    number: "03",
-    name: "Ascend",
-    pricePrefix: "Starting at",
-    price: "$14,000",
-    tagline: "Build the machine. Turn it on. Watch it grow.",
-    description:
-      "Ascend is for growth-stage businesses that don't just want a great website — they want a full digital growth engine. Site, ads, social presence, and maintenance all aligned, all managed, and all pulling in the same direction while your competitors juggle three different vendors.",
-    features: [
-      "The Architect — 20-page growth website with e-commerce readiness",
-      "Full brand identity and visual style guide",
-      "Landing page + paid advertising funnel (Google Ads or Meta Ads)",
-      "Social media management — 3 months (3 platforms, 12 posts/month)",
-      "Paid ad campaign setup, targeting, and first-month optimization",
-      "Monthly performance reporting across all channels",
-      "6 months of Active Maintenance",
-    ],
-    cta: "Build with Ascend",
-    badge: null,
-    variant: "dark" as const,
-  },
-  {
-    number: "04",
-    name: "Apex",
-    pricePrefix: "Starting at",
-    price: "$28,000",
-    tagline: "Total digital command. Nothing left undone.",
-    description:
-      "Apex is our most comprehensive engagement — for companies that want complete command of their digital presence. An enterprise-grade website, custom application feature, full brand strategy workshop, SEO, paid ads, and a full year of Elite Maintenance. Apex clients don't shop for services. They invest in outcomes.",
-    features: [
-      "The Monument — enterprise custom website",
-      "Custom web application feature or client portal",
-      "Full brand strategy workshop and competitive positioning session",
-      "6 months of ongoing SEO (technical, content, and link building)",
-      "3 months of paid ads management (Google + Meta)",
-      "12 months of Elite Maintenance",
-      "Quarterly strategy review sessions",
-      "Dedicated account manager throughout",
-    ],
-    cta: "Reserve a strategy session",
-    badge: "Full Service",
-    variant: "dark-accent" as const,
-  },
-];
-
-/* ============================================================
    STRUCTURED DATA
    ============================================================ */
 const offersStructuredData = {
@@ -156,7 +69,7 @@ const offersStructuredData = {
       "@type": "Offer",
       name: `${bundle.name} Launch Bundle`,
       description: bundle.tagline,
-      url: `${siteUrl}/packages/launch`,
+      url: `${siteUrl}/packages/launch/${bundle.slug}`,
       priceSpecification: parsePriceSpecification(
         bundle.pricePrefix ? `${bundle.pricePrefix} ${bundle.price}` : bundle.price
       ),
@@ -257,7 +170,11 @@ export default function LaunchBundlesPage() {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
             {bundles.map((b) => (
-              <div key={`strip-${b.number}`} className="glass rounded-bubble py-5 px-5 lg:px-6">
+              <Link
+                key={`strip-${b.number}`}
+                href={`/packages/launch/${b.slug}`}
+                className="glass-card rounded-bubble py-5 px-5 lg:px-6"
+              >
                 <span className="text-xs uppercase tracking-[0.3em] text-muted block mb-1">
                   {b.number}
                 </span>
@@ -268,7 +185,7 @@ export default function LaunchBundlesPage() {
                   {b.pricePrefix ? `${b.pricePrefix} ` : ""}
                   {b.price}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -286,7 +203,7 @@ export default function LaunchBundlesPage() {
               <div className="flex items-center justify-between mb-8">
                 <span className="text-xs uppercase tracking-[0.3em] text-muted">Bundle 01</span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-muted mb-1">{bundles[0].name}</p>
+              <p className="text-lg uppercase tracking-widest text-muted mb-2">{bundles[0].name}</p>
               {bundles[0].pricePrefix && (
                 <span className="text-xs uppercase tracking-widest text-muted block">{bundles[0].pricePrefix}</span>
               )}
@@ -294,7 +211,7 @@ export default function LaunchBundlesPage() {
               <p className="text-xs italic text-muted mb-4">&ldquo;{bundles[0].tagline}&rdquo;</p>
               <p className="text-sm text-body leading-relaxed mb-8">{bundles[0].description}</p>
               <div className="border-t border-ink/10 flex-1">
-                {bundles[0].features.map((f) => (
+                {bundles[0].items.map(({ label: f }) => (
                   <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
                     <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
                     <span className="text-body text-sm">{f}</span>
@@ -302,8 +219,14 @@ export default function LaunchBundlesPage() {
                 ))}
               </div>
               <Link
+                href={`/packages/launch/${bundles[0].slug}`}
+                className="btn btn-glass min-h-10 px-5 text-sm self-start mt-8"
+              >
+                Full details: {bundles[0].name} &rarr;
+              </Link>
+              <Link
                 href="/contact"
-                className="btn btn-primary flex text-center mt-8"
+                className="btn btn-primary flex text-center mt-4"
               >
                 {bundles[0].cta}
               </Link>
@@ -317,7 +240,7 @@ export default function LaunchBundlesPage() {
                   Most Popular
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-muted mb-1">{bundles[1].name}</p>
+              <p className="text-lg uppercase tracking-widest text-muted mb-2">{bundles[1].name}</p>
               {bundles[1].pricePrefix && (
                 <span className="text-xs uppercase tracking-widest text-body block">{bundles[1].pricePrefix}</span>
               )}
@@ -325,7 +248,7 @@ export default function LaunchBundlesPage() {
               <p className="text-xs italic text-muted mb-4">&ldquo;{bundles[1].tagline}&rdquo;</p>
               <p className="text-sm text-muted leading-relaxed mb-8">{bundles[1].description}</p>
               <div className="border-t border-ink/10 flex-1">
-                {bundles[1].features.map((f) => (
+                {bundles[1].items.map(({ label: f }) => (
                   <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
                     <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
                     <span className="text-ink-soft text-sm">{f}</span>
@@ -333,8 +256,14 @@ export default function LaunchBundlesPage() {
                 ))}
               </div>
               <Link
+                href={`/packages/launch/${bundles[1].slug}`}
+                className="btn btn-glass min-h-10 px-5 text-sm self-start mt-8"
+              >
+                Full details: {bundles[1].name} &rarr;
+              </Link>
+              <Link
                 href="/contact"
-                className="btn btn-primary flex text-center mt-8"
+                className="btn btn-primary flex text-center mt-4"
               >
                 {bundles[1].cta}
               </Link>
@@ -345,7 +274,7 @@ export default function LaunchBundlesPage() {
               <div className="flex items-center justify-between mb-8">
                 <span className="text-xs uppercase tracking-[0.3em] text-muted">Bundle 03</span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-muted mb-1">{bundles[2].name}</p>
+              <p className="text-lg uppercase tracking-widest text-muted mb-2">{bundles[2].name}</p>
               {bundles[2].pricePrefix && (
                 <span className="text-xs uppercase tracking-widest text-muted block">{bundles[2].pricePrefix}</span>
               )}
@@ -353,7 +282,7 @@ export default function LaunchBundlesPage() {
               <p className="text-xs italic text-muted mb-4">&ldquo;{bundles[2].tagline}&rdquo;</p>
               <p className="text-sm text-body leading-relaxed mb-8">{bundles[2].description}</p>
               <div className="border-t border-ink/10 flex-1">
-                {bundles[2].features.map((f) => (
+                {bundles[2].items.map(({ label: f }) => (
                   <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
                     <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
                     <span className="text-body text-sm">{f}</span>
@@ -361,8 +290,14 @@ export default function LaunchBundlesPage() {
                 ))}
               </div>
               <Link
+                href={`/packages/launch/${bundles[2].slug}`}
+                className="btn btn-glass min-h-10 px-5 text-sm self-start mt-8"
+              >
+                Full details: {bundles[2].name} &rarr;
+              </Link>
+              <Link
                 href="/contact"
-                className="btn btn-primary flex text-center mt-8"
+                className="btn btn-primary flex text-center mt-4"
               >
                 {bundles[2].cta}
               </Link>
@@ -376,7 +311,7 @@ export default function LaunchBundlesPage() {
                   Full Service
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-muted mb-1">{bundles[3].name}</p>
+              <p className="text-lg uppercase tracking-widest text-muted mb-2">{bundles[3].name}</p>
               {bundles[3].pricePrefix && (
                 <span className="text-xs uppercase tracking-widest text-muted block">{bundles[3].pricePrefix}</span>
               )}
@@ -384,7 +319,7 @@ export default function LaunchBundlesPage() {
               <p className="text-xs italic text-muted mb-4">&ldquo;{bundles[3].tagline}&rdquo;</p>
               <p className="text-sm text-body leading-relaxed mb-8">{bundles[3].description}</p>
               <div className="border-t border-ink/10 flex-1">
-                {bundles[3].features.map((f) => (
+                {bundles[3].items.map(({ label: f }) => (
                   <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
                     <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
                     <span className="text-body text-sm">{f}</span>
@@ -392,8 +327,14 @@ export default function LaunchBundlesPage() {
                 ))}
               </div>
               <Link
+                href={`/packages/launch/${bundles[3].slug}`}
+                className="btn btn-glass min-h-10 px-5 text-sm self-start mt-8"
+              >
+                Full details: {bundles[3].name} &rarr;
+              </Link>
+              <Link
                 href="/contact"
-                className="btn btn-primary flex text-center mt-8"
+                className="btn btn-primary flex text-center mt-4"
               >
                 {bundles[3].cta}
               </Link>

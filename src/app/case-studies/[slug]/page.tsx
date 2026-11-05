@@ -9,6 +9,10 @@ import {
 } from "@/lib/cms/public-data";
 import { isInHouseProduct } from "@/lib/site-facts";
 
+/* Reads from the Supabase CMS. Admin saves refresh this page right away
+   (see lib/cms/revalidate.ts); this is the fallback for other edits. */
+export const revalidate = 60;
+
 interface Params {
   slug: string;
 }
