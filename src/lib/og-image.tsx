@@ -41,12 +41,19 @@ const cornerBracket = (
   );
 };
 
+/** Headline size that keeps the longest line inside the 1200px card. */
+export function fitHeadlineSize(lines: string[]) {
+  const longest = Math.max(...lines.map((line) => line.length));
+  return longest > 20 ? 72 : longest > 17 ? 84 : 96;
+}
+
 /* Defaults are the site-wide image; route segments with their own share image
    (e.g. /founding) pass a headline (one entry per line) and footer tagline. */
 export function OgImageContent({
   headline = ["Creative Design", "Agency"],
   tagline = "Branding · Web Design · Marketing · Advertising · Digital Strategy",
-}: { headline?: string[]; tagline?: string } = {}) {
+  headlineSize = 96,
+}: { headline?: string[]; tagline?: string; headlineSize?: number } = {}) {
   return (
     <div
       style={{
@@ -118,7 +125,7 @@ export function OgImageContent({
             <span
               key={line}
               style={{
-                fontSize: 96,
+                fontSize: headlineSize,
                 fontWeight: 800,
                 color: "#FFFFFF",
                 letterSpacing: -2,

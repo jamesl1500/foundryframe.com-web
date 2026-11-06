@@ -329,7 +329,20 @@ export default function CmsEditorClient({ entity, mode, id, initialItem }: Props
                     {field.required ? " *" : ""}
                   </span>
 
-                  {field.type === "textarea" || field.type === "json" ? (
+                  {field.type === "select" ? (
+                    <select
+                      required={field.required}
+                      value={String(raw ?? "")}
+                      onChange={(event) => updateField(field.key, event.target.value)}
+                      className="w-full bg-white/5 border border-white/20 text-white text-sm px-4 py-3 focus:outline-none focus:border-white/50"
+                    >
+                      {field.options?.map((option) => (
+                        <option key={option.value} value={option.value} className="bg-black">
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  ) : field.type === "textarea" || field.type === "json" ? (
                     <textarea
                       required={field.required}
                       rows={field.type === "json" ? 6 : 4}

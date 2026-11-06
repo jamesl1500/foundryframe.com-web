@@ -74,6 +74,10 @@ function coerceField(field: CmsFieldConfig, value: unknown): unknown {
       const date = new Date(normalized);
       return Number.isNaN(date.getTime()) ? null : date.toISOString();
     }
+    case "select": {
+      const choice = typeof value === "string" ? value.trim() : "";
+      return field.options?.some((option) => option.value === choice) ? choice : null;
+    }
     case "text":
     case "textarea":
     case "url":

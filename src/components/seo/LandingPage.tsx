@@ -9,11 +9,19 @@
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
+import Image from "next/image";
 import Link from "next/link";
 import SparkSpotlight from "@/components/SparkSpotlight";
 import AuditForm from "@/components/AuditForm";
 import PackageHighlights from "@/components/PackageHighlights";
 import { BOOKING_URL } from "@/lib/analytics";
+import type { PublishedCaseStudy } from "@/lib/cms/public-data";
+import {
+  APPLE_MAPS_URL,
+  BUSINESS_HOURS_LINES,
+  GOOGLE_MAPS_URL,
+  isInHouseProduct,
+} from "@/lib/site-facts";
 
 type Feature = { title: string; description: string };
 type Faq = { q: string; a: string };
@@ -36,6 +44,14 @@ interface LandingPageProps {
   faqs: Faq[];
   related: RelatedGroup[];
   auditHeading: string;
+  /** Published case studies to show as proof (the first three are used). */
+  recentWork?: PublishedCaseStudy[];
+  recentWorkHeading?: string;
+  /** Case studies to badge as matching this page, e.g. tagged "contractors". */
+  matchedWorkIds?: string[];
+  matchedWorkLabel?: string;
+  /** Where the business card says we work, e.g. "Elyria and Lorain County". */
+  serviceArea?: string;
 }
 
 export default function LandingPage({
@@ -53,7 +69,14 @@ export default function LandingPage({
   faqs,
   related,
   auditHeading,
+  recentWork = [],
+  recentWorkHeading = "Websites we’ve designed and built",
+  matchedWorkIds = [],
+  matchedWorkLabel,
+  serviceArea = "Lorain County, Greater Cleveland, and across Ohio",
 }: LandingPageProps) {
+  const work = recentWork.slice(0, 3);
+
   return (
     <>
       {structuredData.map((data, i) => (
@@ -167,6 +190,62 @@ export default function LandingPage({
       </section>
 
       {/* =============================================
+          RECENT WORK
+          ============================================= */}
+      {work.length > 0 ? (
+        <section className="py-24 lg:py-28">
+          <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
+              <div>
+                <p className="eyebrow mb-4">Recent Work</p>
+                <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink max-w-3xl">
+                  {recentWorkHeading}
+                </h2>
+              </div>
+              <Link href="/case-studies" className="btn btn-glass self-start sm:self-auto">
+                All case studies &rarr;
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {work.map((study) => (
+                <Link
+                  key={study.id}
+                  href={`/case-studies/${study.slug}`}
+                  className="glass rounded-card group flex flex-col overflow-hidden hover:bg-white/75 transition-colors"
+                >
+                  {study.cover_image_url ? (
+                    <div className="relative aspect-[16/9] overflow-hidden border-b border-ink/10">
+                      <Image
+                        src={study.cover_image_url}
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 33vw, 100vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="p-6">
+                    {matchedWorkLabel && matchedWorkIds.includes(study.id) ? (
+                      <span className="inline-block mb-3 text-xs uppercase tracking-widest border border-accent/40 text-accent-ink px-2 py-1 rounded-full">
+                        {matchedWorkLabel}
+                      </span>
+                    ) : null}
+                    <h3 className="text-ink font-heading font-bold text-xl mb-2 group-hover:text-accent-ink transition-colors">
+                      {study.title}
+                    </h3>
+                    <p className="text-xs uppercase tracking-widest text-muted">
+                      {isInHouseProduct(study) ? "In-house product" : study.client_name}
+                      {study.industry ? ` · ${study.industry}` : ""}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* =============================================
 
           THE SPARK
 
@@ -248,8 +327,8 @@ export default function LandingPage({
           CTA
           ============================================= */}
       <section className="py-24 lg:py-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="max-w-3xl">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-7">
             <p className="eyebrow mb-6">Next Step</p>
             <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-6">
               Talk to the person who&apos;ll build your site.
@@ -275,6 +354,46 @@ export default function LandingPage({
               </a>
             </div>
           </div>
+
+          {/* Visible name, area, phone, and hours, matching the Google
+              Business Profile word for word (see lib/site-facts.ts). */}
+          <address className="lg:col-span-5 glass rounded-card p-8 not-italic text-sm text-body leading-relaxed">
+            <p className="font-heading font-bold text-ink text-lg">Foundry Frame</p>
+            <p>Lorain, OH 44053</p>
+            <p className="mt-1 text-muted">Serving {serviceArea}</p>
+            <p className="mt-4">
+              <a href="tel:+12168897822" className="underline underline-offset-4 hover:text-ink">
+                (216) 889-7822
+              </a>
+            </p>
+            <ul className="mt-4 space-y-1">
+              {BUSINESS_HOURS_LINES.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={GOOGLE_MAPS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track="Landing: Google Maps"
+                className="btn btn-glass min-h-10 px-4 text-sm"
+              >
+                Find us on Google Maps
+              </a>
+              {APPLE_MAPS_URL ? (
+                <a
+                  href={APPLE_MAPS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="Landing: Apple Maps"
+                  className="btn btn-glass min-h-10 px-4 text-sm"
+                >
+                  Apple Maps
+                </a>
+              ) : null}
+            </div>
+          </address>
         </div>
       </section>
     </>

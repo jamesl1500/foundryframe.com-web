@@ -18,17 +18,15 @@ import {
   locations,
   relatedLocations,
 } from "@/lib/seo/locations";
-import { industries } from "@/lib/seo/industries";
+import { getIndustry, industries } from "@/lib/seo/industries";
+import { industryPagesInArea } from "@/lib/seo/industry-areas";
 import { websitePackages } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
-import {
-  BUSINESS_EMAIL,
-  BUSINESS_PHONE,
-  GEO_COORDINATES,
-  GOOGLE_MAPS_URL,
-  OPENING_HOURS_SPECIFICATION,
-  POSTAL_ADDRESS,
-} from "@/lib/site-facts";
+import { getPublishedCaseStudies } from "@/lib/cms/public-data";
+
+/* "Recent work" reads from the Supabase CMS. Admin saves refresh this page
+   right away (see lib/cms/revalidate.ts); this is the fallback for other edits. */
+export const revalidate = 60;
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -50,6 +48,9 @@ export async function generateMetadata({
   const title = `Web Design in ${location.city}, OH`;
   const url = `/locations/${location.slug}`;
 
+  /* Share image comes from opengraph-image.tsx in this folder. This object
+     replaces the root openGraph rather than merging with it, so siteName
+     and locale are repeated here. */
   return {
     title,
     description: location.metaDescription,
@@ -59,13 +60,13 @@ export async function generateMetadata({
       description: location.metaDescription,
       url,
       type: "website",
-      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: title }],
+      siteName: "Foundry Frame",
+      locale: "en_US",
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: location.metaDescription,
-      images: ["/twitter-image"],
     },
   };
 }
@@ -79,6 +80,7 @@ export default async function LocationPage({
   const location = getLocation(slug);
   if (!location) notFound();
 
+  const recentWork = await getPublishedCaseStudies(3);
   const pageUrl = `${siteUrl}/locations/${location.slug}`;
   const ohio = { "@type": "State", name: "Ohio" };
   const areaServed = [
@@ -89,34 +91,32 @@ export default async function LocationPage({
     { "@type": "AdministrativeArea", name: `${location.county}, Ohio` },
   ];
 
+  /* The business itself is declared once, in the root layout
+     (#organization). Declaring a second business with the same address on
+     every city page splits it into look-alike entities, which weakens the
+     local signals Google ties to the Business Profile. */
   const structuredData = [
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "@id": `${pageUrl}#business`,
-      name: "Foundry Frame",
-      description: location.metaDescription,
+      "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
       url: pageUrl,
-      image: `${siteUrl}/james-latten.jpg`,
-      logo: `${siteUrl}/logo.svg`,
-      telephone: BUSINESS_PHONE,
-      email: BUSINESS_EMAIL,
-      priceRange: "$$",
-      address: POSTAL_ADDRESS,
-      geo: GEO_COORDINATES,
-      hasMap: GOOGLE_MAPS_URL,
-      openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
-      areaServed,
-      parentOrganization: { "@id": `${siteUrl}/#organization` },
+      name: `Web Design in ${location.city}, OH`,
+      description: location.metaDescription,
+      isPartOf: { "@id": `${siteUrl}/#website` },
+      about: { "@id": `${siteUrl}/#organization` },
+      mainEntity: { "@id": `${pageUrl}#service` },
+      inLanguage: "en-US",
     },
     {
       "@context": "https://schema.org",
       "@type": "Service",
+      "@id": `${pageUrl}#service`,
       name: `Web Design in ${location.city}, Ohio`,
       serviceType: "Web Design",
       url: pageUrl,
       description: location.metaDescription,
-      provider: { "@id": `${pageUrl}#business` },
+      provider: { "@id": `${siteUrl}/#organization` },
       areaServed,
       offers: {
         "@type": "Offer",
@@ -176,10 +176,17 @@ export default async function LocationPage({
         },
         {
           heading: "Websites for your industry",
-          links: industries.map((industry) => ({
-            label: industry.name,
-            href: `/industries/${industry.slug}`,
-          })),
+          links: [
+            /* Industry pages written for this county come first. */
+            ...industryPagesInArea(location.county).map((page) => ({
+              label: `${getIndustry(page.industrySlug)?.name ?? page.industrySlug} in ${page.area}`,
+              href: `/industries/${page.industrySlug}/${page.areaSlug}`,
+            })),
+            ...industries.map((industry) => ({
+              label: industry.name,
+              href: `/industries/${industry.slug}`,
+            })),
+          ],
         },
         {
           heading: "Website packages",
@@ -199,6 +206,8 @@ export default async function LocationPage({
         },
       ]}
       auditHeading={`How does your ${location.city} business website score?`}
+      recentWork={recentWork}
+      serviceArea={`${location.city} and ${location.county}`}
     />
   );
 }

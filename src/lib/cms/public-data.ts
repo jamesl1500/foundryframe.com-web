@@ -203,6 +203,40 @@ export async function getPublishedCaseStudyBySlug(
   return data as PublishedCaseStudy;
 }
 
+/**
+ * Published case studies tagged with an industry page (industry_slug, set in
+ * the admin), topped up with the latest other studies so there are always
+ * `limit` to show when that many exist. The tagged ones come first and are
+ * flagged, so the page can say "contractor sites we've built" only when true.
+ * Falls back to the latest studies if the industry_slug column is missing.
+ */
+export async function getCaseStudiesForIndustry(
+  industrySlug: string,
+  limit = 3,
+): Promise<{ matched: PublishedCaseStudy[]; studies: PublishedCaseStudy[] }> {
+  const supabase = getSupabasePublicClient();
+  const [tagged, latest] = await Promise.all([
+    supabase
+      .from("case_studies")
+      .select(CASE_STUDY_COLUMNS)
+      .eq("is_published", true)
+      .eq("industry_slug", industrySlug)
+      .order("sort_order", { ascending: true })
+      .order("updated_at", { ascending: false })
+      .limit(limit),
+    getPublishedCaseStudies(limit + 3),
+  ]);
+
+  const matched = tagged.error || !tagged.data ? [] : (tagged.data as PublishedCaseStudy[]);
+  const matchedIds = new Set(matched.map((study) => study.id));
+  const studies = [
+    ...matched,
+    ...latest.filter((study) => !matchedIds.has(study.id)),
+  ].slice(0, limit);
+
+  return { matched, studies };
+}
+
 export async function getHomepageTestimonials(
   limit = 3,
 ): Promise<HomepageTestimonial[]> {

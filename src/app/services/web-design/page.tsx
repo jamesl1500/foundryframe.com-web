@@ -225,25 +225,13 @@ const serviceStructuredData = {
   category: "Web Design",
   description:
     "Custom web design and development built with Next.js and React — no templates, no page builders.",
-  provider: {
-    "@type": ["Organization", "LocalBusiness"],
-    name: "Foundry Frame",
-    url: siteUrl,
-    telephone: "+1-216-889-7822",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Lorain",
-      addressRegion: "OH",
-      postalCode: "44053",
-      addressCountry: "US",
-    },
-  },
+  provider: { "@id": `${siteUrl}/#organization` },
   areaServed: [
     ...locations.flatMap((location) =>
       citiesOf(location).map((name) => ({ "@type": "City", name }))
     ),
     { "@type": "State", name: "Ohio" },
-    { "@type": "AdministrativeArea", name: "United States" },
+    { "@type": "Country", name: "United States" },
   ],
   url: `${siteUrl}/services/web-design`,
   hasOfferCatalog: {

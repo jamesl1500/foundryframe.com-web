@@ -28,6 +28,7 @@ import {
   GOOGLE_MAPS_URL,
   OPENING_HOURS_SPECIFICATION,
   POSTAL_ADDRESS,
+  SAME_AS_PROFILES,
 } from "@/lib/site-facts";
 import { citiesOf, locations } from "@/lib/seo/locations";
 import {
@@ -58,13 +59,16 @@ const areaServed = [
     citiesOf(location).map((name) => ({ "@type": "City", name, containedInPlace: ohio }))
   ),
   ohio,
-  { "@type": "AdministrativeArea", name: "United States" },
+  { "@type": "Country", name: "United States" },
 ];
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": ["Organization", "LocalBusiness"],
+      /* One business entity for the whole site. ProfessionalService is a
+         LocalBusiness subtype; every page's schema points back to this @id
+         instead of declaring its own business at the same address. */
+      "@type": ["Organization", "ProfessionalService"],
       "@id": `${siteUrl}/#organization`,
       name: "Foundry Frame",
       legalName: "Foundry Frame LLC",
@@ -96,13 +100,7 @@ const structuredData = {
       geo: GEO_COORDINATES,
       openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
       hasMap: GOOGLE_MAPS_URL,
-      sameAs: [
-        "https://www.linkedin.com/company/foundry-frame/",
-        "https://www.instagram.com/foundry_frame/",
-        "https://x.com/FoundryFrame",
-        "https://www.facebook.com/foundry.frame",
-        GOOGLE_MAPS_URL,
-      ],
+      sameAs: SAME_AS_PROFILES,
     },
     {
       "@type": "WebSite",
@@ -113,32 +111,6 @@ const structuredData = {
       publisher: {
         "@id": `${siteUrl}/#organization`,
       },
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": `${siteUrl}/#service`,
-      legalName: "Foundry Frame LLC",
-      name: "Foundry Frame",
-      url: siteUrl,
-      image: `${siteUrl}/james-latten.jpg`,
-      serviceType: [
-        "Web Design",
-        "Branding",
-        "Digital Strategy",
-        "Social Media",
-      ],
-      areaServed,
-      priceRange: "$$",
-      telephone: BUSINESS_PHONE,
-      email: BUSINESS_EMAIL,
-      address: POSTAL_ADDRESS,
-      sameAs: [
-        "https://www.linkedin.com/company/foundry-frame/",
-        "https://www.instagram.com/foundry_frame/",
-        "https://x.com/FoundryFrame",
-        "https://www.facebook.com/foundry.frame",
-        GOOGLE_MAPS_URL,
-      ],
     },
   ],
 };

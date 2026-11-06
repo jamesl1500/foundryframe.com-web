@@ -144,23 +144,11 @@ const serviceStructuredData = {
   category: "Advertising",
   description:
     "Strategic advertising — campaign strategy, ad creative, PPC, display, and social advertising.",
-  provider: {
-    "@type": ["Organization", "LocalBusiness"],
-    name: "Foundry Frame",
-    url: siteUrl,
-    telephone: "+1-216-889-7822",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Lorain",
-      addressRegion: "OH",
-      postalCode: "44053",
-      addressCountry: "US",
-    },
-  },
+  provider: { "@id": `${siteUrl}/#organization` },
   areaServed: [
     { "@type": "City", name: "Lorain" },
     { "@type": "State", name: "Ohio" },
-    { "@type": "AdministrativeArea", name: "United States" },
+    { "@type": "Country", name: "United States" },
   ],
   url: `${siteUrl}/services/advertising`,
   hasOfferCatalog: {
