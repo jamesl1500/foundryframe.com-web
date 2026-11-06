@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
+import CaseStudyImages from "@/components/CaseStudyImages";
 import { seoTitle, summarize } from "@/lib/seo/meta";
 import {
   getPublishedCaseStudies,
@@ -129,35 +129,11 @@ export default async function CaseStudyDetailPage({
             </p>
           ) : null}
 
-          {study.cover_image_url ? (
-            <Image
-              src={study.cover_image_url}
-              alt={study.title}
-              width={1600}
-              height={900}
-              className="w-full h-auto border border-ink/10 mb-10"
-            />
-          ) : null}
-
-          {galleryImages.length > 0 ? (
-            <div className="mb-10">
-              <p className="text-xs uppercase tracking-widest text-muted mb-4">
-                Project Gallery
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {galleryImages.map((imageUrl, index) => (
-                  <Image
-                    key={`${imageUrl}-${index}`}
-                    src={imageUrl}
-                    alt={`${study.title} gallery image ${index + 1}`}
-                    width={1000}
-                    height={750}
-                    className="w-full h-48 object-cover border border-ink/10"
-                  />
-                ))}
-              </div>
-            </div>
-          ) : null}
+          <CaseStudyImages
+            title={study.title}
+            coverUrl={study.cover_image_url}
+            galleryUrls={galleryImages}
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
             <div className="glass rounded-card p-6">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
+import Image from "next/image";
 import Link from "next/link";
 import { getPublishedCaseStudies } from "@/lib/cms/public-data";
 import {
@@ -72,41 +73,54 @@ export default async function CaseStudiesPage() {
                 <Link
                   key={study.id}
                   href={`/case-studies/${study.slug}`}
-                  className="glass rounded-card group p-8 lg:p-10 hover:bg-white/75 transition-colors"
+                  className="glass rounded-card group flex flex-col overflow-hidden hover:bg-white/75 transition-colors"
                 >
-                  <div className="flex items-center justify-between gap-4 mb-5">
-                    <p className="text-xs uppercase tracking-[0.3em] text-muted">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    {isInHouseProduct(study) ? (
-                      <span className="text-xs uppercase tracking-widest border border-accent/40 text-accent-ink px-2 py-1 rounded-full">
-                        In-house product
-                      </span>
-                    ) : null}
-                  </div>
-                  <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink leading-tight mb-3">
-                    {study.title}
-                  </h2>
-                  <p className="text-xs uppercase tracking-widest text-muted mb-6">
-                    {study.client_name}
-                    {study.industry ? ` · ${study.industry}` : ""}
-                  </p>
-                  <p className="text-sm text-body leading-relaxed mb-6">
-                    {study.summary || "Case study summary coming soon."}
-                  </p>
-                  {Array.isArray(study.services) &&
-                  study.services.length > 0 ? (
-                    <div className="flex flex-wrap gap-2">
-                      {study.services.slice(0, 4).map((service) => (
-                        <span
-                          key={service}
-                          className="text-xs uppercase tracking-widest border border-ink/10 text-muted px-2 py-1 rounded-full"
-                        >
-                          {service}
-                        </span>
-                      ))}
+                  {study.cover_image_url ? (
+                    <div className="relative aspect-[16/9] overflow-hidden border-b border-ink/10">
+                      <Image
+                        src={study.cover_image_url}
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                      />
                     </div>
                   ) : null}
+                  <div className="p-8 lg:p-10">
+                    <div className="flex items-center justify-between gap-4 mb-5">
+                      <p className="text-xs uppercase tracking-[0.3em] text-muted">
+                        {String(index + 1).padStart(2, "0")}
+                      </p>
+                      {isInHouseProduct(study) ? (
+                        <span className="text-xs uppercase tracking-widest border border-accent/40 text-accent-ink px-2 py-1 rounded-full">
+                          In-house product
+                        </span>
+                      ) : null}
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink leading-tight mb-3">
+                      {study.title}
+                    </h2>
+                    <p className="text-xs uppercase tracking-widest text-muted mb-6">
+                      {study.client_name}
+                      {study.industry ? ` · ${study.industry}` : ""}
+                    </p>
+                    <p className="text-sm text-body leading-relaxed mb-6">
+                      {study.summary || "Case study summary coming soon."}
+                    </p>
+                    {Array.isArray(study.services) &&
+                    study.services.length > 0 ? (
+                      <div className="flex flex-wrap gap-2">
+                        {study.services.slice(0, 4).map((service) => (
+                          <span
+                            key={service}
+                            className="text-xs uppercase tracking-widest border border-ink/10 text-muted px-2 py-1 rounded-full"
+                          >
+                            {service}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+                  </div>
                 </Link>
               ))}
             </div>
