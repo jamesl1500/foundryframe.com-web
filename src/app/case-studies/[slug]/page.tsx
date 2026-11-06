@@ -17,6 +17,19 @@ interface Params {
   slug: string;
 }
 
+/* Only link out to http(s) URLs from the CMS; adds https:// when the
+   editor typed a bare domain like "example.com". */
+function safeExternalUrl(raw: string | null | undefined): string | null {
+  const value = raw?.trim();
+  if (!value) return null;
+  try {
+    const url = new URL(/^[a-z][a-z\d+.-]*:/i.test(value) ? value : `https://${value}`);
+    return url.protocol === "http:" || url.protocol === "https:" ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function generateStaticParams() {
   const studies = await getPublishedCaseStudies();
   return studies.map((study) => ({ slug: study.slug }));
@@ -85,11 +98,13 @@ export default async function CaseStudyDetailPage({
           typeof entry === "string" && entry.trim().length > 0,
       )
     : [];
+  const projectUrl = safeExternalUrl(study.project_url);
+  const testimonialQuote = study.testimonial_quote?.trim();
 
   return (
     <>
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 min-h-screen">
-        <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link
             href="/case-studies"
             className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
@@ -107,7 +122,7 @@ export default async function CaseStudyDetailPage({
               </span>
             ) : null}
           </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.95] mb-4">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.95] max-w-4xl mb-4">
             {study.title}
           </h1>
           <p className="text-xs uppercase tracking-widest text-muted mb-8">
@@ -116,7 +131,7 @@ export default async function CaseStudyDetailPage({
           </p>
 
           {inHouse ? (
-            <p className="text-sm text-body leading-relaxed border-l-2 border-accent/40 pl-4 mb-8">
+            <p className="text-sm text-body leading-relaxed border-l-2 border-accent/40 pl-4 mb-8 max-w-3xl">
               {study.client_name || study.title} is Foundry Frame&apos;s own
               product. We designed, built, and run it ourselves, so this is a
               look at our work rather than a client engagement.
@@ -124,9 +139,35 @@ export default async function CaseStudyDetailPage({
           ) : null}
 
           {study.summary ? (
-            <p className="text-ink-soft text-base leading-relaxed mb-10">
+            <p className="text-ink-soft text-base leading-relaxed mb-10 max-w-3xl">
               {study.summary}
             </p>
+          ) : null}
+
+          {projectUrl ? (
+            <a
+              href={projectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="Case study: Visit live site"
+              className="btn btn-primary mb-10"
+            >
+              Visit the live site
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M7 17L17 7M9 7h8v8" />
+              </svg>
+              <span className="sr-only">(opens in a new tab)</span>
+            </a>
           ) : null}
 
           <CaseStudyImages
@@ -179,6 +220,28 @@ export default async function CaseStudyDetailPage({
               ))}
             </div>
           ) : null}
+
+          {testimonialQuote ? (
+            <figure className="glass rounded-card p-8 lg:p-12 mt-10">
+              <p className="text-xs uppercase tracking-widest text-muted mb-4">
+                Client Testimonial
+              </p>
+              <blockquote className="text-2xl sm:text-3xl font-heading font-semibold tracking-tight text-ink leading-tight">
+                &ldquo;{testimonialQuote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-5 text-sm text-muted">
+                {study.testimonial_author?.trim() || study.client_name}
+                {study.testimonial_author?.trim() && study.client_name
+                  ? ` · ${study.client_name}`
+                  : ""}
+              </figcaption>
+            </figure>
+          ) : null}
+
+          <hr
+            aria-hidden="true"
+            className="mt-16 lg:mt-20 h-px border-0 bg-linear-to-r from-transparent via-ink/15 to-transparent"
+          />
         </div>
       </section>
 
@@ -186,7 +249,7 @@ export default async function CaseStudyDetailPage({
         CASE STUDY CTA
         ============================================= */}
       <section className="py-20 lg:py-28">
-        <div className="max-w-[1100px] mx-auto px-6 lg:px-10">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <p className="eyebrow mb-4">
             Work With Us
           </p>
