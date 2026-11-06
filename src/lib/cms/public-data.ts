@@ -48,9 +48,15 @@ export type PublishedCaseStudy = {
   cover_image_url: string | null;
   gallery_urls: string[] | null;
   metrics: Array<{ label?: string; value?: string }> | null;
+  project_url: string | null;
+  testimonial_quote: string | null;
+  testimonial_author: string | null;
   is_featured: boolean | null;
   is_in_house: boolean | null;
 };
+
+const CASE_STUDY_COLUMNS =
+  "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, project_url, testimonial_quote, testimonial_author, is_featured, is_in_house";
 
 type CaseStudyTestimonial = {
   id: string;
@@ -161,9 +167,7 @@ export async function getPublishedCaseStudies(
   const supabase = getSupabasePublicClient();
   let query = supabase
     .from("case_studies")
-    .select(
-      "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, is_featured, is_in_house",
-    )
+    .select(CASE_STUDY_COLUMNS)
     .eq("is_published", true)
     .order("sort_order", { ascending: true })
     .order("updated_at", { ascending: false });
@@ -187,9 +191,7 @@ export async function getPublishedCaseStudyBySlug(
   const supabase = getSupabasePublicClient();
   const { data, error } = await supabase
     .from("case_studies")
-    .select(
-      "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, is_featured, is_in_house",
-    )
+    .select(CASE_STUDY_COLUMNS)
     .eq("is_published", true)
     .eq("slug", slug)
     .maybeSingle();
