@@ -18,7 +18,15 @@ import type { CmsEntity } from "@/lib/cms/types";
 
 /* Literal paths, or [pattern, "page"] for every page of a dynamic route. */
 const PAGES_BY_ENTITY: Record<CmsEntity, Array<string | [string, "page"]>> = {
-  case_studies: ["/case-studies", ["/case-studies/[slug]", "page"], "/sitemap.xml"],
+  case_studies: [
+    "/case-studies",
+    ["/case-studies/[slug]", "page"],
+    /* Location and industry pages show a "Recent work" strip. */
+    ["/locations/[slug]", "page"],
+    ["/industries/[slug]", "page"],
+    ["/industries/[slug]/[area]", "page"],
+    "/sitemap.xml",
+  ],
   services: ["/", "/services"],
   packages: ["/packages"],
   clients: ["/"],

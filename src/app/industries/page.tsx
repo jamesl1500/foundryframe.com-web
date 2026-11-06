@@ -13,6 +13,8 @@ import Link from "next/link";
 import AuditCallout from "@/components/AuditCallout";
 import { industries } from "@/lib/seo/industries";
 
+const siteUrl = "https://www.foundryframe.com";
+
 export const metadata: Metadata = {
   title: "Website Design by Industry",
   description:
@@ -37,9 +39,45 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Website Design by Industry",
+    url: `${siteUrl}/industries`,
+    about: { "@id": `${siteUrl}/#organization` },
+    isPartOf: { "@id": `${siteUrl}/#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: industries.map((industry, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: `Website Design for ${industry.name}`,
+        url: `${siteUrl}/industries/${industry.slug}`,
+      })),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Industries", item: `${siteUrl}/industries` },
+    ],
+  },
+];
+
 export default function IndustriesPage() {
   return (
     <>
+      {structuredData.map((data, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+        />
+      ))}
+
       <section className="pt-32 pb-16 lg:pt-40 lg:pb-20">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <p className="eyebrow mb-6">Industries</p>

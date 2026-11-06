@@ -3,6 +3,7 @@ import {
   type CmsEntity,
   type CmsEntityConfig,
 } from "@/lib/cms/types";
+import { industries } from "@/lib/seo/industries";
 
 export const CMS_CONFIG: Record<CmsEntity, CmsEntityConfig> = {
   case_studies: {
@@ -29,6 +30,17 @@ export const CMS_CONFIG: Record<CmsEntity, CmsEntityConfig> = {
       },
       { key: "client_name", label: "Client Name", type: "text" },
       { key: "industry", label: "Industry", type: "text" },
+      {
+        key: "industry_slug",
+        label: "Industry Page",
+        type: "select",
+        options: [
+          { value: "", label: "None" },
+          ...industries.map(({ slug, name }) => ({ value: slug, label: name })),
+        ],
+        description:
+          "Shows this case study as proof on that /industries page and its city pages.",
+      },
       {
         key: "services",
         label: "Services",

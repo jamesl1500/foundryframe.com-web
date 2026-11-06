@@ -15,7 +15,8 @@ export type CmsFieldType =
   | "checkbox"
   | "array"
   | "json"
-  | "datetime-local";
+  | "datetime-local"
+  | "select";
 
 export interface CmsFieldConfig {
   key: string;
@@ -24,6 +25,8 @@ export interface CmsFieldConfig {
   required?: boolean;
   placeholder?: string;
   description?: string;
+  /** Choices for a "select" field; an empty value saves as null. */
+  options?: { value: string; label: string }[];
 }
 
 export interface CmsEntityConfig {

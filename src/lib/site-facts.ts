@@ -27,6 +27,20 @@ export const GEO_COORDINATES = {
 };
 // Google Business Profile share link.
 export const GOOGLE_MAPS_URL = "https://share.google/MfrKTPNLPCBWTl4O0";
+/* Apple Maps place card from Apple Business Connect (businessconnect.apple.com).
+   Paste the "Share" link here once the listing is claimed and verified; the
+   site then links to it and adds it to the business schema's sameAs. */
+export const APPLE_MAPS_URL: string | null = null;
+
+/** Every public profile of the business, for schema.org sameAs. */
+export const SAME_AS_PROFILES = [
+  "https://www.linkedin.com/company/foundry-frame/",
+  "https://www.instagram.com/foundry_frame/",
+  "https://x.com/FoundryFrame",
+  "https://www.facebook.com/foundry.frame",
+  GOOGLE_MAPS_URL,
+  ...(APPLE_MAPS_URL ? [APPLE_MAPS_URL] : []),
+];
 
 /* --- Availability ---
    Mon-Fri 9am to 5pm and Sat 10am to 4pm, Eastern. Every hours mention on

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { generateStaticParams as generateBlogStaticParams } from "@/app/blog/[slug]/page";
 import { generateStaticParams as generateCaseStudyStaticParams } from "@/app/case-studies/[slug]/page";
 import { industries } from "@/lib/seo/industries";
+import { industryAreas } from "@/lib/seo/industry-areas";
 import { locations } from "@/lib/seo/locations";
 import { launchBundles } from "@/lib/packages/launch";
 import { websitePackages } from "@/lib/packages/website";
@@ -11,6 +12,12 @@ import { websitePackages } from "@/lib/packages/website";
 export const revalidate = 60;
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
+
+/* When the location, industry, and package landing copy last changed. Google
+   stops trusting <lastmod> on sites that report "now" for every URL on every
+   deploy, so bump this by hand after editing lib/seo/locations.ts,
+   lib/seo/industries.ts, lib/seo/industry-areas.ts, or lib/packages/*. */
+const LANDING_CONTENT_UPDATED = new Date("2026-11-06");
 
 const staticRoutes = [
   "",
@@ -71,11 +78,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const landingUrls: MetadataRoute.Sitemap = [
     ...locations.map(({ slug }) => `/locations/${slug}`),
     ...industries.map(({ slug }) => `/industries/${slug}`),
+    ...industryAreas.map(
+      ({ industrySlug, areaSlug }) => `/industries/${industrySlug}/${areaSlug}`
+    ),
     ...websitePackages.map(({ slug }) => `/packages/website/${slug}`),
     ...launchBundles.map(({ slug }) => `/packages/launch/${slug}`),
   ].map((route) => ({
     url: `${SITE_URL}${route}`,
-    lastModified: now,
+    lastModified: LANDING_CONTENT_UPDATED,
     changeFrequency: "monthly",
     priority: 0.8,
   }));
