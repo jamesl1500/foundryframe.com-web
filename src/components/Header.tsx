@@ -131,6 +131,10 @@ export default function Header() {
 
   useEffect(() => () => clearTimeout(closeTimer.current), []);
 
+  useEffect(() => {
+    if (!companyOpen) openedByHover.current = false;
+  }, [companyOpen]);
+
   function openOnHover(e: React.PointerEvent) {
     if (e.pointerType !== "mouse") return;
     clearTimeout(closeTimer.current);
@@ -142,13 +146,13 @@ export default function Header() {
     if (e.pointerType !== "mouse") return;
     clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => {
-      openedByHover.current = false;
+      if (companyRef.current?.contains(document.activeElement)) return;
       setCompanyOpen(false);
     }, 160);
   }
 
   function toggleCompany() {
-    if (openedByHover.current) {
+    if (companyOpen && openedByHover.current) {
       openedByHover.current = false;
       return;
     }

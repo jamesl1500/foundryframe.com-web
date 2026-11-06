@@ -715,7 +715,7 @@ export const launchBundles: LaunchBundle[] = [
       },
       {
         q: "How long does Apex take?",
-        a: "The launch typically takes 12–16 weeks. SEO, ads, maintenance, and quarterly reviews then continue through the year.",
+        a: "The launch typically takes 12–16 weeks. SEO is included for 6 months, ads management for 3 months, and Elite maintenance with quarterly reviews continues through the year.",
       },
       {
         q: "What happens after the first year?",
