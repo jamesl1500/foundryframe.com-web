@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CaseStudyImages from "@/components/CaseStudyImages";
+import FormattedText from "@/components/FormattedText";
 import { seoTitle, summarize } from "@/lib/seo/meta";
 import {
   getPublishedCaseStudies,
@@ -177,30 +178,24 @@ export default async function CaseStudyDetailPage({
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-            <div className="glass rounded-card p-6">
-              <p className="text-xs uppercase tracking-widest text-muted mb-2">
-                Challenge
-              </p>
-              <p className="text-sm text-ink-soft leading-relaxed">
-                {study.challenge || "Not specified."}
-              </p>
-            </div>
-            <div className="glass rounded-card p-6">
-              <p className="text-xs uppercase tracking-widest text-muted mb-2">
-                Solution
-              </p>
-              <p className="text-sm text-ink-soft leading-relaxed">
-                {study.solution || "Not specified."}
-              </p>
-            </div>
-            <div className="glass rounded-card p-6">
-              <p className="text-xs uppercase tracking-widest text-muted mb-2">
-                Results
-              </p>
-              <p className="text-sm text-ink-soft leading-relaxed">
-                {study.results || "Not specified."}
-              </p>
-            </div>
+            {(
+              [
+                ["Challenge", study.challenge],
+                ["Solution", study.solution],
+                ["Results", study.results],
+              ] as const
+            ).map(([label, text]) => (
+              <div key={label} className="glass rounded-card p-6">
+                <p className="text-xs uppercase tracking-widest text-muted mb-2">
+                  {label}
+                </p>
+                <FormattedText
+                  text={text}
+                  fallback="Not specified."
+                  className="text-sm text-ink-soft leading-relaxed"
+                />
+              </div>
+            ))}
           </div>
 
           {metricItems.length > 0 ? (
