@@ -73,7 +73,7 @@ const structuredData = {
       name: "Foundry Frame",
       legalName: "Foundry Frame LLC",
       url: siteUrl,
-      logo: `${siteUrl}/logo.svg`,
+      logo: `${siteUrl}/FF_Mark_Tile_Digital.png`,
       image: `${siteUrl}/james-latten.jpg`,
       foundingDate: "2026",
       description:

@@ -13,6 +13,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BOOKING_URL } from "@/lib/analytics";
@@ -192,12 +193,15 @@ export default function Header() {
       >
         <div className="flex items-center justify-between h-14 pl-5 pr-2">
           {/* --- Logo --- */}
-          <Link
-            href="/"
-            className="text-ink font-heading font-bold text-lg tracking-tight"
-            aria-label="Foundry Frame - Home"
-          >
-            Foundry Frame
+          <Link href="/" className="shrink-0" aria-label="Foundry Frame - Home">
+            <Image
+              src="/FF_Lockup_Horizontal_Color.svg"
+              alt="Foundry Frame"
+              width={748}
+              height={200}
+              preload
+              className="h-9 w-auto"
+            />
           </Link>
 
           {/* --- Desktop Nav --- */}
