@@ -8,6 +8,7 @@
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
+import Image from "next/image";
 import Link from "next/link";
 import { BOOKING_URL } from "@/lib/analytics";
 import { BUSINESS_HOURS_LINES } from "@/lib/site-facts";
@@ -79,11 +80,14 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
             {/* Brand */}
             <div className="lg:col-span-4">
-              <Link
-                href="/"
-                className="text-ink font-heading font-bold text-xl tracking-tight mb-4 inline-block"
-              >
-                Foundry Frame
+              <Link href="/" className="mb-4 inline-block" aria-label="Foundry Frame - Home">
+                <Image
+                  src="/FF_Lockup_Horizontal_Color.svg"
+                  alt="Foundry Frame"
+                  width={748}
+                  height={200}
+                  className="h-12 w-auto"
+                />
               </Link>
               <p className="text-muted text-sm leading-relaxed max-w-xs">
                 A creative agency based in Ohio. We build brands,
