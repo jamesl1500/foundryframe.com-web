@@ -4,7 +4,7 @@
  * Multi-step, animated audit flow:
  *   1. Enter a website URL
  *   2. Provide contact info to unlock the scan
- *   3. Animated "scanning" state while the Python audit API runs
+ *   3. Animated "scanning" state while the audit runs server-side
  *   4. Redirect to the shareable /audit/[id] results page once complete
  *
  * @author James Latten
@@ -30,7 +30,7 @@ const SCAN_STAGES = [
 ];
 
 const POLL_INTERVAL_MS = 2500;
-const POLL_TIMEOUT_MS = 120_000;
+const POLL_TIMEOUT_MS = 150_000;
 
 export default function AuditForm() {
   const router = useRouter();

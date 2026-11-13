@@ -2,7 +2,8 @@
  * Free Website Audit - Foundry Frame
  * =====================================
  * Lead-gen flow: visitors submit a URL, unlock a live audit powered by
- * our Python audit platform (AWS), and get tailored service recommendations.
+ * our in-house audit (src/lib/audit/run.ts, results saved in Supabase),
+ * and get tailored service recommendations.
  *
  * SEO: keyword-targeted metadata, Service + FAQPage + BreadcrumbList
  * structured data, and enough on-page content (what we check, what you get,

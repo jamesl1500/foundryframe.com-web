@@ -75,7 +75,14 @@ function extractOpportunities(audits: Record<string, LighthouseAudit>): PageSpee
     .map(({ title, displayValue, savingsMs }) => ({ title, displayValue, savingsMs }));
 }
 
-async function runPageSpeed(url: string, strategy: PageSpeedStrategy): Promise<PageSpeedResult> {
+/* Throws on failure; runPageSpeedAudit() below wraps it for callers that
+   want errors recorded instead. Also used directly by the public audit
+   (src/lib/audit/run.ts), which runs mobile only under a tighter timeout. */
+export async function runPageSpeed(
+  url: string,
+  strategy: PageSpeedStrategy,
+  timeoutMs: number = REQUEST_TIMEOUT_MS,
+): Promise<PageSpeedResult> {
   const params = new URLSearchParams({ url, strategy });
   for (const category of CATEGORIES) {
     params.append("category", category);
@@ -87,7 +94,7 @@ async function runPageSpeed(url: string, strategy: PageSpeedStrategy): Promise<P
   }
 
   const response = await fetch(`${PAGESPEED_ENDPOINT}?${params.toString()}`, {
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    signal: AbortSignal.timeout(timeoutMs),
     cache: "no-store",
   });
   const data = (await response.json()) as PageSpeedApiResponse;
