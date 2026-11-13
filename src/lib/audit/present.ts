@@ -1,8 +1,8 @@
 /**
  * Audit Result Presentation Helpers - Foundry Frame
  * ====================================================
- * Normalizes the loosely-typed (additionalProperties: true) fields the
- * Python audit API returns into safe, renderable shapes.
+ * Normalizes the loosely-typed JSON result fields stored on
+ * public.site_audits into safe, renderable shapes.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.

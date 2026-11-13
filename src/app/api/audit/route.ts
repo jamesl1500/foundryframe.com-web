@@ -1,22 +1,38 @@
 /**
  * Audit API Route - Foundry Frame
  * =================================
- * Proxies audit submissions to the Python Site Audit Platform API (AWS)
- * and best-effort notifies the team via email.
+ * Starts a free website audit. Saves the request to public.site_audits,
+ * returns it straight away (status "pending") so the form can start
+ * polling GET /api/audit/[id], then runs the audit after the response with
+ * after() (src/lib/audit/run.ts) and best-effort notifies the team.
+ *
+ * Abuse protection: each audit fetches a visitor-chosen URL and spends
+ * PageSpeed and Claude quota, so requests must come from this site and are
+ * rate limited per IP and site-wide. If the limiter is unreachable the
+ * request is refused rather than let through.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
+import { after } from "next/server";
 import { Resend } from "resend";
-import { createAudit, AuditApiError } from "@/lib/audit/api";
+import { insertSiteAudit } from "@/lib/audit/repository";
+import { runSiteAudit } from "@/lib/audit/run";
+import { assertFetchableUrl, UnsafeUrlError } from "@/lib/audit/safe-fetch";
 import { sendMetaLead } from "@/lib/server/meta-capi";
 import { leadSourceEmailHtml, leadSourceFromRequest } from "@/lib/server/lead-source";
+import { ipBucket, isSameSiteRequest, throttleHit } from "@/lib/server/request-guard";
 import type { LeadSource } from "@/lib/lead-source";
+
+/* The audit runs inside this invocation (via after()), so it needs the
+   longer limit: PageSpeed alone can take a minute. */
+export const maxDuration = 300;
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const URL_REGEX = /^https?:\/\/.+/i;
+const PER_IP_LIMIT = 5; // audits per IP per hour
+const SITE_WIDE_LIMIT = 60; // audits per hour from everyone combined
 
 function esc(str: string): string {
   return str
@@ -26,15 +42,26 @@ function esc(str: string): string {
     .replace(/"/g, "&quot;");
 }
 
-function normalizeUrl(input: string): string {
-  const trimmed = input.trim();
-  return URL_REGEX.test(trimmed) ? trimmed : `https://${trimmed}`;
+function text(value: unknown, maxLength: number): string {
+  return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 }
 
-async function notifyTeam(source: LeadSource | null, url: string, email: string, name?: string, company?: string) {
+function normalizeUrl(input: string): string {
+  return /^https?:\/\//i.test(input) ? input : `https://${input}`;
+}
+
+async function notifyTeam(
+  source: LeadSource | null,
+  auditId: string,
+  url: string,
+  email: string,
+  name?: string,
+  company?: string
+) {
   if (!resend) return;
 
   try {
+    const resultsUrl = `${(process.env.NEXT_PUBLIC_SITE_URL || "https://www.foundryframe.com").replace(/\/+$/, "")}/audit/${auditId}`;
     await resend.emails.send({
       from: "Foundry Frame <noreply@foundryframe.com>",
       to: "jlatten@foundryframe.com",
@@ -48,6 +75,7 @@ async function notifyTeam(source: LeadSource | null, url: string, email: string,
           ${name ? `<tr><td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;">Name</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${esc(name)}</td></tr>` : ""}
           ${company ? `<tr><td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;">Company</td><td style="padding:8px 12px;border-bottom:1px solid #eee;">${esc(company)}</td></tr>` : ""}
         </table>
+        <p><a href="${esc(resultsUrl)}">View the audit results</a> (ready a minute or two after the request)</p>
         ${leadSourceEmailHtml(source)}
       `,
     });
@@ -57,48 +85,71 @@ async function notifyTeam(source: LeadSource | null, url: string, email: string,
 }
 
 export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const { url, email, name, company, phone } = body ?? {};
+  if (!isSameSiteRequest(request)) {
+    return Response.json({ error: "Forbidden." }, { status: 403 });
+  }
 
-    if (!url || !email) {
-      return Response.json({ error: "Missing required fields." }, { status: 400 });
+  try {
+    const body = (await request.json()) as Record<string, unknown> | null;
+    if (!body || typeof body !== "object") {
+      return Response.json({ error: "Invalid request." }, { status: 400 });
     }
 
+    const rawUrl = text(body.url, 500);
+    const email = text(body.email, 200);
+    const name = text(body.name, 120) || null;
+    const company = text(body.company, 160) || null;
+    const phone = text(body.phone, 40) || null;
+
+    if (!rawUrl || !email) {
+      return Response.json({ error: "Missing required fields." }, { status: 400 });
+    }
     if (!EMAIL_REGEX.test(email)) {
       return Response.json({ error: "Please enter a valid email." }, { status: 400 });
     }
 
-    const normalizedUrl = normalizeUrl(String(url));
+    let url: string;
+    try {
+      url = assertFetchableUrl(normalizeUrl(rawUrl)).toString();
+    } catch (error) {
+      const message = error instanceof UnsafeUrlError ? error.message : "Please check the URL and try again.";
+      return Response.json({ error: message }, { status: 400 });
+    }
 
-    const audit = await createAudit({
-      url: normalizedUrl,
-      email: String(email),
-      name: name ? String(name) : null,
-      company: company ? String(company) : null,
-      phone: phone ? String(phone) : null,
+    const ipAllowed = await throttleHit(ipBucket("audit", request), PER_IP_LIMIT, 3600);
+    const siteAllowed = ipAllowed === true ? await throttleHit("audit:all", SITE_WIDE_LIMIT, 3600) : ipAllowed;
+    if (ipAllowed === null || siteAllowed === null) {
+      return Response.json(
+        { error: "We couldn't start your audit just now. Please try again in a few minutes." },
+        { status: 503 }
+      );
+    }
+    if (!ipAllowed || !siteAllowed) {
+      return Response.json(
+        { error: "You've requested a lot of audits. Please try again in an hour, or contact us and we'll run one for you." },
+        { status: 429 }
+      );
+    }
+
+    const source = leadSourceFromRequest(request);
+    const audit = await insertSiteAudit({ url, email, name, company, phone, source });
+
+    after(async () => {
+      await Promise.all([
+        runSiteAudit(audit.id),
+        notifyTeam(source, audit.id, url, email, name ?? undefined, company ?? undefined),
+      ]);
     });
-
-    void notifyTeam(leadSourceFromRequest(request), normalizedUrl, String(email), name ? String(name) : undefined, company ? String(company) : undefined);
 
     await sendMetaLead(request, body, {
       contentName: "audit",
-      email: String(email),
-      name: name ? String(name) : undefined,
+      email,
+      name: name ?? undefined,
     });
 
     return Response.json(audit, { status: 201 });
   } catch (error) {
-    if (error instanceof AuditApiError) {
-      return Response.json(
-        { error: "We couldn't start your audit. Please check the URL and try again." },
-        { status: error.status === 422 ? 400 : 502 }
-      );
-    }
-
-    return Response.json(
-      { error: "Something went wrong. Please try again." },
-      { status: 500 }
-    );
+    console.error("Audit request failed:", error);
+    return Response.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }

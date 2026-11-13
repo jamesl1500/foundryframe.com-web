@@ -1,7 +1,9 @@
 /**
  * Audit Types - Foundry Frame
  * =============================
- * Shared, client-safe types for the Site Audit Platform API. Contains no
+ * Shared, client-safe types for the free website audit. AuditRead is the
+ * public shape returned by /api/audit and read from public.site_audits; it
+ * deliberately leaves out the requester's contact details. Contains no
  * server-only code so it can be imported from both client and server code.
  *
  * @author James Latten
@@ -18,9 +20,14 @@ export type AuditRequestPayload = {
   phone?: string | null;
 };
 
+/** One failed or partial check, rendered as "title — detail" by extractList(). */
+export type AuditFinding = {
+  title: string;
+  detail: string;
+};
+
 export type AuditRead = {
   id: string;
-  lead_id: string;
   url: string;
   status: AuditStatus;
   overall_score: number | null;
