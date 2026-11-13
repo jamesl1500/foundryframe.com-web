@@ -98,6 +98,18 @@ Before first use, apply `supabase/migrations/20261001000000_founding_application
 
 The form posts to `/api/ad-lead`, which adds the lead to the admin Leads workbench (`/admin/leads`, status New, with the ad page and lead source in its notes) and emails jlatten@foundryframe.com and leads@foundryframe.com. It reports a `generate_lead` conversion with `method: ad_landing_page`.
 
+## Free Website Audit
+
+`/audit` runs entirely inside this app; there's no separate audit service. `POST /api/audit` saves the request to `public.site_audits`, returns it as `pending`, and runs the audit after the response with `after()` (`maxDuration` 300s). The form and `/audit/[id]` poll `GET /api/audit/[id]` until it finishes, and the visitor is emailed a link to their results.
+
+- `src/lib/audit/run.ts` runs the pipeline: it scans the homepage, robots.txt and the sitemap (`scanner.ts`), runs Google PageSpeed on mobile, scores each category, and has Claude write the summary and fix list (`ai.ts`, model `AUDIT_AI_MODEL`, default `claude-opus-5-5`). If Claude or PageSpeed is unavailable, the audit still completes with rule-based copy or without the Lighthouse section.
+- Visitor URLs are only fetched through `safe-fetch.ts`, which refuses private, loopback and cloud-metadata addresses at connect time, on every redirect.
+- The public read never returns the requester's email or phone. Runs still unfinished after 7 minutes are reported as failed.
+- At most 5 audits per IP and 60 site-wide per hour (same limiter as the founding form).
+- PageSpeed uses `GOOGLE_PAGESPEED_API_KEY`, falling back to `GOOGLE_PLACES_API_KEY`. The key's Google Cloud project needs the PageSpeed Insights API enabled, and the key mustn't be restricted to Places only.
+
+Run `supabase/migrations/20261113000000_site_audits.sql` before deploying.
+
 ## Lead Source Tracking
 
 Every lead records where the visitor came from. `LeadSourceCapture` (root layout) saves the UTM tags, ad click ID (`gclid`, `gbraid`, `wbraid`, `fbclid`, `msclkid`), outside referrer, and landing page in a first-party `ff_src` cookie for 90 days. A visit with UTM tags, a click ID or an outside referrer replaces it; a direct visit never does. The form API routes read the cookie, so no form sends it:

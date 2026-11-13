@@ -11,7 +11,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAudit, AuditApiError } from "@/lib/audit/api";
+import { getPublicSiteAudit } from "@/lib/audit/repository";
 import AuditResults from "@/components/AuditResults";
 import AuditPendingNotice from "@/components/AuditPendingNotice";
 
@@ -29,14 +29,9 @@ export default async function AuditDetailsPage({
 }) {
   const { id } = await params;
 
-  let audit;
-  try {
-    audit = await getAudit(id);
-  } catch (error) {
-    if (error instanceof AuditApiError && error.status === 404) {
-      notFound();
-    }
-    throw error;
+  const audit = await getPublicSiteAudit(id);
+  if (!audit) {
+    notFound();
   }
 
   return (

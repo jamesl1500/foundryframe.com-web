@@ -1,15 +1,14 @@
 /**
  * Audit Status API Route - Foundry Frame
  * =========================================
- * Polling endpoint proxying to the Python Site Audit Platform API.
+ * Polling endpoint for the audit form and the /audit/[id] page. Reads the
+ * public (non-contact) columns of public.site_audits.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
-import { getAudit, AuditApiError } from "@/lib/audit/api";
-
-const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+import { getPublicSiteAudit, isAuditId } from "@/lib/audit/repository";
 
 export async function GET(
   _request: Request,
@@ -17,21 +16,21 @@ export async function GET(
 ) {
   const { id } = await context.params;
 
-  if (!UUID_REGEX.test(id)) {
+  if (!isAuditId(id)) {
     return Response.json({ error: "Invalid audit id." }, { status: 400 });
   }
 
   try {
-    const audit = await getAudit(id);
-    return Response.json(audit, { status: 200 });
-  } catch (error) {
-    if (error instanceof AuditApiError) {
-      return Response.json(
-        { error: "Audit not found." },
-        { status: error.status === 404 ? 404 : 502 }
-      );
+    const audit = await getPublicSiteAudit(id);
+    if (!audit) {
+      return Response.json({ error: "Audit not found." }, { status: 404 });
     }
-
+    return Response.json(audit, {
+      status: 200,
+      headers: { "Cache-Control": "no-store" },
+    });
+  } catch (error) {
+    console.error(`Audit ${id}: status read failed:`, error);
     return Response.json({ error: "Something went wrong." }, { status: 500 });
   }
 }
