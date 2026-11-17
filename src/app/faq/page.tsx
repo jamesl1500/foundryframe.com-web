@@ -10,6 +10,7 @@
 import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
@@ -167,27 +168,40 @@ export default function FAQPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">
-            FAQ
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl mb-6">
-            Questions & answers
-          </h1>
-          <p className="text-muted text-lg max-w-xl">
-            Everything you need to know about working with us.
-            Can&apos;t find what you&apos;re looking for?{" "}
-            <Link
-              href="/contact"
-              className="text-ink border-b border-ink/15 pb-0.5 hover:border-ink transition-colors"
-            >
-              Get in touch
+      <PageHero
+        kicker="Web Design & Pricing FAQ"
+        eyebrow={<>FAQ</>}
+        title={
+          <>
+            Questions &{" "}
+            <em className="serif-accent text-molten-deep">answers</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              Everything you need to know about working with us.
+              Can&apos;t find what you&apos;re looking for?{" "}
+              <Link
+                href="/contact"
+                className="text-ink border-b border-ink/15 pb-0.5 hover:border-ink transition-colors"
+              >
+                Get in touch
+              </Link>
+              .
+            </p>
+          </>
+        }
+        actions={
+          <>
+            <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
+              Websites from $1,500 &rarr;
             </Link>
-            .
-          </p>
-        </div>
-      </section>
+          </>
+        }
+        photo="consultant"
+        photoLabel="Straight answers"
+      />
 
       {/* =============================================
           FAQ CONTENT

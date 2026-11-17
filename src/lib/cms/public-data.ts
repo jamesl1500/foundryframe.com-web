@@ -53,10 +53,11 @@ export type PublishedCaseStudy = {
   testimonial_author: string | null;
   is_featured: boolean | null;
   is_in_house: boolean | null;
+  updated_at?: string | null;
 };
 
 const CASE_STUDY_COLUMNS =
-  "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, project_url, testimonial_quote, testimonial_author, is_featured, is_in_house";
+  "id, title, slug, summary, client_name, industry, services, challenge, solution, results, cover_image_url, gallery_urls, metrics, project_url, testimonial_quote, testimonial_author, is_featured, is_in_house, updated_at";
 
 type CaseStudyTestimonial = {
   id: string;

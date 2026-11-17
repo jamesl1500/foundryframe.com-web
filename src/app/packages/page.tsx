@@ -12,6 +12,9 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import PackageHighlights from "@/components/PackageHighlights";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList } from "@/lib/seo/schema";
 import SparkSpotlight from "@/components/SparkSpotlight";
 import {
   formatPriceLabel,
@@ -163,38 +166,46 @@ export default async function PackagesPage() {
 
   return (
     <>
+      <JsonLd data={breadcrumbList([{ name: "Packages", path: "/packages" }])} />
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">
-            Packages
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            Simple, transparent pricing
-          </h1>
-          <p className="text-muted text-sm mt-6 max-w-lg">
+      <PageHero
+        kicker="Web Design Packages & Pricing"
+        eyebrow="Packages"
+        title={
+          <>
+            Simple, <em className="serif-accent text-molten-deep">transparent</em> pricing.
+          </>
+        }
+        intro={
+          <p>
             Four categories. Every scope. One team. Every price below is a
             starting point — we&apos;ll confirm the exact number on a free call,
             with no obligation to move forward.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Link
-              href="/contact"
-              className="btn btn-primary text-center"
-            >
+        }
+        actions={
+          <>
+            <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
+              The Spark &middot; from $1,500 &rarr;
+            </Link>
+            <Link href="/contact" className="btn btn-primary min-h-13 px-7">
               Book a Free Call
             </Link>
-            <Link
-              href="/packages/builder"
-              className="btn btn-glass text-center"
-            >
+            <Link href="/packages/builder" className="btn btn-glass min-h-13 px-7">
               Build Your Package
             </Link>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+        photo="shopOwners"
+        photoLabel="No hidden fees"
+      />
+
+      {/* =============================================
+          THE SPARK
+          ============================================= */}
+      <SparkSpotlight heading="New here? Start with The Spark" />
 
       {/* =============================================
           FEATURED: LAUNCH BUNDLES + MAINTENANCE PLANS
@@ -203,14 +214,6 @@ export default async function PackagesPage() {
         heading="Start with a launch bundle. Stay sharp with a maintenance plan."
         showAllLink={false}
       />
-
-      {/* =============================================
-
-          THE SPARK
-
-          ============================================= */}
-
-      <SparkSpotlight heading="New here? Start with The Spark" />
 
 
       {/* =============================================

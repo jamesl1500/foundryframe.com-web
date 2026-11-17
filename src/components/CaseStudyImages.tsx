@@ -142,7 +142,7 @@ export default function CaseStudyImages({
         onClose={() => setActiveIndex(null)}
         onKeyDown={onKeyDown}
         onClick={onBackdropClick}
-        className="m-0 h-dvh max-h-none w-screen max-w-none bg-transparent p-0 text-ink backdrop:bg-ink/80 backdrop:backdrop-blur-sm"
+        className="m-0 h-dvh max-h-none w-screen max-w-none bg-transparent p-0 text-ink backdrop:bg-ink/80 backdrop:"
       >
         {active ? (
           <div
@@ -196,7 +196,7 @@ export default function CaseStudyImages({
                 </button>
                 <p
                   aria-live="polite"
-                  className="eyebrow absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/90"
+                  className="eyebrow absolute bottom-3 left-1/2 -translate-x-1/2 bg-paper"
                 >
                   {(activeIndex ?? 0) + 1} / {images.length}
                 </p>

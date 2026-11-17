@@ -13,12 +13,23 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import GoogleReviews from "@/components/GoogleReviews";
+import PageHero from "@/components/PageHero";
+import Photo from "@/components/media/Photo";
+import type { PhotoKey } from "@/lib/media/unsplash";
 import { BOOKING_URL } from "@/lib/analytics";
 import { getWebsitePackage, websitePackages } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
 import { citiesOf, locations } from "@/lib/seo/locations";
 
 const siteUrl = "https://www.foundryframe.com";
+
+/* Hero photo for each tier */
+const tierPhotos: Record<string, PhotoKey> = {
+  spark: "sparkler",
+  blueprint: "blueprints",
+  architect: "teamLaptops",
+  monument: "clevelandSkyline",
+};
 
 export const dynamicParams = false;
 
@@ -118,6 +129,9 @@ export default async function WebsitePackagePage({
     },
   ];
 
+  const isSpark = pkg.slug === "spark";
+  const heroPhoto = tierPhotos[pkg.slug] ?? "designDesk";
+
   return (
     <>
       {structuredData.map((data, i) => (
@@ -131,56 +145,67 @@ export default async function WebsitePackagePage({
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-24">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href="/packages/website"
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; Website Packages
-          </Link>
-          <div className="flex flex-wrap items-center gap-4 mb-6">
-            <p className="eyebrow">
-              Website Package &middot; Tier {pkg.tier}
-            </p>
-            {pkg.badge && (
-              <span className="glass-accent text-xs font-semibold uppercase tracking-widest text-accent-deep px-3 py-1.5 rounded-full">
-                {pkg.badge}
-              </span>
+      <PageHero
+        back={{ href: "/packages/website", label: "Website Packages" }}
+        eyebrow={<>Website Package &middot; Tier {pkg.tier}</>}
+        titleClassName="text-6xl sm:text-7xl lg:text-8xl"
+        title={
+          <>
+            {isSpark ? (
+              <>
+                The <em className="serif-accent text-molten-deep">Spark</em>
+              </>
+            ) : (
+              pkg.name
             )}
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-            <div className="lg:col-span-8">
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight">
-                {pkg.name}
-                <span className="sr-only">: </span>
-                <span className="block mt-5 text-2xl sm:text-3xl text-body tracking-normal leading-tight">
-                  {pkg.headline}
-                </span>
-              </h1>
-              <p className="mt-6 text-lg text-ink-soft italic max-w-3xl">
-                &ldquo;{pkg.tagline}&rdquo;
-              </p>
-              <div className="mt-8 max-w-3xl space-y-4 text-body text-base leading-relaxed">
-                <p>{pkg.description}</p>
-                <p>{pkg.intro}</p>
-                <p>
-                  Designed and built in Lorain, Ohio, for businesses across Northeast Ohio and
-                  nationwide.
-                </p>
+            <span className="sr-only">: </span>
+            <span className="block mt-5 text-2xl sm:text-3xl text-body font-semibold tracking-[-0.02em] leading-tight">
+              {pkg.headline}
+            </span>
+          </>
+        }
+        intro={
+          <>
+            <p className="font-heading text-xl text-ink">&ldquo;{pkg.tagline}&rdquo;</p>
+            <p className="text-base">{pkg.description}</p>
+            <p className="text-base">{pkg.intro}</p>
+            <p className="text-base">
+              Designed and built in Lorain, Ohio, for businesses across Northeast Ohio and
+              nationwide.
+            </p>
+          </>
+        }
+        photo={heroPhoto}
+        aside={
+          <div className="relative pb-24 sm:pb-16">
+            <div className="relative mr-3 sm:mr-4">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 rounded-panel bg-molten border-[1.5px] border-ink"
+              />
+              <div className="relative aspect-[4/3] lg:aspect-[4/5] overflow-hidden rounded-panel border-[1.5px] border-ink bg-ink">
+                <div className="absolute inset-0 animate-ken-burns">
+                  <Photo name={heroPhoto} sizes="(min-width: 1024px) 38vw, 100vw" preload />
+                </div>
+                {pkg.badge && (
+                  <span className="sticker absolute left-4 top-4">{pkg.badge}</span>
+                )}
               </div>
             </div>
-            <div className="glass-card rounded-card lg:col-span-4 p-8">
+            {/* Price card, overlapping the photo */}
+            <div className="absolute bottom-0 left-4 right-10 sm:left-auto sm:right-10 sm:w-80 rounded-card border-[1.5px] border-ink bg-paper p-6 shadow-[6px_6px_0_var(--color-ink)]">
               {pkg.pricePrefix && (
                 <span className="text-xs uppercase tracking-widest text-muted block">
                   {pkg.pricePrefix}
                 </span>
               )}
-              <p className="text-5xl font-heading font-bold text-ink mb-6">{pkg.price}</p>
+              <p className={`text-5xl font-heading font-bold tracking-[-0.04em] mb-5 ${isSpark ? "text-molten-deep" : "text-ink"}`}>
+                {pkg.price}
+              </p>
               <Link
                 href="/contact"
                 data-track={`Package details hero: ${pkg.name}`}
-                className="btn btn-primary flex text-center"
+                className={`btn flex text-center ${isSpark ? "btn-molten" : "btn-primary"}`}
               >
                 {pkg.cta}
               </Link>
@@ -188,14 +213,14 @@ export default async function WebsitePackagePage({
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn btn-glass flex text-center mt-3"
+                className="btn btn-glass flex text-center mt-2"
               >
                 Book a Free Call
               </a>
             </div>
           </div>
-        </div>
-      </section>
+        }
+      />
 
       {/* =============================================
           AT A GLANCE
@@ -453,7 +478,7 @@ export default async function WebsitePackagePage({
               <Link
                 key={location.slug}
                 href={`/locations/${location.slug}`}
-                className="glass rounded-full inline-flex items-center min-h-10 px-4 text-body text-xs hover:bg-white/80 hover:text-ink transition-colors"
+                className="glass rounded-full inline-flex items-center min-h-10 px-4 text-body text-xs hover:bg-paper hover:text-ink transition-colors"
               >
                 {location.city} web design
               </Link>

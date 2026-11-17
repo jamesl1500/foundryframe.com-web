@@ -12,12 +12,15 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList, ORGANIZATION_ID, webPage } from "@/lib/seo/schema";
 import SparkSpotlight from "@/components/SparkSpotlight";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
 
 export const metadata: Metadata = {
-  title: "About Foundry Frame | Ohio Web Design Agency",
+  title: { absolute: "About Foundry Frame | Ohio Web Design Agency" },
   description:
     "Learn about Foundry Frame, an Ohio web design and creative agency in Lorain focused on custom websites, branding, and growth strategy.",
   alternates: {
@@ -78,36 +81,49 @@ const values = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          webPage("AboutPage", {
+            path: "/about",
+            name: "About Foundry Frame",
+            description:
+              "Foundry Frame is a founder-led web design and branding agency in Lorain, Ohio, building custom websites for small businesses and growth brands.",
+            extra: { mainEntity: { "@id": ORGANIZATION_ID } },
+          }),
+          breadcrumbList([{ name: "About", path: "/about" }]),
+        ]}
+      />
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/stock/about-team.jpg"
-            alt="Foundry Frame team"
-            fill
-            className="object-cover grayscale"
-          />
-          <div className="absolute inset-0 bg-canvas/80" />
-        </div>
-
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
-          <FadeIn className="glass rounded-card max-w-3xl p-6 sm:p-8">
-            <p className="eyebrow mb-6">
-              About Us
-            </p>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.9] tracking-tight">
-              Ohio web design & branding agency
-            </h1>
-            <p className="text-ink-soft text-sm leading-relaxed max-w-2xl mt-6">
-              We build thoughtful websites and brand systems for small
-              businesses, founders, and growth-focused teams in Ohio and across
-              the U.S. — and we&apos;re genuinely glad you&apos;re here.
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="About Us"
+        title={
+          <>
+            Ohio web design &amp;{" "}
+            <em className="serif-accent text-molten-deep">branding agency</em>
+          </>
+        }
+        intro={
+          <p>
+            We build thoughtful websites and brand systems for small
+            businesses, founders, and growth-focused teams in Ohio and across
+            the U.S. — and we&apos;re genuinely glad you&apos;re here.
+          </p>
+        }
+        actions={
+          <>
+            <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
+              Start with The Spark &rarr;
+            </Link>
+            <Link href="/contact" className="btn btn-glass min-h-13 px-7">
+              Say hello
+            </Link>
+          </>
+        }
+        photo="clevelandSkyline"
+        photoLabel="Made in Ohio"
+      />
 
       {/* =============================================
           FOUNDER BIO

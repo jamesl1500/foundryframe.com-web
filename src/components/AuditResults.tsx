@@ -82,7 +82,7 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
                     <span className="text-ink">{toTitleCase(key)}</span>
                     <span className={categoryTone.text}>{score}/100</span>
                   </div>
-                  <div className="h-1.5 w-full bg-white/60 overflow-hidden">
+                  <div className="h-1.5 w-full bg-paper overflow-hidden">
                     <motion.div
                       className={`h-full ${categoryTone.bar}`}
                       initial={{ width: 0 }}
@@ -120,7 +120,7 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
                         <span className="text-ink">{toTitleCase(key)}</span>
                         <span className={categoryTone.text}>{score}/100</span>
                       </div>
-                      <div className="h-1.5 w-full bg-white/60 overflow-hidden">
+                      <div className="h-1.5 w-full bg-paper overflow-hidden">
                         <motion.div
                           className={`h-full ${categoryTone.bar}`}
                           initial={{ width: 0 }}
@@ -137,7 +137,7 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
             {lighthouseMetrics.length > 0 && (
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
                 {lighthouseMetrics.map(([key, value]) => (
-                  <div key={key} className="rounded-bubble bg-white/60 border border-white p-3">
+                  <div key={key} className="rounded-bubble bg-paper border border-white p-3">
                     <p className="text-muted text-xs uppercase tracking-widest mb-1">{toTitleCase(key)}</p>
                     <p className="text-ink text-sm font-bold">{formatMetricValue(value)}</p>
                   </div>

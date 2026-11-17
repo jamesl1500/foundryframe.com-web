@@ -11,6 +11,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import FoundingForm from "@/components/FoundingForm";
 import { launchBundles } from "@/lib/packages/launch";
 import { BOOKING_URL } from "@/lib/analytics";
@@ -82,23 +83,29 @@ export default function FoundingPage() {
   return (
     <>
       {/* HERO */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">
-            {FOUNDING_SPOTS_OPEN} Founding Client spots this quarter
-          </p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.95] tracking-tight max-w-4xl mb-6">
-            Be one of our first clients. Get a better deal for it.
-          </h1>
-          <p className="text-body text-lg max-w-2xl mb-10">
-            Foundry Frame is a new, founder-led studio in Lorain, Ohio, and we&apos;re taking our first
-            clients. {FOUNDING_SPOTS_OPEN} small businesses this quarter get {FOUNDING_DISCOUNT_PERCENT}% off any
-            launch bundle. In return, you help us show the next client what we can do.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
+      <PageHero
+        kicker="Founding Client Program for Ohio Businesses"
+        eyebrow={<>{FOUNDING_SPOTS_OPEN} Founding Client spots this quarter</>}
+        title={
+          <>
+            Be one of our first clients.{" "}
+            <em className="serif-accent text-molten-deep">Get a better deal for it.</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              Foundry Frame is a new, founder-led studio in Lorain, Ohio, and we&apos;re taking our first
+              clients. {FOUNDING_SPOTS_OPEN} small businesses this quarter get {FOUNDING_DISCOUNT_PERCENT}% off any
+              launch bundle. In return, you help us show the next client what we can do.
+            </p>
+          </>
+        }
+        actions={
+          <>
             <a
               href="#apply"
-              className="btn btn-primary text-center"
+              className="btn btn-primary min-h-13 px-7"
             >
               Apply for a spot
             </a>
@@ -106,13 +113,15 @@ export default function FoundingPage() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-glass text-center"
+              className="btn btn-glass min-h-13 px-7"
             >
               Book a free call
             </a>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+        photo="restaurantOwner"
+        photoLabel="Limited spots"
+      />
 
       {/* WHAT YOU GET */}
       <section className="py-24 lg:py-32">

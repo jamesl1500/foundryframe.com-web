@@ -10,6 +10,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import AuditCallout from "@/components/AuditCallout";
 import { locationRegions, locations } from "@/lib/seo/locations";
 
@@ -78,17 +79,31 @@ export default function LocationsPage() {
         />
       ))}
 
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-20">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">Areas We Serve</p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.95] tracking-tight max-w-4xl">
-            Web design across Ohio
-          </h1>
-          <p className="mt-8 max-w-2xl text-body text-base leading-relaxed">
-            We&apos;re based in Lorain and work in person with small businesses across Lorain County, the Lake Erie shore, and greater Cleveland. Akron, Columbus, and remote projects anywhere in the U.S. are welcome too.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={<>Areas We Serve</>}
+        title={
+          <>
+            Web design across{" "}
+            <em className="serif-accent text-molten-deep">Ohio</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              We&apos;re based in Lorain and work in person with small businesses across Lorain County, the Lake Erie shore, and greater Cleveland. Akron, Columbus, and remote projects anywhere in the U.S. are welcome too.
+            </p>
+          </>
+        }
+        actions={
+          <>
+            <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
+              Websites from $1,500 &rarr;
+            </Link>
+          </>
+        }
+        photo="clevelandSign"
+        photoLabel="Lorain, OH"
+      />
 
       {locationRegions.map((region) => {
         const regionLocations = locations.filter((item) => item.region === region);

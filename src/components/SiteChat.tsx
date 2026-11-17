@@ -256,7 +256,7 @@ export default function SiteChat() {
           </header>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-5 py-4 space-y-4" aria-live="polite">
-            <div className="bg-white/85 border border-white px-4 py-3 leading-relaxed rounded-bubble rounded-tl-md">{GREETING}</div>
+            <div className="bg-paper border border-white px-4 py-3 leading-relaxed rounded-bubble rounded-tl-md">{GREETING}</div>
 
             {messages.length === 0 && (
               <div className="flex flex-wrap gap-2">
@@ -265,7 +265,7 @@ export default function SiteChat() {
                     key={s}
                     type="button"
                     onClick={() => send(s)}
-                    className="text-xs border border-accent/40 text-accent-deep bg-white/60 px-3 py-1.5 rounded-full hover:bg-accent hover:text-ink transition-colors text-left"
+                    className="text-xs border border-accent/40 text-accent-deep bg-paper px-3 py-1.5 rounded-full hover:bg-accent hover:text-ink transition-colors text-left"
                   >
                     {s}
                   </button>
@@ -279,7 +279,7 @@ export default function SiteChat() {
                   {m.content}
                 </div>
               ) : (
-                <div key={i} className="mr-4 bg-white/85 border border-white px-4 py-3 leading-relaxed rounded-bubble rounded-tl-md">
+                <div key={i} className="mr-4 bg-paper border border-white px-4 py-3 leading-relaxed rounded-bubble rounded-tl-md">
                   {m.content ? (
                     <MessageBody text={m.content} />
                   ) : (
@@ -318,7 +318,7 @@ export default function SiteChat() {
               rows={1}
               maxLength={1500}
               placeholder="Type your question"
-              className="flex-1 resize-none bg-white/85 border border-ink/15 px-4 py-2.5 text-base sm:text-sm text-ink placeholder:text-muted focus:outline-none focus:border-accent rounded-2xl"
+              className="flex-1 resize-none bg-paper border border-ink/15 px-4 py-2.5 text-base sm:text-sm text-ink placeholder:text-muted focus:outline-none focus:border-accent rounded-2xl"
             />
             <button
               type="submit"

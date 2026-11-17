@@ -12,6 +12,9 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { absoluteUrl, breadcrumbList, ORGANIZATION_ID } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Web Design & Branding Blog",
@@ -104,31 +107,58 @@ export default function BlogPage() {
 
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "@id": `${absoluteUrl("/blog")}#blog`,
+            url: absoluteUrl("/blog"),
+            name: "Foundry Frame Web Design & Branding Blog",
+            inLanguage: "en-US",
+            publisher: { "@id": ORGANIZATION_ID },
+            blogPost: posts.map((post) => ({
+              "@type": "BlogPosting",
+              headline: post.title,
+              url: absoluteUrl(`/blog/${post.slug}`),
+            })),
+          },
+          breadcrumbList([{ name: "Blog", path: "/blog" }]),
+        ]}
+      />
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">
-            Blog
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            Insights & ideas
-          </h1>
-          <p className="text-muted text-sm mt-6 max-w-lg">
-            Design, strategy, and business insights from the team at Foundry
-            Frame — practical takeaways you can use today.
-          </p>
-          <div className="mt-8">
+      <PageHero
+        kicker="Web Design & Branding Blog"
+        eyebrow={<>Blog</>}
+        title={
+          <>
+            Insights &{" "}
+            <em className="serif-accent text-molten-deep">ideas</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              Design, strategy, and business insights from the team at Foundry
+              Frame — practical takeaways you can use today.
+            </p>
+          </>
+        }
+        actions={
+          <>
             <Link
               href="/contact"
-              className="btn btn-glass min-h-10 px-5 text-sm"
+              className="btn btn-glass min-h-13 px-7"
             >
               Ready to work with us? Book a free call →
             </Link>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+        photo="imacDesk"
+        photoLabel="Journal"
+      />
 
       {/* =============================================
           FEATURED POST

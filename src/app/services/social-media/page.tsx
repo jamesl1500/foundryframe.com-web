@@ -8,8 +8,8 @@
 
 import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
-import Image from "next/image";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -212,51 +212,40 @@ export default function SocialMediaServicePage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/stock/service-social-media.jpg"
-            alt="Social media management"
-            fill
-            className="object-cover grayscale"
-            priority
-          />
-          <div className="absolute inset-0 bg-canvas/80" />
-        </div>
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href="/services"
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; All Services
-          </Link>
-          <p className="eyebrow mb-6">
-            Social Media
+      <PageHero
+        kicker="Social Media Management Services"
+        back={{ href: "/services", label: "All Services" }}
+        eyebrow="Social Media"
+        title={
+          <>
+            Build your{" "}
+            <em className="serif-accent text-molten-deep">community</em>
+          </>
+        }
+        intro={
+          <p>
+            Strategic social media management that builds community and drives reach. We handle the content, strategy, and engagement so you can focus on your business.
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            Build your community
-          </h1>
-          <p className="text-ink-soft text-lg mt-6 max-w-2xl leading-relaxed">
-            Strategic social media management that builds community and
-            drives reach. We handle the content, strategy, and engagement so
-            you can focus on your business.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+        }
+        actions={
+          <>
             <Link
               href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-              className="btn btn-primary text-center"
+              className="btn btn-primary min-h-13 px-7"
             >
               Book a Free Call
             </Link>
             <Link
               href="/packages/marketing"
-              className="btn btn-glass text-center"
+              className="btn btn-glass min-h-13 px-7"
             >
               See Marketing Packages
             </Link>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+        photo="laptopPhone"
+        photoLabel="Content"
+      />
 
       {/* =============================================
           CAPABILITIES
@@ -359,19 +348,19 @@ export default function SocialMediaServicePage() {
           <div className="flex flex-wrap gap-4">
             <Link
               href="/services/advertising"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Advertising &rarr;
             </Link>
             <Link
               href="/services/graphic-design"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Graphic Design &rarr;
             </Link>
             <Link
               href="/services/strategy"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Digital Strategy &rarr;
             </Link>

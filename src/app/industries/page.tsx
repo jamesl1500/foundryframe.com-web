@@ -10,6 +10,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import AuditCallout from "@/components/AuditCallout";
 import { industries } from "@/lib/seo/industries";
 
@@ -78,17 +79,32 @@ export default function IndustriesPage() {
         />
       ))}
 
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-20">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">Industries</p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.95] tracking-tight max-w-4xl">
-            Websites built for how your customers buy
-          </h1>
-          <p className="mt-8 max-w-2xl text-body text-base leading-relaxed">
-            A restaurant, a roofer, and a salon need very different websites. Pick your industry to see what we build and what we fix.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        kicker="Website Design by Industry"
+        eyebrow={<>Industries</>}
+        title={
+          <>
+            Websites built for how your{" "}
+            <em className="serif-accent text-molten-deep">customers buy</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              A restaurant, a roofer, and a salon need very different websites. Pick your industry to see what we build and what we fix.
+            </p>
+          </>
+        }
+        actions={
+          <>
+            <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
+              Websites from $1,500 &rarr;
+            </Link>
+          </>
+        }
+        photo="chef"
+        photoLabel="By industry"
+      />
 
       <section className="py-20">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">

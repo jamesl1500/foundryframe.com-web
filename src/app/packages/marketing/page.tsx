@@ -9,6 +9,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import { parsePriceSpecification } from "@/lib/schema-price";
 
 const siteUrl = "https://www.foundryframe.com";
@@ -159,27 +160,28 @@ export default function MarketingPackagesPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href="/packages"
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; All Packages
-          </Link>
-          <p className="eyebrow mb-6">
-            Marketing Packages
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            Get found by the people looking for you
-          </h1>
-          <p className="text-muted text-sm mt-6 max-w-lg">
-            A great website only works when people can find it. Our marketing
-            packages turn your digital presence into a consistent, measurable
-            lead generation engine.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        kicker="Digital Marketing Packages"
+        back={{ href: "/packages", label: "All Packages" }}
+        eyebrow={<>Marketing Packages</>}
+        title={
+          <>
+            Get found by the people{" "}
+            <em className="serif-accent text-molten-deep">looking for you</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              A great website only works when people can find it. Our marketing
+              packages turn your digital presence into a consistent, measurable
+              lead generation engine.
+            </p>
+          </>
+        }
+        photo="socialIcons"
+        photoLabel="Get found"
+      />
 
       {/* =============================================
           PACKAGE OVERVIEW STRIP

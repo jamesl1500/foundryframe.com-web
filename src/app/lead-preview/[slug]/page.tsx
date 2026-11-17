@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getGeneratedLeadPageBySlug } from "@/lib/leads/repository";
 import { BUSINESS_EMAIL } from "@/lib/site-facts";
+
+/* Prospect-specific mockups sent by email: keep them out of search results
+   (they'd otherwise inherit the homepage title and compete with it). */
+export const metadata: Metadata = {
+  title: "Website Preview",
+  robots: { index: false, follow: false, nocache: true },
+};
 
 function asString(value: unknown, fallback = ""): string {
   return typeof value === "string" ? value : fallback;

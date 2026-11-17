@@ -1,7 +1,7 @@
 /**
  * CalendlyBadge - Foundry Frame
  * ==============================
- * Floating consultation-booking pill on frosted glass.
+ * Floating consultation-booking pill (flat, ink-outlined).
  * Links directly to the Google Calendar booking page (no third-party
  * widget script required).
  *
@@ -18,11 +18,11 @@ export default function CalendlyBadge() {
         href={BOOKING_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="glass-light fixed bottom-5 left-5 z-40 inline-flex items-center gap-2 min-h-12 px-5 rounded-full text-ink text-sm font-semibold hover:bg-white/90 transition-colors"
+        className="fixed bottom-5 left-5 z-40 inline-flex items-center gap-2 min-h-12 px-5 rounded-full border-[1.5px] border-ink bg-paper text-ink text-sm font-semibold transition-[translate,box-shadow] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--color-ink)]"
       >
         <span
           aria-hidden="true"
-          className="w-2 h-2 rounded-full bg-accent shadow-[0_0_0_4px_rgba(196,130,26,0.2)]"
+          className="w-2 h-2 rounded-full bg-molten"
         />
         <span className="sm:hidden">Book a call</span>
         <span className="hidden sm:inline">Book a free consultation</span>

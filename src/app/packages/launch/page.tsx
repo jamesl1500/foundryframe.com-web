@@ -10,6 +10,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import { launchBundles as bundles } from "@/lib/packages/launch";
 import { parsePriceSpecification } from "@/lib/schema-price";
 
@@ -141,27 +142,28 @@ export default function LaunchBundlesPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href="/packages"
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; All Packages
-          </Link>
-          <p className="eyebrow mb-6">
-            Launch Bundles &middot; From $2,500
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            Website + brand, in one move
-          </h1>
-          <p className="text-muted text-sm mt-6 max-w-lg">
-            Our launch bundles combine a custom website, brand identity, and
-            ongoing support into a single cohesive engagement. One team. One
-            timeline. One point of contact.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        kicker="Website & Branding Launch Bundles"
+        back={{ href: "/packages", label: "All Packages" }}
+        eyebrow={<>Launch Bundles &middot; From $2,500</>}
+        title={
+          <>
+            Website + brand, in{" "}
+            <em className="serif-accent text-molten-deep">one move</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              Our launch bundles combine a custom website, brand identity, and
+              ongoing support into a single cohesive engagement. One team. One
+              timeline. One point of contact.
+            </p>
+          </>
+        }
+        photo="moltenAbstract"
+        photoLabel="From $2,500"
+      />
 
       {/* =============================================
           BUNDLE OVERVIEW STRIP
