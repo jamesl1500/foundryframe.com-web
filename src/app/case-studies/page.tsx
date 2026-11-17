@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Image from "next/image";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { absoluteUrl, breadcrumbList, webPage } from "@/lib/seo/schema";
 import { getPublishedCaseStudies } from "@/lib/cms/public-data";
 import {
   FOUNDING_DISCOUNT_PERCENT,
@@ -14,14 +17,14 @@ import {
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Case Studies",
+  title: "Web Design Case Studies & Recent Work",
   description:
     "Products Foundry Frame designed, built, and runs, with the strategy, design, and development behind each one.",
   alternates: {
     canonical: "/case-studies",
   },
   openGraph: {
-    title: "Case Studies | Foundry Frame",
+    title: "Web Design Case Studies | Foundry Frame",
     description:
       "Products Foundry Frame designed, built, and runs, with the strategy, design, and development behind each one.",
     url: "/case-studies",
@@ -49,19 +52,54 @@ export default async function CaseStudiesPage() {
 
   return (
     <>
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 min-h-screen">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">
-            Case Studies
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl mb-6">
-            Work we can show you
-          </h1>
-          <p className="text-muted text-sm mt-2 max-w-2xl mb-12">
+      <JsonLd
+        data={[
+          webPage("CollectionPage", {
+            path: "/case-studies",
+            name: "Web Design Case Studies",
+            description:
+              "Products Foundry Frame designed, built, and runs, with the strategy, design, and development behind each one.",
+            extra: {
+              mainEntity: {
+                "@type": "ItemList",
+                itemListElement: studies.map((study, i) => ({
+                  "@type": "ListItem",
+                  position: i + 1,
+                  name: study.title,
+                  url: absoluteUrl(`/case-studies/${study.slug}`),
+                })),
+              },
+            },
+          }),
+          breadcrumbList([{ name: "Case Studies", path: "/case-studies" }]),
+        ]}
+      />
+      <PageHero
+        kicker="Web Design Case Studies"
+        eyebrow="Case Studies"
+        title={
+          <>
+            Work we can <em className="serif-accent text-molten-deep">show you.</em>
+          </>
+        }
+        intro={
+          <p>
             Foundry Frame is new, so the first projects here are products we
             designed, built, and run ourselves. Each one is labeled. Client work
             gets added as it launches.
           </p>
+        }
+        actions={
+          <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
+            Be our next build &middot; from $1,500 &rarr;
+          </Link>
+        }
+        photo="designDesk"
+        photoLabel="Built in-house"
+      />
+
+      <section className="pb-20 lg:pb-28">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
 
           {studies.length === 0 ? (
             <div className="glass rounded-card p-8 text-sm text-body">
@@ -73,7 +111,7 @@ export default async function CaseStudiesPage() {
                 <Link
                   key={study.id}
                   href={`/case-studies/${study.slug}`}
-                  className="glass rounded-card group flex flex-col overflow-hidden hover:bg-white/75 transition-colors"
+                  className="glass-card rounded-card group flex flex-col overflow-hidden"
                 >
                   {study.cover_image_url ? (
                     <div className="relative aspect-[16/9] overflow-hidden border-b border-ink/10">
@@ -92,9 +130,7 @@ export default async function CaseStudiesPage() {
                         {String(index + 1).padStart(2, "0")}
                       </p>
                       {isInHouseProduct(study) ? (
-                        <span className="text-xs uppercase tracking-widest border border-accent/40 text-accent-ink px-2 py-1 rounded-full">
-                          In-house product
-                        </span>
+                        <span className="sticker">In-house product</span>
                       ) : null}
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink leading-tight mb-3">

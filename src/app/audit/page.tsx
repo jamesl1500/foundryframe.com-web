@@ -16,6 +16,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
+import PageHero from "@/components/PageHero";
 
 const siteUrl = "https://www.foundryframe.com";
 const pageTitle = "Free Website Audit: SEO, Speed & Design";
@@ -220,31 +221,37 @@ export default function AuditPage() {
       {/* =============================================
           HERO + FORM
           ============================================= */}
-      <section className="pt-32 pb-16 lg:pt-40 lg:pb-20">
-        <div className="max-w-[900px] mx-auto px-6 lg:px-10 text-center">
-          <p className="eyebrow mb-5">
-            Free Website Audit
-          </p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold leading-[0.95] mb-6">
-            Free website audit: what&apos;s holding your site back?
-          </h1>
-          <p className="text-lg text-body max-w-2xl mx-auto mb-10">
+      <PageHero
+        eyebrow="Free Website Audit"
+        title={
+          <>
+            Free website audit:{" "}
+            <em className="serif-accent text-molten-deep">what&apos;s holding your site back?</em>
+          </>
+        }
+        titleClassName="text-5xl sm:text-6xl lg:text-7xl"
+        intro={
+          <p>
             Drop your URL in below. In about a minute, you&apos;ll see your site&apos;s
             SEO, speed, design, and accessibility score — plus a prioritized list
             of what to fix first. Free, no credit card, no obligation.
           </p>
-
-          <div className="glass rounded-card max-w-2xl mx-auto text-left p-5 sm:p-6">
-            <AuditForm />
-          </div>
-
-          <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-widest text-muted">
-            <li>100% free</li>
-            <li>Results in ~1 minute</li>
-            <li>No pushy sales calls</li>
-          </ul>
+        }
+        photo="codeDesk"
+        photoLabel="Results in ~1 min"
+      >
+        <div className="max-w-2xl rounded-card border-[1.5px] border-ink bg-paper p-5 sm:p-6 shadow-[6px_6px_0_var(--color-molten)]">
+          <AuditForm />
         </div>
-      </section>
+        <ul className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-semibold uppercase tracking-widest text-ink-soft">
+          {["100% free", "Results in ~1 minute", "No pushy sales calls"].map((point) => (
+            <li key={point} className="inline-flex items-center gap-2">
+              <span aria-hidden="true" className="h-1.5 w-1.5 bg-molten" />
+              {point}
+            </li>
+          ))}
+        </ul>
+      </PageHero>
 
       {/* =============================================
           WHAT WE CHECK

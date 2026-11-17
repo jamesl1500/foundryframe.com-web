@@ -10,6 +10,11 @@
 import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList } from "@/lib/seo/schema";
+import Photo from "@/components/media/Photo";
+import { photoForService } from "@/lib/media/unsplash";
 import { getPublishedServices } from "@/lib/cms/public-data";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
@@ -205,6 +210,7 @@ export default async function ServicesPage() {
 
   return (
     <>
+      <JsonLd data={breadcrumbList([{ name: "Services", path: "/services" }])} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -215,35 +221,63 @@ export default async function ServicesPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">
-            Services
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            What we do best
-          </h1>
-          <p className="text-muted text-sm mt-6 max-w-lg">
+      <PageHero
+        kicker="Web Design & Creative Services"
+        eyebrow="Services"
+        title={
+          <>
+            What we do <em className="serif-accent text-molten-deep">best.</em>
+          </>
+        }
+        intro={
+          <p>
             Six disciplines, one team. Web design and development is our
             flagship — everything else is built to support it.
           </p>
-        </div>
-      </section>
+        }
+        actions={
+          <>
+            <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
+              Websites from $1,500 &rarr;
+            </Link>
+            <Link href="/contact" className="btn btn-glass min-h-13 px-7">
+              Start a project
+            </Link>
+          </>
+        }
+        photo="sunlitStudio"
+        photoLabel="Six disciplines"
+      />
 
       {/* =============================================
           SERVICES GRID
           ============================================= */}
       <section>
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {services.map((service) => (
               <Link
                 key={service.id}
                 href={service.href}
-                className={`glass-card group p-10 lg:p-14 flex flex-col rounded-panel ${
-                  service.featured ? "ring-2 ring-accent/40 lg:col-span-2" : ""
+                className={`glass-card group overflow-hidden flex flex-col rounded-panel ${
+                  service.featured ? "lg:col-span-2 lg:flex-row" : ""
                 }`}
               >
+                <div
+                  className={`relative overflow-hidden border-b border-ink/15 bg-sand ${
+                    service.featured
+                      ? "aspect-[16/9] lg:aspect-auto lg:w-1/2 lg:border-b-0 lg:border-r"
+                      : "aspect-[16/8]"
+                  }`}
+                >
+                  <Photo
+                    name={photoForService(service.href, service.title)}
+                    alt=""
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+                  />
+                </div>
+                <div className={`p-8 lg:p-12 flex flex-1 flex-col ${service.featured ? "lg:w-1/2" : ""}`}>
                 <div className="flex items-start justify-between mb-8">
                   <span
                     className={`text-xs uppercase tracking-[0.3em] ${
@@ -253,9 +287,7 @@ export default async function ServicesPage() {
                     {service.number}
                   </span>
                   {service.featured ? (
-                    <span className="text-xs uppercase tracking-widest bg-ink text-white px-3 py-1 font-bold rounded-full">
-                      Flagship Service
-                    </span>
+                    <span className="sticker">Flagship Service</span>
                   ) : (
                     <span className="text-xs uppercase tracking-[0.2em] text-muted group-hover:text-ink transition-colors">
                       View &rarr;
@@ -287,15 +319,12 @@ export default async function ServicesPage() {
                   {service.highlights.map((h) => (
                     <span
                       key={h}
-                      className={`text-xs uppercase tracking-widest border px-2 py-1 rounded-full ${
-                        service.featured
-                          ? "border-ink/10 text-muted"
-                          : "border-ink/10 text-muted"
-                      }`}
+                      className="text-xs uppercase tracking-widest border border-ink/15 text-muted px-2 py-1 rounded-full"
                     >
                       {h}
                     </span>
                   ))}
+                </div>
                 </div>
               </Link>
             ))}

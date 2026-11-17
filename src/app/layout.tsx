@@ -9,12 +9,10 @@
  */
 
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Instrument_Serif, Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
-import AnimatedBackdrop from "@/components/motion/AnimatedBackdrop";
-import GlassSheen from "@/components/motion/GlassSheen";
 import Footer from "@/components/Footer";
 import CalendlyBadge from "@/components/CalendlyBadge";
 import ConversionTracking from "@/components/ConversionTracking";
@@ -47,6 +45,15 @@ const inter = Inter({
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
+  display: "swap",
+});
+
+/* Italic serif for accent words in headings (see .serif-accent) */
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
   display: "swap",
 });
 
@@ -199,7 +206,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${inter.variable} ${spaceGrotesk.variable} ${instrumentSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         {/* The ~190 KB gtag.js library loads at idle so it doesn't compete
@@ -248,10 +255,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-
-        {/* Soft color fields fixed behind every page for the glass to blur */}
-        <AnimatedBackdrop />
-        <GlassSheen />
 
         {/* Site-wide navigation header (left off ad landing pages) */}
         <HideOnAdPages>

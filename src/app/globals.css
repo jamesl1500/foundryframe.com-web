@@ -1,10 +1,19 @@
 /**
  * Global Styles - Foundry Frame
  * ==============================
- * Light "liquid glass" theme: a warm off-white canvas with soft color
- * fields fixed behind the page, and frosted, rounded glass surfaces
- * (cards, pills, the floating nav) on top. Brass stays the accent, used
- * sparingly; ink-black carries primary actions.
+ * Flat editorial theme: a warm paper canvas, solid surfaces with hairline
+ * ink borders, and no blur or soft drop shadows. Depth comes from color
+ * blocks, photography, and hard offset shadows that appear on hover.
+ *
+ * Color roles:
+ *   ink      — text and primary actions
+ *   paper    — the page canvas; sand is the alternate block color
+ *   molten   — the loud accent: The Spark, key CTAs, the ticker band
+ *   brass    — the brand accent from the logo, used for small details
+ *
+ * The class names (.glass, .glass-card, .btn-glass, ...) are kept from the
+ * previous glass theme so every page picks up the flat look without
+ * rewriting markup; they now draw solid, flat surfaces.
  *
  * The admin area keeps the original dark theme (see .admin-theme below).
  *
@@ -16,18 +25,27 @@
 
 /* --- Tailwind Theme Customization --- */
 @theme inline {
-  /* Accent — used sparingly */
+  /* Brand brass — small details, the logo's corner marks */
   --color-accent: #C4821A; /* Molten Brass */
   --color-accent-glow: #E09A28; /* Brass Glow */
-  --color-accent-ink: #8A5A0F; /* Brass dark enough for text on light glass */
+  --color-accent-ink: #8A5A0F; /* Brass dark enough for text on paper */
   --color-accent-deep: #6B4609;
 
-  /* Light theme ink and canvas */
+  /* Molten — the loud accent. Ink text on molten passes AA; molten-deep
+     is the version safe for text on paper. */
+  --color-molten: #FF5A1F;
+  --color-molten-soft: #FFD9C7;
+  --color-molten-deep: #B93A0B;
+
+  /* Ink and canvas */
   --color-ink: #16130F;
   --color-ink-soft: #3D3830;
   --color-body: #4A453D;
   --color-muted: #5A544B;
   --color-canvas: #F4F1EC;
+  --color-paper: #FFFDF9;
+  --color-sand: #E9E2D5;
+  --color-line: rgba(22, 19, 15, 0.14);
 
   /* Neutral palette */
   --color-black: #000000;
@@ -41,24 +59,28 @@
   --color-gray-100: #F2F2F2;
   --color-white: #FFFFFF;
 
-  /* Corner radii: bubbles (small cards, chips), cards, large panels */
-  --radius-bubble: 1.25rem;
-  --radius-card: 1.5rem;
-  --radius-panel: 1.75rem;
+  /* Corner radii: tighter than the glass theme for a crisper, flat look */
+  --radius-bubble: 0.75rem;
+  --radius-card: 1rem;
+  --radius-panel: 1.5rem;
 
   /* Fonts */
   --font-sans: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
+  --font-serif: var(--font-instrument-serif);
 }
 
 /* --- Base Styles --- */
 :root {
-  --site-header-height: 4rem;
-  --admin-safe-top: calc(var(--site-header-height) + 2.5rem);
+  /* Announcement bar + nav bar */
+  --site-header-height: 6.25rem;
+  --admin-safe-top: calc(var(--site-header-height) + 1.5rem);
 }
 
-html {
-  scroll-behavior: smooth;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -70,15 +92,16 @@ body {
 }
 
 /* --- Keyboard focus ---
-   One clear ring for every focusable element, visible on glass and on the
+   One clear ring for every focusable element, visible on paper and on the
    dark ink panels alike. */
 :focus-visible {
-  outline: 2px solid var(--color-accent-ink);
+  outline: 2px solid var(--color-molten-deep);
   outline-offset: 3px;
 }
 .glass-dark :focus-visible,
+.on-dark :focus-visible,
 .btn-primary:focus-visible {
-  outline-color: var(--color-accent);
+  outline-color: var(--color-molten);
 }
 
 /* --- Headings --- */
@@ -86,15 +109,34 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading), var(--font-sans), system-ui, sans-serif;
 }
 
+/* Italic serif accent for a word or phrase inside a heading:
+   <h2>Meet <em className="serif-accent">The Spark</em></h2> */
+.serif-accent {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Outlined display numerals/letters */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+}
+.text-outline-ink {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-ink);
+}
+
 /* --- Selection --- */
 ::selection {
-  background-color: rgba(196, 130, 26, 0.3);
+  background-color: var(--color-molten);
   color: var(--color-ink);
 }
 
 /* --- Scrollbar --- */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -102,50 +144,77 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(22, 19, 15, 0.2);
+  background: var(--color-ink);
+  border: 3px solid var(--color-canvas);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
+  background: var(--color-molten);
 }
 
 /* --- Horizontal rule divider --- */
 hr {
-  border-color: rgba(22, 19, 15, 0.1);
+  border-color: var(--color-line);
 }
 
-/* --- Site backdrop ---
-   Soft color fields fixed behind every page, so the frosted glass always
-   has something to blur. AnimatedBackdrop drifts each field slowly; they're
-   plain radial gradients moved with transforms, so they're cheap to paint. */
-.site-backdrop {
-  position: fixed;
-  /* Extends past the viewport so it still covers the screen while mobile
-     browsers resize the viewport as the address bar shows and hides, and
-     while the scroll parallax shifts it up. */
-  inset: -25vh 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-  background: var(--color-canvas);
-}
-.site-backdrop-field {
-  position: absolute;
-  width: 80vmax;
-  height: 80vmax;
-  border-radius: 999px;
-  will-change: transform;
+/* --- Paper grain ---
+   A faint dot grid on the canvas, so large flat areas still feel like
+   printed paper. A single fixed background image; free to paint. */
+.paper-grid {
+  background-image: radial-gradient(rgba(22, 19, 15, 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
-/* --- Marquee animation --- */
+/* --- Marquee animation ---
+   The track holds two identical copies of its content, so shifting it by
+   half its width loops seamlessly. */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+.animate-marquee-reverse {
+  animation: marquee var(--marquee-duration, 30s) linear infinite reverse;
+}
+.marquee-pause:hover .animate-marquee,
+.marquee-pause:hover .animate-marquee-reverse {
+  animation-play-state: paused;
+}
+
+/* --- Slow spin (rotating text badges) --- */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+/* --- Spark showcase tab countdown --- */
+@keyframes spark-progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+/* --- Ken Burns (slow push-in on hero photos) --- */
+@keyframes ken-burns {
+  0% { transform: scale(1.04) translate3d(0, 0, 0); }
+  100% { transform: scale(1.14) translate3d(-1.5%, -1%, 0); }
+}
+.animate-ken-burns {
+  animation: ken-burns 22s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-spin-slow,
+  .animate-ken-burns {
+    animation: none;
+  }
 }
 
 /* --- Scroll reveal (FadeIn / Stagger) ---
@@ -215,108 +284,80 @@ button[type="submit"]{
 }
 
 /* ============================================================
-   LIQUID GLASS LAYER
+   FLAT SURFACE LAYER
    ------------------------------------------------------------
-   Frosted, rounded surfaces over the site backdrop. Pair a glass
-   class with a radius utility (rounded-bubble / rounded-card /
-   rounded-panel / rounded-full).
+   Solid surfaces with hairline borders. Pair a surface class with a
+   radius utility (rounded-bubble / rounded-card / rounded-panel /
+   rounded-full).
    ============================================================ */
 
 /* In the components layer so Tailwind utilities on the same element
-   (px-5, min-h-10, bg-white/90, ...) can override these defaults. */
+   (px-5, min-h-10, bg-white, ...) can override these defaults. */
 @layer components {
-  /* Standard frosted panel: cards, chips, form shells */
-  .glass {
-    background-color: rgba(255, 255, 255, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 10px 40px rgba(60, 40, 10, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-  }
-
-  /* Denser glass: menus and panels over busy content */
+  /* Standard flat panel: cards, chips, form shells */
+  .glass,
   .glass-light {
-    background-color: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 8px 24px rgba(60, 40, 10, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-line);
   }
 
-  /* Floating nav capsule and mobile menu */
+  /* Nav bar */
   .glass-nav {
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow: 0 10px 40px rgba(60, 40, 10, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(18px) saturate(180%);
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-ink);
   }
 
-  /* Brass-tinted glass: badges, highlights, the floating booking pill */
+  /* Brass-tinted block: badges and highlights */
   .glass-accent {
-    background-color: rgba(196, 130, 26, 0.14);
-    border: 1px solid rgba(196, 130, 26, 0.35);
-    box-shadow: 0 8px 24px rgba(60, 40, 10, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px) saturate(170%);
-    -webkit-backdrop-filter: blur(20px) saturate(170%);
+    background-color: #F6E7CC;
+    border: 1px solid rgba(196, 130, 26, 0.5);
   }
 
-  /* Ink glass: the one card in a set that should stand out */
+  /* Ink block: the one card in a set that should stand out */
   .glass-dark {
     color: #fff;
-    background-color: rgba(22, 19, 15, 0.86);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 24px 60px rgba(22, 19, 15, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    background-color: var(--color-ink);
+    border: 1px solid var(--color-ink);
   }
 
-  /* Interactive card: glass that lifts slightly on hover */
+  /* Interactive card: lifts off the page with a hard ink shadow on hover */
   .glass-card {
-    background-color: rgba(255, 255, 255, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 10px 40px rgba(60, 40, 10, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     position: relative;
-    isolation: isolate;
-  }
-  /* Mouse-following highlight; GlassSheen sets the variables. Sits under
-     the card's content (z-index -1 inside the card's stacking context). */
-  .glass-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    pointer-events: none;
-    background: radial-gradient(
-      320px circle at var(--sheen-x, 50%) var(--sheen-y, 0%),
-      rgba(255, 255, 255, 0.85),
-      rgba(255, 255, 255, 0) 70%
-    );
-    opacity: var(--sheen-opacity, 0);
-    transition: opacity 0.35s ease;
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-line);
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.2s ease;
   }
   .glass-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(196, 130, 26, 0.35);
-    box-shadow: 0 18px 50px rgba(60, 40, 10, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    transform: translate(-4px, -4px);
+    border-color: var(--color-ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
+  }
+  .glass-card:focus-visible {
+    border-color: var(--color-ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
   }
 
-  /* Extra warmth behind a section's glass */
+  /* Same lift for any element: cards built from other surfaces */
+  .lift {
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .lift:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 6px 6px 0 var(--color-ink);
+  }
+  .lift-molten:hover {
+    box-shadow: 6px 6px 0 var(--color-molten);
+  }
+
+  /* Formerly a soft glow behind a section; now just a positioning context */
   .glow-field {
     position: relative;
     isolation: isolate;
-  }
-  .glow-field::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: radial-gradient(55% 45% at 15% 0%, rgba(224, 154, 40, 0.18), transparent 70%);
-    pointer-events: none;
   }
 
   /* --- Buttons and chips --- */
@@ -328,83 +369,109 @@ button[type="submit"]{
     min-height: 3rem;
     padding: 0 1.5rem;
     border-radius: 999px;
+    border: 1.5px solid transparent;
     font-size: 0.9375rem;
     font-weight: 600;
     text-align: center;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .btn:active { transform: scale(0.98); }
+  .btn:hover {
+    transform: translate(-2px, -2px);
+  }
+  .btn:active {
+    transform: translate(0, 0);
+    box-shadow: none;
+  }
   .btn-primary {
     color: #fff;
     background-color: var(--color-ink);
-    box-shadow: 0 10px 30px rgba(22, 19, 15, 0.22);
+    border-color: var(--color-ink);
   }
-  .btn-primary:hover { background-color: #2B2620; color: #fff; }
-  .btn-accent {
+  .btn-primary:hover {
+    color: #fff;
+    box-shadow: 4px 4px 0 var(--color-molten);
+  }
+  /* Loud CTA: molten fill with ink text */
+  .btn-accent,
+  .btn-molten {
     color: var(--color-ink);
-    background-color: var(--color-accent);
-    box-shadow: 0 10px 30px rgba(196, 130, 26, 0.3);
+    background-color: var(--color-molten);
+    border-color: var(--color-molten);
   }
-  .btn-accent:hover { background-color: var(--color-accent-glow); }
+  .btn-accent:hover,
+  .btn-molten:hover {
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+  .on-dark .btn-accent:hover,
+  .on-dark .btn-molten:hover,
+  .glass-dark .btn-accent:hover,
+  .glass-dark .btn-molten:hover {
+    box-shadow: 4px 4px 0 #fff;
+  }
+  /* Outline button */
   .btn-glass {
     color: var(--color-ink);
-    background-color: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(22, 19, 15, 0.1);
-    box-shadow: 0 8px 24px rgba(60, 40, 10, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background-color: transparent;
+    border-color: var(--color-ink);
   }
-  .btn-glass:hover { background-color: rgba(255, 255, 255, 0.92); }
+  .btn-glass:hover {
+    background-color: var(--color-paper);
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+  /* Outline button for dark backgrounds */
+  .btn-ghost-light {
+    color: #fff;
+    background-color: transparent;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  .btn-ghost-light:hover {
+    border-color: #fff;
+    box-shadow: 4px 4px 0 var(--color-molten);
+  }
 
-  /* Small uppercase label in a glass pill */
+  /* Small uppercase label with a molten square marker */
   .eyebrow {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     font-size: 0.75rem;
-    letter-spacing: 0.14em;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-muted);
-    background-color: rgba(255, 255, 255, 0.55);
-    border: 1px solid rgba(22,19,15, 0.2);
+    color: var(--color-ink-soft);
+  }
+  .eyebrow::before {
+    content: "";
+    flex-shrink: 0;
+    width: 0.55rem;
+    height: 0.55rem;
+    background-color: var(--color-molten);
+  }
+  .glass-dark .eyebrow,
+  .on-dark .eyebrow {
+    color: rgba(255, 255, 255, 0.75);
   }
 
-
-  /* Phones: lighter blur, which is cheaper to paint on low-end GPUs */
-  @media (max-width: 639px) {
-    .glass,
-    .glass-card,
-    .glass-light,
-    .glass-nav,
-    .glass-accent,
-    .glass-dark,
-    .btn-glass {
-      backdrop-filter: blur(14px) saturate(160%);
-      -webkit-backdrop-filter: blur(14px) saturate(160%);
-    }
-  }
-
-  /* Respect users who reduce transparency: solid surfaces instead of frost */
-  @media (prefers-reduced-transparency: reduce) {
-    .glass,
-    .glass-card,
-    .glass-light,
-    .glass-nav,
-    .glass-accent,
-    .glass-dark,
-    .btn-glass {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-    }
-    .glass,
-    .glass-card,
-    .glass-light,
-    .glass-nav,
-    .btn-glass { background-color: #FBFAF7; }
-    .glass-accent { background-color: #F3E6CF; }
-    .glass-dark { background-color: var(--color-ink); }
-    .glow-field::before { display: none; }
-    .site-backdrop-field { display: none; }
+  /* Sticker label: tilted molten tag */
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border: 1.5px solid var(--color-ink);
+    border-radius: 999px;
+    background-color: var(--color-molten);
+    color: var(--color-ink);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transform: rotate(-3deg);
   }
 }
 

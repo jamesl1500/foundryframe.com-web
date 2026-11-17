@@ -9,6 +9,7 @@
  */
 
 import type { Metadata } from "next";
+import { photoForIndustry } from "@/lib/media/unsplash";
 import { notFound } from "next/navigation";
 import LandingPage from "@/components/seo/LandingPage";
 import { websitePackages } from "@/lib/packages/website";
@@ -131,6 +132,8 @@ export default async function IndustryPage({
     <LandingPage
       structuredData={structuredData}
       backLink={{ label: "Industries", href: "/industries" }}
+      photo={photoForIndustry(industry.slug)}
+      photoLabel={industry.name}
       eyebrow={`Websites for ${industry.name}`}
       heading={industry.headline}
       intro={[industry.intro]}

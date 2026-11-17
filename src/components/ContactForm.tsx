@@ -71,7 +71,7 @@ export default function ContactForm() {
             id="firstName"
             name="firstName"
             required
-            className="w-full px-4 py-3 bg-white/70 border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
+            className="w-full px-4 py-3 bg-paper border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
             placeholder="John"
           />
         </div>
@@ -87,7 +87,7 @@ export default function ContactForm() {
             id="lastName"
             name="lastName"
             required
-            className="w-full px-4 py-3 bg-white/70 border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
+            className="w-full px-4 py-3 bg-paper border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
             placeholder="Doe"
           />
         </div>
@@ -106,7 +106,7 @@ export default function ContactForm() {
             id="email"
             name="email"
             required
-            className="w-full px-4 py-3 bg-white/70 border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
+            className="w-full px-4 py-3 bg-paper border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
             placeholder="john@example.com"
           />
         </div>
@@ -124,7 +124,7 @@ export default function ContactForm() {
           name="message"
           required
           rows={5}
-          className="w-full px-4 py-3 bg-white/70 border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors resize-none rounded-2xl"
+          className="w-full px-4 py-3 bg-paper border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors resize-none rounded-2xl"
           placeholder="Tell us about your project, goals, and timeline..."
         />
       </div>

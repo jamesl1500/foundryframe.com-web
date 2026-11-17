@@ -4,10 +4,13 @@ import { notFound } from "next/navigation";
 import CaseStudyImages from "@/components/CaseStudyImages";
 import FormattedText from "@/components/FormattedText";
 import { seoTitle, summarize } from "@/lib/seo/meta";
+import JsonLd from "@/components/seo/JsonLd";
 import {
   getPublishedCaseStudies,
   getPublishedCaseStudyBySlug,
+  type PublishedCaseStudy,
 } from "@/lib/cms/public-data";
+import { absoluteUrl, breadcrumbList, ORGANIZATION_ID } from "@/lib/seo/schema";
 import { isInHouseProduct } from "@/lib/site-facts";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
@@ -31,6 +34,18 @@ function safeExternalUrl(raw: string | null | undefined): string | null {
   }
 }
 
+/* Meta description: the CMS summary, topped up with the industry and
+   services when the summary alone is too short to describe the page. */
+function describeStudy(study: PublishedCaseStudy) {
+  const summary = study.summary?.trim() ?? "";
+  if (summary.length >= 110) return summarize(summary);
+  const services = (study.services ?? []).slice(0, 3).join(", ").toLowerCase();
+  const detail = `A Foundry Frame case study${
+    study.industry ? ` in ${study.industry.toLowerCase()}` : ""
+  }${services ? `: ${services}` : ""}, designed and built in Lorain, Ohio.`;
+  return summarize(summary ? `${summary.replace(/[.!?]?$/, ".")} ${detail}` : detail);
+}
+
 export async function generateStaticParams() {
   const studies = await getPublishedCaseStudies();
   return studies.map((study) => ({ slug: study.slug }));
@@ -52,13 +67,13 @@ export async function generateMetadata({
 
   return {
     title: seoTitle(`${study.title} | Case Study`),
-    description: summarize(study.summary || "Foundry Frame case study."),
+    description: describeStudy(study),
     alternates: {
       canonical: `/case-studies/${study.slug}`,
     },
     openGraph: {
       title: `${study.title} | Case Study | Foundry Frame`,
-      description: summarize(study.summary || "Foundry Frame case study."),
+      description: describeStudy(study),
       url: `/case-studies/${study.slug}`,
       type: "article",
       images: [
@@ -73,7 +88,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${study.title} | Case Study | Foundry Frame`,
-      description: summarize(study.summary || "Foundry Frame case study."),
+      description: describeStudy(study),
       images: [study.cover_image_url || "/twitter-image"],
     },
   };
@@ -101,9 +116,33 @@ export default async function CaseStudyDetailPage({
     : [];
   const projectUrl = safeExternalUrl(study.project_url);
   const testimonialQuote = study.testimonial_quote?.trim();
+  const path = `/case-studies/${study.slug}`;
 
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "@id": `${absoluteUrl(path)}#work`,
+            name: study.title,
+            headline: study.title,
+            description: describeStudy(study),
+            url: absoluteUrl(path),
+            image: study.cover_image_url || undefined,
+            creator: { "@id": ORGANIZATION_ID },
+            publisher: { "@id": ORGANIZATION_ID },
+            about: study.industry || undefined,
+            keywords: study.services?.length ? study.services.join(", ") : undefined,
+            sameAs: projectUrl ?? undefined,
+          },
+          breadcrumbList([
+            { name: "Case Studies", path: "/case-studies" },
+            { name: study.title, path },
+          ]),
+        ]}
+      />
       <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 min-h-screen">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <Link

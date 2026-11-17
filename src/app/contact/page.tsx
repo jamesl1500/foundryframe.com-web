@@ -11,6 +11,9 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import ContactForm from "@/components/ContactForm";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList, ORGANIZATION_ID, webPage } from "@/lib/seo/schema";
 import { BOOKING_URL } from "@/lib/analytics";
 import { BUSINESS_HOURS_LINES, BUSINESS_HOURS_PHRASE } from "@/lib/site-facts";
 
@@ -77,36 +80,56 @@ const contactInfo = [
 export default function ContactPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          webPage("ContactPage", {
+            path: "/contact",
+            name: "Contact Foundry Frame",
+            description:
+              "Contact Foundry Frame, a web design and branding agency in Lorain, Ohio. Book a free call or send a project inquiry.",
+            extra: { mainEntity: { "@id": ORGANIZATION_ID } },
+          }),
+          breadcrumbList([{ name: "Contact", path: "/contact" }]),
+        ]}
+      />
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <p className="eyebrow mb-6">
-            Contact
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl mb-6">
-            Let&apos;s talk
-          </h1>
-          <p className="text-muted text-lg max-w-xl">
-            Have a project in mind? We&apos;d love to hear about it. Fill out the
-            form below or reach out directly — we typically respond within 24
-            hours, and there&apos;s never any pressure to commit.
-          </p>
-          <p className="text-body text-sm max-w-xl mt-4">
-            James takes calls {BUSINESS_HOURS_PHRASE}. The fastest way
-            to talk is to grab a time on the calendar.
-          </p>
-          <div className="mt-8 flex gap-4">
+      <PageHero
+        kicker="Contact Our Ohio Web Design Agency"
+        eyebrow={<>Contact</>}
+        title={
+          <>
+            Let&apos;s{" "}
+            <em className="serif-accent text-molten-deep">talk</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              Have a project in mind? We&apos;d love to hear about it. Fill out the
+              form below or reach out directly — we typically respond within 24
+              hours, and there&apos;s never any pressure to commit.
+            </p>
+            <p>
+              James takes calls {BUSINESS_HOURS_PHRASE}. The fastest way
+              to talk is to grab a time on the calendar.
+            </p>
+          </>
+        }
+        actions={
+          <>
             <Link
               href={BOOKING_URL}
-              className="btn btn-primary text-center"
+              className="btn btn-primary min-h-13 px-7"
             >
               Book a Free Consultation
             </Link>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+        photo="coffeeCounter"
+        photoLabel="Reply within 24h"
+      />
 
       {/* =============================================
           FORM & INFO

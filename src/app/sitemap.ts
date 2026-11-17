@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { generateStaticParams as generateBlogStaticParams } from "@/app/blog/[slug]/page";
-import { generateStaticParams as generateCaseStudyStaticParams } from "@/app/case-studies/[slug]/page";
+import { getPublishedCaseStudies } from "@/lib/cms/public-data";
 import { industries } from "@/lib/seo/industries";
 import { industryAreas } from "@/lib/seo/industry-areas";
 import { locations } from "@/lib/seo/locations";
@@ -18,6 +18,11 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.c
    deploy, so bump this by hand after editing lib/seo/locations.ts,
    lib/seo/industries.ts, lib/seo/industry-areas.ts, or lib/packages/*. */
 const LANDING_CONTENT_UPDATED = new Date("2026-11-06");
+
+/* Same idea for the hand-built pages (home, services, packages, blog posts,
+   etc.): bump after a meaningful content or design change. Case studies use
+   their real updated_at from the CMS. */
+const SITE_CONTENT_UPDATED = new Date("2026-11-17");
 
 const staticRoutes = [
   "",
@@ -48,11 +53,10 @@ const staticRoutes = [
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
 
   const staticUrls: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${SITE_URL}${route}`,
-    lastModified: now,
+    lastModified: SITE_CONTENT_UPDATED,
     changeFrequency: route === "" ? "weekly" : "monthly",
     priority: route === "" ? 1 : route === "/audit" ? 0.9 : 0.8,
   }));
@@ -60,16 +64,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogUrls: MetadataRoute.Sitemap = (await generateBlogStaticParams()).map(
     ({ slug }: { slug: string }) => ({
       url: `${SITE_URL}/blog/${slug}`,
-      lastModified: now,
+      lastModified: SITE_CONTENT_UPDATED,
       changeFrequency: "monthly",
       priority: 0.7,
     })
   );
 
-  const caseStudyUrls: MetadataRoute.Sitemap = (await generateCaseStudyStaticParams()).map(
-    ({ slug }: { slug: string }) => ({
+  const caseStudyUrls: MetadataRoute.Sitemap = (await getPublishedCaseStudies()).map(
+    ({ slug, updated_at }) => ({
       url: `${SITE_URL}/case-studies/${slug}`,
-      lastModified: now,
+      lastModified: updated_at ? new Date(updated_at) : SITE_CONTENT_UPDATED,
       changeFrequency: "monthly",
       priority: 0.7,
     })

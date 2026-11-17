@@ -148,6 +148,8 @@ export default async function LocationPage({
     <LandingPage
       structuredData={structuredData}
       backLink={{ label: "Areas We Serve", href: "/locations" }}
+      photo={location.city === "Cleveland" ? "clevelandSkyline" : "openSign"}
+      photoLabel={`${location.city}, OH`}
       eyebrow={`${location.city}, Ohio · ${location.county}`}
       heading={`${location.city} Web Design for Small Businesses`}
       intro={location.intro}

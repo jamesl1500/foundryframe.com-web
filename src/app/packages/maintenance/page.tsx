@@ -9,6 +9,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import { parsePriceSpecification } from "@/lib/schema-price";
 
 const siteUrl = "https://www.foundryframe.com";
@@ -212,29 +213,29 @@ export default function MaintenancePlansPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href="/packages"
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; All Packages
-          </Link>
-          <p className="eyebrow mb-6">
-            Maintenance Plans &middot; From $99/mo
-          </p>
-          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            Website maintenance, handled
-          </h1>
-          <p className="text-muted text-sm mt-6 max-w-lg">
-            Launch is day one, not the finish line. A site that goes unmaintained gets hacked, slows down, breaks on
-            updates, and falls in search rankings. Whether you run WordPress or Next.js, we handle the plugin, theme,
-            and framework updates for you. Our plans keep your digital
-            presence fast, secure, and continuously improving — without you ever
-            having to think about it.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        back={{ href: "/packages", label: "All Packages" }}
+        eyebrow={<>Maintenance Plans &middot; From $99/mo</>}
+        title={
+          <>
+            Website maintenance,{" "}
+            <em className="serif-accent text-molten-deep">handled</em>
+          </>
+        }
+        intro={
+          <>
+            <p>
+              Launch is day one, not the finish line. A site that goes unmaintained gets hacked, slows down, breaks on
+              updates, and falls in search rankings. Whether you run WordPress or Next.js, we handle the plugin, theme,
+              and framework updates for you. Our plans keep your digital
+              presence fast, secure, and continuously improving — without you ever
+              having to think about it.
+            </p>
+          </>
+        }
+        photo="woodworker"
+        photoLabel="From $99/mo"
+      />
 
       {/* =============================================
           PLAN OVERVIEW STRIP

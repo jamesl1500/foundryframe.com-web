@@ -20,7 +20,7 @@ import {
 type Status = "idle" | "sending" | "success" | "error";
 
 const inputClass =
-  "w-full px-4 py-3 bg-white/70 border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl";
+  "w-full px-4 py-3 bg-paper border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl";
 const labelClass = "block text-xs uppercase tracking-wider text-muted mb-2";
 
 function tomorrow() {
@@ -65,8 +65,8 @@ function OptionCard({
       onClick={onClick}
       disabled={Boolean(disabledReason)}
       aria-pressed={selected}
-      className={`text-left p-5 rounded-card border backdrop-blur-xl transition-colors h-full flex flex-col ${
-        selected ? "border-accent bg-accent/15 shadow-[0_8px_24px_rgba(196,130,26,0.15)]" : "border-white/80 bg-white/55 hover:bg-white/75"
+      className={`text-left p-5 rounded-card border transition-colors h-full flex flex-col ${
+        selected ? "border-accent bg-accent/15 shadow-[0_8px_24px_rgba(196,130,26,0.15)]" : "border-white/80 bg-paper hover:bg-paper"
       } disabled:opacity-40 disabled:cursor-not-allowed`}
     >
       <div className="flex items-start justify-between gap-3 mb-2">
@@ -295,7 +295,7 @@ export default function PackageBuilder() {
                 return (
                   <div
                     key={addon.id}
-                    className={`p-5 rounded-card border backdrop-blur-xl ${quantity > 0 && !reason ? "border-accent bg-accent/15" : "border-white/80 bg-white/55"} ${reason ? "opacity-40" : ""}`}
+                    className={`p-5 rounded-card border ${quantity > 0 && !reason ? "border-accent bg-accent/15" : "border-white/80 bg-paper"} ${reason ? "opacity-40" : ""}`}
                   >
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <span className="text-ink font-bold">{addon.name}</span>
@@ -310,7 +310,7 @@ export default function PackageBuilder() {
                           type="button"
                           aria-label={`Remove one ${addon.name.toLowerCase()}`}
                           onClick={() => setAddon(addon.id, quantity - 1)}
-                          className="w-11 h-11 rounded-full border border-ink/15 bg-white/70 text-ink hover:bg-white"
+                          className="w-11 h-11 rounded-full border border-ink/15 bg-paper text-ink hover:bg-white"
                         >
                           −
                         </button>
@@ -321,7 +321,7 @@ export default function PackageBuilder() {
                           type="button"
                           aria-label={`Add one ${addon.name.toLowerCase()}`}
                           onClick={() => setAddon(addon.id, Math.min(quantity + 1, addon.maxQuantity ?? 1))}
-                          className="w-11 h-11 rounded-full border border-ink/15 bg-white/70 text-ink hover:bg-white"
+                          className="w-11 h-11 rounded-full border border-ink/15 bg-paper text-ink hover:bg-white"
                         >
                           +
                         </button>

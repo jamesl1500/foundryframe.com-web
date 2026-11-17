@@ -1,10 +1,11 @@
 /**
  * Header Component - Foundry Frame
  * ==================================
- * Floating glass capsule navigation. Links show a hairline border on hover;
- * the current section shows as a raised white pill. About, Blog, FAQ, and Contact live in a "Company" dropdown
- * (a frosted panel that opens on hover or click); on small screens the
- * links drop into a frosted panel, with the Company pages as tiles.
+ * A slim announcement bar for The Spark (collapses once the page scrolls)
+ * above a flat, ink-outlined capsule nav. Links show an ink outline on
+ * hover; the current section is a solid ink pill. About, Blog, FAQ, and
+ * Contact live in a "Company" dropdown (opens on hover or click); on small
+ * screens the links drop into a panel, with the Company pages as tiles.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -110,6 +111,14 @@ export default function Header() {
      mouse doesn't immediately close it again. */
   const openedByHover = useRef(false);
   const pathname = usePathname() ?? "";
+  /* The announcement bar collapses once the visitor scrolls past the top. */
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
   const companyActive = companyLinks.some((link) => isActive(link.href));
 
@@ -181,14 +190,42 @@ export default function Header() {
 
   const pillClass = (active: boolean) =>
     active
-      ? "bg-white/85 font-semibold text-ink border-ink/15 shadow-[0_2px_10px_rgba(60,40,10,0.08)]"
-      : "text-ink-soft border-transparent hover:bg-white/60 hover:text-ink hover:border-ink/10";
+      ? "bg-ink font-semibold text-white border-ink"
+      : "text-ink-soft border-transparent hover:text-ink hover:border-ink";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 pt-3">
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* --- Announcement bar: The Spark --- */}
       <div
-        className={`glass-nav max-w-[1360px] mx-auto rounded-[1.75rem] lg:rounded-full transition-colors ${
-          mobileMenuOpen ? "bg-[#FBFAF7]" : ""
+        className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          scrolled || mobileMenuOpen ? "grid-rows-[0fr]" : "grid-rows-[1fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <Link
+            href="/packages/website/spark"
+            inert={scrolled || mobileMenuOpen}
+            data-track="Announcement bar: The Spark"
+            className="group flex items-center justify-center gap-3 bg-ink px-4 py-2 text-xs sm:text-sm text-white"
+          >
+            <span className="rounded-full bg-molten px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-ink">
+              Start here
+            </span>
+            <span className="truncate">
+              <span className="font-semibold">The Spark:</span>{" "}
+              <span className="hidden sm:inline">custom 5-page websites </span>from $1,500
+            </span>
+            <span className="hidden sm:inline font-semibold text-molten underline-offset-4 group-hover:underline">
+              See what&apos;s included &rarr;
+            </span>
+          </Link>
+        </div>
+      </div>
+
+      <div className="px-3 sm:px-6 pt-3">
+      <div
+        className={`glass-nav max-w-[1360px] mx-auto rounded-[1.75rem] lg:rounded-full transition-shadow duration-300 ${
+          scrolled ? "shadow-[4px_4px_0_var(--color-ink)]" : ""
         }`}
       >
         <div className="flex items-center justify-between h-14 pl-5 pr-2">
@@ -213,7 +250,7 @@ export default function Header() {
                 aria-current={isActive(link.href) ? "page" : undefined}
                 className={`px-3.5 py-2 rounded-full border text-sm transition-colors ${
                   link.highlight
-                    ? "glass-accent font-semibold text-accent-deep hover:bg-accent/25 hover:border-accent/60"
+                    ? "font-semibold text-ink bg-molten-soft border-molten hover:bg-molten"
                     : pillClass(isActive(link.href))
                 }`}
               >
@@ -268,7 +305,7 @@ export default function Header() {
               >
                 {/* The header already blurs what's behind it, so this panel is
                     near-opaque rather than relying on a second blur. */}
-                <div className="glass-light bg-white/92 rounded-card p-2 shadow-[0_24px_60px_rgba(60,40,10,0.16)]">
+                <div className="rounded-card border-[1.5px] border-ink bg-paper p-2 shadow-[6px_6px_0_var(--color-ink)]">
                   <ul className="flex flex-col gap-0.5">
                     {companyLinks.map((link) => {
                       const active = isActive(link.href);
@@ -281,15 +318,15 @@ export default function Header() {
                             onClick={() => setCompanyOpen(false)}
                             className={`group flex items-center gap-3.5 rounded-bubble border p-3 transition-colors ${
                               active
-                                ? "bg-accent/10 border-accent/30"
-                                : "border-transparent hover:bg-white hover:border-ink/10 focus-visible:bg-white"
+                                ? "bg-molten-soft border-molten"
+                                : "border-transparent hover:bg-canvas hover:border-ink/15 focus-visible:bg-canvas"
                             }`}
                           >
                             <span
                               className={`flex shrink-0 items-center justify-center w-10 h-10 rounded-full border transition-colors ${
                                 active
-                                  ? "bg-accent text-ink border-accent"
-                                  : "bg-white/80 text-ink-soft border-white shadow-[0_2px_8px_rgba(60,40,10,0.08)] group-hover:text-accent-ink"
+                                  ? "bg-molten text-ink border-molten"
+                                  : "bg-canvas text-ink-soft border-ink/10 group-hover:bg-ink group-hover:text-white group-hover:border-ink"
                               }`}
                             >
                               {link.icon}
@@ -309,15 +346,15 @@ export default function Header() {
                       );
                     })}
                   </ul>
-                  <div className="mt-2 flex items-center justify-between gap-3 rounded-bubble bg-ink/[0.04] px-4 py-3">
-                    <span className="text-xs text-muted">Prefer to talk it through?</span>
+                  <div className="mt-2 flex items-center justify-between gap-3 rounded-bubble bg-ink px-4 py-3">
+                    <span className="text-xs text-white/70">Prefer to talk it through?</span>
                     <a
                       href={BOOKING_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       data-company-item
                       onClick={() => setCompanyOpen(false)}
-                      className="text-xs font-semibold text-accent-ink hover:text-accent-deep"
+                      className="text-xs font-semibold text-molten hover:underline underline-offset-4"
                     >
                       Book a free call &rarr;
                     </a>
@@ -337,7 +374,7 @@ export default function Header() {
           {/* --- Mobile Toggle --- */}
           <button
             type="button"
-            className="lg:hidden w-11 h-11 rounded-full flex items-center justify-center text-ink hover:bg-white/60 transition-colors"
+            className="lg:hidden w-11 h-11 rounded-full flex items-center justify-center text-ink hover:bg-canvas transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
@@ -381,12 +418,12 @@ export default function Header() {
                   <Link
                     href={link.href}
                     aria-current={isActive(link.href) ? "page" : undefined}
-                    className={`block px-4 py-3 rounded-2xl border text-base transition-colors hover:bg-white/60 hover:border-ink/10 ${
+                    className={`block px-4 py-3 rounded-2xl border text-base transition-colors ${
                       link.highlight
-                        ? "font-semibold text-accent-deep border-transparent"
+                        ? "font-semibold text-ink bg-molten-soft border-molten"
                         : isActive(link.href)
-                          ? "bg-white/80 font-semibold text-ink border-ink/15"
-                          : "text-ink-soft border-transparent"
+                          ? "bg-ink font-semibold text-white border-ink"
+                          : "text-ink-soft border-transparent hover:bg-canvas hover:border-ink/15"
                     }`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -414,12 +451,12 @@ export default function Header() {
                           aria-current={active ? "page" : undefined}
                           onClick={() => setMobileMenuOpen(false)}
                           className={`flex items-center gap-3 rounded-bubble border p-3 transition-colors ${
-                            active ? "bg-accent/10 border-accent/40" : "bg-ink/[0.04] border-transparent hover:bg-white hover:border-ink/10"
+                            active ? "bg-molten-soft border-molten" : "bg-canvas border-transparent hover:border-ink/15"
                           }`}
                         >
                           <span
                             className={`flex shrink-0 items-center justify-center w-9 h-9 rounded-full ${
-                              active ? "bg-accent text-ink" : "bg-white text-ink-soft shadow-[0_2px_8px_rgba(60,40,10,0.08)]"
+                              active ? "bg-molten text-ink" : "bg-paper text-ink-soft border border-ink/10"
                             }`}
                           >
                             {link.icon}
@@ -432,7 +469,14 @@ export default function Header() {
                 </ul>
               </div>
 
-              <div className="pt-3">
+              <div className="pt-3 grid gap-2">
+                <Link
+                  href="/packages/website/spark"
+                  className="btn btn-molten w-full"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  The Spark &middot; from $1,500 &rarr;
+                </Link>
                 <Link
                   href="/contact"
                   className="btn btn-primary w-full"
@@ -444,6 +488,7 @@ export default function Header() {
             </nav>
           </div>
         </div>
+      </div>
       </div>
     </header>
   );

@@ -10,6 +10,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import { websitePackages as packages } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
 
@@ -143,27 +144,29 @@ export default function WebsitePackagesPage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href="/packages"
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; All Packages
-          </Link>
-          <p className="eyebrow mb-6">
-            Website Packages
-          </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            Custom websites, built for results
-          </h1>
-          <p className="text-muted text-sm mt-6 max-w-lg">
+      <PageHero
+        back={{ href: "/packages", label: "All Packages" }}
+        eyebrow="Website Packages"
+        title={
+          <>
+            Custom websites, <em className="serif-accent text-molten-deep">built for results.</em>
+          </>
+        }
+        intro={
+          <p>
             Every website we build is fully custom. No templates, no shortcuts —
             just clean, fast, conversion-optimized design engineered around your
             goals.
           </p>
-        </div>
-      </section>
+        }
+        actions={
+          <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
+            Start with The Spark &middot; $1,500 &rarr;
+          </Link>
+        }
+        photo="designSystem"
+        photoLabel="Hand-coded"
+      />
 
       {/* =============================================
           TIER OVERVIEW STRIP
@@ -175,7 +178,7 @@ export default function WebsitePackagesPage() {
               <Link
                 key={`strip-${pkg.tier}`}
                 href={`/packages/website/${pkg.slug}`}
-                className="glass-card rounded-bubble py-5 px-5 lg:px-6"
+                className={`glass-card rounded-bubble py-5 px-5 lg:px-6 ${pkg.slug === "spark" ? "bg-molten border-ink" : ""}`}
               >
                 <span className="text-xs uppercase tracking-[0.3em] text-muted block mb-1">
                   {pkg.tier}
@@ -201,34 +204,34 @@ export default function WebsitePackagesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
             {/* ---- The Spark (entry level, highlighted) ---- */}
-            <div className="glass-card rounded-card ring-2 ring-accent/50 p-8 lg:p-10 flex flex-col">
+            <div className="lift rounded-card border-[1.5px] border-ink bg-molten p-8 lg:p-10 flex flex-col">
               <div className="flex items-center justify-between mb-8">
-                <span className="text-xs uppercase tracking-[0.3em] text-muted">Tier 01</span>
-                <span className="text-xs uppercase tracking-widest bg-accent text-ink px-3 py-1 font-bold rounded-full">
+                <span className="text-xs uppercase tracking-[0.3em] text-ink/75">Tier 01</span>
+                <span className="text-xs uppercase tracking-widest bg-ink text-white px-3 py-1 font-bold rounded-full -rotate-2">
                   {packages[0].badge}
                 </span>
               </div>
-              <p className="text-xs uppercase tracking-widest text-muted mb-1">{packages[0].name}</p>
+              <p className="font-heading text-3xl font-bold tracking-tight text-ink mb-3">{packages[0].name}</p>
               {packages[0].pricePrefix && (
-                <span className="text-xs uppercase tracking-widest text-muted block">{packages[0].pricePrefix}</span>
+                <span className="text-xs uppercase tracking-widest text-ink/75 block">{packages[0].pricePrefix}</span>
               )}
-              <div className="text-4xl font-heading font-bold text-ink mb-2">{packages[0].price}</div>
-              <p className="text-xs italic text-muted mb-4">&ldquo;{packages[0].tagline}&rdquo;</p>
-              <p className="text-sm text-body leading-relaxed mb-4">{packages[0].description}</p>
-              <p className="text-xs text-muted uppercase tracking-widest mb-8">
+              <div className="text-6xl font-heading font-bold tracking-[-0.04em] text-ink mb-2">{packages[0].price}</div>
+              <p className="text-xs italic text-ink/75 mb-4">&ldquo;{packages[0].tagline}&rdquo;</p>
+              <p className="text-sm text-ink/85 leading-relaxed mb-4">{packages[0].description}</p>
+              <p className="text-xs text-ink/75 uppercase tracking-widest mb-8">
                 Best for: {packages[0].bestFor.join(", ")}
               </p>
-              <div className="border-t border-ink/10 flex-1">
+              <div className="border-t border-ink/25 flex-1">
                 {packages[0].features.map(({ label: f }) => (
-                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/10">
-                    <span className="text-accent-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
-                    <span className="text-body text-sm">{f}</span>
+                  <div key={f} className="flex items-start gap-3 py-3 border-b border-ink/25">
+                    <span className="text-ink font-bold shrink-0" aria-hidden="true">&#10003;</span>
+                    <span className="text-ink/85 text-sm">{f}</span>
                   </div>
                 ))}
               </div>
               <Link
                 href={`/packages/website/${packages[0].slug}`}
-                className="btn btn-glass min-h-10 px-5 text-sm self-start mt-8"
+                className="btn btn-glass min-h-10 px-5 text-sm self-start mt-8 hover:bg-ink hover:text-white"
               >
                 Full details: {packages[0].name} &rarr;
               </Link>

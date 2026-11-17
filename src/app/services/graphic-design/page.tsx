@@ -8,8 +8,8 @@
 
 import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
-import Image from "next/image";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -212,50 +212,40 @@ export default function GraphicDesignServicePage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/stock/service-graphic-design.jpg"
-            alt="Graphic design"
-            fill
-            className="object-cover grayscale"
-            priority
-          />
-          <div className="absolute inset-0 bg-canvas/80" />
-        </div>
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href="/services"
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; All Services
-          </Link>
-          <p className="eyebrow mb-6">
-            Graphic Design
+      <PageHero
+        kicker="Graphic Design Services"
+        back={{ href: "/services", label: "All Services" }}
+        eyebrow="Graphic Design"
+        title={
+          <>
+            Visual{" "}
+            <em className="serif-accent text-molten-deep">impact</em>
+          </>
+        }
+        intro={
+          <p>
+            Compelling visual assets that strengthen your brand across every touchpoint. Print, digital, environmental — we design it all.
           </p>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-heading font-bold text-ink leading-[0.9] tracking-tight max-w-4xl">
-            Visual impact
-          </h1>
-          <p className="text-ink-soft text-lg mt-6 max-w-2xl leading-relaxed">
-            Compelling visual assets that strengthen your brand across every
-            touchpoint. Print, digital, environmental — we design it all.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+        }
+        actions={
+          <>
             <Link
               href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-              className="btn btn-primary text-center"
+              className="btn btn-primary min-h-13 px-7"
             >
               Book a Free Call
             </Link>
             <Link
               href="/contact"
-              className="btn btn-glass text-center"
+              className="btn btn-glass min-h-13 px-7"
             >
               Get a Custom Quote
             </Link>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+        photo="lettering"
+        photoLabel="Made by hand"
+      />
 
       {/* =============================================
           CAPABILITIES
@@ -358,19 +348,19 @@ export default function GraphicDesignServicePage() {
           <div className="flex flex-wrap gap-4">
             <Link
               href="/services/branding"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Branding & Identity &rarr;
             </Link>
             <Link
               href="/services/advertising"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Advertising &rarr;
             </Link>
             <Link
               href="/services/web-design"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Web Design & Development &rarr;
             </Link>

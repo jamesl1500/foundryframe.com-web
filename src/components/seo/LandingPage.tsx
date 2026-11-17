@@ -11,11 +11,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import SparkSpotlight from "@/components/SparkSpotlight";
 import AuditForm from "@/components/AuditForm";
 import PackageHighlights from "@/components/PackageHighlights";
 import { BOOKING_URL } from "@/lib/analytics";
 import type { PublishedCaseStudy } from "@/lib/cms/public-data";
+import type { PhotoKey } from "@/lib/media/unsplash";
 import {
   APPLE_MAPS_URL,
   BUSINESS_HOURS_LINES,
@@ -52,6 +54,10 @@ interface LandingPageProps {
   matchedWorkLabel?: string;
   /** Where the business card says we work, e.g. "Elyria and Lorain County". */
   serviceArea?: string;
+  /** Hero photo (Unsplash catalog key). */
+  photo?: PhotoKey;
+  /** Sticker over the hero photo. */
+  photoLabel?: string;
 }
 
 export default function LandingPage({
@@ -74,6 +80,8 @@ export default function LandingPage({
   matchedWorkIds = [],
   matchedWorkLabel,
   serviceArea = "Lorain County, Greater Cleveland, and across Ohio",
+  photo = "openSign",
+  photoLabel,
 }: LandingPageProps) {
   const work = recentWork.slice(0, 3);
 
@@ -90,28 +98,22 @@ export default function LandingPage({
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-24">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href={backLink.href}
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; {backLink.label}
-          </Link>
-          <p className="eyebrow mb-6">{eyebrow}</p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.95] tracking-tight max-w-5xl">
-            {heading}
-          </h1>
-          <div className="mt-8 max-w-3xl space-y-4 text-ink-soft text-base leading-relaxed">
-            {intro.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+      <PageHero
+        back={backLink}
+        eyebrow={eyebrow}
+        title={heading}
+        titleClassName="text-5xl sm:text-6xl lg:text-7xl"
+        intro={intro.map((paragraph) => (
+          <p key={paragraph} className="text-base">
+            {paragraph}
+          </p>
+        ))}
+        actions={
+          <>
             <Link
               href="#audit"
               data-track="Landing hero: free audit"
-              className="btn btn-primary text-center"
+              className="btn btn-primary min-h-13 px-7"
             >
               Get a Free Website Audit
             </Link>
@@ -119,19 +121,25 @@ export default function LandingPage({
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-glass text-center"
+              className="btn btn-glass min-h-13 px-7"
             >
               Book a Free Call
             </a>
-          </div>
-          <p className="mt-4 text-muted text-xs">
-            Custom websites from $1,500 &middot; Launch in 6&ndash;12 weeks &middot;{" "}
-            <Link href="/packages/website/spark" className="underline hover:text-ink">
-              Start with The Spark
-            </Link>
-          </p>
-        </div>
-      </section>
+          </>
+        }
+        photo={photo}
+        photoLabel={photoLabel}
+      >
+        <p className="text-muted text-sm">
+          Custom websites from $1,500 &middot; Launch in 6&ndash;12 weeks &middot;{" "}
+          <Link
+            href="/packages/website/spark"
+            className="font-semibold text-ink underline underline-offset-4 decoration-molten decoration-2 hover:text-molten-deep"
+          >
+            Start with The Spark
+          </Link>
+        </p>
+      </PageHero>
 
       {/* =============================================
           FEATURES
@@ -211,7 +219,7 @@ export default function LandingPage({
                 <Link
                   key={study.id}
                   href={`/case-studies/${study.slug}`}
-                  className="glass rounded-card group flex flex-col overflow-hidden hover:bg-white/75 transition-colors"
+                  className="glass rounded-card group flex flex-col overflow-hidden hover:bg-paper transition-colors"
                 >
                   {study.cover_image_url ? (
                     <div className="relative aspect-[16/9] overflow-hidden border-b border-ink/10">
@@ -312,7 +320,7 @@ export default function LandingPage({
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+                    className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
                   >
                     {link.label} &rarr;
                   </Link>

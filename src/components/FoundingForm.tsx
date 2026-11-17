@@ -17,7 +17,7 @@ import { FOUNDING_BUDGETS, FOUNDING_TIMELINES } from "@/lib/founding/options";
 type Status = "idle" | "sending" | "success" | "error";
 
 const inputClass =
-  "w-full px-4 py-3 bg-white/70 border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl";
+  "w-full px-4 py-3 bg-paper border border-ink/10 text-ink placeholder-muted focus:outline-none focus:border-accent transition-colors rounded-2xl";
 const labelClass = "block text-xs uppercase tracking-wider text-muted mb-2";
 
 export default function FoundingForm() {

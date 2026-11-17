@@ -10,6 +10,7 @@
  */
 
 import type { Metadata } from "next";
+import { photoForIndustry } from "@/lib/media/unsplash";
 import { notFound } from "next/navigation";
 import LandingPage from "@/components/seo/LandingPage";
 import { getCaseStudiesForIndustry } from "@/lib/cms/public-data";
@@ -135,6 +136,8 @@ export default async function IndustryAreaPage({ params }: { params: Params }) {
     <LandingPage
       structuredData={structuredData}
       backLink={{ label: industry.name, href: `/industries/${industry.slug}` }}
+      photo={photoForIndustry(industry.slug)}
+      photoLabel={`${page.area}, OH`}
       eyebrow={`${industry.name} · ${page.area}, Ohio`}
       heading={page.headline}
       intro={page.intro}

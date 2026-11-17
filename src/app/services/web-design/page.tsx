@@ -10,8 +10,8 @@
 
 import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
-import Image from "next/image";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import SparkSpotlight from "@/components/SparkSpotlight";
 import { websitePackages } from "@/lib/packages/website";
 import { citiesOf, locations } from "@/lib/seo/locations";
@@ -298,52 +298,40 @@ export default function WebDesignServicePage() {
       {/* =============================================
           HERO
           ============================================= */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/stock/service-web-design.jpg"
-            alt="Web design and development"
-            fill
-            className="object-cover grayscale"
-            priority
-          />
-          <div className="absolute inset-0 bg-canvas/80" />
-        </div>
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
-          <Link
-            href="/services"
-            className="btn btn-glass min-h-10 px-4 text-sm mr-2 mb-6"
-          >
-            &larr; All Services
-          </Link>
-          <div className="glass rounded-card max-w-3xl p-6 sm:p-8">
-          <p className="eyebrow mb-6">
-            Our Flagship Service
+      <PageHero
+        back={{ href: "/services", label: "All Services" }}
+        eyebrow="Our Flagship Service"
+        title={
+          <>
+            Web Design &{" "}
+            <em className="serif-accent text-molten-deep">Development</em>
+          </>
+        }
+        intro={
+          <p>
+            Custom-coded, conversion-focused websites — built with Next.js and React, not templates. This is the work we&apos;re best known for.
           </p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-heading font-bold text-ink leading-[0.9] tracking-tight">
-            Web Design & Development
-          </h1>
-          <p className="text-ink-soft text-lg mt-6 max-w-2xl leading-relaxed">
-            Custom-coded, conversion-focused websites — built with Next.js and
-            React, not templates. This is the work we&apos;re best known for.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+        }
+        actions={
+          <>
             <Link
               href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
-              className="btn btn-primary text-center"
+              className="btn btn-primary min-h-13 px-7"
             >
               Book a Free Call
             </Link>
             <Link
-              href="/packages/website"
-              className="btn btn-glass text-center"
+              href="/packages/website/spark"
+              data-track="Web design hero: The Spark"
+              className="btn btn-molten min-h-13 px-7"
             >
-              See Pricing — Starting at $1,500
+              Start with The Spark — $1,500 &rarr;
             </Link>
-          </div>
-          </div>
-        </div>
-      </section>
+          </>
+        }
+        photo="wireframes"
+        photoLabel="Flagship"
+      />
 
       {/* =============================================
           OVERVIEW
@@ -581,19 +569,19 @@ export default function WebDesignServicePage() {
           <div className="flex flex-wrap gap-4">
             <Link
               href="/services/branding"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Branding & Identity &rarr;
             </Link>
             <Link
               href="/services/strategy"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Digital Strategy &rarr;
             </Link>
             <Link
               href="/services/graphic-design"
-              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
             >
               Graphic Design &rarr;
             </Link>
@@ -607,7 +595,7 @@ export default function WebDesignServicePage() {
               <Link
                 key={pkg.slug}
                 href={`/packages/website/${pkg.slug}`}
-                className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+                className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
               >
                 {pkg.linkLabel} &rarr;
               </Link>
@@ -622,7 +610,7 @@ export default function WebDesignServicePage() {
               <Link
                 key={location.slug}
                 href={`/locations/${location.slug}`}
-                className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-white/80 hover:text-ink transition-colors"
+                className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
               >
                 {location.city} &rarr;
               </Link>

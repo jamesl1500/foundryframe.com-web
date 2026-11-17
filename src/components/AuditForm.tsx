@@ -165,7 +165,7 @@ export default function AuditForm() {
                 placeholder="yourwebsite.com"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="flex-1 bg-white/50 border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
+                className="flex-1 bg-paper border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
               />
               <button
                 type="submit"
@@ -197,14 +197,14 @@ export default function AuditForm() {
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="bg-white/50 border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
+                className="bg-paper border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
               />
               <input
                 type="text"
                 placeholder="Your name (optional)"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="bg-white/50 border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
+                className="bg-paper border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors rounded-2xl"
               />
             </div>
             <input
@@ -212,7 +212,7 @@ export default function AuditForm() {
               placeholder="Company (optional)"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
-              className="w-full bg-white/50 border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors mb-4 rounded-2xl"
+              className="w-full bg-paper border border-ink/15 text-ink text-sm px-4 py-3 placeholder:text-muted focus:outline-none focus:border-accent transition-colors mb-4 rounded-2xl"
             />
 
             <div className="flex items-center gap-3">
@@ -251,7 +251,7 @@ export default function AuditForm() {
             <p key={stageIndex} className="animate-stage-in text-body text-sm">
               {SCAN_STAGES[stageIndex]}
             </p>
-            <div className="mt-6 h-1 w-full max-w-sm mx-auto bg-white/60 overflow-hidden">
+            <div className="mt-6 h-1 w-full max-w-sm mx-auto bg-paper overflow-hidden">
               <div
                 className="h-full bg-accent"
                 style={{ animation: `scan-progress ${POLL_TIMEOUT_MS / 1000}s linear forwards` }}
