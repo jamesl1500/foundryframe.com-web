@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -33,7 +35,9 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <section className="py-20 lg:py-28">
+    <>
+      <JsonLd data={breadcrumbList([{ name: "Terms of Service", path: "/terms" }])} />
+    <section className="pt-36 pb-20 lg:pt-44 lg:pb-28">
       <div className="mx-auto max-w-4xl px-6 lg:px-10">
         <p className="eyebrow mb-4">
           Legal
@@ -86,5 +90,6 @@ export default function TermsPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

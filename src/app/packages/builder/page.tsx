@@ -10,6 +10,8 @@
  */
 
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList } from "@/lib/seo/schema";
 import PackageBuilder from "@/components/PackageBuilder";
 
 const pageTitle = "Build Your Package — Instant Website Pricing";
@@ -47,6 +49,7 @@ export const metadata: Metadata = {
 export default function PackageBuilderPage() {
   return (
     <>
+      <JsonLd data={breadcrumbList([{ name: "Packages", path: "/packages" }, { name: "Package Builder", path: "/packages/builder" }])} />
       <section className="pt-32 pb-10 lg:pt-40 lg:pb-12">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <p className="eyebrow mb-6">Package Builder</p>

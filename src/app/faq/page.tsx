@@ -8,6 +8,8 @@
  */
 
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList } from "@/lib/seo/schema";
 import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
@@ -160,6 +162,7 @@ const faqStructuredData = {
 export default function FAQPage() {
   return (
     <>
+      <JsonLd data={breadcrumbList([{ name: "FAQ", path: "/faq" }])} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
