@@ -10,6 +10,8 @@
  */
 
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList } from "@/lib/seo/schema";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import FoundingForm from "@/components/FoundingForm";
@@ -82,6 +84,7 @@ const steps = [
 export default function FoundingPage() {
   return (
     <>
+      <JsonLd data={breadcrumbList([{ name: "Founding Clients", path: "/founding" }])} />
       {/* HERO */}
       <PageHero
         kicker="Founding Client Program for Ohio Businesses"
