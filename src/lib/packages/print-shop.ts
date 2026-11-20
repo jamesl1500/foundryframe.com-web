@@ -9,8 +9,8 @@
  *
  * Feeds the /packages/print-shop page, the PrintShopAddOn panel on every
  * package page, the package builder add-on, and the chat knowledge.
- * Update the price there too (lib/package-builder/catalog.ts,
- * lib/chat/knowledge.ts) if it changes.
+ * Update the price and included quantities there too
+ * (lib/package-builder/catalog.ts, lib/chat/knowledge.ts) if they change.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -25,17 +25,38 @@ export const PRINT_SHOP = {
   priceLabel: "$150",
   badge: "New",
   tagline: "Your brand, in their hands.",
+  /** Larger runs are custom-priced, starting at this amount (USD). */
+  largerRunsFrom: 150,
+  largerRunsLabel: "$150",
   summary:
-    "Add Print Shop to any package for $150. We design and print business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures that match your new brand.",
+    "Add Print Shop to any package for $150. We design and print 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, to match your new brand.",
   metaTitle: "Print Shop: Business Cards & Brochures, $150",
   metaDescription:
-    "Add Print Shop to any Foundry Frame package for $150: business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures, designed and printed.",
+    "Add Print Shop to any Foundry Frame package for $150: 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, designed and printed.",
 } as const;
+
+/** Minimum quantities every $150 Print Shop order includes. */
+export const PRINT_SHOP_INCLUDED = [
+  { quantity: 100, item: "business cards" },
+  { quantity: 50, item: "custom #10 envelopes" },
+  { quantity: 50, item: "tri-fold brochures" },
+] as const;
+
+/** "100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures" */
+export const PRINT_SHOP_INCLUDED_TEXT = PRINT_SHOP_INCLUDED.map(
+  ({ quantity, item }, i) =>
+    `${i === PRINT_SHOP_INCLUDED.length - 1 ? "and " : ""}${quantity} ${item}`,
+).join(", ");
+
+/** One line on going past the included quantities. */
+export const PRINT_SHOP_LARGER_RUNS = `Need more? Larger runs are custom-priced, starting at ${PRINT_SHOP.largerRunsLabel}.`;
 
 export type PrintItem = {
   name: string;
   /** Short spec shown on a chip. */
   spec: string;
+  /** Quantity included in the $150, when there is a set minimum. */
+  included?: string;
   description: string;
 };
 
@@ -43,6 +64,7 @@ export const PRINT_ITEMS: PrintItem[] = [
   {
     name: "Business cards",
     spec: "Standard 3.5 × 2 in",
+    included: "100 included",
     description:
       "Two-sided cards with your logo, contact details, and a QR code to your new site, so every handshake ends on your homepage.",
   },
@@ -55,12 +77,14 @@ export const PRINT_ITEMS: PrintItem[] = [
   {
     name: "Custom envelopes",
     spec: "#10 and A6",
+    included: "50 #10 envelopes included",
     description:
       "Branded #10 business envelopes for invoices and letters, and A6 envelopes for thank-you notes, invitations, and cards.",
   },
   {
     name: "Tri-fold brochures",
     spec: "Letter-size, six panels",
+    included: "50 included",
     description:
       "A six-panel brochure that walks customers through your services, pricing, and story, written and laid out to match your site.",
   },
@@ -77,7 +101,7 @@ export const PRINT_ITEM_NAMES = [
 export const PRINT_SHOP_FAQS = [
   {
     q: "What does the $150 Print Shop add-on include?",
-    a: "Design and printing of business cards, postcards, custom envelopes in #10 and A6 sizes, and tri-fold brochures, all matched to the brand on your new website. It's a flat $150 on top of any Foundry Frame package.",
+    a: "Design and printing of at least 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, all matched to the brand on your new website. It's a flat $150 on top of any Foundry Frame package.",
   },
   {
     q: "Can I add Print Shop to any package?",
@@ -93,7 +117,7 @@ export const PRINT_SHOP_FAQS = [
   },
   {
     q: "How many pieces are printed, and on what paper?",
-    a: "We confirm print quantities, paper stock, and finishes with you at kickoff, based on how you'll use each piece. If you need larger runs or specialty finishes, we'll quote those before anything is printed.",
+    a: "Every Print Shop order includes at least 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures. Need more than that? Larger runs are custom-priced starting at $150, and we quote them before anything is printed. Postcard and A6 envelope quantities, paper stock, and finishes are confirmed with you at kickoff.",
   },
   {
     q: "Can I order Print Shop without a website?",

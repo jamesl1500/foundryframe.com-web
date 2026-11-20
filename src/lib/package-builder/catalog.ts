@@ -162,7 +162,8 @@ export const ADDONS: AddonOption[] = [
     price: PRINT_SHOP.price,
     billing: "one_time",
     badge: PRINT_SHOP.badge,
-    summary: "Business cards, postcards, #10 and A6 envelopes, and tri-fold brochures, designed and printed.",
+    summary:
+      "100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, designed and printed. Larger runs are custom-priced from $150.",
   },
   {
     id: "extra_pages",

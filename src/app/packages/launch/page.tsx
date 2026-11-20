@@ -103,7 +103,7 @@ const faqs = [
   },
   {
     q: "Can I add printed materials to a launch bundle?",
-    a: "Yes. Our new Print Shop add-on is $150 with any bundle: we design and print business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures that match your new brand. It pairs especially well with Ignite, which is built on The Spark.",
+    a: "Yes. Our new Print Shop add-on is $150 with any bundle: we design and print 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, to match your new brand. It pairs especially well with Ignite, which is built on The Spark.",
   },
 ];
 

@@ -199,7 +199,7 @@ export const websitePackages: WebsitePackage[] = [
       {
         title: "New: add Print Shop for $150",
         description:
-          "Get business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures designed and printed to match your new site, for $150 more.",
+          "Get 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, designed and printed to match your new site, for $150 more.",
       },
     ],
     bundle: {
@@ -239,7 +239,7 @@ export const websitePackages: WebsitePackage[] = [
       },
       {
         q: "Can you design business cards and brochures to match my Spark site?",
-        a: "Yes. Add our new Print Shop add-on to The Spark for $150 and we'll design and print business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures that match your website, so you launch online and in print at the same time.",
+        a: "Yes. Add our new Print Shop add-on to The Spark for $150 and we'll design and print 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, that match your website, so you launch online and in print at the same time.",
       },
     ],
   },

@@ -120,7 +120,7 @@ const process = [
 const faqs = [
   {
     q: "Do you handle print production too?",
-    a: "Yes. With any Foundry Frame package, our new Print Shop add-on covers design and printing of business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures for $150. For other pieces, we design print-ready files to your printer's specifications or coordinate printing for you.",
+    a: "Yes. With any Foundry Frame package, our new Print Shop add-on covers design and printing of 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, for $150. Larger runs are custom-priced from $150. For other pieces, we design print-ready files to your printer's specifications or coordinate printing for you.",
   },
   {
     q: "Can you work within our existing brand guidelines?",

@@ -15,7 +15,7 @@
 import Link from "next/link";
 import Photo from "@/components/media/Photo";
 import SpinBadge from "@/components/motion/SpinBadge";
-import { PRINT_SHOP } from "@/lib/packages/print-shop";
+import { PRINT_SHOP, PRINT_SHOP_INCLUDED_TEXT } from "@/lib/packages/print-shop";
 import { getWebsitePackage } from "@/lib/packages/website";
 
 const pages = ["Home", "About", "Services", "Contact", "+1 your pick"];
@@ -80,8 +80,8 @@ export default function SparkSpotlight({
                 <span className="font-heading font-bold">
                   Add Print Shop to The Spark for {PRINT_SHOP.priceLabel}.
                 </span>{" "}
-                Business cards, postcards, #10 &amp; A6 envelopes, and tri-fold brochures, designed
-                and printed to match your new site.{" "}
+                {PRINT_SHOP_INCLUDED_TEXT}, plus postcards and A6 envelopes, designed and printed
+                to match your new site.{" "}
                 <span className="font-semibold text-molten-deep underline-offset-4 group-hover:underline">
                   See Print Shop &rarr;
                 </span>

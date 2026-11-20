@@ -105,7 +105,7 @@ const faqCategories = [
       },
       {
         q: "Do you offer printing, like business cards and brochures?",
-        a: "Yes. Our new Print Shop add-on is available with every package for an additional $150. We design and print business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures that match your brand and website. It pairs especially well with The Spark, our custom 5-page website from $1,500, so you launch online and in print at the same time.",
+        a: "Yes. Our new Print Shop add-on is available with every package for an additional $150. We design and print 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, all matching your brand and website. Larger runs are custom-priced from $150. It pairs especially well with The Spark, our custom 5-page website from $1,500, so you launch online and in print at the same time.",
       },
       {
         q: "Do you offer payment plans?",
