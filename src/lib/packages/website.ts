@@ -196,6 +196,11 @@ export const websitePackages: WebsitePackage[] = [
         description:
           "A Maintenance Plan from $99/mo keeps your site updated, monitored, and backed up, or you can bring us in as needed.",
       },
+      {
+        title: "New: add Print Shop for $150",
+        description:
+          "Get business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures designed and printed to match your new site, for $150 more.",
+      },
     ],
     bundle: {
       name: "Ignite",
@@ -231,6 +236,10 @@ export const websitePackages: WebsitePackage[] = [
       {
         q: "What happens after the 30-day support window?",
         a: "You can keep the site as is, bring us in for work as needed, or move to a Maintenance Plan (from $99/mo) for updates, security monitoring, uptime monitoring, and backups.",
+      },
+      {
+        q: "Can you design business cards and brochures to match my Spark site?",
+        a: "Yes. Add our new Print Shop add-on to The Spark for $150 and we'll design and print business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures that match your website, so you launch online and in print at the same time.",
       },
     ],
   },

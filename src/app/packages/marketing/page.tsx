@@ -10,7 +10,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
 import { parsePriceSpecification } from "@/lib/schema-price";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbList } from "@/lib/seo/schema";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -132,15 +135,10 @@ const offersStructuredData = {
   })),
 };
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-    { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
-    { "@type": "ListItem", position: 3, name: "Marketing Packages", item: `${siteUrl}/packages/marketing` },
-  ],
-};
+const breadcrumbStructuredData = breadcrumbList([
+  { name: "Packages", path: "/packages" },
+  { name: "Marketing Packages", path: "/packages/marketing" },
+]);
 
 /* ============================================================
    COMPONENT: Marketing Packages Page
@@ -148,14 +146,7 @@ const breadcrumbStructuredData = {
 export default function MarketingPackagesPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
-      />
+      <JsonLd data={[offersStructuredData, breadcrumbStructuredData]} />
 
       {/* =============================================
           HERO
@@ -307,6 +298,11 @@ export default function MarketingPackagesPage() {
           </div>
         </div>
       </section>
+
+      {/* =============================================
+          PRINT SHOP ADD-ON
+          ============================================= */}
+      <PrintShopAddOn variant="banner" trackLabel="Marketing packages: Print Shop" />
 
       {/* =============================================
           CTA

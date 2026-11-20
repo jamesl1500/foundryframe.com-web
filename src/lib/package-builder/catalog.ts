@@ -5,11 +5,14 @@
  * builder and what it costs. Prices mirror the public package pages
  * (/packages/website, /launch, /maintenance, /marketing) — update both
  * together. The quote API re-prices every submission with priceQuote(),
- * so the browser's total is never trusted.
+ * so the browser's total is never trusted. The Print Shop price comes from
+ * lib/packages/print-shop.ts.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
+
+import { PRINT_SHOP } from "@/lib/packages/print-shop";
 
 export type FoundationGroup = "website" | "bundle" | "none";
 
@@ -44,6 +47,8 @@ export type AddonOption = {
   maxQuantity?: number;
   /** True when the listed price is a floor ("$2,500+", "From $250/mo"). */
   isFloor?: boolean;
+  /** Short label shown on the card, e.g. "New". */
+  badge?: string;
   summary: string;
 };
 
@@ -54,7 +59,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     name: "The Spark",
     price: 1500,
     summary: "Up to 5 custom pages, mobile-first, SEO foundations, contact form.",
-    timeline: "About 6 weeks",
+    timeline: "4 to 6 weeks",
     href: "/packages/website",
   },
   {
@@ -63,7 +68,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     name: "The Blueprint",
     price: 3500,
     summary: "Up to 10 pages, custom design system, CMS, blog, GA4 conversion tracking.",
-    timeline: "6 to 10 weeks",
+    timeline: "6 to 8 weeks",
     href: "/packages/website",
   },
   {
@@ -152,6 +157,14 @@ export const MARKETING_PLANS: MonthlyOption[] = [
 
 export const ADDONS: AddonOption[] = [
   {
+    id: "print_shop",
+    name: "Print Shop",
+    price: PRINT_SHOP.price,
+    billing: "one_time",
+    badge: PRINT_SHOP.badge,
+    summary: "Business cards, postcards, #10 and A6 envelopes, and tri-fold brochures, designed and printed.",
+  },
+  {
     id: "extra_pages",
     name: "Additional pages",
     price: 500,
@@ -225,8 +238,19 @@ export function findFoundation(id: string) {
 }
 
 /** Why an add-on can't be picked with the current selection, or null if it can. */
-export function addonUnavailableReason(addonId: string, selection: Pick<PackageSelection, "foundationId" | "marketingId">) {
+export function addonUnavailableReason(
+  addonId: string,
+  selection: Pick<PackageSelection, "foundationId" | "marketingId"> & Partial<Pick<PackageSelection, "maintenanceId">>
+) {
   const foundation = findFoundation(selection.foundationId);
+  if (
+    addonId === "print_shop" &&
+    foundation?.id === "none" &&
+    !selection.maintenanceId &&
+    !selection.marketingId
+  ) {
+    return "Add it to any package";
+  }
   if (addonId === "ecommerce" && foundation?.includesEcommerce) {
     return `Included with ${foundation.name}`;
   }

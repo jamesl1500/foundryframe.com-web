@@ -13,6 +13,8 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import AuditCallout from "@/components/AuditCallout";
 import { locationRegions, locations } from "@/lib/seo/locations";
+import { ORGANIZATION_ID } from "@/lib/seo/schema";
+import JsonLd from "@/components/seo/JsonLd";
 
 const siteUrl = "https://www.foundryframe.com";
 const title = "Web Design Across Ohio: Areas We Serve";
@@ -47,7 +49,7 @@ const structuredData = [
     name: title,
     description,
     url: `${siteUrl}/locations`,
-    about: { "@id": `${siteUrl}/#organization` },
+    about: { "@id": ORGANIZATION_ID },
     mainEntity: {
       "@type": "ItemList",
       itemListElement: locations.map((location, i) => ({
@@ -71,13 +73,7 @@ const structuredData = [
 export default function LocationsPage() {
   return (
     <>
-      {structuredData.map((data, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
-      ))}
+      <JsonLd data={structuredData} />
 
       <PageHero
         eyebrow={<>Areas We Serve</>}

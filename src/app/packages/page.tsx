@@ -14,8 +14,9 @@ import PackageHighlights from "@/components/PackageHighlights";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbList } from "@/lib/seo/schema";
+import { absoluteUrl, breadcrumbList, webPage } from "@/lib/seo/schema";
 import SparkSpotlight from "@/components/SparkSpotlight";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
 import {
   formatPriceLabel,
   getPublishedPackages,
@@ -29,14 +30,14 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Web Design Packages & Pricing",
   description:
-    "Website packages from $1,500, launch bundles from $2,500, maintenance plans from $99/mo, and marketing from $500/mo. Transparent pricing for Ohio businesses.",
+    "Websites from $1,500, launch bundles from $2,500, maintenance from $99/mo, marketing from $500/mo, and Print Shop for $150 with any package.",
   alternates: {
     canonical: "/packages",
   },
   openGraph: {
     title: "Web Design Packages & Pricing",
     description:
-      "Website packages, launch bundles, maintenance plans, and marketing packages with transparent starting prices.",
+      "Website packages, launch bundles, maintenance and marketing plans, plus the new $150 Print Shop add-on, with transparent starting prices.",
     url: "/packages",
     type: "website",
     images: [
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Web Design Packages & Pricing",
     description:
-      "Website packages, launch bundles, maintenance plans, and marketing packages with transparent starting prices.",
+      "Website packages, launch bundles, maintenance and marketing plans, plus the new $150 Print Shop add-on, with transparent starting prices.",
     images: ["/twitter-image"],
   },
 };
@@ -166,7 +167,27 @@ export default async function PackagesPage() {
 
   return (
     <>
-      <JsonLd data={breadcrumbList([{ name: "Packages", path: "/packages" }])} />
+      <JsonLd
+        data={[
+          webPage("CollectionPage", {
+            path: "/packages",
+            name: "Web Design Packages & Pricing",
+            description:
+              "Website packages, launch bundles, maintenance plans, marketing packages, and the Print Shop add-on from Foundry Frame.",
+            extra: {
+              hasPart: [
+                { "@type": "WebPage", name: "Website Packages", url: absoluteUrl("/packages/website") },
+                { "@type": "WebPage", name: "Launch Bundles", url: absoluteUrl("/packages/launch") },
+                { "@type": "WebPage", name: "Maintenance Plans", url: absoluteUrl("/packages/maintenance") },
+                { "@type": "WebPage", name: "Marketing Packages", url: absoluteUrl("/packages/marketing") },
+                { "@type": "WebPage", name: "Print Shop Add-On", url: absoluteUrl("/packages/print-shop") },
+                { "@type": "WebPage", name: "Package Builder", url: absoluteUrl("/packages/builder") },
+              ],
+            },
+          }),
+          breadcrumbList([{ name: "Packages", path: "/packages" }]),
+        ]}
+      />
       {/* =============================================
           HERO
           ============================================= */}
@@ -200,12 +221,31 @@ export default async function PackagesPage() {
         }
         photo="shopOwners"
         photoLabel="No hidden fees"
-      />
+      >
+        <Link
+          href="/packages/print-shop"
+          data-track="Packages hero: Print Shop"
+          className="group inline-flex min-h-11 items-center gap-3 rounded-full border-[1.5px] border-ink bg-paper py-1.5 pl-1.5 pr-4 text-sm text-ink"
+        >
+          <span className="shrink-0 rounded-full bg-molten px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-ink">
+            New
+          </span>
+          <span>
+            <span className="font-semibold">Print Shop</span> with every package for $150
+          </span>
+          <span aria-hidden="true" className="shrink-0 transition-transform group-hover:translate-x-0.5">&rarr;</span>
+        </Link>
+      </PageHero>
 
       {/* =============================================
           THE SPARK
           ============================================= */}
       <SparkSpotlight heading="New here? Start with The Spark" />
+
+      {/* =============================================
+          PRINT SHOP (NEW)
+          ============================================= */}
+      <PrintShopAddOn trackLabel="Packages hub: Print Shop" />
 
       {/* =============================================
           FEATURED: LAUNCH BUNDLES + MAINTENANCE PLANS

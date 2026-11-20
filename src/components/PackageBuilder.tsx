@@ -339,6 +339,13 @@ export default function PackageBuilder() {
                   title={addon.name}
                   price={price}
                   summary={addon.summary}
+                  meta={
+                    addon.id === "print_shop"
+                      ? ["spark", "ignite"].includes(selection.foundationId)
+                        ? `${addon.badge} · Pairs perfectly with The Spark`
+                        : `${addon.badge} · Works with any package`
+                      : addon.badge
+                  }
                   disabledReason={reason}
                 />
               );

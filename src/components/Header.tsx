@@ -203,20 +203,23 @@ export default function Header() {
       >
         <div className="overflow-hidden">
           <Link
-            href="/packages/website/spark"
+            href="/packages/print-shop"
             inert={scrolled || mobileMenuOpen}
-            data-track="Announcement bar: The Spark"
+            data-track="Announcement bar: Spark + Print Shop"
             className="group flex items-center justify-center gap-3 bg-ink px-4 py-2 text-xs sm:text-sm text-white"
           >
-            <span className="rounded-full bg-molten px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-ink">
-              Start here
+            <span className="shrink-0 rounded-full bg-molten px-2 py-0.5 text-[11px] font-bold uppercase tracking-[0.1em] text-ink">
+              New
             </span>
-            <span className="truncate">
-              <span className="font-semibold">The Spark:</span>{" "}
-              <span className="hidden sm:inline">custom 5-page websites </span>from $1,500
+            <span className="truncate sm:hidden">
+              <span className="font-semibold">Print Shop:</span> add to The Spark for $150
             </span>
-            <span className="hidden sm:inline font-semibold text-molten underline-offset-4 group-hover:underline">
-              See what&apos;s included &rarr;
+            <span className="truncate hidden sm:inline">
+              <span className="font-semibold">The Spark + Print Shop:</span> a custom 5-page
+              website from $1,500, plus business cards, postcards &amp; brochures for $150 more
+            </span>
+            <span className="hidden md:inline font-semibold text-molten underline-offset-4 group-hover:underline">
+              See Print Shop &rarr;
             </span>
           </Link>
         </div>

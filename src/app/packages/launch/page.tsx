@@ -11,8 +11,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
 import { launchBundles as bundles } from "@/lib/packages/launch";
 import { parsePriceSpecification } from "@/lib/schema-price";
+import JsonLd from "@/components/seo/JsonLd";
+import { ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -58,7 +61,7 @@ const offersStructuredData = {
   description:
     "Bundled packages combining a custom website, brand identity, SEO setup, and ongoing maintenance in one engagement.",
   url: `${siteUrl}/packages/launch`,
-  provider: { "@id": `${siteUrl}/#organization` },
+  provider: { "@id": ORGANIZATION_ID },
   areaServed: [
     { "@type": "State", name: "Ohio" },
     { "@type": "Country", name: "United States" },
@@ -98,27 +101,18 @@ const faqs = [
     q: "What happens when the included maintenance ends?",
     a: "You can continue on any of our Maintenance Plans: Steady from $99/mo, Active from $249/mo, or Elite from $499/mo.",
   },
+  {
+    q: "Can I add printed materials to a launch bundle?",
+    a: "Yes. Our new Print Shop add-on is $150 with any bundle: we design and print business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures that match your new brand. It pairs especially well with Ignite, which is built on The Spark.",
+  },
 ];
 
-const faqStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.q,
-    acceptedAnswer: { "@type": "Answer", text: faq.a },
-  })),
-};
+const faqStructuredData = faqPage(faqs, "/packages/launch");
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-    { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
-    { "@type": "ListItem", position: 3, name: "Launch Bundles", item: `${siteUrl}/packages/launch` },
-  ],
-};
+const breadcrumbStructuredData = breadcrumbList([
+  { name: "Packages", path: "/packages" },
+  { name: "Launch Bundles", path: "/packages/launch" },
+]);
 
 /* ============================================================
    COMPONENT: Launch Bundles Page
@@ -126,18 +120,7 @@ const breadcrumbStructuredData = {
 export default function LaunchBundlesPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-      />
+      <JsonLd data={[offersStructuredData, breadcrumbStructuredData, faqStructuredData]} />
 
       {/* =============================================
           HERO
@@ -345,6 +328,11 @@ export default function LaunchBundlesPage() {
           </div>
         </div>
       </section>
+
+      {/* =============================================
+          PRINT SHOP ADD-ON
+          ============================================= */}
+      <PrintShopAddOn variant="banner" trackLabel="Launch bundles: Print Shop" />
 
       {/* =============================================
           FAQ

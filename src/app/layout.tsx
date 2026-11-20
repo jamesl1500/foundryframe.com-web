@@ -28,7 +28,8 @@ import {
   POSTAL_ADDRESS,
   SAME_AS_PROFILES,
 } from "@/lib/site-facts";
-import { citiesOf, locations } from "@/lib/seo/locations";
+import JsonLd from "@/components/seo/JsonLd";
+import { AREA_SERVED, SITE_URL } from "@/lib/seo/schema";
 import {
   GA_MEASUREMENT_ID,
   GOOGLE_ADS_ID,
@@ -57,17 +58,7 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-const siteUrl = "https://www.foundryframe.com";
-// Every city with a /locations page, so the sitewide schema matches the pages.
-// containedInPlace pins names like Columbus or Avon to Ohio, not another state.
-const ohio = { "@type": "State", name: "Ohio" };
-const areaServed = [
-  ...locations.flatMap((location) =>
-    citiesOf(location).map((name) => ({ "@type": "City", name, containedInPlace: ohio }))
-  ),
-  ohio,
-  { "@type": "Country", name: "United States" },
-];
+const siteUrl = SITE_URL;
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -84,7 +75,7 @@ const structuredData = {
       image: `${siteUrl}/james-latten.jpg`,
       foundingDate: "2026",
       description:
-        "Foundry Frame is a creative design agency in Ohio specializing in branding, web design, social media, and digital strategy.",
+        "Foundry Frame is a creative design agency in Ohio specializing in branding, web design, print design, social media, and digital strategy.",
       telephone: BUSINESS_PHONE,
       email: BUSINESS_EMAIL,
       priceRange: "$$",
@@ -101,8 +92,12 @@ const structuredData = {
         "Search Engine Optimization",
         "Conversion Rate Optimization",
         "Digital Strategy",
+        "Graphic Design",
+        "Print Design",
+        "Business Card Design",
+        "Brochure Design",
       ],
-      areaServed,
+      areaServed: AREA_SERVED,
       address: POSTAL_ADDRESS,
       geo: GEO_COORDINATES,
       openingHoursSpecification: OPENING_HOURS_SPECIFICATION,
@@ -251,10 +246,7 @@ export default function RootLayout({
             />
           </noscript>
         ) : null}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
+        <JsonLd data={structuredData} />
 
         {/* Site-wide navigation header (left off ad landing pages) */}
         <HideOnAdPages>

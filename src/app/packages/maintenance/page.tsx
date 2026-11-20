@@ -10,7 +10,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
 import { parsePriceSpecification } from "@/lib/schema-price";
+import JsonLd from "@/components/seo/JsonLd";
+import { ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -125,7 +128,7 @@ const offersStructuredData = {
   description:
     "Managed website maintenance for WordPress and Next.js sites: plugin, theme and framework updates, security monitoring, backups, uptime monitoring, and content updates.",
   url: `${siteUrl}/packages/maintenance`,
-  provider: { "@id": `${siteUrl}/#organization` },
+  provider: { "@id": ORGANIZATION_ID },
   areaServed: [
     { "@type": "State", name: "Ohio" },
     { "@type": "Country", name: "United States" },
@@ -171,25 +174,12 @@ const faqs = [
   },
 ];
 
-const faqStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.q,
-    acceptedAnswer: { "@type": "Answer", text: faq.a },
-  })),
-};
+const faqStructuredData = faqPage(faqs, "/packages/maintenance");
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-    { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
-    { "@type": "ListItem", position: 3, name: "Maintenance Plans", item: `${siteUrl}/packages/maintenance` },
-  ],
-};
+const breadcrumbStructuredData = breadcrumbList([
+  { name: "Packages", path: "/packages" },
+  { name: "Maintenance Plans", path: "/packages/maintenance" },
+]);
 
 /* ============================================================
    COMPONENT: Maintenance Plans Page
@@ -197,18 +187,7 @@ const breadcrumbStructuredData = {
 export default function MaintenancePlansPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-      />
+      <JsonLd data={[offersStructuredData, breadcrumbStructuredData, faqStructuredData]} />
 
       {/* =============================================
           HERO
@@ -361,6 +340,11 @@ export default function MaintenancePlansPage() {
           </div>
         </div>
       </section>
+
+      {/* =============================================
+          PRINT SHOP ADD-ON
+          ============================================= */}
+      <PrintShopAddOn variant="banner" trackLabel="Maintenance plans: Print Shop" />
 
       {/* =============================================
           FAQ

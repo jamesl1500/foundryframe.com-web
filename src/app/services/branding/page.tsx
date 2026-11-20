@@ -10,6 +10,8 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { AREA_SERVED, ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -144,12 +146,8 @@ const serviceStructuredData = {
   category: "Branding",
   description:
     "Comprehensive brand identity design — logo, strategy, visual system, and guidelines.",
-  provider: { "@id": `${siteUrl}/#organization` },
-  areaServed: [
-    { "@type": "City", name: "Lorain" },
-    { "@type": "State", name: "Ohio" },
-    { "@type": "Country", name: "United States" },
-  ],
+  provider: { "@id": ORGANIZATION_ID },
+  areaServed: AREA_SERVED,
   url: `${siteUrl}/services/branding`,
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -165,30 +163,12 @@ const serviceStructuredData = {
   },
 };
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-    { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl}/services` },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Branding & Identity",
-      item: `${siteUrl}/services/branding`,
-    },
-  ],
-};
+const breadcrumbStructuredData = breadcrumbList([
+  { name: "Services", path: "/services" },
+  { name: "Branding & Identity", path: "/services/branding" },
+]);
 
-const faqStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.q,
-    acceptedAnswer: { "@type": "Answer", text: faq.a },
-  })),
-};
+const faqStructuredData = faqPage(faqs, "/services/branding");
 
 /* ============================================================
    COMPONENT: Branding & Identity Page
@@ -196,18 +176,7 @@ const faqStructuredData = {
 export default function BrandingServicePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-      />
+      <JsonLd data={[serviceStructuredData, breadcrumbStructuredData, faqStructuredData]} />
 
       {/* =============================================
           HERO

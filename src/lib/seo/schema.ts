@@ -9,11 +9,38 @@
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
+import { citiesOf, locations } from "@/lib/seo/locations";
+
 export const SITE_URL = "https://www.foundryframe.com";
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 
 export const absoluteUrl = (path: string) => (path === "/" ? SITE_URL : `${SITE_URL}${path}`);
+
+/* Every city with a /locations page, so service schema matches the pages.
+   containedInPlace pins names like Columbus or Avon to Ohio, not another state. */
+const OHIO = { "@type": "State", name: "Ohio" };
+export const AREA_SERVED = [
+  ...locations.flatMap((location) =>
+    citiesOf(location).map((name) => ({ "@type": "City", name, containedInPlace: OHIO }))
+  ),
+  OHIO,
+  { "@type": "Country", name: "United States" },
+];
+
+/** FAQPage from the question/answer pairs shown on the page. */
+export function faqPage(faqs: readonly { q: string; a: string }[], path?: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    ...(path ? { "@id": `${absoluteUrl(path)}#faq`, url: absoluteUrl(path) } : {}),
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
+}
 
 /** BreadcrumbList from Home down to the current page. Home is added for you. */
 export function breadcrumbList(trail: { name: string; path: string }[]) {

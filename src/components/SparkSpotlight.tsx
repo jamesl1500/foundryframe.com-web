@@ -3,7 +3,8 @@
  * =================================
  * Loud molten panel that puts The Spark, the entry-level website package,
  * in front of visitors as the place to start: price, what's included, the
- * five pages, and a photo with a spinning price badge. Dropped into the
+ * five pages, the Print Shop pairing (+$150), and a photo with a spinning
+ * price badge. Dropped into the
  * packages hub, About, the web design service page, and every city and
  * industry landing page. Copy and price read from src/lib/packages/website.ts.
  *
@@ -14,6 +15,7 @@
 import Link from "next/link";
 import Photo from "@/components/media/Photo";
 import SpinBadge from "@/components/motion/SpinBadge";
+import { PRINT_SHOP } from "@/lib/packages/print-shop";
 import { getWebsitePackage } from "@/lib/packages/website";
 
 const pages = ["Home", "About", "Services", "Contact", "+1 your pick"];
@@ -65,6 +67,26 @@ export default function SparkSpotlight({
                 </li>
               ))}
             </ul>
+            {/* The Spark pairs with the Print Shop add-on */}
+            <Link
+              href={PRINT_SHOP.href}
+              data-track="Spark spotlight: Print Shop"
+              className="group mt-7 flex max-w-xl flex-col sm:flex-row items-start gap-3 sm:gap-4 rounded-card border-[1.5px] border-ink bg-paper p-4 sm:p-5 transition-shadow hover:shadow-[4px_4px_0_var(--color-ink)]"
+            >
+              <span className="shrink-0 rounded-full bg-ink px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.1em] text-white">
+                {PRINT_SHOP.badge}
+              </span>
+              <span className="text-sm text-ink leading-relaxed">
+                <span className="font-heading font-bold">
+                  Add Print Shop to The Spark for {PRINT_SHOP.priceLabel}.
+                </span>{" "}
+                Business cards, postcards, #10 &amp; A6 envelopes, and tri-fold brochures, designed
+                and printed to match your new site.{" "}
+                <span className="font-semibold text-molten-deep underline-offset-4 group-hover:underline">
+                  See Print Shop &rarr;
+                </span>
+              </span>
+            </Link>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 href={`/packages/website/${spark.slug}`}

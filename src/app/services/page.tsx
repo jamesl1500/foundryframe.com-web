@@ -211,12 +211,7 @@ export default async function ServicesPage() {
   return (
     <>
       <JsonLd data={breadcrumbList([{ name: "Services", path: "/services" }])} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(servicesStructuredData),
-        }}
-      />
+      <JsonLd data={servicesStructuredData} />
 
       {/* =============================================
           HERO
