@@ -19,9 +19,11 @@ import JsonLd from "@/components/seo/JsonLd";
 import { BOOKING_URL } from "@/lib/analytics";
 import {
   PRINT_ITEMS,
-  PRINT_ITEM_NAMES,
   PRINT_SHOP,
   PRINT_SHOP_FAQS,
+  PRINT_SHOP_INCLUDED,
+  PRINT_SHOP_INCLUDED_TEXT,
+  PRINT_SHOP_LARGER_RUNS,
 } from "@/lib/packages/print-shop";
 import { getWebsitePackage } from "@/lib/packages/website";
 import {
@@ -91,7 +93,7 @@ const steps = [
   {
     step: "Add it to your package",
     description:
-      "Tell us on your discovery call, or tick Print Shop in the Package Builder. It's a flat $150 on top of whatever package you choose.",
+      `Tell us on your discovery call, or tick Print Shop in the Package Builder. It's a flat $150 on top of whatever package you choose, with ${PRINT_SHOP_INCLUDED_TEXT} included.`,
   },
   {
     step: "Design alongside your site",
@@ -101,7 +103,7 @@ const steps = [
   {
     step: "Approve your proofs",
     description:
-      "You review a proof of every piece and confirm quantities and paper stock before anything goes to press.",
+      "You review a proof of every piece and confirm paper stock, finishes, and any larger runs before anything goes to press.",
   },
   {
     step: "Printed and delivered",
@@ -127,15 +129,28 @@ export default function PrintShopPage() {
       description: PRINT_SHOP.summary,
       provider: { "@id": ORGANIZATION_ID },
       areaServed: AREA_SERVED,
-      offers: {
-        "@type": "Offer",
-        name: "Print Shop Add-On",
-        url: pageUrl,
-        price: String(PRINT_SHOP.price),
-        priceCurrency: "USD",
-        description: `Design and printing of ${PRINT_ITEM_NAMES.join(", ")}, added to any Foundry Frame package.`,
-        availability: "https://schema.org/InStock",
-      },
+      offers: [
+        {
+          "@type": "Offer",
+          name: "Print Shop Add-On",
+          url: pageUrl,
+          price: String(PRINT_SHOP.price),
+          priceCurrency: "USD",
+          description: `Design and printing of ${PRINT_SHOP_INCLUDED_TEXT}, plus postcards and A6 envelopes, added to any Foundry Frame package.`,
+          availability: "https://schema.org/InStock",
+        },
+        {
+          "@type": "Offer",
+          name: "Larger print runs",
+          url: pageUrl,
+          description: `Print runs beyond the included ${PRINT_SHOP_INCLUDED_TEXT}, custom-priced.`,
+          priceSpecification: {
+            "@type": "PriceSpecification",
+            minPrice: String(PRINT_SHOP.largerRunsFrom),
+            priceCurrency: "USD",
+          },
+        },
+      ],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Print Shop Pieces",
@@ -144,7 +159,7 @@ export default function PrintShopPage() {
           itemOffered: {
             "@type": "Service",
             name: `${item.name} design & printing`,
-            description: item.description,
+            description: item.included ? `${item.description} ${item.included}.` : item.description,
           },
         })),
       },
@@ -191,8 +206,8 @@ export default function PrintShopPage() {
           <>
             <p>
               For an extra <span className="font-semibold text-ink">{PRINT_SHOP.priceLabel}</span>{" "}
-              on any package, we design and print your business cards, postcards, custom #10 and
-              A6 envelopes, and tri-fold brochures, all matched to the brand on your new website.
+              on any package, we design and print {PRINT_SHOP_INCLUDED_TEXT}, plus postcards and A6
+              envelopes, all matched to the brand on your new website.
             </p>
             <p className="text-base">
               It&apos;s new, and it&apos;s made for{" "}
@@ -227,7 +242,15 @@ export default function PrintShopPage() {
               <p className="text-5xl font-heading font-bold tracking-[-0.04em] text-molten-deep">
                 +{PRINT_SHOP.priceLabel}
               </p>
-              <p className="mt-1 mb-5 text-xs text-muted">
+              <ul className="mt-3 space-y-1 text-sm text-ink">
+                {PRINT_SHOP_INCLUDED.map(({ quantity, item }) => (
+                  <li key={item} className="flex items-baseline gap-2">
+                    <span className="font-heading font-bold text-molten-deep">{quantity}</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3 mb-5 text-xs text-muted">
                 The Spark + Print Shop: {sparkPrice} + {PRINT_SHOP.priceLabel}
               </p>
               <Link
@@ -272,9 +295,18 @@ export default function PrintShopPage() {
                   {item.spec}
                 </p>
                 <p className="text-body text-sm leading-relaxed">{item.description}</p>
+                {item.included && (
+                  <p className="mt-auto pt-5 font-heading font-bold text-ink">{item.included}</p>
+                )}
               </div>
             ))}
           </div>
+          <p className="mt-8 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 rounded-card border-[1.5px] border-ink bg-paper p-5 text-sm text-ink">
+            <span className="font-heading font-bold">
+              Every order includes {PRINT_SHOP_INCLUDED_TEXT}.
+            </span>
+            <span className="text-body">{PRINT_SHOP_LARGER_RUNS}</span>
+          </p>
         </div>
       </section>
 
@@ -334,7 +366,10 @@ export default function PrintShopPage() {
                 {
                   name: "Print Shop",
                   price: `+${PRINT_SHOP.priceLabel}`,
-                  items: ["Business cards", "Postcards", "#10 & A6 envelopes", "Tri-fold brochures"],
+                  items: [
+                    ...PRINT_SHOP_INCLUDED.map(({ quantity, item }) => `${quantity} ${item}`),
+                    "Postcards & A6 envelopes",
+                  ],
                 },
               ].map((group) => (
                 <div key={group.name} className="mt-5 border-t border-ink/15 pt-4">
@@ -353,7 +388,7 @@ export default function PrintShopPage() {
                 </div>
               ))}
               <p className="mt-6 text-xs text-muted leading-relaxed">
-                Prices are starting points. You&apos;ll get an exact quote on a free, no-obligation
+                {PRINT_SHOP_LARGER_RUNS} Prices are starting points. You&apos;ll get an exact quote on a free, no-obligation
                 call.
               </p>
             </div>

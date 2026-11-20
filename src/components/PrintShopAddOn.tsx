@@ -19,7 +19,12 @@
 
 import Link from "next/link";
 import Photo from "@/components/media/Photo";
-import { PRINT_ITEMS, PRINT_SHOP } from "@/lib/packages/print-shop";
+import {
+  PRINT_ITEMS,
+  PRINT_SHOP,
+  PRINT_SHOP_INCLUDED_TEXT,
+  PRINT_SHOP_LARGER_RUNS,
+} from "@/lib/packages/print-shop";
 import { getWebsitePackage } from "@/lib/packages/website";
 
 type PrintShopAddOnProps = {
@@ -77,7 +82,8 @@ function PrintShopFeature({ heading, trackLabel }: { heading?: string; trackLabe
               Your website is only half of a first impression. For a flat{" "}
               <span className="font-semibold text-ink">{PRINT_SHOP.priceLabel}</span>, we design
               and print the pieces customers hold in their hands, matched to the brand on your
-              new site.
+              new site. Every order includes{" "}
+              <span className="font-semibold text-ink">{PRINT_SHOP_INCLUDED_TEXT}</span>.
             </p>
 
             <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -91,9 +97,13 @@ function PrintShopFeature({ heading, trackLabel }: { heading?: string; trackLabe
                     {item.spec}
                   </p>
                   <p className="mt-3 text-sm text-body leading-relaxed">{item.description}</p>
+                  {item.included && (
+                    <p className="mt-3 text-sm font-heading font-bold text-ink">{item.included}</p>
+                  )}
                 </li>
               ))}
             </ul>
+            <p className="mt-4 text-sm text-muted">{PRINT_SHOP_LARGER_RUNS}</p>
 
             <div className="mt-9 flex flex-col sm:flex-row sm:flex-wrap gap-3">
               <Link
@@ -192,6 +202,9 @@ function PrintShopBanner({ trackLabel }: { trackLabel: string }) {
                 The Spark
               </Link>{" "}
               ({sparkPrice()} + {PRINT_SHOP.priceLabel}) to launch online and in print together.
+            </p>
+            <p className="mt-2 text-body text-sm leading-relaxed max-w-3xl">
+              Includes {PRINT_SHOP_INCLUDED_TEXT}. {PRINT_SHOP_LARGER_RUNS}
             </p>
           </div>
           <div className="lg:col-span-4 flex flex-wrap lg:justify-end gap-3">
