@@ -17,6 +17,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
 import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/seo/JsonLd";
+import { AREA_SERVED, ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
 
 const siteUrl = "https://www.foundryframe.com";
 const pageTitle = "Free Website Audit: SEO, Speed & Design";
@@ -167,11 +169,8 @@ const serviceStructuredData = {
   serviceType: "Website audit",
   description: pageDescription,
   url: `${siteUrl}/audit`,
-  provider: { "@id": `${siteUrl}/#organization` },
-  areaServed: [
-    { "@type": "State", name: "Ohio" },
-    { "@type": "AdministrativeArea", name: "United States" },
-  ],
+  provider: { "@id": ORGANIZATION_ID },
+  areaServed: AREA_SERVED,
   offers: {
     "@type": "Offer",
     price: "0",
@@ -180,24 +179,11 @@ const serviceStructuredData = {
   },
 };
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-    { "@type": "ListItem", position: 2, name: "Free Website Audit", item: `${siteUrl}/audit` },
-  ],
-};
+const breadcrumbStructuredData = breadcrumbList([
+  { name: "Free Website Audit", path: "/audit" },
+]);
 
-const faqStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.q,
-    acceptedAnswer: { "@type": "Answer", text: faq.a },
-  })),
-};
+const faqStructuredData = faqPage(faqs, "/audit");
 
 /* ============================================================
    COMPONENT
@@ -205,18 +191,7 @@ const faqStructuredData = {
 export default function AuditPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-      />
+      <JsonLd data={[serviceStructuredData, breadcrumbStructuredData, faqStructuredData]} />
 
       {/* =============================================
           HERO + FORM

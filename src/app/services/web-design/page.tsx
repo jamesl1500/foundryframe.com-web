@@ -15,6 +15,8 @@ import PageHero from "@/components/PageHero";
 import SparkSpotlight from "@/components/SparkSpotlight";
 import { websitePackages } from "@/lib/packages/website";
 import { citiesOf, locations } from "@/lib/seo/locations";
+import JsonLd from "@/components/seo/JsonLd";
+import { ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -225,7 +227,7 @@ const serviceStructuredData = {
   category: "Web Design",
   description:
     "Custom web design and development built with Next.js and React — no templates, no page builders.",
-  provider: { "@id": `${siteUrl}/#organization` },
+  provider: { "@id": ORGANIZATION_ID },
   areaServed: [
     ...locations.flatMap((location) =>
       citiesOf(location).map((name) => ({ "@type": "City", name }))
@@ -248,33 +250,12 @@ const serviceStructuredData = {
   },
 };
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-    { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl}/services` },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Web Design & Development",
-      item: `${siteUrl}/services/web-design`,
-    },
-  ],
-};
+const breadcrumbStructuredData = breadcrumbList([
+  { name: "Services", path: "/services" },
+  { name: "Web Design & Development", path: "/services/web-design" },
+]);
 
-const faqStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.q,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.a,
-    },
-  })),
-};
+const faqStructuredData = faqPage(faqs, "/services/web-design");
 
 /* ============================================================
    COMPONENT: Web Design & Development Page
@@ -282,18 +263,7 @@ const faqStructuredData = {
 export default function WebDesignServicePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-      />
+      <JsonLd data={[serviceStructuredData, breadcrumbStructuredData, faqStructuredData]} />
 
       {/* =============================================
           HERO
@@ -405,7 +375,6 @@ export default function WebDesignServicePage() {
           ============================================= */}
 
       <SparkSpotlight />
-
 
       {/* =============================================
           TYPES OF WEBSITES

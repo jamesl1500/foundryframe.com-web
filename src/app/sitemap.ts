@@ -17,12 +17,12 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.c
    stops trusting <lastmod> on sites that report "now" for every URL on every
    deploy, so bump this by hand after editing lib/seo/locations.ts,
    lib/seo/industries.ts, lib/seo/industry-areas.ts, or lib/packages/*. */
-const LANDING_CONTENT_UPDATED = new Date("2026-11-06");
+const LANDING_CONTENT_UPDATED = new Date("2026-11-19");
 
 /* Same idea for the hand-built pages (home, services, packages, blog posts,
    etc.): bump after a meaningful content or design change. Case studies use
    their real updated_at from the CMS. */
-const SITE_CONTENT_UPDATED = new Date("2026-11-17");
+const SITE_CONTENT_UPDATED = new Date("2026-11-19");
 
 const staticRoutes = [
   "",
@@ -44,6 +44,7 @@ const staticRoutes = [
   "/packages/launch",
   "/packages/maintenance",
   "/packages/marketing",
+  "/packages/print-shop",
   "/blog",
   "/case-studies",
   "/faq",

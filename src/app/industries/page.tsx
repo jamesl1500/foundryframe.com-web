@@ -13,6 +13,8 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import AuditCallout from "@/components/AuditCallout";
 import { industries } from "@/lib/seo/industries";
+import { ORGANIZATION_ID } from "@/lib/seo/schema";
+import JsonLd from "@/components/seo/JsonLd";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -46,7 +48,7 @@ const structuredData = [
     "@type": "CollectionPage",
     name: "Website Design by Industry",
     url: `${siteUrl}/industries`,
-    about: { "@id": `${siteUrl}/#organization` },
+    about: { "@id": ORGANIZATION_ID },
     isPartOf: { "@id": `${siteUrl}/#website` },
     mainEntity: {
       "@type": "ItemList",
@@ -71,13 +73,7 @@ const structuredData = [
 export default function IndustriesPage() {
   return (
     <>
-      {structuredData.map((data, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
-      ))}
+      <JsonLd data={structuredData} />
 
       <PageHero
         kicker="Website Design by Industry"

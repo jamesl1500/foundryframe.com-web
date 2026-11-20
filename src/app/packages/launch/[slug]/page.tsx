@@ -18,8 +18,10 @@ import { BOOKING_URL } from "@/lib/analytics";
 import { getLaunchBundle, launchBundles } from "@/lib/packages/launch";
 import { getWebsitePackage } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
-import { citiesOf, locations } from "@/lib/seo/locations";
+import { AREA_SERVED, ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
 import { FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
+import JsonLd from "@/components/seo/JsonLd";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -94,14 +96,8 @@ export default async function LaunchBundlePage({
       serviceType: "Website design and branding package",
       url: pageUrl,
       description: bundle.metaDescription,
-      provider: { "@id": `${siteUrl}/#organization` },
-      areaServed: [
-        ...locations.flatMap((location) =>
-          citiesOf(location).map((name) => ({ "@type": "City", name }))
-        ),
-        { "@type": "State", name: "Ohio" },
-        { "@type": "AdministrativeArea", name: "United States" },
-      ],
+      provider: { "@id": ORGANIZATION_ID },
+      areaServed: AREA_SERVED,
       offers: {
         "@type": "Offer",
         name: `${bundle.name} Launch Bundle`,
@@ -109,36 +105,17 @@ export default async function LaunchBundlePage({
         priceSpecification: parsePriceSpecification(`${bundle.pricePrefix} ${bundle.price}`),
       },
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
-        { "@type": "ListItem", position: 3, name: "Launch Bundles", item: `${siteUrl}/packages/launch` },
-        { "@type": "ListItem", position: 4, name: bundle.name, item: pageUrl },
-      ],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: bundle.faqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.q,
-        acceptedAnswer: { "@type": "Answer", text: faq.a },
-      })),
-    },
+    breadcrumbList([
+      { name: "Packages", path: "/packages" },
+      { name: "Launch Bundles", path: "/packages/launch" },
+      { name: bundle.name, path: `/packages/launch/${bundle.slug}` },
+    ]),
+    faqPage(bundle.faqs, `/packages/launch/${bundle.slug}`),
   ];
 
   return (
     <>
-      {structuredData.map((data, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
-      ))}
+      <JsonLd data={structuredData} />
 
       {/* =============================================
           HERO
@@ -361,6 +338,11 @@ export default async function LaunchBundlePage({
           </div>
         </div>
       </section>
+
+      {/* =============================================
+          PRINT SHOP ADD-ON
+          ============================================= */}
+      <PrintShopAddOn variant="banner" trackLabel={`${bundle.name} details: Print Shop`} />
 
       {/* =============================================
           WEBSITE ONLY + NEXT BUNDLE

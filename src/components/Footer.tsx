@@ -23,6 +23,7 @@ const footerColumns = [
       { label: "Packages", href: "/packages" },
       { label: "Launch Bundles", href: "/packages/launch" },
       { label: "Maintenance Plans", href: "/packages/maintenance" },
+      { label: "Print Shop (New)", href: "/packages/print-shop" },
       { label: "Free Website Audit", href: "/audit" },
       { label: "Founding Clients", href: "/founding" },
       { label: "Contact", href: "/contact" },

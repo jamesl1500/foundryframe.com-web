@@ -17,11 +17,19 @@ import PageHero from "@/components/PageHero";
 import Photo from "@/components/media/Photo";
 import type { PhotoKey } from "@/lib/media/unsplash";
 import { BOOKING_URL } from "@/lib/analytics";
+import { PRINT_SHOP } from "@/lib/packages/print-shop";
 import { getWebsitePackage, websitePackages } from "@/lib/packages/website";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
+import JsonLd from "@/components/seo/JsonLd";
 import { parsePriceSpecification } from "@/lib/schema-price";
-import { citiesOf, locations } from "@/lib/seo/locations";
-
-const siteUrl = "https://www.foundryframe.com";
+import { locations } from "@/lib/seo/locations";
+import {
+  AREA_SERVED,
+  ORGANIZATION_ID,
+  absoluteUrl,
+  breadcrumbList,
+  faqPage,
+} from "@/lib/seo/schema";
 
 /* Hero photo for each tier */
 const tierPhotos: Record<string, PhotoKey> = {
@@ -80,7 +88,8 @@ export default async function WebsitePackagePage({
   const pkg = getWebsitePackage(slug);
   if (!pkg) notFound();
 
-  const pageUrl = `${siteUrl}/packages/website/${pkg.slug}`;
+  const path = `/packages/website/${pkg.slug}`;
+  const pageUrl = absoluteUrl(path);
   const priceLabel = pkg.pricePrefix ? `${pkg.pricePrefix} ${pkg.price}` : pkg.price;
   const isCustom = pkg.price === "Custom";
   const upgrade = pkg.upgrade ? getWebsitePackage(pkg.upgrade.slug) : undefined;
@@ -89,18 +98,13 @@ export default async function WebsitePackagePage({
     {
       "@context": "https://schema.org",
       "@type": "Service",
+      "@id": `${pageUrl}#service`,
       name: `${pkg.name} Website Package`,
       serviceType: "Web Design & Development",
       url: pageUrl,
       description: pkg.metaDescription,
-      provider: { "@id": `${siteUrl}/#organization` },
-      areaServed: [
-        ...locations.flatMap((location) =>
-          citiesOf(location).map((name) => ({ "@type": "City", name }))
-        ),
-        { "@type": "State", name: "Ohio" },
-        { "@type": "AdministrativeArea", name: "United States" },
-      ],
+      provider: { "@id": ORGANIZATION_ID },
+      areaServed: AREA_SERVED,
       offers: {
         "@type": "Offer",
         name: pkg.name,
@@ -108,25 +112,12 @@ export default async function WebsitePackagePage({
         priceSpecification: parsePriceSpecification(priceLabel),
       },
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-        { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
-        { "@type": "ListItem", position: 3, name: "Website Packages", item: `${siteUrl}/packages/website` },
-        { "@type": "ListItem", position: 4, name: pkg.name, item: pageUrl },
-      ],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: pkg.faqs.map((faq) => ({
-        "@type": "Question",
-        name: faq.q,
-        acceptedAnswer: { "@type": "Answer", text: faq.a },
-      })),
-    },
+    breadcrumbList([
+      { name: "Packages", path: "/packages" },
+      { name: "Website Packages", path: "/packages/website" },
+      { name: pkg.name, path },
+    ]),
+    faqPage(pkg.faqs, path),
   ];
 
   const isSpark = pkg.slug === "spark";
@@ -134,13 +125,7 @@ export default async function WebsitePackagePage({
 
   return (
     <>
-      {structuredData.map((data, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
-      ))}
+      <JsonLd data={structuredData} />
 
       {/* =============================================
           HERO
@@ -367,6 +352,18 @@ export default async function WebsitePackagePage({
           </div>
         </div>
       </section>
+
+      {/* =============================================
+          PRINT SHOP ADD-ON
+          ============================================= */}
+      {isSpark ? (
+        <PrintShopAddOn
+          heading={`Pair The Spark with Print Shop for ${PRINT_SHOP.priceLabel}`}
+          trackLabel="Spark details: Print Shop"
+        />
+      ) : (
+        <PrintShopAddOn variant="banner" trackLabel={`${pkg.name} details: Print Shop`} />
+      )}
 
       {/* =============================================
           UPGRADE + BUNDLE

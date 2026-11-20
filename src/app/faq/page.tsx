@@ -9,12 +9,11 @@
 
 import type { Metadata } from "next";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbList } from "@/lib/seo/schema";
+import { breadcrumbList, faqPage } from "@/lib/seo/schema";
 import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
   title: "Web Design & Pricing FAQ",
@@ -102,7 +101,11 @@ const faqCategories = [
     questions: [
       {
         q: "How much do your services cost?",
-        a: "Website packages start at $1,500 (The Spark), $3,500 (The Blueprint), and $7,000 (The Architect), with The Monument scoped as a custom enterprise engagement. We also offer Launch Bundles starting at $2,500, monthly Maintenance Plans from $99/mo, and Marketing Packages from $500/mo. Every price is a starting point — you'll get an exact number after a free, no-obligation call. Visit our Packages page for details.",
+        a: "Website packages start at $1,500 (The Spark), $3,500 (The Blueprint), and $7,000 (The Architect), with The Monument scoped as a custom enterprise engagement. We also offer Launch Bundles starting at $2,500, monthly Maintenance Plans from $99/mo, and Marketing Packages from $500/mo. Print Shop (business cards, postcards, envelopes, and brochures) can be added to any package for $150. Every price is a starting point — you'll get an exact number after a free, no-obligation call. Visit our Packages page for details.",
+      },
+      {
+        q: "Do you offer printing, like business cards and brochures?",
+        a: "Yes. Our new Print Shop add-on is available with every package for an additional $150. We design and print business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures that match your brand and website. It pairs especially well with The Spark, our custom 5-page website from $1,500, so you launch online and in print at the same time.",
       },
       {
         q: "Do you offer payment plans?",
@@ -137,24 +140,10 @@ const faqCategories = [
   },
 ] as const;
 
-const faqStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqCategories.flatMap((category) =>
-    category.questions.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a,
-      },
-    }))
-  ),
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": `${siteUrl}/faq`,
-  },
-};
+const faqStructuredData = faqPage(
+  faqCategories.flatMap((category): readonly { q: string; a: string }[] => category.questions),
+  "/faq"
+);
 
 /* ============================================================
    COMPONENT
@@ -163,10 +152,7 @@ export default function FAQPage() {
   return (
     <>
       <JsonLd data={breadcrumbList([{ name: "FAQ", path: "/faq" }])} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-      />
+      <JsonLd data={faqStructuredData} />
 
       {/* =============================================
           HERO

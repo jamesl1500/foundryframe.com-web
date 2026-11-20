@@ -24,6 +24,7 @@ import {
   GOOGLE_MAPS_URL,
   isInHouseProduct,
 } from "@/lib/site-facts";
+import JsonLd from "@/components/seo/JsonLd";
 
 type Feature = { title: string; description: string };
 type Faq = { q: string; a: string };
@@ -87,13 +88,7 @@ export default function LandingPage({
 
   return (
     <>
-      {structuredData.map((data, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-        />
-      ))}
+      <JsonLd data={structuredData} />
 
       {/* =============================================
           HERO

@@ -10,13 +10,16 @@ import type { Metadata } from "next";
 import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
+import JsonLd from "@/components/seo/JsonLd";
+import { AREA_SERVED, ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
 
 const siteUrl = "https://www.foundryframe.com";
 
 export const metadata: Metadata = {
   title: "Graphic Design Services",
   description:
-    "Graphic design from Foundry Frame: marketing collateral, packaging, print, presentations, signage, and digital assets that strengthen your brand everywhere.",
+    "Graphic design from Foundry Frame: collateral, packaging, print, signage, and digital assets. Add business cards and brochures to any package for $150.",
   alternates: {
     canonical: "/services/graphic-design",
   },
@@ -59,9 +62,9 @@ const capabilities = [
       "Product packaging that stands out on a shelf and reinforces the brand experience in someone's hands.",
   },
   {
-    title: "Print Design",
+    title: "Print Design & Printing",
     description:
-      "Everything from postcards to large-format prints, designed and prepped correctly for the printer the first time.",
+      "Everything from postcards to large-format prints, designed and prepped correctly for the printer the first time. Business cards, postcards, envelopes, and brochures are $150 with any package through Print Shop.",
   },
   {
     title: "Presentation Design",
@@ -117,7 +120,7 @@ const process = [
 const faqs = [
   {
     q: "Do you handle print production too?",
-    a: "We design print-ready files to your printer's specifications. We can also recommend and coordinate with local print vendors if you need one.",
+    a: "Yes. With any Foundry Frame package, our new Print Shop add-on covers design and printing of business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures for $150. For other pieces, we design print-ready files to your printer's specifications or coordinate printing for you.",
   },
   {
     q: "Can you work within our existing brand guidelines?",
@@ -144,12 +147,8 @@ const serviceStructuredData = {
   category: "Graphic Design",
   description:
     "Print, digital, and environmental graphic design — collateral, packaging, presentations, and signage.",
-  provider: { "@id": `${siteUrl}/#organization` },
-  areaServed: [
-    { "@type": "City", name: "Lorain" },
-    { "@type": "State", name: "Ohio" },
-    { "@type": "Country", name: "United States" },
-  ],
+  provider: { "@id": ORGANIZATION_ID },
+  areaServed: AREA_SERVED,
   url: `${siteUrl}/services/graphic-design`,
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -165,30 +164,12 @@ const serviceStructuredData = {
   },
 };
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-    { "@type": "ListItem", position: 2, name: "Services", item: `${siteUrl}/services` },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Graphic Design",
-      item: `${siteUrl}/services/graphic-design`,
-    },
-  ],
-};
+const breadcrumbStructuredData = breadcrumbList([
+  { name: "Services", path: "/services" },
+  { name: "Graphic Design", path: "/services/graphic-design" },
+]);
 
-const faqStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.q,
-    acceptedAnswer: { "@type": "Answer", text: faq.a },
-  })),
-};
+const faqStructuredData = faqPage(faqs, "/services/graphic-design");
 
 /* ============================================================
    COMPONENT: Graphic Design Page
@@ -196,18 +177,7 @@ const faqStructuredData = {
 export default function GraphicDesignServicePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-      />
+      <JsonLd data={[serviceStructuredData, breadcrumbStructuredData, faqStructuredData]} />
 
       {/* =============================================
           HERO
@@ -309,6 +279,11 @@ export default function GraphicDesignServicePage() {
       </section>
 
       {/* =============================================
+          PRINT SHOP ADD-ON
+          ============================================= */}
+      <PrintShopAddOn variant="banner" trackLabel="Graphic design: Print Shop" />
+
+      {/* =============================================
           FAQ
           ============================================= */}
       <section className="py-24 lg:py-32">
@@ -346,6 +321,12 @@ export default function GraphicDesignServicePage() {
             Pairs Well With
           </p>
           <div className="flex flex-wrap gap-4">
+            <Link
+              href="/packages/print-shop"
+              className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"
+            >
+              Print Shop Add-On ($150) &rarr;
+            </Link>
             <Link
               href="/services/branding"
               className="glass rounded-full inline-flex items-center min-h-11 px-5 text-ink-soft text-sm hover:bg-paper hover:text-ink transition-colors"

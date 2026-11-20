@@ -36,6 +36,7 @@ import { getPublishedServices } from "@/lib/cms/public-data";
 import { photoForService, type PhotoKey } from "@/lib/media/unsplash";
 import { getWebsitePackage, websitePackages } from "@/lib/packages/website";
 import { FOUNDING_SPOTS_OPEN, GOOGLE_REVIEWS } from "@/lib/site-facts";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
    (see lib/cms/revalidate.ts); this is the fallback for other edits. */
@@ -684,6 +685,11 @@ export default async function Home() {
           </StaggerContainer>
         </div>
       </section>
+
+      {/* =============================================
+          PRINT SHOP ADD-ON (NEW)
+          ============================================= */}
+      <PrintShopAddOn variant="banner" trackLabel="Home: Print Shop" />
 
       {/* =============================================
           LAUNCH BUNDLES + MAINTENANCE

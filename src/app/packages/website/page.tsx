@@ -11,10 +11,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import PrintShopAddOn from "@/components/PrintShopAddOn";
+import JsonLd from "@/components/seo/JsonLd";
+import { PRINT_SHOP } from "@/lib/packages/print-shop";
 import { websitePackages as packages } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
-
-const siteUrl = "https://www.foundryframe.com";
+import { absoluteUrl, breadcrumbList } from "@/lib/seo/schema";
 
 export const metadata: Metadata = {
   title: "Custom Website Packages from $1,500",
@@ -95,6 +97,15 @@ const addons = [
     featured: false,
     highlights: [] as string[],
   },
+  {
+    name: "Print Shop (New)",
+    price: PRINT_SHOP.priceLabel,
+    description:
+      "Business cards, postcards, custom #10 and A6 envelopes, and tri-fold brochures, designed and printed to match your site.",
+    featured: false,
+    highlights: [] as string[],
+    href: PRINT_SHOP.href,
+  },
 ];
 
 /* ============================================================
@@ -104,27 +115,22 @@ const offersStructuredData = {
   "@context": "https://schema.org",
   "@type": "OfferCatalog",
   name: "Website Packages",
-  url: `${siteUrl}/packages/website`,
+  url: absoluteUrl("/packages/website"),
   itemListElement: packages.map((pkg) => ({
     "@type": "Offer",
     name: pkg.name,
     description: pkg.tagline,
-    url: `${siteUrl}/packages/website/${pkg.slug}`,
+    url: absoluteUrl(`/packages/website/${pkg.slug}`),
     priceSpecification: parsePriceSpecification(
       pkg.pricePrefix ? `${pkg.pricePrefix} ${pkg.price}` : pkg.price
     ),
   })),
 };
 
-const breadcrumbStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-    { "@type": "ListItem", position: 2, name: "Packages", item: `${siteUrl}/packages` },
-    { "@type": "ListItem", position: 3, name: "Website Packages", item: `${siteUrl}/packages/website` },
-  ],
-};
+const breadcrumbStructuredData = breadcrumbList([
+  { name: "Packages", path: "/packages" },
+  { name: "Website Packages", path: "/packages/website" },
+]);
 
 /* ============================================================
    COMPONENT: Website Packages Page
@@ -132,14 +138,7 @@ const breadcrumbStructuredData = {
 export default function WebsitePackagesPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(offersStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbStructuredData) }}
-      />
+      <JsonLd data={[offersStructuredData, breadcrumbStructuredData]} />
 
       {/* =============================================
           HERO
@@ -365,6 +364,11 @@ export default function WebsitePackagesPage() {
       </section>
 
       {/* =============================================
+          PRINT SHOP (NEW)
+          ============================================= */}
+      <PrintShopAddOn trackLabel="Website packages: Print Shop" />
+
+      {/* =============================================
           ADD-ONS
           ============================================= */}
       <section className="py-24 lg:py-32">
@@ -382,9 +386,9 @@ export default function WebsitePackagesPage() {
               .filter((a) => a.featured)
               .map((addon) => (
                 <div key={addon.name} className="glass rounded-card p-8 lg:p-10 flex flex-col">
-                  <div className="flex items-start justify-between gap-4 mb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-4 mb-4">
                     <p className="text-ink font-heading font-bold text-2xl">{addon.name}</p>
-                    <span className="text-ink font-heading font-bold text-xl shrink-0">{addon.price}</span>
+                    <span className="text-ink font-heading font-bold text-xl sm:shrink-0">{addon.price}</span>
                   </div>
                   <p className="text-body text-sm leading-relaxed mb-6">{addon.description}</p>
                   {addon.highlights.length > 0 && (
@@ -411,7 +415,13 @@ export default function WebsitePackagesPage() {
                   className="flex items-start justify-between gap-6 py-5 border-b border-ink/10"
                 >
                   <div>
-                    <span className="text-ink-soft text-sm block">{addon.name}</span>
+                    {"href" in addon && addon.href ? (
+                      <Link href={addon.href} className="text-ink text-sm font-semibold block underline-offset-4 hover:underline">
+                        {addon.name}
+                      </Link>
+                    ) : (
+                      <span className="text-ink-soft text-sm block">{addon.name}</span>
+                    )}
                     <span className="text-muted text-xs mt-1 block">{addon.description}</span>
                   </div>
                   <span className="text-ink font-heading font-semibold text-sm shrink-0">

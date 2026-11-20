@@ -13,6 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { seoTitle, summarize } from "@/lib/seo/meta";
+import JsonLd from "@/components/seo/JsonLd";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
@@ -228,18 +229,7 @@ export default async function BlogPostPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(blogPostingStructuredData),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbStructuredData),
-        }}
-      />
+      <JsonLd data={[blogPostingStructuredData, breadcrumbStructuredData]} />
 
       {/* =============================================
           HERO
