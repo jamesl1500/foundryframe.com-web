@@ -15,8 +15,7 @@
 
 import { FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
 
-/** Every ad landing page lives under this path. */
-export const AD_PAGE_PREFIX = "/go/";
+export { AD_PAGE_PREFIX } from "@/lib/ad-pages";
 
 export type Funnel = {
   slug: string;

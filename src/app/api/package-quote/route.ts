@@ -21,12 +21,15 @@ import {
 import { insertQuote, updateQuote } from "@/lib/package-builder/repository";
 import { sendMetaLead } from "@/lib/server/meta-capi";
 import { leadSourceEmailHtml, leadSourceFromRequest } from "@/lib/server/lead-source";
+import { ipBucket, isSameSiteRequest, throttleHit } from "@/lib/server/request-guard";
 import type { LeadSource } from "@/lib/lead-source";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 const QUOTE_RECIPIENTS = ["jlatten@foundryframe.com", "leads@foundryframe.com"];
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/;
+const PER_IP_LIMIT = 5; // quotes per IP per hour
+const SITE_WIDE_LIMIT = 60; // quotes per hour from everyone combined
 
 function esc(str: string): string {
   return str
@@ -87,6 +90,10 @@ function quoteEmailHtml(contact: Contact, quote: PricedQuote, quoteId: string | 
 }
 
 export async function POST(request: Request) {
+  if (!isSameSiteRequest(request)) {
+    return Response.json({ error: "Forbidden." }, { status: 403 });
+  }
+
   try {
     const body = (await request.json()) as Record<string, unknown> | null;
     if (!body || typeof body !== "object") {
@@ -131,6 +138,22 @@ export async function POST(request: Request) {
     const quote = priceQuote(selection);
     if (quote.lines.length === 0) {
       return Response.json({ error: "Add at least one item to your package." }, { status: 400 });
+    }
+
+    const ipAllowed = await throttleHit(ipBucket("package-quote", request), PER_IP_LIMIT, 3600);
+    const siteAllowed =
+      ipAllowed === true ? await throttleHit("package-quote:all", SITE_WIDE_LIMIT, 3600) : ipAllowed;
+    if (ipAllowed === null || siteAllowed === null) {
+      return Response.json(
+        { error: "We couldn't send your package just now. Please email jlatten@foundryframe.com." },
+        { status: 503 }
+      );
+    }
+    if (!ipAllowed || !siteAllowed) {
+      return Response.json(
+        { error: "You've sent several packages already. Please try again later or email jlatten@foundryframe.com." },
+        { status: 429 }
+      );
     }
 
     const source = leadSourceFromRequest(request);

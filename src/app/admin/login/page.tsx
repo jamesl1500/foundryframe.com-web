@@ -11,7 +11,7 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function onSubmit(event: React.FormEvent) {
+  async function onSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setLoading(true);
     setError("");

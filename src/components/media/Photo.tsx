@@ -1,23 +1,17 @@
 /**
  * Photo - Foundry Frame
  * =======================
- * next/image for Unsplash photos from the catalog in lib/media/unsplash.ts.
- * A custom loader asks Unsplash's CDN for each responsive size directly, so
- * we get srcset, lazy loading, and AVIF/WebP without routing images through
- * the Next.js optimizer. Client component because next/image's `loader`
- * prop is a function; server components pass the photo key instead.
+ * An Unsplash photo from the catalog in lib/media/unsplash.ts, by key.
+ * Not a client component: it resolves the photo's id and alt text where it
+ * renders and hands only those to <UnsplashImage>, so pages rendered on the
+ * server don't ship the whole photo catalog to the browser.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
-"use client";
-
-import Image, { type ImageLoaderProps } from "next/image";
-import { photos, unsplashUrl, type PhotoKey } from "@/lib/media/unsplash";
-
-const unsplashLoader = ({ src, width, quality }: ImageLoaderProps) =>
-  unsplashUrl(src, width, quality ?? 75);
+import UnsplashImage from "@/components/media/UnsplashImage";
+import { photos, type PhotoKey } from "@/lib/media/unsplash";
 
 type PhotoProps = {
   name: PhotoKey;
@@ -47,8 +41,7 @@ export default function Photo({
       : { fill: true as const };
 
   return (
-    <Image
-      loader={unsplashLoader}
+    <UnsplashImage
       src={photo.id}
       alt={alt ?? photo.alt}
       sizes={sizes}

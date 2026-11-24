@@ -48,6 +48,8 @@ export default function AuditForm() {
   const pollTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const stageTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const pollDeadline = useRef<number>(0);
+  // One poll at a time: a slow response must not overlap the next tick.
+  const polling = useRef(false);
 
   useEffect(() => {
     return () => {
@@ -56,7 +58,7 @@ export default function AuditForm() {
     };
   }, []);
 
-  function handleUrlSubmit(e: React.FormEvent) {
+  function handleUrlSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!url.trim()) return;
     setError("");
@@ -70,6 +72,8 @@ export default function AuditForm() {
   }
 
   async function pollAudit(auditId: string) {
+    if (polling.current) return;
+    polling.current = true;
     try {
       const res = await fetch(`/api/audit/${auditId}`, { cache: "no-store" });
       const data: AuditRead = await res.json();
@@ -104,10 +108,12 @@ export default function AuditForm() {
         setError("We lost connection while scanning your site. Please try again.");
         setStep("error");
       }
+    } finally {
+      polling.current = false;
     }
   }
 
-  async function handleContactSubmit(e: React.FormEvent) {
+  async function handleContactSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     setStep("scanning");
@@ -162,6 +168,9 @@ export default function AuditForm() {
               <input
                 type="text"
                 required
+                aria-label="Your website address"
+                inputMode="url"
+                autoComplete="url"
                 placeholder="yourwebsite.com"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
@@ -194,6 +203,8 @@ export default function AuditForm() {
                 type="email"
                 required
                 autoFocus
+                aria-label="Email address"
+                autoComplete="email"
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -201,6 +212,8 @@ export default function AuditForm() {
               />
               <input
                 type="text"
+                aria-label="Your name (optional)"
+                autoComplete="name"
                 placeholder="Your name (optional)"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -209,6 +222,8 @@ export default function AuditForm() {
             </div>
             <input
               type="text"
+              aria-label="Company (optional)"
+              autoComplete="organization"
               placeholder="Company (optional)"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
@@ -248,9 +263,12 @@ export default function AuditForm() {
             <p className="text-ink font-heading font-bold text-xl mb-2">
               Scanning {url}
             </p>
-            <p key={stageIndex} className="animate-stage-in text-body text-sm">
-              {SCAN_STAGES[stageIndex]}
-            </p>
+            {/* The live region stays mounted; only the keyed line inside re-animates. */}
+            <div role="status" aria-live="polite">
+              <p key={stageIndex} className="animate-stage-in text-body text-sm">
+                {SCAN_STAGES[stageIndex]}
+              </p>
+            </div>
             <div className="mt-6 h-1 w-full max-w-sm mx-auto bg-paper overflow-hidden">
               <div
                 className="h-full bg-accent"
@@ -268,8 +286,9 @@ export default function AuditForm() {
             <p className="text-ink font-heading font-bold text-xl mb-2">
               We hit a snag
             </p>
-            <p className="text-body text-sm mb-6">{error}</p>
+            <p role="alert" className="text-body text-sm mb-6">{error}</p>
             <button
+              type="button"
               onClick={reset}
               className="btn btn-primary"
             >

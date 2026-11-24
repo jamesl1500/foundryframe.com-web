@@ -12,6 +12,10 @@
 import { citiesOf, locations } from "@/lib/seo/locations";
 
 export const SITE_URL = "https://www.foundryframe.com";
+
+/* The deployment's public origin for sitemap/robots/canonical URLs:
+   NEXT_PUBLIC_SITE_URL when set (no trailing slash), otherwise SITE_URL. */
+export const PUBLIC_SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || SITE_URL).replace(/\/+$/, "");
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 

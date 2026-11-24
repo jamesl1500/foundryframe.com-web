@@ -11,7 +11,7 @@
 
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import { BOOKING_URL, newConversionId, trackConversion } from "@/lib/analytics";
 import type { Funnel } from "@/lib/funnels";
 
@@ -25,7 +25,7 @@ export default function AdPageForm({ funnel }: { funnel: Funnel }) {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("sending");
     setErrorMsg("");

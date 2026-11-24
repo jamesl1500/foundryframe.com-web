@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { CHAT_SYSTEM_PROMPT } from "@/lib/chat/knowledge";
+import { refusalFallbacks } from "@/lib/claude-fallbacks";
 
 export const maxDuration = 60;
 
@@ -90,8 +91,7 @@ export async function POST(request: Request) {
         const response = anthropic.beta.messages.stream({
           model: CHAT_MODEL,
           max_tokens: 2048,
-          betas: ["server-side-fallback-2026-07-01"],
-          fallbacks: "default",
+          ...refusalFallbacks(CHAT_MODEL),
           output_config: { effort: "low" },
           cache_control: { type: "ephemeral" },
           system: CHAT_SYSTEM_PROMPT,

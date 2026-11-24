@@ -10,10 +10,16 @@
 
 import { ImageResponse } from "next/og";
 import { OgImageContent, fitHeadlineSize, size, contentType } from "@/lib/og-image";
-import { getIndustryArea } from "@/lib/seo/industry-areas";
+import { getIndustryArea, industryAreas } from "@/lib/seo/industry-areas";
 
 export const alt = "Foundry Frame industry websites for local Ohio businesses";
 export { size, contentType };
+
+/* Prerender one image per page at build time, so crawlers and link
+   previews get a cached PNG instead of a fresh render on every request. */
+export function generateStaticParams() {
+  return industryAreas.map(({ industrySlug, areaSlug }) => ({ slug: industrySlug, area: areaSlug }));
+}
 
 export default async function Image({
   params,

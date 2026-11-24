@@ -1,10 +1,14 @@
-import { lookup } from "node:dns/promises";
-import { isIP } from "node:net";
+/* Website URLs come from Google Places and web search results, which anyone
+   can edit, so every fetch goes through the audit's safeFetch: it checks
+   the address the socket actually connects to (no DNS rebinding), on every
+   redirect hop, and blocks private, metadata and IPv4-mapped IPv6 ranges. */
+import { safeFetch } from "@/lib/audit/safe-fetch";
 import type { SiteCheck } from "@/lib/lead-finder/types";
 
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_REDIRECTS = 5;
 const MAX_HTML_BYTES = 600_000;
+/* A browser User-Agent: prospect sites are checked like a visitor sees them. */
 const USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36";
 
@@ -84,13 +88,18 @@ export async function checkSite(url: string | null): Promise<SiteCheck> {
 
   const started = Date.now();
   try {
-    const { response, finalUrl } = await safeFetch(url);
-    const html = await readCapped(response);
+    const response = await safeFetch(url, {
+      timeoutMs: FETCH_TIMEOUT_MS,
+      maxBytes: MAX_HTML_BYTES,
+      maxRedirects: MAX_REDIRECTS,
+      userAgent: USER_AGENT,
+    });
+    const finalUrl = response.url;
 
     return {
       ...base,
-      ...analyzeHtml(html, finalUrl),
-      reachable: response.ok,
+      ...analyzeHtml(response.body, finalUrl),
+      reachable: response.status >= 200 && response.status < 300,
       blocked: BOT_BLOCK_STATUSES.has(response.status),
       statusCode: response.status,
       finalUrl,
@@ -134,83 +143,6 @@ export function analyzeHtml(
       null,
     looksParkedOrUnderConstruction: PARKED_PATTERNS.test(stripTags(html).slice(0, 5000)),
   };
-}
-
-/** Fetches a public http(s) URL, refusing private/internal addresses on every redirect hop. */
-async function safeFetch(url: string): Promise<{ response: Response; finalUrl: string }> {
-  let current = url;
-
-  for (let hop = 0; hop <= MAX_REDIRECTS; hop++) {
-    await assertPublicHttpUrl(current);
-
-    const response = await fetch(current, {
-      redirect: "manual",
-      headers: { "User-Agent": USER_AGENT, Accept: "text/html,application/xhtml+xml" },
-      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-      cache: "no-store",
-    });
-
-    const location = response.headers.get("location");
-    if (response.status >= 300 && response.status < 400 && location) {
-      current = new URL(location, current).toString();
-      continue;
-    }
-
-    return { response, finalUrl: current };
-  }
-
-  throw new Error("Too many redirects.");
-}
-
-async function assertPublicHttpUrl(value: string) {
-  const url = new URL(value);
-  if (url.protocol !== "http:" && url.protocol !== "https:") {
-    throw new Error("Only http and https websites can be checked.");
-  }
-
-  const hostname = url.hostname.replace(/^\[|\]$/g, "");
-  const addresses = isIP(hostname)
-    ? [hostname]
-    : (await lookup(hostname, { all: true })).map((entry) => entry.address);
-
-  if (addresses.length === 0 || addresses.some(isPrivateAddress)) {
-    throw new Error("Website resolves to a private address.");
-  }
-}
-
-function isPrivateAddress(address: string): boolean {
-  if (isIP(address) === 6) {
-    const lower = address.toLowerCase();
-    if (lower.startsWith("::ffff:")) return isPrivateAddress(lower.slice(7));
-    return lower === "::1" || lower === "::" || /^(fc|fd|fe8|fe9|fea|feb)/.test(lower);
-  }
-
-  const [a, b] = address.split(".").map(Number);
-  return (
-    a === 0 ||
-    a === 10 ||
-    a === 127 ||
-    (a === 100 && b >= 64 && b <= 127) ||
-    (a === 169 && b === 254) ||
-    (a === 172 && b >= 16 && b <= 31) ||
-    (a === 192 && b === 168) ||
-    a >= 224
-  );
-}
-
-async function readCapped(response: Response): Promise<string> {
-  const reader = response.body?.getReader();
-  if (!reader) return "";
-
-  const decoder = new TextDecoder();
-  let html = "";
-  while (html.length < MAX_HTML_BYTES) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    html += decoder.decode(value, { stream: true });
-  }
-  await reader.cancel().catch(() => undefined);
-  return html;
 }
 
 function extractCopyrightYear(html: string): number | null {

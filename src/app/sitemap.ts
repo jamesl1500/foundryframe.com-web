@@ -4,14 +4,13 @@ import { getPublishedCaseStudies } from "@/lib/cms/public-data";
 import { industries } from "@/lib/seo/industries";
 import { industryAreas } from "@/lib/seo/industry-areas";
 import { locations } from "@/lib/seo/locations";
+import { PUBLIC_SITE_URL as SITE_URL } from "@/lib/seo/schema";
 import { launchBundles } from "@/lib/packages/launch";
 import { websitePackages } from "@/lib/packages/website";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
    (see lib/cms/revalidate.ts); this is the fallback for other edits. */
 export const revalidate = 60;
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
 
 /* When the location, industry, and package landing copy last changed. Google
    stops trusting <lastmod> on sites that report "now" for every URL on every
@@ -54,7 +53,6 @@ const staticRoutes = [
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-
   const staticUrls: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${SITE_URL}${route}`,
     lastModified: SITE_CONTENT_UPDATED,
