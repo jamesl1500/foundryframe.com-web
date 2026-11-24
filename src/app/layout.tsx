@@ -33,6 +33,7 @@ import { AREA_SERVED, SITE_URL } from "@/lib/seo/schema";
 import {
   GA_MEASUREMENT_ID,
   GOOGLE_ADS_ID,
+  GTM_CONTAINER_ID,
   META_PIXEL_ID,
 } from "@/lib/analytics";
 
@@ -220,6 +221,14 @@ export default function RootLayout({
             ${GOOGLE_ADS_ID ? `gtag('config', ${JSON.stringify(GOOGLE_ADS_ID)});` : ""}
           `}
         </Script>
+        {/* Google Tag Manager: shares the dataLayer stub above and also loads
+            at idle. Production deployment only, like the ad tags. */}
+        {GTM_CONTAINER_ID ? (
+          <Script
+            src={`https://www.googletagmanager.com/gtm.js?id=${GTM_CONTAINER_ID}`}
+            strategy="lazyOnload"
+          />
+        ) : null}
         {/* Meta Pixel: production deployment only (see AD_TRACKING_ENABLED in next.config.ts). */}
         {META_PIXEL_ID ? (
           <Script id="meta-pixel" strategy="afterInteractive">

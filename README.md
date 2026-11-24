@@ -48,6 +48,7 @@ Optional:
 Ad and conversion tracking. Google Ads and Meta only run on the Vercel production deployment (`VERCEL_ENV=production`), never on local or preview builds; set `AD_TRACKING_ENABLED=true` to force them on for testing:
 
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` (GA4, defaults to the current `G-2723XGFRH7`)
+- `NEXT_PUBLIC_GTM_CONTAINER_ID` (Google Tag Manager container, defaults to `GTM-5Z5DCCZ3` on production)
 - `NEXT_PUBLIC_GOOGLE_ADS_ID` (Google Ads tag, defaults to `AW-18488043490` on production)
 - `NEXT_PUBLIC_GOOGLE_ADS_LABEL_QUOTE` (the "Request quote" conversion action, sent by the contact form and package builder; defaults to `iXrQCJC7rqcdEOLP5O9E`)
 - `NEXT_PUBLIC_GOOGLE_ADS_LABEL_FOUNDING` (the "Founding Client Form" conversion action; defaults to `5mL6CNH2rqcdEOLP5O9E`)
