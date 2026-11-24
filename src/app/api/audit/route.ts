@@ -46,8 +46,10 @@ function text(value: unknown, maxLength: number): string {
   return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
 }
 
+/* Bare domains get https://; anything with its own scheme (ftp://, file://)
+   is left alone so the URL check can say only http/https are allowed. */
 function normalizeUrl(input: string): string {
-  return /^https?:\/\//i.test(input) ? input : `https://${input}`;
+  return /^[a-z][a-z\d+.-]*:\/\//i.test(input) ? input : `https://${input}`;
 }
 
 async function notifyTeam(

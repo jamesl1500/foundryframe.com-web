@@ -21,5 +21,8 @@ export function seoTitle(title: string): string | { absolute: string } {
 export function summarize(text: string, max = 155) {
   if (text.length <= max) return text;
   const cut = text.slice(0, max);
-  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:—-]\s*$/, "")}…`;
+  const lastSpace = cut.lastIndexOf(" ");
+  const words = lastSpace > 0 ? cut.slice(0, lastSpace) : cut;
+  // Drop punctuation and spacing left dangling at the cut ("beta —" -> "beta").
+  return `${words.replace(/[\s,;:—–-]+$/, "")}…`;
 }

@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { refusalFallbacks } from "@/lib/claude-fallbacks";
 import type { ProspectCandidate } from "@/lib/lead-finder/types";
 
 export const LEAD_FINDER_MODEL =
@@ -78,8 +79,7 @@ Return only JSON in this exact shape, with no prose before or after it:
       model: LEAD_FINDER_MODEL,
       max_tokens: 16000,
       cache_control: { type: "ephemeral" },
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
+      ...refusalFallbacks(LEAD_FINDER_MODEL),
       system: SYSTEM_PROMPT,
       tools: [
         { type: "web_search_20260209", name: "web_search", max_uses: 12 },

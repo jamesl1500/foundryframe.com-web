@@ -7,4 +7,4 @@
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
 
-export { default, alt, size, contentType } from "./opengraph-image";
+export { default, alt, size, contentType, generateStaticParams } from "./opengraph-image";

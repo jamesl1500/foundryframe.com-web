@@ -14,9 +14,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { seoTitle, summarize } from "@/lib/seo/meta";
 import JsonLd from "@/components/seo/JsonLd";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.foundryframe.com";
+import { PUBLIC_SITE_URL as siteUrl } from "@/lib/seo/schema";
 
 /* ============================================================
    DATA: Blog post content

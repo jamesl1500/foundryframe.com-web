@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useMemo, useState, type SubmitEvent, type ReactNode } from "react";
 import { BOOKING_URL, newConversionId, trackConversion } from "@/lib/analytics";
 import {
   ADDONS,
@@ -203,7 +203,7 @@ export default function PackageBuilder() {
     );
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("sending");
     setErrorMsg("");

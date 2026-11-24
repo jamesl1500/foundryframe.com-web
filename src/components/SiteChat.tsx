@@ -15,7 +15,7 @@ import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BOOKING_URL, trackEvent } from "@/lib/analytics";
-import { AD_PAGE_PREFIX } from "@/lib/funnels";
+import { AD_PAGE_PREFIX } from "@/lib/ad-pages";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 

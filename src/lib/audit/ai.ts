@@ -17,20 +17,12 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import type { AuditFinding } from "@/lib/audit/types";
+import { refusalFallbacks } from "@/lib/claude-fallbacks";
 
 /* AUDIT_AI_MODEL overrides the model for this public, high-volume route
    only; leave it unset to use Claude Opus 5.5. */
 const MODEL = process.env.AUDIT_AI_MODEL || "claude-opus-5-5";
 
-/* Models that accept server-side refusal fallbacks; anything else is sent
-   without them. */
-const FALLBACK_MODELS = new Set([
-  "claude-opus-5-5",
-  "claude-opus-5",
-  "claude-sonnet-5-5",
-  "claude-fable-5-2",
-  "claude-fable-5-1",
-]);
 
 export type AiAuditCopy = {
   summary: string;
@@ -97,9 +89,7 @@ ${input.siteContent}
     const response = await client.beta.messages.create({
       model: MODEL,
       max_tokens: 4000,
-      ...(FALLBACK_MODELS.has(MODEL)
-        ? { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }
-        : {}),
+      ...refusalFallbacks(MODEL),
       output_config: {
         effort: "low",
         format: { type: "json_schema", schema: OUTPUT_SCHEMA },

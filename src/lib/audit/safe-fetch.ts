@@ -46,6 +46,8 @@ type SafeFetchOptions = {
   timeoutMs?: number;
   maxBytes?: number;
   maxRedirects?: number;
+  /** Defaults to the audit's own bot User-Agent. */
+  userAgent?: string;
 };
 
 const USER_AGENT =
@@ -122,7 +124,8 @@ export function assertFetchableUrl(input: string | URL): URL {
     throw new UnsafeUrlError("Only websites on the standard web ports can be audited.");
   }
 
-  const hostname = url.hostname.replace(/^\[|\]$/g, "").toLowerCase();
+  // A trailing dot is the same DNS name ("localhost." is localhost).
+  const hostname = url.hostname.replace(/^\[|\]$/g, "").replace(/\.$/, "").toLowerCase();
   if (isIP(hostname)) {
     if (isBlockedAddress(hostname)) throw new UnsafeUrlError("That address can't be audited.");
   } else if (
@@ -183,7 +186,8 @@ function decode(buffer: Buffer, encoding: string | undefined): Buffer {
 function requestOnce(
   url: URL,
   deadline: number,
-  maxBytes: number
+  maxBytes: number,
+  userAgent: string
 ): Promise<{ status: number; headers: http.IncomingHttpHeaders; body: string; truncated: boolean }> {
   const remaining = deadline - Date.now();
   if (remaining <= 0) return Promise.reject(new Error("The website took too long to respond."));
@@ -198,7 +202,7 @@ function requestOnce(
         lookup: guardedLookup,
         timeout: remaining,
         headers: {
-          "User-Agent": USER_AGENT,
+          "User-Agent": userAgent,
           Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,text/plain;q=0.8,*/*;q=0.5",
           "Accept-Encoding": "gzip, deflate, br",
           "Accept-Language": "en-US,en;q=0.9",
@@ -246,7 +250,7 @@ function requestOnce(
 
 /** GET a visitor-supplied URL safely. Throws UnsafeUrlError for blocked targets. */
 export async function safeFetch(input: string, options: SafeFetchOptions = {}): Promise<SafeResponse> {
-  const { timeoutMs = 15_000, maxBytes = 3 * 1024 * 1024, maxRedirects = 5 } = options;
+  const { timeoutMs = 15_000, maxBytes = 3 * 1024 * 1024, maxRedirects = 5, userAgent = USER_AGENT } = options;
   const started = Date.now();
   const deadline = started + timeoutMs;
 
@@ -254,7 +258,7 @@ export async function safeFetch(input: string, options: SafeFetchOptions = {}): 
   const redirectChain = [url.toString()];
 
   for (let hop = 0; ; hop++) {
-    const res = await requestOnce(url, deadline, maxBytes);
+    const res = await requestOnce(url, deadline, maxBytes, userAgent);
     const location = res.headers.location;
 
     if (res.status >= 300 && res.status < 400 && location) {

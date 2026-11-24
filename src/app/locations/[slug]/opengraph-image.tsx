@@ -10,10 +10,16 @@
 
 import { ImageResponse } from "next/og";
 import { OgImageContent, fitHeadlineSize, size, contentType } from "@/lib/og-image";
-import { getLocation } from "@/lib/seo/locations";
+import { getLocation, locations } from "@/lib/seo/locations";
 
 export const alt = "Foundry Frame web design for local Ohio businesses";
 export { size, contentType };
+
+/* Prerender one image per page at build time, so crawlers and link
+   previews get a cached PNG instead of a fresh render on every request. */
+export function generateStaticParams() {
+  return locations.map(({ slug }) => ({ slug }));
+}
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

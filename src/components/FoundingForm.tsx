@@ -10,7 +10,7 @@
 
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type SubmitEvent } from "react";
 import { BOOKING_URL, newConversionId, trackConversion } from "@/lib/analytics";
 import { FOUNDING_BUDGETS, FOUNDING_TIMELINES } from "@/lib/founding/options";
 
@@ -24,7 +24,7 @@ export default function FoundingForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("sending");
     setErrorMsg("");

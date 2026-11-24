@@ -10,10 +10,16 @@
 
 import { ImageResponse } from "next/og";
 import { OgImageContent, size, contentType } from "@/lib/og-image";
-import { getWebsitePackage } from "@/lib/packages/website";
+import { getWebsitePackage, websitePackages } from "@/lib/packages/website";
 
 export const alt = "Foundry Frame custom website package";
 export { size, contentType };
+
+/* Prerender one image per page at build time, so crawlers and link
+   previews get a cached PNG instead of a fresh render on every request. */
+export function generateStaticParams() {
+  return websitePackages.map(({ slug }) => ({ slug }));
+}
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

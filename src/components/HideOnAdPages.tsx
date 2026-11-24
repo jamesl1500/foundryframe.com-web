@@ -11,7 +11,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { AD_PAGE_PREFIX } from "@/lib/funnels";
+import { AD_PAGE_PREFIX } from "@/lib/ad-pages";
 
 export default function HideOnAdPages({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

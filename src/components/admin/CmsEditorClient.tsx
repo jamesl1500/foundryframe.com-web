@@ -254,7 +254,7 @@ export default function CmsEditorClient({ entity, mode, id, initialItem }: Props
     updateGalleryValue(fieldKey, reordered);
   }
 
-  async function handleSubmit(event: React.FormEvent) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setSaving(true);
     setError("");

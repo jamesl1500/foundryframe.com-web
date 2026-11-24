@@ -81,13 +81,7 @@ export const photos = {
 
 export type PhotoKey = keyof typeof photos;
 
-/**
- * Builds an images.unsplash.com URL at a given width. Unsplash's CDN
- * (imgix) handles the resize, crop, and AVIF/WebP conversion.
- */
-export function unsplashUrl(id: string, width: number, quality = 75) {
-  return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=${quality}`;
-}
+export { unsplashUrl } from "@/lib/media/unsplash-url";
 
 /** Picks the photo for a service from its slug or name (CMS services included). */
 export function photoForService(slug: string, name = ""): PhotoKey {

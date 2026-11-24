@@ -93,7 +93,7 @@ export default function LeadFinderClient({ prospects, searches, sources }: Props
     if (result.errors.length > 0) setError(result.errors.join(" "));
   }
 
-  async function runSearch(event: React.FormEvent<HTMLFormElement>) {
+  async function runSearch(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setRunning(true);
     setNotice("");
