@@ -18,14 +18,15 @@ import type { NextConfig } from "next";
    (e.g. region1.google-analytics.com), so connect-src needs the wildcards
    Google documents, not just the bare www host. Google Ads beacons go to
    several doubleclick.net hosts (stats.g., googleads.g., and ad. for
-   /ccm/s/collect), hence the *.doubleclick.net wildcard. */
+   /ccm/s/collect), hence the *.doubleclick.net wildcard. The Ads tag also
+   posts to the bare google.com host (/ccm/form-data). */
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV !== "production" ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://connect.facebook.net https://embed.tawk.to https://res.public.onecdn.static.microsoft`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.doubleclick.net https://*.googletagmanager.com https://www.google.com https://www.googleadservices.com https://www.facebook.com https://connect.facebook.net https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://res.public.onecdn.static.microsoft",
+  "connect-src 'self' https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.doubleclick.net https://*.googletagmanager.com https://google.com https://www.google.com https://www.googleadservices.com https://www.facebook.com https://connect.facebook.net https://*.supabase.co https://embed.tawk.to wss://*.tawk.to https://res.public.onecdn.static.microsoft",
   "frame-src 'self' https://tawk.to https://td.doubleclick.net https://www.googletagmanager.com",
   "object-src 'none'",
   "base-uri 'self'",

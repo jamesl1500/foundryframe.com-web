@@ -37,6 +37,10 @@ export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G
 export const GOOGLE_ADS_ID = AD_TRACKING_ENABLED
   ? process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "AW-18488043490"
   : "";
+/* Gated like the ad tags because a GTM container can fire them too. */
+export const GTM_CONTAINER_ID = AD_TRACKING_ENABLED
+  ? process.env.NEXT_PUBLIC_GTM_CONTAINER_ID || "GTM-5Z5DCCZ3"
+  : "";
 export const META_PIXEL_ID = AD_TRACKING_ENABLED
   ? process.env.NEXT_PUBLIC_META_PIXEL_ID || "28899294216427049"
   : "";
