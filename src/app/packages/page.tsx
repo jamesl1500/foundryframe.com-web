@@ -30,7 +30,7 @@ export const revalidate = 60;
 export const metadata: Metadata = {
   title: "Web Design Packages & Pricing",
   description:
-    "Websites from $1,500, launch bundles from $2,500, maintenance from $99/mo, marketing from $500/mo, and Print Shop for $150 with any package.",
+    "Websites from $1,500, launch bundles from $2,500 with Print Shop included, maintenance from $99/mo, marketing from $500/mo, and Print Shop for $150 on any other package.",
   alternates: {
     canonical: "/packages",
   },
@@ -231,7 +231,7 @@ export default async function PackagesPage() {
             New
           </span>
           <span>
-            <span className="font-semibold">Print Shop</span> with every package for $150
+            <span className="font-semibold">Print Shop</span> free with launch bundles, $150 with any other package
           </span>
           <span aria-hidden="true" className="shrink-0 transition-transform group-hover:translate-x-0.5">&rarr;</span>
         </Link>

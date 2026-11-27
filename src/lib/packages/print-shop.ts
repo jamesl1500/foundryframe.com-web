@@ -1,9 +1,11 @@
 /**
  * Print Shop Add-On - Foundry Frame
  * ===================================
- * The Print Shop add-on: for a flat $150 on top of any package, we design
- * and print business cards, postcards, custom envelopes (#10 and A6), and
- * tri-fold brochures that match the brand on your new website. Paired
+ * The Print Shop add-on: for a flat $150 on top of a website, maintenance,
+ * or marketing package, we design and print business cards, postcards,
+ * custom envelopes (#10 and A6), and tri-fold brochures that match the
+ * brand on your new website. Every launch bundle includes it at no extra
+ * cost (see lib/packages/launch.ts). Paired
  * with The Spark, it's the simplest way to launch online and in print at
  * the same time.
  *
@@ -20,7 +22,7 @@ export const PRINT_SHOP = {
   name: "Print Shop",
   slug: "print-shop",
   href: "/packages/print-shop",
-  /** Flat add-on price in USD, on top of any package. */
+  /** Flat add-on price in USD, on top of any package except a launch bundle (included there). */
   price: 150,
   priceLabel: "$150",
   badge: "New",
@@ -29,7 +31,7 @@ export const PRINT_SHOP = {
   largerRunsFrom: 150,
   largerRunsLabel: "$150",
   summary:
-    "Add Print Shop to any package for $150. We design and print 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, to match your new brand.",
+    "Add Print Shop to any package for $150, or get it free with any launch bundle. We design and print 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, to match your new brand.",
   metaTitle: "Print Shop: Business Cards & Brochures, $150",
   metaDescription:
     "Add Print Shop to any Foundry Frame package for $150: 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, designed and printed.",
@@ -101,11 +103,11 @@ export const PRINT_ITEM_NAMES = [
 export const PRINT_SHOP_FAQS = [
   {
     q: "What does the $150 Print Shop add-on include?",
-    a: "Design and printing of at least 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, all matched to the brand on your new website. It's a flat $150 on top of any Foundry Frame package.",
+    a: "Design and printing of at least 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, all matched to the brand on your new website. It's a flat $150 on top of a website package, maintenance plan, or marketing package, and it's included at no extra cost with every launch bundle.",
   },
   {
     q: "Can I add Print Shop to any package?",
-    a: "Yes. Print Shop can be added to every website package, launch bundle, maintenance plan, and marketing package. It pairs best with The Spark: you launch a custom 5-page website and matching print pieces at the same time.",
+    a: "Yes. Print Shop can be added to every website package, maintenance plan, and marketing package for $150, and every launch bundle (Ignite, Velocity, Ascend, and Apex) already includes it at no extra cost. It pairs best with The Spark: you launch a custom 5-page website and matching print pieces at the same time.",
   },
   {
     q: "Why pair Print Shop with The Spark?",

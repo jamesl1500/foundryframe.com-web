@@ -206,7 +206,7 @@ export const websitePackages: WebsitePackage[] = [
       name: "Ignite",
       price: "From $2,500",
       pitch:
-        "Need a logo too? The Ignite launch bundle pairs The Spark with logo design, social profile setup, domain and hosting setup, and a month of maintenance.",
+        "Need a logo too? The Ignite launch bundle pairs The Spark with logo design, social profile setup, domain and hosting setup, a month of maintenance, and Print Shop at no extra cost.",
     },
     upgrade: {
       slug: "blueprint",
@@ -250,7 +250,7 @@ export const websitePackages: WebsitePackage[] = [
     tier: "02",
     name: "The Blueprint",
     pricePrefix: "Starting at",
-    price: "$3,500",
+    price: "$2,500",
     tagline: "A real business deserves a real website.",
     description:
       "Your business has outgrown a basic website. The Blueprint hits the sweet spot: custom design, advanced features, and a strategy-first approach that sets you apart from competitors relying on the same off-the-shelf template. We build it to be your most effective sales tool.",
@@ -314,10 +314,10 @@ export const websitePackages: WebsitePackage[] = [
     cta: "Start Your Blueprint",
     variant: "light",
     headline: "Custom 10-page business websites with a CMS",
-    linkLabel: "10-page business website with CMS from $3,500",
-    metaTitle: "The Blueprint: Website with CMS from $3,500",
+    linkLabel: "10-page business website with CMS from $2,500",
+    metaTitle: "The Blueprint: Website with CMS from $2,500",
     metaDescription:
-      "The Blueprint: up to 10 custom pages, your own design system, a CMS, a blog, advanced SEO, and GA4 conversion tracking, from $3,500.",
+      "The Blueprint: up to 10 custom pages, your own design system, a CMS, a blog, advanced SEO, and GA4 conversion tracking, from $2,500.",
     intro:
       "The Blueprint is where a website starts doing real business work. You get a design system built for your brand, a CMS so your team can update pages and publish articles without calling a developer, and the SEO and tracking work that turns the site into a measurable source of leads.",
     glance: [
@@ -376,14 +376,14 @@ export const websitePackages: WebsitePackage[] = [
       {
         title: "Starting price",
         description:
-          "$3,500 is the starting point for this scope. You'll get an exact number after a free discovery call.",
+          "$2,500 is the starting point for this scope. You'll get an exact number after a free discovery call.",
       },
     ],
     bundle: {
       name: "Velocity",
-      price: "From $6,500",
+      price: "From $3,500",
       pitch:
-        "Need a brand to match? The Velocity launch bundle pairs The Blueprint with a full brand identity kit, an SEO audit and 90-day keyword strategy, competitor analysis, and 3 months of maintenance.",
+        "Need a brand to match? The Velocity launch bundle pairs The Blueprint with a full brand identity kit, an SEO audit and 90-day keyword strategy, competitor analysis, 3 months of maintenance, and Print Shop at no extra cost.",
     },
     upgrade: {
       slug: "architect",
@@ -419,7 +419,7 @@ export const websitePackages: WebsitePackage[] = [
     tier: "03",
     name: "The Architect",
     pricePrefix: "Starting at",
-    price: "$7,000",
+    price: "$3,500",
     tagline: "Scale-ready. Strategy-first. Built to lead your market in search.",
     description:
       "Some websites are brochures. The Architect is a growth machine. Built for scaling companies with complex needs — multiple service lines, e-commerce, integrations, and serious traffic goals — it doesn't just look the part. It performs. Every engagement starts with a deep strategic session.",
@@ -489,10 +489,10 @@ export const websitePackages: WebsitePackage[] = [
     cta: "Build Your Architect Site",
     variant: "dark",
     headline: "Growth websites with e-commerce and integrations",
-    linkLabel: "E-commerce & growth website from $7,000",
-    metaTitle: "The Architect: Growth Website from $7,000",
+    linkLabel: "E-commerce & growth website from $3,500",
+    metaTitle: "The Architect: Growth Website from $3,500",
     metaDescription:
-      "The Architect: a 20-page growth website with e-commerce, CRM and email integrations, a 90+ Lighthouse target, and SEO strategy, from $7,000.",
+      "The Architect: a 20-page growth website with e-commerce, CRM and email integrations, a 90+ Lighthouse target, and SEO strategy, from $3,500.",
     intro:
       "At this level the website is tied into how you sell: your store, your CRM, your email list, and the search traffic you're trying to win. We plan all of it before we design any of it.",
     glance: [
@@ -555,14 +555,14 @@ export const websitePackages: WebsitePackage[] = [
       {
         title: "Starting price",
         description:
-          "$7,000 is the starting point. Catalog size and how custom your integrations need to be shape the final number, which you'll get after the discovery call.",
+          "$3,500 is the starting point. Catalog size and how custom your integrations need to be shape the final number, which you'll get after the discovery call.",
       },
     ],
     bundle: {
       name: "Ascend",
-      price: "From $14,000",
+      price: "From $4,750",
       pitch:
-        "Ready to launch with demand behind it? The Ascend launch bundle adds full brand identity, a landing page and paid ad funnel, 3 months of social media management, and 6 months of maintenance.",
+        "Ready to launch with demand behind it? The Ascend launch bundle adds full brand identity, a landing page and paid ad funnel, 3 months of social media management, 6 months of maintenance, and Print Shop at no extra cost.",
     },
     upgrade: {
       slug: "monument",
@@ -739,15 +739,15 @@ export const websitePackages: WebsitePackage[] = [
     ],
     bundle: {
       name: "Apex",
-      price: "From $28,000",
+      price: "Custom",
       pitch:
-        "Want one team for everything? The Apex launch bundle adds a custom web application feature or client portal, a brand strategy workshop, SEO and paid ads management, 12 months of maintenance, and a dedicated account manager.",
+        "Want one team for everything? The Apex launch bundle adds a custom web application feature or client portal, a brand strategy workshop, SEO and paid ads management, 12 months of maintenance, a dedicated account manager, and Print Shop at no extra cost.",
     },
     upgrade: null,
     faqs: [
       {
         q: "How is The Monument priced?",
-        a: "After a discovery session. We scope the engagement around your pages, integrations, compliance needs, and timeline, then send a detailed proposal. For reference, our Apex launch bundle, which includes a Monument website plus brand, marketing, and maintenance, starts at $28,000.",
+        a: "After a discovery session. We scope the engagement around your pages, integrations, compliance needs, and timeline, then send a detailed proposal. Our Apex launch bundle, which adds brand, marketing, and maintenance to a Monument website, is scoped and priced the same way.",
       },
       {
         q: "Can you replace our legacy website platform?",

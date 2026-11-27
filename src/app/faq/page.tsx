@@ -101,7 +101,7 @@ const faqCategories = [
     questions: [
       {
         q: "How much do your services cost?",
-        a: "Website packages start at $1,500 (The Spark), $3,500 (The Blueprint), and $7,000 (The Architect), with The Monument scoped as a custom enterprise engagement. We also offer Launch Bundles starting at $2,500, monthly Maintenance Plans from $99/mo, and Marketing Packages from $500/mo. Print Shop (business cards, postcards, envelopes, and brochures) can be added to any package for $150. Every price is a starting point — you'll get an exact number after a free, no-obligation call. Visit our Packages page for details.",
+        a: "Website packages start at $1,500 (The Spark), $2,500 (The Blueprint), and $3,500 (The Architect), with The Monument scoped as a custom enterprise engagement. E-commerce can be added to The Spark or The Blueprint for an extra $1,000. We also offer Launch Bundles starting at $2,500, monthly Maintenance Plans from $99/mo, and Marketing Packages from $500/mo. Print Shop (business cards, postcards, envelopes, and brochures) is included with every launch bundle and can be added to any other package for $150. Every price is a starting point — you'll get an exact number after a free, no-obligation call. Visit our Packages page for details.",
       },
       {
         q: "Do you offer printing, like business cards and brochures?",

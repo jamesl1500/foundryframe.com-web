@@ -9,6 +9,8 @@
  *   packages page, and The Spark's details page.
  * - variant="banner": a compact strip for the other package pages
  *   (launch bundles, maintenance, marketing, other website tiers).
+ *   Pass `included` on launch bundle pages: every bundle includes Print
+ *   Shop at no extra cost, so the banner says so instead of quoting $150.
  *
  * Copy and price read from src/lib/packages/print-shop.ts and
  * src/lib/packages/website.ts.
@@ -33,6 +35,8 @@ type PrintShopAddOnProps = {
   heading?: string;
   /** Where the panel sits, for click tracking. */
   trackLabel?: string;
+  /** Banner only: Print Shop comes with this package (launch bundles). */
+  included?: boolean;
 };
 
 const sparkPrice = () => getWebsitePackage("spark")?.price ?? "$1,500";
@@ -41,9 +45,10 @@ export default function PrintShopAddOn({
   variant = "feature",
   heading,
   trackLabel = "Print Shop",
+  included = false,
 }: PrintShopAddOnProps) {
   return variant === "banner" ? (
-    <PrintShopBanner trackLabel={trackLabel} />
+    <PrintShopBanner trackLabel={trackLabel} included={included} />
   ) : (
     <PrintShopFeature heading={heading} trackLabel={trackLabel} />
   );
@@ -173,36 +178,45 @@ function PrintShopFeature({ heading, trackLabel }: { heading?: string; trackLabe
 /* ============================================================
    BANNER
    ============================================================ */
-function PrintShopBanner({ trackLabel }: { trackLabel: string }) {
+function PrintShopBanner({ trackLabel, included }: { trackLabel: string; included: boolean }) {
+  const pieces = PRINT_ITEMS.map((item, i) => (
+    <span key={item.name}>
+      {i > 0 && (i === PRINT_ITEMS.length - 1 ? ", and " : ", ")}
+      <span className="font-semibold text-ink">
+        {item.name === "Custom envelopes" ? "custom #10 and A6 envelopes" : item.name.toLowerCase()}
+      </span>
+    </span>
+  ));
+
   return (
-    <section aria-label="Print Shop add-on" className="py-10 lg:py-14">
+    <section aria-label={included ? "Print Shop, included" : "Print Shop add-on"} className="py-10 lg:py-14">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10">
         <div className="rounded-panel border-[1.5px] border-ink bg-paper p-6 sm:p-8 lg:p-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           <div className="lg:col-span-8">
             <div className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center rounded-full bg-molten px-3 py-1 text-xs font-bold uppercase tracking-[0.1em] text-ink border-[1.5px] border-ink">
-                {PRINT_SHOP.badge}
+                {included ? "Included" : PRINT_SHOP.badge}
               </span>
               <p className="font-heading text-2xl sm:text-3xl font-bold tracking-[-0.03em] text-ink">
-                Print Shop, with any package, for {PRINT_SHOP.priceLabel}
+                {included
+                  ? "Print Shop is included with every launch bundle"
+                  : `Print Shop, with any package, for ${PRINT_SHOP.priceLabel}`}
               </p>
             </div>
-            <p className="mt-3 text-body text-sm sm:text-base leading-relaxed max-w-3xl">
-              We design and print{" "}
-              {PRINT_ITEMS.map((item, i) => (
-                <span key={item.name}>
-                  {i > 0 && (i === PRINT_ITEMS.length - 1 ? ", and " : ", ")}
-                  <span className="font-semibold text-ink">
-                    {item.name === "Custom envelopes" ? "custom #10 and A6 envelopes" : item.name.toLowerCase()}
-                  </span>
-                </span>
-              ))}{" "}
-              to match your brand. Best paired with{" "}
-              <Link href="/packages/website/spark" className="font-semibold text-molten-deep underline underline-offset-4">
-                The Spark
-              </Link>{" "}
-              ({sparkPrice()} + {PRINT_SHOP.priceLabel}) to launch online and in print together.
-            </p>
+            {included ? (
+              <p className="mt-3 text-body text-sm sm:text-base leading-relaxed max-w-3xl">
+                At no additional cost, we design and print {pieces} to match your new brand, so you
+                launch online and in print at the same time.
+              </p>
+            ) : (
+              <p className="mt-3 text-body text-sm sm:text-base leading-relaxed max-w-3xl">
+                We design and print {pieces} to match your brand. Best paired with{" "}
+                <Link href="/packages/website/spark" className="font-semibold text-molten-deep underline underline-offset-4">
+                  The Spark
+                </Link>{" "}
+                ({sparkPrice()} + {PRINT_SHOP.priceLabel}) to launch online and in print together.
+              </p>
+            )}
             <p className="mt-2 text-body text-sm leading-relaxed max-w-3xl">
               Includes {PRINT_SHOP_INCLUDED_TEXT}. {PRINT_SHOP_LARGER_RUNS}
             </p>

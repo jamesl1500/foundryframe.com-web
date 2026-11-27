@@ -83,7 +83,11 @@ export default async function LaunchBundlePage({
   const pageUrl = `${siteUrl}/packages/launch/${bundle.slug}`;
   const website = getWebsitePackage(bundle.websiteSlug);
   const upgrade = bundle.upgrade ? getLaunchBundle(bundle.upgrade.slug) : undefined;
-  const foundingPrice = Math.round(bundle.priceValue * (1 - FOUNDING_DISCOUNT_PERCENT / 100));
+  const priceLabel = bundle.pricePrefix ? `${bundle.pricePrefix} ${bundle.price}` : bundle.price;
+  const foundingPrice =
+    bundle.priceValue === null
+      ? null
+      : Math.round(bundle.priceValue * (1 - FOUNDING_DISCOUNT_PERCENT / 100));
   const groups = groupOrder
     .map((group) => ({ group, items: bundle.items.filter((item) => item.group === group) }))
     .filter(({ items }) => items.length > 0);
@@ -102,7 +106,7 @@ export default async function LaunchBundlePage({
         "@type": "Offer",
         name: `${bundle.name} Launch Bundle`,
         url: pageUrl,
-        priceSpecification: parsePriceSpecification(`${bundle.pricePrefix} ${bundle.price}`),
+        priceSpecification: parsePriceSpecification(priceLabel),
       },
     },
     breadcrumbList([
@@ -151,9 +155,11 @@ export default async function LaunchBundlePage({
               </div>
             </div>
             <div className="glass-card rounded-card lg:col-span-4 p-8">
-              <span className="text-xs uppercase tracking-widest text-muted block">
-                {bundle.pricePrefix}
-              </span>
+              {bundle.pricePrefix && (
+                <span className="text-xs uppercase tracking-widest text-muted block">
+                  {bundle.pricePrefix}
+                </span>
+              )}
               <p className="text-5xl font-heading font-bold text-ink mb-6">{bundle.price}</p>
               <Link
                 href="/contact"
@@ -176,7 +182,9 @@ export default async function LaunchBundlePage({
                   className="glass-accent rounded-bubble block mt-5 p-4 text-sm text-ink-soft hover:bg-accent/20 transition-colors"
                 >
                   <span className="block font-semibold text-accent-deep">
-                    Founding Client price: {formatUsd(foundingPrice)}
+                    {foundingPrice === null
+                      ? `Founding Clients: ${FOUNDING_DISCOUNT_PERCENT}% off your quote`
+                      : `Founding Client price: ${formatUsd(foundingPrice)}`}
                   </span>
                   {FOUNDING_DISCOUNT_PERCENT}% off for our first {FOUNDING_SPOTS_OPEN} clients this
                   quarter. See how it works &rarr;
@@ -340,9 +348,9 @@ export default async function LaunchBundlePage({
       </section>
 
       {/* =============================================
-          PRINT SHOP ADD-ON
+          PRINT SHOP (INCLUDED WITH EVERY BUNDLE)
           ============================================= */}
-      <PrintShopAddOn variant="banner" trackLabel={`${bundle.name} details: Print Shop`} />
+      <PrintShopAddOn included variant="banner" trackLabel={`${bundle.name} details: Print Shop`} />
 
       {/* =============================================
           WEBSITE ONLY + NEXT BUNDLE
@@ -378,7 +386,7 @@ export default async function LaunchBundlePage({
                 <div className="flex items-start justify-between gap-4 mb-6">
                   <p className="eyebrow">Next Bundle &middot; {upgrade.name}</p>
                   <p className="text-ink font-heading font-bold text-lg whitespace-nowrap">
-                    From {upgrade.price}
+                    {upgrade.pricePrefix ? `From ${upgrade.price}` : upgrade.price}
                   </p>
                 </div>
                 <p className="text-ink font-heading font-bold text-2xl mb-3">{bundle.upgrade.reason}</p>
@@ -435,7 +443,7 @@ export default async function LaunchBundlePage({
                     {other.name}
                   </span>
                   <span className="text-xs mt-0.5 block text-muted">
-                    {other.pricePrefix} {other.price}
+                    {other.pricePrefix ? `${other.pricePrefix} ${other.price}` : other.price}
                   </span>
                 </Link>
               );

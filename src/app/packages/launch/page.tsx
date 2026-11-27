@@ -87,11 +87,11 @@ const offersStructuredData = {
 const faqs = [
   {
     q: "What is a launch bundle?",
-    a: "A launch bundle packages a custom website, brand identity, and ongoing maintenance into one engagement with one team and one timeline. The larger bundles add SEO, paid ads, and social media management.",
+    a: "A launch bundle packages a custom website, brand identity, printed materials, and ongoing maintenance into one engagement with one team and one timeline. The larger bundles add SEO, paid ads, and social media management.",
   },
   {
     q: "How much does a launch bundle cost?",
-    a: "Ignite starts at $2,500, Velocity at $6,500, Ascend at $14,000, and Apex at $28,000. Every price is a starting point; we confirm the exact number on a free, no-obligation call.",
+    a: "Ignite starts at $2,500, Velocity at $3,500, and Ascend at $4,750. Apex is custom-priced after a discovery workshop. Every price is a starting point; we confirm the exact number on a free, no-obligation call, and every bundle includes Print Shop at no extra cost.",
   },
   {
     q: "How is a launch bundle different from a website package?",
@@ -102,8 +102,8 @@ const faqs = [
     a: "You can continue on any of our Maintenance Plans: Steady from $99/mo, Active from $249/mo, or Elite from $499/mo.",
   },
   {
-    q: "Can I add printed materials to a launch bundle?",
-    a: "Yes. Our new Print Shop add-on is $150 with any bundle: we design and print 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, to match your new brand. It pairs especially well with Ignite, which is built on The Spark.",
+    q: "Do launch bundles include printed materials?",
+    a: "Yes. Every launch bundle includes Print Shop at no additional cost: we design and print 100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, to match your new brand. On a website package on its own, Print Shop is a $150 add-on.",
   },
 ];
 
@@ -330,9 +330,9 @@ export default function LaunchBundlesPage() {
       </section>
 
       {/* =============================================
-          PRINT SHOP ADD-ON
+          PRINT SHOP (INCLUDED WITH EVERY BUNDLE)
           ============================================= */}
-      <PrintShopAddOn variant="banner" trackLabel="Launch bundles: Print Shop" />
+      <PrintShopAddOn included variant="banner" trackLabel="Launch bundles: Print Shop" />
 
       {/* =============================================
           FAQ
