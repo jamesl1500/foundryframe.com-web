@@ -706,7 +706,7 @@ export const locations: LocationPage[] = [
       },
       {
         q: "Do you build e-commerce websites?",
-        a: "Yes. We build online stores on Shopify or WooCommerce and recommend a platform based on how many products you sell and how you want to manage orders.",
+        a: "Yes. We recommend our custom e-commerce solution, so your store, site, and integrations all stay together in one system supported by one team. If you'd rather run on Shopify or WordPress, we'll build a headless storefront on the platform you choose.",
       },
     ],
   },
