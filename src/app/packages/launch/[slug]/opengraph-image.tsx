@@ -29,7 +29,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     bundle ? (
       <OgImageContent
         headline={[bundle.name, "Launch Bundle"]}
-        tagline={`${bundle.pricePrefix} ${bundle.price} · Website, brand & support in one engagement`}
+        tagline={`${bundle.pricePrefix ? `${bundle.pricePrefix} ${bundle.price}` : "Custom pricing"} · Website, brand & support in one engagement`}
       />
     ) : (
       <OgImageContent />

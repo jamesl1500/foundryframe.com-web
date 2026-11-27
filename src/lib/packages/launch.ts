@@ -6,13 +6,16 @@
  * engagement. Feeds the /packages/launch overview and each bundle's
  * /packages/launch/[slug] details page.
  *
- * Names, prices, and timelines also appear in the chat knowledge, the
- * package builder catalog, the Founding Client page, and funnels; update
- * those together.
+ * Every bundle includes Print Shop at no extra cost (it's a paid add-on
+ * everywhere else). Names, prices, and timelines also appear in the chat
+ * knowledge, the package builder catalog, the Founding Client page, and
+ * funnels; update those together.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
  */
+
+import { PRINT_SHOP, PRINT_SHOP_INCLUDED_TEXT, PRINT_SHOP_LARGER_RUNS } from "@/lib/packages/print-shop";
 
 type Item = {
   /** Shown as a bullet on the /packages/launch overview card. */
@@ -33,10 +36,11 @@ export type LaunchBundle = {
   slug: string;
   number: string;
   name: string;
-  pricePrefix: string;
+  /** Null when the bundle is custom-priced. */
+  pricePrefix: string | null;
   price: string;
-  /** Starting price in dollars, for the Founding Client discount. */
-  priceValue: number;
+  /** Starting price in dollars, for the Founding Client discount; null when custom-priced. */
+  priceValue: number | null;
   tagline: string;
   description: string;
   badge: string | null;
@@ -60,6 +64,15 @@ export type LaunchBundle = {
   /** The next bundle up, and why someone would move to it. */
   upgrade: { slug: string; reason: string } | null;
   faqs: Faq[];
+};
+
+/** Every launch bundle includes Print Shop; on its own it's a paid add-on. */
+const printShopIncluded: Item = {
+  label: `Print Shop included: ${PRINT_SHOP_INCLUDED_TEXT}, designed and printed`,
+  title: "Print Shop, included",
+  detail: `We design and print ${PRINT_SHOP_INCLUDED_TEXT}, plus postcards and A6 envelopes, to match your new brand, at no additional cost. ${PRINT_SHOP_LARGER_RUNS}`,
+  group: "Brand",
+  href: PRINT_SHOP.href,
 };
 
 const ownership = {
@@ -118,6 +131,7 @@ export const launchBundles: LaunchBundle[] = [
           "Three distinct logo directions to choose from, two rounds of refinement on the one you pick, and final files in every format you'll need for print, web, and social.",
         group: "Brand",
       },
+      printShopIncluded,
       {
         label: "Social media profile setup and optimization on up to 3 platforms",
         title: "Social profile setup",
@@ -208,7 +222,7 @@ export const launchBundles: LaunchBundle[] = [
     faqs: [
       {
         q: "What's the difference between Ignite and The Spark?",
-        a: "The Spark is the 5-page website on its own, from $1,500. Ignite builds on The Spark and adds logo design, social profile setup, domain and hosting setup, and a month of maintenance, so a new business can launch everything at once.",
+        a: "The Spark is the 5-page website on its own, from $1,500. Ignite builds on The Spark and adds logo design, social profile setup, domain and hosting setup, a month of maintenance, and Print Shop at no extra cost, so a new business can launch everything at once.",
       },
       {
         q: "I already have a logo. Do I need Ignite?",
@@ -235,8 +249,8 @@ export const launchBundles: LaunchBundle[] = [
     number: "02",
     name: "Velocity",
     pricePrefix: "Starting at",
-    price: "$6,500",
-    priceValue: 6500,
+    price: "$3,500",
+    priceValue: 3500,
     tagline: "Everything a real business needs to compete online.",
     description:
       "Velocity is the complete digital launchpad for businesses that are serious about their online presence from day one. In a single engagement, you get a conversion-optimized website, a full brand identity system, a clear roadmap for search visibility, and three months of Active Maintenance — all handled by one team, on one timeline.",
@@ -244,8 +258,8 @@ export const launchBundles: LaunchBundle[] = [
     cta: "Start with Velocity",
     websiteSlug: "blueprint",
     headline: "A 10-page website, full brand identity, and SEO strategy",
-    linkLabel: "Website + brand identity bundle from $6,500",
-    metaTitle: "Velocity: Website + Brand Kit from $6,500",
+    linkLabel: "Website + brand identity bundle from $3,500",
+    metaTitle: "Velocity: Website + Brand Kit from $3,500",
     metaDescription:
       "Velocity combines a 10-page website with CMS, a full brand identity kit, an SEO audit and 90-day plan, competitor analysis, and 3 months of maintenance.",
     intro:
@@ -273,6 +287,7 @@ export const launchBundles: LaunchBundle[] = [
         group: "Brand",
         href: "/services/branding",
       },
+      printShopIncluded,
       {
         label: "SEO audit + 90-day keyword strategy and content roadmap",
         title: "SEO audit + 90-day strategy",
@@ -374,7 +389,7 @@ export const launchBundles: LaunchBundle[] = [
       },
       {
         q: "What's the difference between Velocity and The Blueprint?",
-        a: "The Blueprint is the 10-page website on its own, from $3,500. Velocity adds a full brand identity kit, an SEO audit and 90-day strategy, competitor analysis, GA4 and Search Console setup, and 3 months of Active maintenance.",
+        a: "The Blueprint is the 10-page website on its own, from $2,500. Velocity adds a full brand identity kit, an SEO audit and 90-day strategy, competitor analysis, GA4 and Search Console setup, 3 months of Active maintenance, and Print Shop at no extra cost.",
       },
       {
         q: "How long does Velocity take?",
@@ -393,8 +408,8 @@ export const launchBundles: LaunchBundle[] = [
     number: "03",
     name: "Ascend",
     pricePrefix: "Starting at",
-    price: "$14,000",
-    priceValue: 14000,
+    price: "$4,750",
+    priceValue: 4750,
     tagline: "Build the machine. Turn it on. Watch it grow.",
     description:
       "Ascend is for growth-stage businesses that don't just want a great website — they want a full digital growth engine. Site, ads, social presence, and maintenance all aligned, all managed, and all pulling in the same direction while your competitors juggle three different vendors.",
@@ -402,8 +417,8 @@ export const launchBundles: LaunchBundle[] = [
     cta: "Build with Ascend",
     websiteSlug: "architect",
     headline: "A growth website, brand, paid ads, and social media in one launch",
-    linkLabel: "Website, brand & ads bundle from $14,000",
-    metaTitle: "Ascend: Website, Brand & Ads from $14,000",
+    linkLabel: "Website, brand & ads bundle from $4,750",
+    metaTitle: "Ascend: Website, Brand & Ads from $4,750",
     metaDescription:
       "Ascend launches a 20-page growth website with your brand, a paid ad funnel, 3 months of social media, monthly reporting, and 6 months of maintenance.",
     intro:
@@ -431,6 +446,7 @@ export const launchBundles: LaunchBundle[] = [
         group: "Brand",
         href: "/services/branding",
       },
+      printShopIncluded,
       {
         label: "Landing page + paid advertising funnel (Google Ads or Meta Ads)",
         title: "Landing page + ad funnel",
@@ -559,9 +575,9 @@ export const launchBundles: LaunchBundle[] = [
     slug: "apex",
     number: "04",
     name: "Apex",
-    pricePrefix: "Starting at",
-    price: "$28,000",
-    priceValue: 28000,
+    pricePrefix: null,
+    price: "Custom",
+    priceValue: null,
     tagline: "Total digital command. Nothing left undone.",
     description:
       "Apex is our most comprehensive engagement — for companies that want complete command of their digital presence. An enterprise-grade website, custom application feature, full brand strategy workshop, SEO, paid ads, and a full year of Elite Maintenance. Apex clients don't shop for services. They invest in outcomes.",
@@ -569,7 +585,7 @@ export const launchBundles: LaunchBundle[] = [
     cta: "Reserve a strategy session",
     websiteSlug: "monument",
     headline: "An enterprise website, custom portal, and a year of growth",
-    linkLabel: "Full-service launch bundle from $28,000",
+    linkLabel: "Full-service launch bundle, custom-priced",
     metaTitle: "Apex: Full-Service Digital Launch Bundle",
     metaDescription:
       "Apex: an enterprise website, a custom web app or client portal, brand strategy, 6 months of SEO, 3 months of ads, and 12 months of Elite maintenance.",
@@ -605,6 +621,7 @@ export const launchBundles: LaunchBundle[] = [
         group: "Brand",
         href: "/services/strategy",
       },
+      printShopIncluded,
       {
         label: "6 months of ongoing SEO (technical, content, and link building)",
         title: "6 months of SEO",
@@ -693,7 +710,7 @@ export const launchBundles: LaunchBundle[] = [
       {
         title: "Scoped after discovery",
         description:
-          "$28,000 is the starting point. The portal or app feature and your integrations shape the final number, which you'll get after the discovery workshop. Milestone payments are available.",
+          "Apex is custom-priced. The portal or app feature and your integrations shape the number, which you'll get after the discovery workshop. Milestone payments are available.",
       },
       {
         title: "Ad spend is separate",
@@ -707,7 +724,7 @@ export const launchBundles: LaunchBundle[] = [
     faqs: [
       {
         q: "How is Apex priced?",
-        a: "Apex starts at $28,000. The final price depends on the scope of the custom app feature or portal and your integrations, and comes in a detailed proposal after the discovery workshop.",
+        a: "Apex is custom-priced. The price depends on the scope of the custom app feature or portal and your integrations, and comes in a detailed proposal after the discovery workshop.",
       },
       {
         q: "What kind of app feature or portal can you build?",

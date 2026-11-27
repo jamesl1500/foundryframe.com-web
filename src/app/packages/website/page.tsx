@@ -55,7 +55,7 @@ export const metadata: Metadata = {
 const addons = [
   {
     name: "E-Commerce Setup",
-    price: "$2,500+",
+    price: "$1,000+",
     description:
       "We build fully custom e-commerce experiences — no off-the-shelf templates. Every storefront is engineered from the ground up using modern technologies like Next.js and headless commerce platforms, giving you complete control over performance, UX, and scalability.",
     featured: true,

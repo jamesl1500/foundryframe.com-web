@@ -76,6 +76,7 @@ const pairings = [
     name: "Launch Bundles",
     href: "/packages/launch",
     note: "Ignite, Velocity, Ascend, Apex",
+    included: true,
   },
   {
     name: "Maintenance Plans",
@@ -93,7 +94,7 @@ const steps = [
   {
     step: "Add it to your package",
     description:
-      `Tell us on your discovery call, or tick Print Shop in the Package Builder. It's a flat $150 on top of whatever package you choose, with ${PRINT_SHOP_INCLUDED_TEXT} included.`,
+      `Tell us on your discovery call, or tick Print Shop in the Package Builder. It's a flat $150 on top of a website, maintenance, or marketing package, and included at no cost with every launch bundle, with ${PRINT_SHOP_INCLUDED_TEXT} in every order.`,
   },
   {
     step: "Design alongside your site",
@@ -207,7 +208,11 @@ export default function PrintShopPage() {
             <p>
               For an extra <span className="font-semibold text-ink">{PRINT_SHOP.priceLabel}</span>{" "}
               on any package, we design and print {PRINT_SHOP_INCLUDED_TEXT}, plus postcards and A6
-              envelopes, all matched to the brand on your new website.
+              envelopes, all matched to the brand on your new website. Every{" "}
+              <Link href="/packages/launch" className="font-semibold text-ink underline underline-offset-4">
+                launch bundle
+              </Link>{" "}
+              includes it at no extra cost.
             </p>
             <p className="text-base">
               It&apos;s new, and it&apos;s made for{" "}
@@ -432,7 +437,7 @@ export default function PrintShopPage() {
         <nav aria-label="Packages that include Print Shop" className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <p className="eyebrow mb-4">Works With Every Package</p>
           <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-10 max-w-3xl">
-            Add Print Shop to any package for {PRINT_SHOP.priceLabel}
+            Add Print Shop to any package for {PRINT_SHOP.priceLabel}, or get it free with a launch bundle
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {pairings.map((item) => (
@@ -440,7 +445,10 @@ export default function PrintShopPage() {
                 <span className="font-heading font-bold text-lg text-ink">{item.name}</span>
                 <span className="mt-1 text-xs text-muted">{item.note}</span>
                 <span className="mt-5 text-sm font-semibold text-ink">
-                  + Print Shop {PRINT_SHOP.priceLabel} &rarr;
+                  {"included" in item && item.included
+                    ? "Print Shop included"
+                    : `+ Print Shop ${PRINT_SHOP.priceLabel}`}{" "}
+                  &rarr;
                 </span>
               </Link>
             ))}

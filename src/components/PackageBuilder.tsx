@@ -341,7 +341,7 @@ export default function PackageBuilder() {
                   summary={addon.summary}
                   meta={
                     addon.id === "print_shop"
-                      ? ["spark", "ignite"].includes(selection.foundationId)
+                      ? selection.foundationId === "spark"
                         ? `${addon.badge} · Pairs perfectly with The Spark`
                         : `${addon.badge} · Works with any package`
                       : addon.badge

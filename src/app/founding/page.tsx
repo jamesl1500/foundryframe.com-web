@@ -149,11 +149,23 @@ export default function FoundingPage() {
                   className="glass-card rounded-card p-6 lg:p-8"
                 >
                   <p className="text-ink font-heading font-bold text-xl mb-3">{bundle.name}</p>
-                  <p className="text-muted text-sm line-through">{formatUsd(bundle.priceValue)}</p>
-                  <p className="text-accent-ink text-3xl font-heading font-bold">
-                    {formatUsd(Math.round(bundle.priceValue * (1 - FOUNDING_DISCOUNT_PERCENT / 100)))}
-                  </p>
-                  <p className="text-muted text-xs uppercase tracking-widest mt-2">Starting price</p>
+                  {bundle.priceValue === null ? (
+                    <>
+                      <p className="text-muted text-sm">{bundle.price}</p>
+                      <p className="text-accent-ink text-3xl font-heading font-bold">
+                        {FOUNDING_DISCOUNT_PERCENT}% off
+                      </p>
+                      <p className="text-muted text-xs uppercase tracking-widest mt-2">Your scoped quote</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-muted text-sm line-through">{formatUsd(bundle.priceValue)}</p>
+                      <p className="text-accent-ink text-3xl font-heading font-bold">
+                        {formatUsd(Math.round(bundle.priceValue * (1 - FOUNDING_DISCOUNT_PERCENT / 100)))}
+                      </p>
+                      <p className="text-muted text-xs uppercase tracking-widest mt-2">Starting price</p>
+                    </>
+                  )}
                   <p className="mt-4 text-sm font-semibold text-accent-ink">What&apos;s included &rarr;</p>
                 </Link>
               ))}

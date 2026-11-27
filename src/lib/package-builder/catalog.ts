@@ -27,6 +27,8 @@ export type FoundationOption = {
   /** Months of maintenance a launch bundle already includes. */
   includedMaintenanceMonths?: number;
   includesEcommerce?: boolean;
+  /** Launch bundles include Print Shop at no extra cost. */
+  includesPrintShop?: boolean;
   href?: string;
 };
 
@@ -45,7 +47,7 @@ export type AddonOption = {
   /** Per-unit add-ons (extra pages) take a quantity; the rest are on/off. */
   perUnit?: boolean;
   maxQuantity?: number;
-  /** True when the listed price is a floor ("$2,500+", "From $250/mo"). */
+  /** True when the listed price is a floor ("$1,000+", "From $250/mo"). */
   isFloor?: boolean;
   /** Short label shown on the card, e.g. "New". */
   badge?: string;
@@ -66,7 +68,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     id: "blueprint",
     group: "website",
     name: "The Blueprint",
-    price: 3500,
+    price: 2500,
     summary: "Up to 10 pages, custom design system, CMS, blog, GA4 conversion tracking.",
     timeline: "6 to 8 weeks",
     href: "/packages/website",
@@ -75,7 +77,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     id: "architect",
     group: "website",
     name: "The Architect",
-    price: 7000,
+    price: 3500,
     summary: "Up to 20 pages, e-commerce, CRM and email integrations, technical SEO audit.",
     timeline: "8 to 12 weeks",
     includesEcommerce: true,
@@ -99,38 +101,42 @@ export const FOUNDATIONS: FoundationOption[] = [
     summary: "Spark website, logo design, social profile setup, domain and hosting.",
     timeline: "6 to 8 weeks",
     includedMaintenanceMonths: 1,
+    includesPrintShop: true,
     href: "/packages/launch/ignite",
   },
   {
     id: "velocity",
     group: "bundle",
     name: "Velocity Launch Bundle",
-    price: 6500,
+    price: 3500,
     summary: "Blueprint website, full brand identity kit, SEO strategy, competitor analysis.",
     timeline: "8 to 12 weeks",
     includedMaintenanceMonths: 3,
+    includesPrintShop: true,
     href: "/packages/launch/velocity",
   },
   {
     id: "ascend",
     group: "bundle",
     name: "Ascend Launch Bundle",
-    price: 14000,
+    price: 4750,
     summary: "Architect website, brand identity, ad funnel, 3 months of social management.",
     timeline: "10 to 14 weeks",
     includedMaintenanceMonths: 6,
     includesEcommerce: true,
+    includesPrintShop: true,
     href: "/packages/launch/ascend",
   },
   {
     id: "apex",
     group: "bundle",
     name: "Apex Launch Bundle",
-    price: 28000,
+    price: null,
     summary: "Monument website, custom app feature, brand strategy, SEO and ads management.",
     timeline: "12 to 16 weeks",
     includedMaintenanceMonths: 12,
     includesEcommerce: true,
+    includesPrintShop: true,
     href: "/packages/launch/apex",
   },
   {
@@ -163,7 +169,7 @@ export const ADDONS: AddonOption[] = [
     billing: "one_time",
     badge: PRINT_SHOP.badge,
     summary:
-      "100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, designed and printed. Larger runs are custom-priced from $150.",
+      "100 business cards, 50 custom #10 envelopes, and 50 tri-fold brochures, plus postcards and A6 envelopes, designed and printed. Included free with every launch bundle. Larger runs are custom-priced from $150.",
   },
   {
     id: "extra_pages",
@@ -184,7 +190,7 @@ export const ADDONS: AddonOption[] = [
   {
     id: "ecommerce",
     name: "E-commerce setup",
-    price: 2500,
+    price: 1000,
     billing: "one_time",
     isFloor: true,
     summary: "Custom storefront, checkout, payments, and inventory.",
@@ -251,6 +257,9 @@ export function addonUnavailableReason(
     !selection.marketingId
   ) {
     return "Add it to any package";
+  }
+  if (addonId === "print_shop" && foundation?.includesPrintShop) {
+    return `Included with ${foundation.name}`;
   }
   if (addonId === "ecommerce" && foundation?.includesEcommerce) {
     return `Included with ${foundation.name}`;

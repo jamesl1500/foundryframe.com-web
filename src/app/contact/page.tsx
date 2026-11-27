@@ -177,7 +177,7 @@ export default function ContactPage() {
                   {[
                     {
                       q: "How much does a custom website cost?",
-                      a: "Website packages start at $1,500 for a focused site. Most small business websites land between $3,500 and $7,000 depending on scope. Every number is a starting point — we'll confirm the exact figure after a friendly 30-min call, with no obligation.",
+                      a: "Website packages start at $1,500 for a focused site. Most small business websites land between $2,500 and $3,500 depending on scope. Every number is a starting point — we'll confirm the exact figure after a friendly 30-min call, with no obligation.",
                     },
                     {
                       q: "How quickly can we get started?",

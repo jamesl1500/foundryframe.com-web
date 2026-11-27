@@ -53,7 +53,7 @@ describe("priceQuote", () => {
         addons: { print_shop: 1, extra_pages: 3, seo_audit: 1 },
       })
     );
-    expect(quote.oneTimeTotal).toBe(3500 + 150 + 1500 + 800);
+    expect(quote.oneTimeTotal).toBe(2500 + 150 + 1500 + 800);
     expect(quote.monthlyTotal).toBe(249 + 1200);
     expect(quote.lines.map((line) => line.label)).toContain("Additional pages × 3");
   });
@@ -73,6 +73,7 @@ describe("priceQuote", () => {
     expect(quote.hasCustomItems).toBe(true);
     expect(quote.oneTimeTotal).toBe(0);
     expect(formatLineAmount(quote.lines[0])).toBe("Custom");
+    expect(priceQuote(select({ foundationId: "apex" })).hasCustomItems).toBe(true);
   });
 
   it("drops add-ons that the foundation already includes", () => {
@@ -110,6 +111,17 @@ describe("addonUnavailableReason", () => {
     );
     expect(addonUnavailableReason("print_shop", { foundationId: "none", marketingId: null, maintenanceId: "steady" })).toBeNull();
     expect(addonUnavailableReason("print_shop", { foundationId: "spark", marketingId: null })).toBeNull();
+  });
+
+  it("includes Print Shop with every launch bundle, and only there", () => {
+    for (const foundation of FOUNDATIONS) {
+      const reason = addonUnavailableReason("print_shop", { foundationId: foundation.id, marketingId: null });
+      if (foundation.group === "bundle") expect(reason).toBe(`Included with ${foundation.name}`);
+      else if (foundation.group === "website") expect(reason).toBeNull();
+    }
+    const quote = priceQuote(select({ foundationId: "velocity", addons: { print_shop: 1 } }));
+    expect(quote.oneTimeTotal).toBe(3500);
+    expect(quote.lines.map((line) => line.label)).not.toContain("Print Shop");
   });
 
   it("needs a website for extra pages", () => {

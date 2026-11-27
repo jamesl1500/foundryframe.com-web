@@ -319,7 +319,7 @@ export const industries: IndustryPage[] = [
       },
       {
         q: "How much does an e-commerce website cost?",
-        a: "Websites start at $1,500 and our E-Commerce Setup add-on starts at $2,500. Final pricing depends on product count and integrations.",
+        a: "Websites start at $1,500 and our E-Commerce Setup add-on is an extra $1,000. Final pricing depends on product count and integrations.",
       },
     ],
   },
