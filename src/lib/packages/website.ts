@@ -438,10 +438,10 @@ export const websitePackages: WebsitePackage[] = [
           "Enough room for every product line, service, location, and campaign. We also build section templates your team can assemble into new pages, so marketing can launch a page without starting a new project.",
       },
       {
-        label: "E-commerce functionality (Shopify storefront or WooCommerce)",
-        title: "E-commerce functionality",
+        label: "E-commerce: our custom storefront (recommended), or headless Shopify or WordPress",
+        title: "E-commerce on the platform you choose",
         detail:
-          "A Shopify storefront or WooCommerce store designed to match the rest of your site, with product pages, cart, and checkout built for buying, not just listing.",
+          "You pick the platform. We recommend our custom e-commerce solution: your store is built into the same site as everything else, so design, performance, and integrations stay together and one team supports all of it. If you'd rather run on Shopify or WordPress, we'll build a headless storefront on the one you choose. Either way, product pages, cart, and checkout match the rest of your site and are built for buying, not just listing.",
       },
       {
         label: "CRM integration (HubSpot, Salesforce, or equivalent)",
@@ -571,7 +571,7 @@ export const websitePackages: WebsitePackage[] = [
     faqs: [
       {
         q: "Is e-commerce included in the starting price?",
-        a: "Yes. The Architect includes e-commerce functionality on Shopify or WooCommerce. Your exact quote depends on things like catalog size and how custom the checkout needs to be, which we'll cover in the strategy session.",
+        a: "Yes. The Architect includes e-commerce on the platform you choose: our custom e-commerce solution, or a headless Shopify or WordPress storefront. We recommend the custom solution because your store, site, and integrations all stay together in one system, supported by one team. Your exact quote depends on things like catalog size and how custom the checkout needs to be, which we'll cover in the strategy session.",
       },
       {
         q: "Which CRMs and email platforms do you work with?",
