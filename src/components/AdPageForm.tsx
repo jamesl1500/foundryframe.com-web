@@ -58,15 +58,15 @@ export default function AdPageForm({ funnel }: { funnel: Funnel }) {
         <p className="eyebrow mb-4">Sent</p>
         <p className="text-ink text-2xl font-heading font-bold mb-3">James has your details.</p>
         <p className="text-body text-sm mb-8 max-w-md">
-          Watch your inbox for your plan. If you&apos;d rather talk it through, grab a time on the calendar.
+          Watch your inbox for your plan. No call needed, but if you&apos;d rather talk it through, grab a short slot on the calendar.
         </p>
         <a
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-primary"
+          className="btn btn-glass"
         >
-          Book a free call
+          Book a 15-min call
         </a>
       </div>
     );

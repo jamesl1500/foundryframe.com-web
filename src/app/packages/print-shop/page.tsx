@@ -34,6 +34,7 @@ import {
   faqPage,
   webPage,
 } from "@/lib/seo/schema";
+import { PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
 
 const path = PRINT_SHOP.href;
 
@@ -94,7 +95,7 @@ const steps = [
   {
     step: "Add it to your package",
     description:
-      `Tell us on your discovery call, or tick Print Shop in the Package Builder. It's a flat $150 on top of a website, maintenance, or marketing package, and included at no cost with every launch bundle, with ${PRINT_SHOP_INCLUDED_TEXT} in every order.`,
+      `Mention it on your project form, or tick Print Shop in the Package Builder. It's a flat $150 on top of a website, maintenance, or marketing package, and included at no cost with every launch bundle, with ${PRINT_SHOP_INCLUDED_TEXT} in every order.`,
   },
   {
     step: "Design alongside your site",
@@ -265,14 +266,12 @@ export default function PrintShopPage() {
               >
                 Add Print Shop
               </Link>
-              <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={PROPOSAL_HREF}
                 className="btn btn-glass flex text-center mt-2"
               >
-                Book a Free Call
-              </a>
+                {PROPOSAL_CTA_LABEL}
+              </Link>
             </div>
           </div>
         }
@@ -506,20 +505,23 @@ export default function PrintShopPage() {
               >
                 Build Your Package
               </Link>
-              <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={PROPOSAL_HREF}
                 className="btn btn-glass text-center"
               >
-                Book a Free Call
-              </a>
+                {PROPOSAL_CTA_LABEL}
+              </Link>
             </div>
             <p className="mt-6 text-muted text-xs">
-              Prefer to talk now?{" "}
+              Prefer to talk?{" "}
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">
+                Book a 15-min call
+              </a>{" "}
+              or{" "}
               <a href="tel:+12168897822" className="underline hover:text-ink">
-                Call (216) 889-7822
+                call (216) 889-7822
               </a>
+              .
             </p>
           </div>
         </div>

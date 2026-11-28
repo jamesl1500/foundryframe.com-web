@@ -72,7 +72,7 @@ export const locations: LocationPage[] = [
       },
       {
         q: "How much does a website cost for a Lorain small business?",
-        a: "Our custom websites start at $1,500 for a focused 5-page site. Larger sites with booking, e-commerce, or more pages are quoted after a free discovery call.",
+        a: "Our custom websites start at $1,500 for a focused 5-page site. Larger sites with booking, e-commerce, or more pages are quoted in a free written proposal.",
       },
       {
         q: "Can you help my Lorain business show up on Google Maps?",
@@ -276,7 +276,7 @@ export const locations: LocationPage[] = [
       {
         title: "Founder-led, not account-managed",
         description:
-          "No layers between you and the work. The person you meet on the discovery call is the one designing and building your site.",
+          "No layers between you and the work. The person who writes your proposal is the one designing and building your site.",
       },
       {
         title: "Stand out in a crowded market",
@@ -346,7 +346,7 @@ export const locations: LocationPage[] = [
       },
       {
         q: "How much does a website for a Westlake practice or firm cost?",
-        a: "Custom sites start at $1,500 for a focused 5-page site. Practices that need more service pages, provider bios, or booking integrations are quoted after a free discovery call.",
+        a: "Custom sites start at $1,500 for a focused 5-page site. Practices that need more service pages, provider bios, or booking integrations are quoted in a free written proposal.",
       },
     ],
   },

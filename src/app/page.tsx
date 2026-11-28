@@ -4,15 +4,16 @@
  * Flat, photo-led landing page built to put The Spark (the entry-level
  * website package) in front of every visitor:
  *
- *   1. Hero: headline, Spark CTA, and a pointer-reactive photo collage with
- *      a Spark "ticket" and a spinning Start Here badge
+ *   1. Hero: headline, Spark CTA, and a pointer-reactive collage of demo
+ *      sites (desktop + phone) with a Spark "ticket" and a Start Here badge
  *   2. Crossed ticker bands advertising The Spark
  *   3. The Spark showcase: price, what's included, an interactive preview
  *      of the five pages, and the launch timeline
  *   4. Who The Spark is for (photo cards)
- *   5. Stats, services (hover-reveal list), all website tiers, launch
+ *   5. How we work: the four-step, no-meetings process
+ *   6. Stats, services (hover-reveal list), all website tiers, launch
  *      bundles + maintenance, reviews, industries, the free audit, and a
- *      photo CTA
+ *      contact form to start a project
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -21,6 +22,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AuditForm from "@/components/AuditForm";
+import ContactForm from "@/components/ContactForm";
+import { BrowserDemo, PhoneDemo } from "@/components/DemoSiteMockups";
+import HowWeWork from "@/components/HowWeWork";
 import GoogleReviews from "@/components/GoogleReviews";
 import PackageHighlights from "@/components/PackageHighlights";
 import SparkShowcase from "@/components/SparkShowcase";
@@ -35,12 +39,27 @@ import { BOOKING_URL } from "@/lib/analytics";
 import { getPublishedServices } from "@/lib/cms/public-data";
 import { photoForService, type PhotoKey } from "@/lib/media/unsplash";
 import { getWebsitePackage, websitePackages } from "@/lib/packages/website";
-import { FOUNDING_SPOTS_OPEN, GOOGLE_REVIEWS } from "@/lib/site-facts";
+import {
+  FOUNDING_SPOTS_OPEN,
+  GOOGLE_REVIEWS,
+  OPTIONAL_CALL_LABEL,
+  OPTIONAL_CALL_MINUTES,
+} from "@/lib/site-facts";
 import PrintShopAddOn from "@/components/PrintShopAddOn";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
    (see lib/cms/revalidate.ts); this is the fallback for other edits. */
 export const revalidate = 60;
+
+/* Launch timelines come from the package data, so the homepage, its share
+   text, and the package pages can't disagree. */
+const sparkTimeline = getWebsitePackage("spark")!.timeline;
+const timelineWeeks = websitePackages.flatMap((pkg) =>
+  /^\d+–\d+ weeks$/.test(pkg.timeline) ? pkg.timeline.match(/\d+/g)!.map(Number) : []
+);
+/** Fastest to slowest priced tier, e.g. "4–12". */
+const launchWeeksRange = `${Math.min(...timelineWeeks)}–${Math.max(...timelineWeeks)}`;
+const shareDescription = `Custom websites starting at $1,500, hand-coded and built to convert. The Spark goes live in ${sparkTimeline}. No meetings required.`;
 
 export const metadata: Metadata = {
   title: { absolute: "Foundry Frame | Ohio Web Design & Branding Agency" },
@@ -52,7 +71,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Foundry Frame | Ohio Web Design & Branding Agency",
     description:
-      "Custom websites starting at $1,500, built to convert. No templates. Launch in 6-12 weeks.",
+      shareDescription,
     url: "/",
     type: "website",
     images: [
@@ -67,8 +86,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Foundry Frame | Ohio Web Design & Branding Agency",
-    description:
-      "Custom websites starting at $1,500, built to convert. No templates. Launch in 6-12 weeks.",
+    description: shareDescription,
     images: ["/twitter-image"],
   },
 };
@@ -142,7 +160,7 @@ const industries = [
 const stats = [
   { value: "2026", label: "Founded in Ohio", href: undefined },
   { value: "1:1", label: "Work direct with the founder", href: undefined },
-  { value: "6–12", label: "Weeks to launch", href: undefined },
+  { value: launchWeeksRange, label: "Weeks to launch", href: undefined },
   {
     value: String(FOUNDING_SPOTS_OPEN),
     label: "Founding client spots open",
@@ -265,27 +283,17 @@ export default async function Home() {
             )}
           </div>
 
-          {/* --- Photo collage + Spark ticket --- */}
+          {/* --- Demo-site collage + Spark ticket --- */}
           <PointerParallax className="lg:col-span-5" strength={22}>
             <div className="relative mx-auto aspect-[4/5] w-full max-w-[30rem]">
-              {/* Main photo */}
-              <div data-depth="0.4" className="absolute right-0 top-0 h-[64%] w-[76%]">
-                <div className="relative h-full w-full overflow-hidden rounded-panel border-[1.5px] border-ink">
-                  <div className="absolute inset-0 animate-ken-burns">
-                    <Photo
-                      name="barista"
-                      sizes="(min-width: 1024px) 28vw, 76vw"
-                      preload
-                    />
-                  </div>
-                </div>
+              {/* Desktop demo site */}
+              <div data-depth="0.4" className="absolute right-0 top-0 h-[60%] w-[82%]">
+                <BrowserDemo preload />
               </div>
 
-              {/* Second photo */}
-              <div data-depth="0.9" className="absolute bottom-0 right-[2%] w-[44%] rotate-3">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-card border-[1.5px] border-ink bg-sand">
-                  <Photo name="barber" sizes="(min-width: 1024px) 14vw, 44vw" />
-                </div>
+              {/* Mobile demo site */}
+              <div data-depth="0.9" className="absolute bottom-0 right-[3%] aspect-[9/17] w-[36%] rotate-3">
+                <PhoneDemo />
               </div>
 
               {/* Spinning badge */}
@@ -454,7 +462,7 @@ export default async function Home() {
             <div className="mt-16 border-t border-white/15 pt-10">
               <div className="flex flex-wrap items-baseline justify-between gap-4 mb-8">
                 <h3 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight">
-                  From first call to live site in{" "}
+                  From proposal to live site in{" "}
                   <span className="serif-accent text-molten">{spark.timeline}</span>
                 </h3>
                 <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
@@ -534,6 +542,11 @@ export default async function Home() {
           </StaggerContainer>
         </div>
       </section>
+
+      {/* =============================================
+          HOW WE WORK (NO MEETINGS)
+          ============================================= */}
+      <HowWeWork proposalHref="#start" trackLabel="Home how we work" />
 
       {/* =============================================
           STATS
@@ -655,7 +668,7 @@ export default async function Home() {
                       {pkg.headline}
                     </p>
                     <p className={`mt-6 text-xs uppercase tracking-[0.14em] ${featured ? "text-ink/70" : "text-muted"}`}>
-                      {pkg.pricePrefix ?? "Scoped in discovery"}
+                      {pkg.pricePrefix ?? "Custom quote"}
                     </p>
                     <p className="font-heading font-bold text-5xl tracking-[-0.04em] text-ink">
                       {pkg.price}
@@ -775,44 +788,56 @@ export default async function Home() {
       </section>
 
       {/* =============================================
-          CTA
+          START A PROJECT (CONTACT FORM)
           ============================================= */}
-      <section className="py-16 lg:py-24">
+      <section id="start" aria-labelledby="start-heading" className="py-16 lg:py-24 scroll-mt-28">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="on-dark relative isolate overflow-hidden rounded-panel border-[1.5px] border-ink bg-ink">
             <div aria-hidden="true" className="absolute inset-0 -z-10">
               <div className="absolute inset-0 animate-ken-burns">
                 <Photo name="welding" alt="" sizes="(min-width: 1400px) 1400px, 100vw" />
               </div>
-              <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/85 to-ink/30" />
+              <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/90 to-ink/60" />
             </div>
-            <FadeIn className="p-8 sm:p-12 lg:p-20 max-w-4xl">
-              <span className="eyebrow">Start a Project</span>
-              <h2 className="mt-6 text-5xl sm:text-7xl font-heading font-bold tracking-[-0.045em] leading-[0.9] text-white">
-                Let&apos;s forge your next{" "}
-                <em className="serif-accent text-molten">client-winning</em> website.
-              </h2>
-              <p className="mt-8 text-molten text-xs uppercase tracking-[0.16em] font-semibold">
-                We take on a limited number of projects each quarter
-              </p>
-              <p className="mt-4 text-white/80 text-base leading-relaxed max-w-lg">
-                Custom websites starting at {spark.price}. No templates, no fluff — built
-                to turn visitors into paying clients and delivered in 6–12 weeks.
-              </p>
-              <div className="flex flex-wrap gap-3 mt-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 p-6 sm:p-12 lg:p-16">
+              <FadeIn className="lg:col-span-5">
+                <span className="eyebrow">Start a Project</span>
+                <h2
+                  id="start-heading"
+                  className="mt-6 text-5xl sm:text-6xl font-heading font-bold tracking-[-0.045em] leading-[0.9] text-white"
+                >
+                  Let&apos;s forge your next{" "}
+                  <em className="serif-accent text-molten">client-winning</em> website.
+                </h2>
+                <p className="mt-8 text-molten text-xs uppercase tracking-[0.16em] font-semibold">
+                  We take on a limited number of projects each quarter
+                </p>
+                <p className="mt-4 text-white/80 text-base leading-relaxed max-w-lg">
+                  Custom websites starting at {spark.price}, hand-coded and built
+                  to turn visitors into paying clients. The Spark goes live in{" "}
+                  {spark.timeline}; larger builds take up to {launchWeeksRange.split("–")[1]} weeks.
+                </p>
+                <p className="mt-4 text-white/80 text-base leading-relaxed max-w-lg">
+                  Tell us about your project and James replies in writing with
+                  next steps and a proposal. Rather talk it through? Book an
+                  optional {OPTIONAL_CALL_MINUTES}-minute call.
+                </p>
                 <a
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn btn-molten min-h-14 px-7 text-base"
+                  data-track="Home start: optional call"
+                  className="btn btn-ghost-light mt-8 min-h-13 px-7"
                 >
-                  Book a Free Discovery Call
+                  {OPTIONAL_CALL_LABEL}
                 </a>
-                <Link href="/contact" className="btn btn-ghost-light min-h-14 px-7 text-base">
-                  Contact Us
-                </Link>
-              </div>
-            </FadeIn>
+              </FadeIn>
+              <FadeIn delay={0.1} className="lg:col-span-7">
+                <div className="rounded-card border-[1.5px] border-ink bg-paper p-6 sm:p-8 text-ink">
+                  <ContactForm />
+                </div>
+              </FadeIn>
+            </div>
           </div>
         </div>
       </section>

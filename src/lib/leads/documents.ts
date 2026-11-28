@@ -7,6 +7,7 @@ import {
   TextRun,
 } from "docx";
 import type { LeadProposalRecord } from "@/lib/leads/types";
+import { CLIENT_PORTAL, OPTIONAL_CALL_MINUTES } from "@/lib/site-facts";
 
 export type ProposalDocumentKind = "proposal" | "agreement";
 
@@ -83,7 +84,7 @@ function proposalBlocks(proposal: LeadProposalRecord): DocumentBlock[] {
     { style: "heading", text: "Payment Terms" },
     {
       style: "body",
-      text: `A ${formatPercent(proposal.deposit_percent)}% deposit (${money.format(deposit)}) reserves the project slot and begins discovery. The remaining balance (${money.format(balance)}) is due prior to launch and transfer of final deliverables.`,
+      text: `A ${formatPercent(proposal.deposit_percent)}% deposit (${money.format(deposit)}) reserves the project slot and starts the work. The remaining balance (${money.format(balance)}) is due prior to launch and transfer of final deliverables.`,
     },
     { style: "heading", text: "Timeline" },
     ...proposal.proposal_content.timeline.flatMap((phase) => [
@@ -92,7 +93,7 @@ function proposalBlocks(proposal: LeadProposalRecord): DocumentBlock[] {
     ]),
     {
       style: "body",
-      text: `Estimated ${proposal.timeline_weeks} weeks from kickoff, contingent on timely feedback and content delivery.`,
+      text: `Estimated ${proposal.timeline_weeks} weeks from kickoff, contingent on timely feedback and content delivery. No meetings are needed: every milestone is posted in your ${CLIENT_PORTAL.name} client portal, and reviews arrive as short recorded walkthroughs. If you'd ever rather talk, an optional ${OPTIONAL_CALL_MINUTES}-minute call is yours to book.`,
     },
     { style: "heading", text: "Next Steps" },
     { style: "body", text: proposal.proposal_content.nextSteps },
@@ -124,7 +125,7 @@ function agreementBlocks(proposal: LeadProposalRecord): DocumentBlock[] {
     { style: "heading", text: "1. Scope of Services" },
     {
       style: "body",
-      text: `Foundry Frame will provide the following services: ${scope}. Any work not described in the Proposal is out of scope and will be handled under Section 4 (Change Requests).`,
+      text: `Foundry Frame will provide the following services: ${scope}. Any work not described in the Proposal is out of scope and will be handled under Section 5 (Change Requests).`,
     },
     { style: "heading", text: "2. Fees & Payment Terms" },
     {
@@ -136,52 +137,57 @@ function agreementBlocks(proposal: LeadProposalRecord): DocumentBlock[] {
       style: "body",
       text: `Foundry Frame estimates a ${proposal.timeline_weeks} week delivery timeline from the kickoff date. This estimate assumes Client provides feedback and requested content or assets within five (5) business days of each request. Delays in Client feedback or content delivery will extend the timeline accordingly and are not a breach of this Agreement by Foundry Frame.`,
     },
-    { style: "heading", text: "4. Revisions & Change Requests" },
+    { style: "heading", text: "4. Communication & Project Updates" },
+    {
+      style: "body",
+      text: `Foundry Frame will manage the project in writing. Client will receive access to Foundry Frame's client portal (${CLIENT_PORTAL.name}), where Foundry Frame will post milestone updates, deliverables, and approval requests. Design reviews and progress updates will be delivered as written notes and short recorded screen walkthroughs, and no meetings are required to complete the Services. Feedback and approvals Client gives in the portal or by email count as written approval under this Agreement. At Client's request, Foundry Frame will also hold an optional call of up to ${OPTIONAL_CALL_MINUTES} minutes.`,
+    },
+    { style: "heading", text: "5. Revisions & Change Requests" },
     {
       style: "body",
       text: "The Services include the revision rounds expressly listed in the Proposal. Additional revisions or work outside the approved scope will be billed at Foundry Frame's standard rate of $125/hour and performed only after Client's written approval of the estimated additional cost.",
     },
-    { style: "heading", text: "5. Client Responsibilities" },
+    { style: "heading", text: "6. Client Responsibilities" },
     {
       style: "body",
       text: "Client will provide timely feedback, final copy, images, and brand assets, and will grant Foundry Frame the access reasonably required to complete the Services, including hosting, domain registrar, and analytics accounts as applicable. Client-caused delays may extend the timeline under Section 3.",
     },
-    { style: "heading", text: "6. Ownership & Intellectual Property" },
+    { style: "heading", text: "7. Ownership & Intellectual Property" },
     {
       style: "body",
       text: "Upon payment in full, Client owns the final design, custom code, and content created specifically for Client under this Agreement. Foundry Frame retains ownership of its pre-existing tools, frameworks, code libraries, and reusable components, and grants Client a perpetual, non-exclusive license to use them as incorporated into the deliverables. Foundry Frame may display the completed work in its portfolio and marketing unless Client requests otherwise in writing.",
     },
-    { style: "heading", text: "7. Confidentiality" },
+    { style: "heading", text: "8. Confidentiality" },
     {
       style: "body",
       text: "Each Party will keep confidential any non-public business, technical, or financial information disclosed by the other Party in connection with this Agreement and will use it only to perform its obligations under this Agreement.",
     },
-    { style: "heading", text: "8. Warranties & Limitation of Liability" },
+    { style: "heading", text: "9. Warranties & Limitation of Liability" },
     {
       style: "body",
       text: "Foundry Frame will perform the Services in a professional and workmanlike manner consistent with industry standards. Except as expressly stated in this Agreement, the Services are provided without warranties of any kind, express or implied. Foundry Frame's total liability arising out of this Agreement will not exceed the total fees paid by Client, and Foundry Frame will not be liable for indirect, incidental, or consequential damages.",
     },
-    { style: "heading", text: "9. Termination" },
+    { style: "heading", text: "10. Termination" },
     {
       style: "body",
       text: "Either Party may terminate this Agreement upon fourteen (14) days' written notice. Upon termination, Client will pay Foundry Frame for all Services performed through the effective date of termination. Deposits paid are non-refundable once work has begun.",
     },
-    { style: "heading", text: "10. Independent Contractor" },
+    { style: "heading", text: "11. Independent Contractor" },
     {
       style: "body",
       text: "Foundry Frame is an independent contractor. Nothing in this Agreement creates an employment, partnership, or joint-venture relationship between the Parties.",
     },
-    { style: "heading", text: "11. Governing Law" },
+    { style: "heading", text: "12. Governing Law" },
     {
       style: "body",
       text: "This Agreement is governed by the laws of the State of Ohio, without regard to conflict-of-law principles. Any disputes arising under this Agreement will be resolved in the state or federal courts located in Lorain County, Ohio.",
     },
-    { style: "heading", text: "12. Entire Agreement & Amendments" },
+    { style: "heading", text: "13. Entire Agreement & Amendments" },
     {
       style: "body",
       text: "This Agreement, together with the Proposal it incorporates, constitutes the entire agreement between the Parties regarding the Services and supersedes all prior discussions or agreements. Any amendment must be made in writing and signed by both Parties.",
     },
-    { style: "heading", text: "13. Signatures" },
+    { style: "heading", text: "14. Signatures" },
     { style: "body", text: "By signing below, each Party agrees to the terms of this Agreement." },
     { style: "spacer", text: "" },
     { style: "subtitle", text: "Foundry Frame LLC" },

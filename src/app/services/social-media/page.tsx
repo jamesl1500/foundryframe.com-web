@@ -12,6 +12,8 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import JsonLd from "@/components/seo/JsonLd";
 import { AREA_SERVED, ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
+import { OPTIONAL_CALL_LABEL, PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
+import { BOOKING_URL } from "@/lib/analytics";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -123,7 +125,7 @@ const faqs = [
   },
   {
     q: "How many posts per month is typical?",
-    a: "It depends on the plan — our Website Packages add-on covers platform-native content on a schedule that fits your goals; ask about volume during your discovery call.",
+    a: "It depends on the plan — our Website Packages add-on covers platform-native content on a schedule that fits your goals; tell us the volume you have in mind and we'll include it in your proposal.",
   },
   {
     q: "Do you handle paid social ads too?",
@@ -199,10 +201,10 @@ export default function SocialMediaServicePage() {
         actions={
           <>
             <Link
-              href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+              href={PROPOSAL_HREF}
               className="btn btn-primary min-h-13 px-7"
             >
-              Book a Free Call
+              {PROPOSAL_CTA_LABEL}
             </Link>
             <Link
               href="/packages/marketing"
@@ -356,17 +358,19 @@ export default function SocialMediaServicePage() {
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+                href={PROPOSAL_HREF}
                 className="btn btn-primary"
               >
-                Book a Free Call
+                {PROPOSAL_CTA_LABEL}
               </Link>
-              <Link
-                href="/contact"
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-glass"
               >
-                Contact Us
-              </Link>
+                {OPTIONAL_CALL_LABEL}
+              </a>
             </div>
           </div>
         </div>

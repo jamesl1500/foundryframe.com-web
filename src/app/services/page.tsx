@@ -16,6 +16,8 @@ import { breadcrumbList } from "@/lib/seo/schema";
 import Photo from "@/components/media/Photo";
 import { photoForService } from "@/lib/media/unsplash";
 import { getPublishedServices } from "@/lib/cms/public-data";
+import { OPTIONAL_CALL_LABEL, PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
+import { BOOKING_URL } from "@/lib/analytics";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
    (see lib/cms/revalidate.ts); this is the fallback for other edits. */
@@ -140,7 +142,7 @@ const supportedServiceDetailSlugs = new Set([
 const process = [
   {
     step: "Discovery",
-    description: "We learn your business, audience, and goals.",
+    description: "We learn your business, audience, and goals from a short written questionnaire.",
   },
   {
     step: "Strategy",
@@ -370,7 +372,7 @@ export default async function ServicesPage() {
               Next Step
             </p>
             <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-4">
-              Book your free 30-min strategy call
+              Get a written proposal
             </h2>
             <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
               Tell us about your goals. We&apos;ll walk you through exactly
@@ -379,17 +381,19 @@ export default async function ServicesPage() {
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+                href={PROPOSAL_HREF}
                 className="btn btn-primary"
               >
-                Book a Free Call
+                {PROPOSAL_CTA_LABEL}
               </Link>
-              <Link
-                href="/contact"
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-glass"
               >
-                Contact Us
-              </Link>
+                {OPTIONAL_CALL_LABEL}
+              </a>
             </div>
           </div>
         </div>

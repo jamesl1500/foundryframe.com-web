@@ -332,7 +332,7 @@ export default function SiteChat() {
           <p className="px-5 pb-3 text-xs text-muted">
             Prefer a person?{" "}
             <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="text-accent-ink hover:text-ink">
-              Book a free consultation
+              Book a 15-min call
             </a>{" "}
             or call{" "}
             <a href="tel:+12168897822" className="text-accent-ink hover:text-ink">

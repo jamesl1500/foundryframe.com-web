@@ -10,7 +10,11 @@ import {
   FOUNDING_DISCOUNT_PERCENT,
   FOUNDING_SPOTS_OPEN,
   isInHouseProduct,
+  OPTIONAL_CALL_LABEL,
+  PROPOSAL_CTA_LABEL,
+  PROPOSAL_HREF,
 } from "@/lib/site-facts";
+import { BOOKING_URL } from "@/lib/analytics";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
    (see lib/cms/revalidate.ts); this is the fallback for other edits. */
@@ -187,17 +191,19 @@ export default async function CaseStudiesPage() {
                 Become a Founding Client
               </Link>
               <Link
-                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+                href={PROPOSAL_HREF}
                 className="btn btn-glass text-center"
               >
-                Book a Free Call
+                {PROPOSAL_CTA_LABEL}
               </Link>
-              <Link
-                href="/contact"
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-glass text-center"
               >
-                Contact Us
-              </Link>
+                {OPTIONAL_CALL_LABEL}
+              </a>
             </div>
           </div>
         </div>

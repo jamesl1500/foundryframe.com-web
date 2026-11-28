@@ -27,10 +27,10 @@ export default function StickyCallToAction() {
         Ready to start?
       </span>
       <Link
-        href="/contact"
+        href="/contact#start"
         className="text-xs font-bold uppercase tracking-wider whitespace-nowrap hover:text-accent-ink transition-colors"
       >
-        Book a Free Call →
+        Request a proposal →
       </Link>
       <button
         onClick={() => setDismissed(true)}

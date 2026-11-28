@@ -23,6 +23,8 @@ import {
   BUSINESS_HOURS_LINES,
   GOOGLE_MAPS_URL,
   isInHouseProduct,
+  PROPOSAL_CTA_LABEL,
+  PROPOSAL_HREF,
 } from "@/lib/site-facts";
 import JsonLd from "@/components/seo/JsonLd";
 
@@ -112,14 +114,12 @@ export default function LandingPage({
             >
               Get a Free Website Audit
             </Link>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href={PROPOSAL_HREF}
               className="btn btn-glass min-h-13 px-7"
             >
-              Book a Free Call
-            </a>
+              {PROPOSAL_CTA_LABEL}
+            </Link>
           </>
         }
         photo={photo}
@@ -334,21 +334,19 @@ export default function LandingPage({
           <div className="lg:col-span-7">
             <p className="eyebrow mb-6">Next Step</p>
             <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-6">
-              Talk to the person who&apos;ll build your site.
+              Work directly with the person who&apos;ll build your site.
             </h2>
             <p className="text-muted text-sm leading-relaxed mb-10 max-w-lg">
-              Book a free discovery call with James, the founder. You&apos;ll get honest advice on
-              what your website needs, even if you don&apos;t hire us.
+              Tell James, the founder, about your business and get a written proposal with honest advice
+              on what your website needs, even if you don&apos;t hire us. No meetings required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={PROPOSAL_HREF}
                 className="btn btn-primary text-center"
               >
-                Book a Free Call
-              </a>
+                {PROPOSAL_CTA_LABEL}
+              </Link>
               <a
                 href="tel:+12168897822"
                 className="btn btn-glass text-center"
@@ -356,6 +354,13 @@ export default function LandingPage({
                 Call (216) 889-7822
               </a>
             </div>
+            <p className="mt-6 text-muted text-xs">
+              Rather talk first?{" "}
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">
+                Book an optional 15-minute call
+              </a>
+              .
+            </p>
           </div>
 
           {/* Visible name, area, phone, and hours, matching the Google

@@ -147,19 +147,19 @@ export const websitePackages: WebsitePackage[] = [
     timeline: "4–6 weeks",
     process: [
       {
-        step: "Discovery call",
+        step: "Written proposal",
         description:
-          "A free call to learn your business, your customers, and what the site needs to do. We'll tell you honestly whether The Spark is the right fit, then send a proposal and timeline.",
+          "Tell us about your business in a short form. You get a written proposal with the scope, price, and timeline, and an honest note if The Spark isn't the right fit. No call needed.",
       },
       {
-        step: "Kickoff & content",
+        step: "Deposit & questionnaire",
         description:
-          "Once the deposit is in, you'll get a short questionnaire about your brand, services, and goals. We map your five pages and outline what goes on each one.",
+          "Once the deposit is in, you get your Binx client portal and a short questionnaire about your brand, services, and goals. We map your five pages and outline what goes on each one.",
       },
       {
         step: "Design",
         description:
-          "We design the homepage first so you can see the direction, then the remaining pages. You review at each checkpoint and use your two revision rounds.",
+          "We design the homepage first and send a short screen recording walking you through it, then the remaining pages. You leave feedback in the portal and use your two revision rounds.",
       },
       {
         step: "Build & test",
@@ -167,9 +167,9 @@ export const websitePackages: WebsitePackage[] = [
           "We hand-code the approved design, set up your contact form, map, SEO, and analytics, and test every page on phones, tablets, and desktops.",
       },
       {
-        step: "Launch & support",
+        step: "Approve & launch",
         description:
-          "We connect your domain, go live, and walk you through the finished site. Your 30-day support window starts on launch day.",
+          "You approve the finished site in the portal, we connect your domain and go live, and you get a recorded tour of your new site. Your 30-day support window starts on launch day.",
       },
     ],
     fromYou: [
@@ -219,7 +219,7 @@ export const websitePackages: WebsitePackage[] = [
       },
       {
         q: "How long does a Spark site take?",
-        a: "Most Spark projects launch in about 4–6 weeks from kickoff. The biggest variable is content: the sooner we have your text and photos, the sooner you go live. You'll get a specific timeline after the discovery call.",
+        a: "Most Spark projects launch in about 4–6 weeks from kickoff. The biggest variable is content: the sooner we have your text and photos, the sooner you go live. Your written proposal includes a specific timeline.",
       },
       {
         q: "Can I update the site myself?",
@@ -231,7 +231,7 @@ export const websitePackages: WebsitePackage[] = [
       },
       {
         q: "Is $1,500 the final price?",
-        a: "$1,500 is the starting price for the scope on this page. You'll get an exact number after a free, no-obligation discovery call.",
+        a: "$1,500 is the starting price for the scope on this page. You'll get an exact number in a free, no-obligation written proposal.",
       },
       {
         q: "What happens after the 30-day support window?",
@@ -328,9 +328,9 @@ export const websitePackages: WebsitePackage[] = [
     timeline: "6–8 weeks",
     process: [
       {
-        step: "Discovery call",
+        step: "Written proposal",
         description:
-          "A free call about your business, your customers, and where your current site falls short. We follow up with a proposal and timeline.",
+          "Tell us about your business, your customers, and where your current site falls short. You get a written proposal with the scope, price, and timeline. No call needed.",
       },
       {
         step: "Strategy & sitemap",
@@ -340,7 +340,7 @@ export const websitePackages: WebsitePackage[] = [
       {
         step: "Design system & page design",
         description:
-          "We build your design system first, then design the homepage and key pages on top of it. Three revision rounds, plus an optional stakeholder presentation.",
+          "We build your design system first, then design the homepage and key pages on top of it. Each review arrives as a short screen recording, with feedback collected in your client portal. Three revision rounds, plus an optional stakeholder presentation.",
       },
       {
         step: "Build, CMS & content",
@@ -359,7 +359,7 @@ export const websitePackages: WebsitePackage[] = [
       "Photos of your work, team, products, or location",
       "The actions that count as a lead for you (calls, forms, bookings)",
       "Access to your domain and any existing analytics",
-      "Stakeholders available for scheduled design reviews",
+      "Stakeholders who can watch the recorded design reviews and leave feedback in the portal",
     ],
     goodToKnow: [
       {
@@ -376,7 +376,7 @@ export const websitePackages: WebsitePackage[] = [
       {
         title: "Starting price",
         description:
-          "$2,500 is the starting point for this scope. You'll get an exact number after a free discovery call.",
+          "$2,500 is the starting point for this scope. You'll get an exact number in a free written proposal.",
       },
     ],
     bundle: {
@@ -400,7 +400,7 @@ export const websitePackages: WebsitePackage[] = [
       },
       {
         q: "How long does a Blueprint site take?",
-        a: "Most Blueprint projects launch in 6–8 weeks from kickoff, depending on how many pages you need and how quickly content and feedback come in. You'll get a specific timeline after the discovery call.",
+        a: "Most Blueprint projects launch in 6–8 weeks from kickoff, depending on how many pages you need and how quickly content and feedback come in. Your written proposal includes a specific timeline.",
       },
       {
         q: "Do you write the blog posts?",
@@ -432,10 +432,10 @@ export const websitePackages: WebsitePackage[] = [
     badge: null,
     features: [
       {
-        label: "Up to 20 pages + custom section templates your team can reuse",
-        title: "Up to 20 pages + reusable section templates",
+        label: "Up to 20 pages + a custom section library your team can reuse",
+        title: "Up to 20 pages + reusable page sections",
         detail:
-          "Enough room for every product line, service, location, and campaign. We also build section templates your team can assemble into new pages, so marketing can launch a page without starting a new project.",
+          "Enough room for every product line, service, location, and campaign. We also design a library of custom page sections, built for your brand, that your team can assemble into new pages, so marketing can launch a page without starting a new project.",
       },
       {
         label: "E-commerce: our custom storefront (recommended), or headless Shopify or WordPress",
@@ -496,21 +496,21 @@ export const websitePackages: WebsitePackage[] = [
     intro:
       "At this level the website is tied into how you sell: your store, your CRM, your email list, and the search traffic you're trying to win. We plan all of it before we design any of it.",
     glance: [
-      { label: "Pages", value: "Up to 20 + templates" },
+      { label: "Pages", value: "Up to 20 + section library" },
       { label: "Revisions", value: "4 rounds" },
       { label: "After launch", value: "3-month check-in" },
     ],
     timeline: "8–12 weeks",
     process: [
       {
-        step: "Discovery call",
+        step: "Written proposal",
         description:
-          "A free call to understand your business, your sales process, and what the website needs to deliver. We follow up with a proposal and timeline.",
+          "Tell us about your business, your sales process, and what the website needs to deliver. You get a written proposal with the scope, price, and timeline. No call needed.",
       },
       {
-        step: "Strategy session",
+        step: "Strategy brief",
         description:
-          "A deep working session on your goals, customers, and competitors. We review your current site, analytics, and search data and agree on what success looks like.",
+          "A detailed questionnaire on your goals, customers, and competitors. We review your current site, analytics, and search data, then send a written strategy brief and a recorded walkthrough so we agree on what success looks like.",
       },
       {
         step: "Architecture & integration plan",
@@ -520,7 +520,7 @@ export const websitePackages: WebsitePackage[] = [
       {
         step: "Design",
         description:
-          "Design system, key page designs, reusable section templates, and motion. Four revision rounds, coordinated by your project manager.",
+          "Design system, key page designs, a library of reusable page sections, and motion. Four revision rounds, coordinated by your project manager.",
       },
       {
         step: "Build & integrate",
@@ -544,7 +544,7 @@ export const websitePackages: WebsitePackage[] = [
       {
         title: "Strategy comes first",
         description:
-          "The strategy session and content brief shape everything that follows, so the pages we build are the ones that move revenue and rankings.",
+          "The strategy brief and content brief shape everything that follows, so the pages we build are the ones that move revenue and rankings.",
       },
       {
         title: "Flexible payments",
@@ -555,7 +555,7 @@ export const websitePackages: WebsitePackage[] = [
       {
         title: "Starting price",
         description:
-          "$3,500 is the starting point. Catalog size and how custom your integrations need to be shape the final number, which you'll get after the discovery call.",
+          "$3,500 is the starting point. Catalog size and how custom your integrations need to be shape the final number, which you'll get in your written proposal.",
       },
     ],
     bundle: {
@@ -571,11 +571,11 @@ export const websitePackages: WebsitePackage[] = [
     faqs: [
       {
         q: "Is e-commerce included in the starting price?",
-        a: "Yes. The Architect includes e-commerce on the platform you choose: our custom e-commerce solution, or a headless Shopify or WordPress storefront. We recommend the custom solution because your store, site, and integrations all stay together in one system, supported by one team. Your exact quote depends on things like catalog size and how custom the checkout needs to be, which we'll cover in the strategy session.",
+        a: "Yes. The Architect includes e-commerce on the platform you choose: our custom e-commerce solution, or a headless Shopify or WordPress storefront. We recommend the custom solution because your store, site, and integrations all stay together in one system, supported by one team. Your exact quote depends on things like catalog size and how custom the checkout needs to be, which we'll cover in the strategy brief.",
       },
       {
         q: "Which CRMs and email platforms do you work with?",
-        a: "HubSpot, Salesforce, Mailchimp, and Klaviyo are the most common, and we can connect most platforms that offer an API. If you haven't chosen one yet, we'll help you pick in the strategy session.",
+        a: "HubSpot, Salesforce, Mailchimp, and Klaviyo are the most common, and we can connect most platforms that offer an API. If you haven't chosen one yet, we'll recommend one in the strategy brief.",
       },
       {
         q: "What does a 90+ Lighthouse score mean for me?",
@@ -583,7 +583,7 @@ export const websitePackages: WebsitePackage[] = [
       },
       {
         q: "How long does an Architect site take?",
-        a: "Most Architect projects launch in 8–12 weeks from kickoff. E-commerce catalogs and integrations are the biggest variables. You'll get a specific timeline after the strategy session.",
+        a: "Most Architect projects launch in 8–12 weeks from kickoff. E-commerce catalogs and integrations are the biggest variables. Your written proposal includes a specific timeline.",
       },
       {
         q: "How is The Architect different from The Monument?",

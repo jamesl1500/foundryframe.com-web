@@ -13,7 +13,7 @@ import { BOOKING_URL } from "@/lib/analytics";
 
 export default function CalendlyBadge() {
   return (
-    <aside aria-label="Book a consultation">
+    <aside aria-label="Book an optional call">
       <a
         href={BOOKING_URL}
         target="_blank"
@@ -24,8 +24,8 @@ export default function CalendlyBadge() {
           aria-hidden="true"
           className="w-2 h-2 rounded-full bg-molten"
         />
-        <span className="sm:hidden">Book a call</span>
-        <span className="hidden sm:inline">Book a free consultation</span>
+        <span className="sm:hidden">15-min call</span>
+        <span className="hidden sm:inline">Book a 15-min call</span>
       </a>
     </aside>
   );

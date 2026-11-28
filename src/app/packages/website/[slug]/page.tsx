@@ -30,6 +30,7 @@ import {
   breadcrumbList,
   faqPage,
 } from "@/lib/seo/schema";
+import { OPTIONAL_CALL_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
 
 /* Hero photo for each tier */
 const tierPhotos: Record<string, PhotoKey> = {
@@ -188,7 +189,7 @@ export default async function WebsitePackagePage({
                 {pkg.price}
               </p>
               <Link
-                href="/contact"
+                href={PROPOSAL_HREF}
                 data-track={`Package details hero: ${pkg.name}`}
                 className={`btn flex text-center ${isSpark ? "btn-molten" : "btn-primary"}`}
               >
@@ -200,7 +201,7 @@ export default async function WebsitePackagePage({
                 rel="noopener noreferrer"
                 className="btn btn-glass flex text-center mt-2"
               >
-                Book a Free Call
+                {OPTIONAL_CALL_LABEL}
               </a>
             </div>
           </div>
@@ -282,7 +283,7 @@ export default async function WebsitePackagePage({
           <div className="lg:col-span-4">
             <p className="eyebrow mb-4">How It Works</p>
             <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-6">
-              From first call to launch day
+              From proposal to launch day
             </h2>
             <p className="text-muted text-sm leading-relaxed max-w-sm">
               {isCustom ? (
@@ -290,8 +291,8 @@ export default async function WebsitePackagePage({
               ) : (
                 <>
                   Most {pkg.name} projects launch in{" "}
-                  <span className="text-ink font-semibold">{pkg.timeline}</span>. You&apos;ll get a
-                  specific schedule after the discovery call.
+                  <span className="text-ink font-semibold">{pkg.timeline}</span>. Your written
+                  proposal includes a specific schedule, and you follow every step in your client portal.
                 </>
               )}
             </p>
@@ -530,7 +531,7 @@ export default async function WebsitePackagePage({
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/contact"
+                href={PROPOSAL_HREF}
                 data-track={`Package details CTA: ${pkg.name}`}
                 className="btn btn-primary text-center"
               >
@@ -542,14 +543,19 @@ export default async function WebsitePackagePage({
                 rel="noopener noreferrer"
                 className="btn btn-glass text-center"
               >
-                Book a Free Call
+                {OPTIONAL_CALL_LABEL}
               </a>
             </div>
             <p className="mt-6 text-muted text-xs">
-              Prefer to talk now?{" "}
+              Prefer to talk?{" "}
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="underline hover:text-ink">
+                Book a 15-min call
+              </a>{" "}
+              or{" "}
               <a href="tel:+12168897822" className="underline hover:text-ink">
-                Call (216) 889-7822
+                call (216) 889-7822
               </a>
+              .
             </p>
           </div>
         </div>

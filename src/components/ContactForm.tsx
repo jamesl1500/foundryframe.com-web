@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, type SubmitEvent } from "react";
-import { newConversionId, trackConversion } from "@/lib/analytics";
+import { BOOKING_URL, newConversionId, trackConversion } from "@/lib/analytics";
+import { OPTIONAL_CALL_MINUTES } from "@/lib/site-facts";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -44,7 +45,7 @@ export default function ContactForm() {
       <div className="py-16 text-center">
         <p className="text-ink text-lg font-medium mb-2">Message sent.</p>
         <p className="text-muted text-sm">
-          We&apos;ll get back to you within 24 hours.
+          James will reply in writing within 24 hours.
         </p>
         <button
           onClick={() => setStatus("idle")}
@@ -146,10 +147,19 @@ export default function ContactForm() {
           James responds personally to every inquiry within 24 hours.
         </p>
         <p className="text-muted text-xs text-center">
-          No spam, no pushy sales calls — just a real conversation about your goals.
+          No meetings required: you get a written reply and, if it&apos;s a fit, a written proposal.
         </p>
         <p className="text-muted text-xs text-center">
-          Not sure what you need? That&apos;s exactly what the discovery call is for.
+          Rather talk it through?{" "}
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-ink underline underline-offset-4"
+          >
+            Book an optional {OPTIONAL_CALL_MINUTES}-minute call
+          </a>
+          .
         </p>
       </div>
     </form>

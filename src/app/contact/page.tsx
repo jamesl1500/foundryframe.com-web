@@ -15,7 +15,12 @@ import PageHero from "@/components/PageHero";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbList, ORGANIZATION_ID, webPage } from "@/lib/seo/schema";
 import { BOOKING_URL } from "@/lib/analytics";
-import { BUSINESS_HOURS_LINES, BUSINESS_HOURS_PHRASE } from "@/lib/site-facts";
+import {
+  BUSINESS_HOURS_LINES,
+  BUSINESS_HOURS_PHRASE,
+  OPTIONAL_CALL_LABEL,
+  PROPOSAL_CTA_LABEL,
+} from "@/lib/site-facts";
 
 export const metadata: Metadata = {
   title: "Contact Us | Ohio Web Design Agency",
@@ -27,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Contact Our Ohio Web Design Team",
     description:
-      "Book a discovery call and tell us about your website, branding, or growth goals.",
+      "Tell us about your website, branding, or growth goals and get a written proposal. No meetings required.",
     url: "/contact",
     type: "website",
     images: [
@@ -43,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact Our Ohio Web Design Team",
     description:
-      "Book a discovery call and tell us about your website, branding, or growth goals.",
+      "Tell us about your website, branding, or growth goals and get a written proposal. No meetings required.",
     images: ["/twitter-image"],
   },
 };
@@ -86,7 +91,7 @@ export default function ContactPage() {
             path: "/contact",
             name: "Contact Foundry Frame",
             description:
-              "Contact Foundry Frame, a web design and branding agency in Lorain, Ohio. Book a free call or send a project inquiry.",
+              "Contact Foundry Frame, a web design and branding agency in Lorain, Ohio. Send a project inquiry and get a written proposal, or book an optional 15-minute call.",
             extra: { mainEntity: { "@id": ORGANIZATION_ID } },
           }),
           breadcrumbList([{ name: "Contact", path: "/contact" }]),
@@ -112,19 +117,29 @@ export default function ContactPage() {
               hours, and there&apos;s never any pressure to commit.
             </p>
             <p>
-              James takes calls {BUSINESS_HOURS_PHRASE}. The fastest way
-              to talk is to grab a time on the calendar.
+              Everything runs in writing: a written proposal, progress in your
+              client portal, and short recorded walkthroughs instead of status
+              meetings. Rather talk first? James takes optional 15-minute calls{" "}
+              {BUSINESS_HOURS_PHRASE}.
             </p>
           </>
         }
         actions={
           <>
             <Link
-              href={BOOKING_URL}
+              href="#start"
               className="btn btn-primary min-h-13 px-7"
             >
-              Book a Free Consultation
+              {PROPOSAL_CTA_LABEL}
             </Link>
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-glass min-h-13 px-7"
+            >
+              {OPTIONAL_CALL_LABEL}
+            </a>
           </>
         }
         photo="coffeeCounter"
@@ -134,7 +149,7 @@ export default function ContactPage() {
       {/* =============================================
           FORM & INFO
           ============================================= */}
-      <section className="py-24 lg:py-32">
+      <section id="start" className="py-24 lg:py-32 scroll-mt-24">
         <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
             {/* --- Form --- */}
@@ -177,15 +192,15 @@ export default function ContactPage() {
                   {[
                     {
                       q: "How much does a custom website cost?",
-                      a: "Website packages start at $1,500 for a focused site. Most small business websites land between $2,500 and $3,500 depending on scope. Every number is a starting point — we'll confirm the exact figure after a friendly 30-min call, with no obligation.",
+                      a: "Website packages start at $1,500 for a focused site. Most small business websites land between $2,500 and $3,500 depending on scope. Every number is a starting point — you'll get the exact figure in a written proposal, with no obligation.",
                     },
                     {
                       q: "How quickly can we get started?",
-                      a: "Once the deposit is in, we typically kick off within a week. Full build timelines are 6–12 weeks. We take on a limited number of projects each quarter, so the sooner we talk, the sooner we can reserve your slot.",
+                      a: "Once the deposit is in, we typically kick off within a week. The Spark launches in 4–6 weeks and larger builds take up to 12. We take on a limited number of projects each quarter, so the sooner you send your details, the sooner we can reserve your slot.",
                     },
                     {
                       q: "What does the process look like?",
-                      a: "Discovery → Strategy → Design → Build → Launch. You're involved at each stage and we don't move forward without your sign-off. No surprises.",
+                      a: "Proposal → Deposit → Build with written updates → Approve and launch. You follow every milestone in your Binx client portal, design reviews come as short recorded walkthroughs instead of meetings, and nothing moves forward without your sign-off. An optional 15-minute call is there if you want one.",
                     },
                   ].map(({ q, a }) => (
                     <details key={q} className="group border-b border-ink/10">

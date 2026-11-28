@@ -20,7 +20,7 @@ export type FoundationOption = {
   id: string;
   group: FoundationGroup;
   name: string;
-  /** One-time starting price in USD; null means scoped on a discovery call. */
+  /** One-time starting price in USD; null means scoped in a written proposal. */
   price: number | null;
   summary: string;
   timeline: string;
@@ -89,7 +89,7 @@ export const FOUNDATIONS: FoundationOption[] = [
     name: "The Monument",
     price: null,
     summary: "Enterprise build with no page limits, custom integrations, WCAG 2.1 AA.",
-    timeline: "Scoped on your discovery call",
+    timeline: "Set in your proposal",
     includesEcommerce: true,
     href: "/packages/website",
   },

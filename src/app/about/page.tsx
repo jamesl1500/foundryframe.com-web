@@ -18,6 +18,7 @@ import { breadcrumbList, ORGANIZATION_ID, webPage } from "@/lib/seo/schema";
 import SparkSpotlight from "@/components/SparkSpotlight";
 import FadeIn from "@/components/motion/FadeIn";
 import { StaggerContainer, StaggerItem } from "@/components/motion/Stagger";
+import { PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
 
 export const metadata: Metadata = {
   title: { absolute: "About Foundry Frame | Ohio Web Design Agency" },
@@ -278,15 +279,15 @@ export default function AboutPage() {
             </h2>
             <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
               James takes on a limited number of projects each quarter. If
-              you&apos;re serious about growing your business, let&apos;s talk
-              before the next slot fills.
+              you&apos;re serious about growing your business, request a written
+              proposal before the next slot fills. No meetings required.
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+                href={PROPOSAL_HREF}
                 className="btn btn-primary"
               >
-                Book a Free Discovery Call
+                {PROPOSAL_CTA_LABEL}
               </Link>
             </div>
           </div>

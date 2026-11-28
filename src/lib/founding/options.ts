@@ -15,10 +15,14 @@ export const FOUNDING_TIMELINES = [
   "Just exploring",
 ] as const;
 
+/* Bands follow the founding prices (20% off): Ignite from $2,000, Velocity
+   from $2,800, Ascend from $3,800, Apex custom. Older applications keep the
+   band they were saved with. */
 export const FOUNDING_BUDGETS = [
-  "Under $2,500",
-  "$2,500 – $5,000",
-  "$5,000 – $10,000",
-  "$10,000+",
+  "Under $2,000",
+  "$2,000 – $3,000",
+  "$3,000 – $4,000",
+  "$4,000 – $6,000",
+  "$6,000+",
   "Not sure yet",
 ] as const;
