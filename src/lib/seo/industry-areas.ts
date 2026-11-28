@@ -136,7 +136,7 @@ export const industryAreas: IndustryAreaPage[] = [
       },
       {
         q: "What does a contractor website cost in Lorain County?",
-        a: "Custom sites start at $1,500 for a focused 5-page site. Most contractors add a few service-area pages; we'll quote the exact number of towns and services on a free call.",
+        a: "Custom sites start at $1,500 for a focused 5-page site. Most contractors add a few service-area pages; we'll quote the exact number of towns and services in a written proposal.",
       },
     ],
   },
@@ -368,7 +368,7 @@ export const industryAreas: IndustryAreaPage[] = [
       },
       {
         q: "How much does a contractor website cost?",
-        a: "Custom sites start at $1,500 for a focused 5-page site. Extra service and suburb pages are quoted after a free call based on how many you need.",
+        a: "Custom sites start at $1,500 for a focused 5-page site. Extra service and suburb pages are quoted in a written proposal based on how many you need.",
       },
     ],
   },
@@ -596,7 +596,7 @@ export const industryAreas: IndustryAreaPage[] = [
       },
       {
         q: "What does a contractor website cost?",
-        a: "Custom sites start at $1,500 for a focused 5-page site. Additional service and suburb pages are quoted on a free call.",
+        a: "Custom sites start at $1,500 for a focused 5-page site. Additional service and suburb pages are quoted in a written proposal.",
       },
     ],
   },

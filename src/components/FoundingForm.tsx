@@ -12,6 +12,7 @@
 
 import { useState, type SubmitEvent } from "react";
 import { BOOKING_URL, newConversionId, trackConversion } from "@/lib/analytics";
+import { OPTIONAL_CALL_LABEL } from "@/lib/site-facts";
 import { FOUNDING_BUDGETS, FOUNDING_TIMELINES } from "@/lib/founding/options";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -57,16 +58,16 @@ export default function FoundingForm() {
         <p className="eyebrow mb-4">Application sent</p>
         <p className="text-ink text-2xl font-heading font-bold mb-3">James has your application.</p>
         <p className="text-body text-sm mb-8 max-w-md">
-          You&apos;ll hear back by email. Want to skip the wait? Grab a time on the calendar and we&apos;ll
-          talk through your project.
+          You&apos;ll hear back by email, and if it&apos;s a fit, James sends a written proposal with your
+          founding price. No call needed, but if you&apos;d like to talk first, grab a short slot on the calendar.
         </p>
         <a
           href={BOOKING_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn btn-primary"
+          className="btn btn-glass"
         >
-          Book a call now
+          {OPTIONAL_CALL_LABEL}
         </a>
       </div>
     );

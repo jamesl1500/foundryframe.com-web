@@ -142,7 +142,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="btn btn-ghost-light mt-4 min-h-10 px-4 text-sm"
                 >
-                  Book a call &rarr;
+                  Book a 15-min call &rarr;
                 </a>
               </div>
 

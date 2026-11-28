@@ -15,6 +15,7 @@ import { notFound } from "next/navigation";
 import { seoTitle, summarize } from "@/lib/seo/meta";
 import JsonLd from "@/components/seo/JsonLd";
 import { PUBLIC_SITE_URL as siteUrl } from "@/lib/seo/schema";
+import { PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
 
 /* ============================================================
    DATA: Blog post content
@@ -310,15 +311,15 @@ export default async function BlogPostPage({
           </h2>
           <p className="text-body text-sm leading-relaxed mb-8 max-w-md">
             We build custom websites and brand experiences for small businesses
-            across Ohio and beyond. Book a free 30-min call and let&apos;s talk
-            about your goals.
+            across Ohio and beyond. Tell us about your goals and get a written
+            proposal. No meetings required.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="/contact"
+              href={PROPOSAL_HREF}
               className="btn btn-primary text-center"
             >
-              Book a Free Call
+              {PROPOSAL_CTA_LABEL}
             </Link>
             <Link
               href="/packages"

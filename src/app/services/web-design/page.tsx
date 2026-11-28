@@ -17,6 +17,8 @@ import { websitePackages } from "@/lib/packages/website";
 import { citiesOf, locations } from "@/lib/seo/locations";
 import JsonLd from "@/components/seo/JsonLd";
 import { ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
+import { OPTIONAL_CALL_LABEL, PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
+import { BOOKING_URL } from "@/lib/analytics";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -152,7 +154,7 @@ const process = [
   {
     step: "Discovery & Requirements",
     description:
-      "We learn your business, your customers, and what the site actually needs to accomplish — before a single pixel is designed.",
+      "We learn your business, your customers, and what the site actually needs to accomplish from a short written questionnaire, before a single pixel is designed.",
   },
   {
     step: "Sitemap & Information Architecture",
@@ -192,7 +194,7 @@ const process = [
 const faqs = [
   {
     q: "How long does a website project take?",
-    a: "Most custom websites take 6–12 weeks from kickoff to launch, depending on scope. A 5-page Spark site moves faster than a 20-page Architect build with e-commerce and integrations. You'll get a specific timeline after the discovery call.",
+    a: "Most custom websites take 4–12 weeks from kickoff to launch, depending on scope. A 5-page Spark site moves faster than a 20-page Architect build with e-commerce and integrations. Your written proposal includes a specific timeline.",
   },
   {
     q: "Will I own the website and the code?",
@@ -200,7 +202,7 @@ const faqs = [
   },
   {
     q: "Do you build WordPress websites?",
-    a: "Yes, when it's the right fit. Most of our sites are hand-coded with Next.js and React for speed and security, but we also build on WordPress when it makes more sense, for example if your team already knows it, you need a particular plugin, or you're keeping an existing WordPress site. We'll recommend a platform on the discovery call, and our Maintenance Plans keep either kind of site updated.",
+    a: "Yes, when it's the right fit. Most of our sites are hand-coded with Next.js and React for speed and security, but we also build on WordPress when it makes more sense, for example if your team already knows it, you need a particular plugin, or you're keeping an existing WordPress site. We'll recommend a platform in your written proposal, and our Maintenance Plans keep either kind of site updated.",
   },
   {
     q: "Can I update the website myself after launch?",
@@ -285,10 +287,10 @@ export default function WebDesignServicePage() {
         actions={
           <>
             <Link
-              href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+              href={PROPOSAL_HREF}
               className="btn btn-primary min-h-13 px-7"
             >
-              Book a Free Call
+              {PROPOSAL_CTA_LABEL}
             </Link>
             <Link
               href="/packages/website/spark"
@@ -602,22 +604,24 @@ export default function WebDesignServicePage() {
             </h2>
             <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
               Custom websites starting at $1,500. No templates, no fluff — built
-              to convert visitors into paying clients and delivered in 6–12
-              weeks.
+              to convert visitors into paying clients and delivered in 4–12
+              weeks, with no meetings required.
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+                href={PROPOSAL_HREF}
                 className="btn btn-primary"
               >
-                Book a Free Discovery Call
+                {PROPOSAL_CTA_LABEL}
               </Link>
-              <Link
-                href="/contact"
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-glass"
               >
-                Contact Us
-              </Link>
+                {OPTIONAL_CALL_LABEL}
+              </a>
             </div>
           </div>
         </div>

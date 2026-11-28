@@ -149,10 +149,10 @@ export default function BlogPage() {
         actions={
           <>
             <Link
-              href="/contact"
+              href="/contact#start"
               className="btn btn-glass min-h-13 px-7"
             >
-              Ready to work with us? Book a free call →
+              Ready to work with us? Request a proposal →
             </Link>
           </>
         }

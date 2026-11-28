@@ -359,7 +359,7 @@ export default function Header() {
                       onClick={() => setCompanyOpen(false)}
                       className="text-xs font-semibold text-molten hover:underline underline-offset-4"
                     >
-                      Book a free call &rarr;
+                      Book a 15-min call &rarr;
                     </a>
                   </div>
                 </div>

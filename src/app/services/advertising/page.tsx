@@ -12,6 +12,8 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import JsonLd from "@/components/seo/JsonLd";
 import { AREA_SERVED, ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
+import { OPTIONAL_CALL_LABEL, PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
+import { BOOKING_URL } from "@/lib/analytics";
 
 const siteUrl = "https://www.foundryframe.com";
 
@@ -123,7 +125,7 @@ const faqs = [
   },
   {
     q: "What's a reasonable ad budget to start with?",
-    a: "It depends on your goals and industry, but we'll recommend a realistic starting budget during your discovery call rather than a one-size-fits-all number.",
+    a: "It depends on your goals and industry, but we'll recommend a realistic starting budget in your written proposal rather than a one-size-fits-all number.",
   },
   {
     q: "Which platforms do you advertise on?",
@@ -199,10 +201,10 @@ export default function AdvertisingServicePage() {
         actions={
           <>
             <Link
-              href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+              href={PROPOSAL_HREF}
               className="btn btn-primary min-h-13 px-7"
             >
-              Book a Free Call
+              {PROPOSAL_CTA_LABEL}
             </Link>
             <Link
               href="/packages/marketing"
@@ -356,17 +358,19 @@ export default function AdvertisingServicePage() {
             </p>
             <div className="flex gap-4">
               <Link
-                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+                href={PROPOSAL_HREF}
                 className="btn btn-primary"
               >
-                Book a Free Call
+                {PROPOSAL_CTA_LABEL}
               </Link>
-              <Link
-                href="/contact"
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-glass"
               >
-                Contact Us
-              </Link>
+                {OPTIONAL_CALL_LABEL}
+              </a>
             </div>
           </div>
         </div>

@@ -69,7 +69,7 @@ export const industries: IndustryPage[] = [
       },
       {
         q: "How much does a restaurant website cost?",
-        a: "Custom restaurant sites start at $1,500. Online ordering integrations, multiple locations, or catering pages can add to scope, and we'll quote that on a free call.",
+        a: "Custom restaurant sites start at $1,500. Online ordering integrations, multiple locations, or catering pages can add to scope, and we'll quote that in your written proposal.",
       },
     ],
   },
@@ -315,7 +315,7 @@ export const industries: IndustryPage[] = [
       },
       {
         q: "Can the site sync with my point-of-sale inventory?",
-        a: "Often, yes. Square and Shopify POS both support syncing inventory with an online store. We'll confirm on a discovery call.",
+        a: "Often, yes. Square and Shopify POS both support syncing inventory with an online store. We'll confirm it in your proposal.",
       },
       {
         q: "How much does an e-commerce website cost?",

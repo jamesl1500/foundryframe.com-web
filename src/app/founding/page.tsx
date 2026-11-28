@@ -3,7 +3,12 @@
  * ==================================
  * Landing page for the Founding Client offer: a small number of first
  * clients who get 20% off a launch bundle (plus a design-approval guarantee) in
- * exchange for feedback and a case study. Short application form.
+ * exchange for testimonials and a case study. Short application form.
+ *
+ * Reviews are deliberately NOT part of the deal: Google's policy forbids
+ * offering discounts or other incentives for reviews, and doing so puts the
+ * Business Profile at risk. Every client, founding or not, is asked for an
+ * honest review after launch with nothing attached.
  *
  * @author James Latten
  * @copyright 2026 Foundry Frame. All rights reserved.
@@ -17,7 +22,13 @@ import PageHero from "@/components/PageHero";
 import FoundingForm from "@/components/FoundingForm";
 import { launchBundles } from "@/lib/packages/launch";
 import { BOOKING_URL } from "@/lib/analytics";
-import { BUSINESS_HOURS_PHRASE, FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
+import {
+  CLIENT_PORTAL,
+  FOUNDING_DISCOUNT_PERCENT,
+  FOUNDING_SPOTS_OPEN,
+  OPTIONAL_CALL_LABEL,
+  OPTIONAL_CALL_MINUTES,
+} from "@/lib/site-facts";
 
 const pageTitle = "Founding Client Program for Ohio Businesses";
 const pageDescription = `Foundry Frame is taking its first ${FOUNDING_SPOTS_OPEN} clients this quarter: ${FOUNDING_DISCOUNT_PERCENT}% off any launch bundle, built by the founder, with a design-approval guarantee.`;
@@ -64,21 +75,26 @@ const benefits = [
   },
   {
     title: "Built by the founder",
-    body: "No account managers or hand-offs. James designs and codes your site himself, and you talk to him directly at every step.",
+    body: "No account managers or hand-offs. James designs and codes your site himself, and every update comes straight from him.",
   },
 ] as const;
 
 const asks = [
   "A written testimonial and a short video testimonial",
-  "A Google review",
   "Permission for a full case study with before-and-after numbers",
   "Your logo on our site",
 ] as const;
 
 const steps = [
   { title: "Apply", body: "Fill out the short form below. It takes about a minute." },
-  { title: "Talk", body: "James reviews it and sets up a free call to scope your project." },
-  { title: "Build", body: "If it's a fit, you get a written proposal and timeline, then we start." },
+  {
+    title: "Proposal",
+    body: "James reviews it and, if it's a fit, sends a written proposal with your founding price and timeline. No call needed.",
+  },
+  {
+    title: "Build",
+    body: `Pay the deposit and we start. You follow progress in your ${CLIENT_PORTAL.name} client portal, with recorded walkthroughs instead of meetings.`,
+  },
 ] as const;
 
 export default function FoundingPage() {
@@ -113,12 +129,10 @@ export default function FoundingPage() {
               Apply for a spot
             </a>
             <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#how-it-works"
               className="btn btn-glass min-h-13 px-7"
             >
-              Book a free call
+              How it works
             </a>
           </>
         }
@@ -163,7 +177,7 @@ export default function FoundingPage() {
                       <p className="text-accent-ink text-3xl font-heading font-bold">
                         {formatUsd(Math.round(bundle.priceValue * (1 - FOUNDING_DISCOUNT_PERCENT / 100)))}
                       </p>
-                      <p className="text-muted text-xs uppercase tracking-widest mt-2">Starting price</p>
+                      <p className="text-muted text-xs uppercase tracking-widest mt-2">Founding price, from</p>
                     </>
                   )}
                   <p className="mt-4 text-sm font-semibold text-accent-ink">What&apos;s included &rarr;</p>
@@ -189,8 +203,12 @@ export default function FoundingPage() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-6 text-muted text-xs leading-relaxed max-w-md">
+                Reviews aren&apos;t part of the deal. After launch we ask every client, founding or
+                not, for an honest Google review, and the discount never depends on it.
+              </p>
             </div>
-            <div>
+            <div id="how-it-works" className="scroll-mt-28">
               <p className="eyebrow mb-6">How it works</p>
               <ol className="border-t border-ink/10">
                 {steps.map((step, index) => (
@@ -226,16 +244,17 @@ export default function FoundingPage() {
                 of your current site first.
               </p>
               <p className="text-muted text-xs leading-relaxed">
-                James answers calls {BUSINESS_HOURS_PHRASE}. The fastest way to talk is to{" "}
+                Everything runs in writing, so you never need to make time for a meeting. Rather talk
+                first?{" "}
                 <a
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-ink underline underline-offset-4"
                 >
-                  book a time
-                </a>
-                .
+                  {OPTIONAL_CALL_LABEL}
+                </a>{" "}
+                ({OPTIONAL_CALL_MINUTES} minutes, optional).
               </p>
             </div>
             <div className="lg:col-span-8">

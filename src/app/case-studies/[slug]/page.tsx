@@ -11,7 +11,7 @@ import {
   type PublishedCaseStudy,
 } from "@/lib/cms/public-data";
 import { absoluteUrl, breadcrumbList, ORGANIZATION_ID } from "@/lib/seo/schema";
-import { isInHouseProduct } from "@/lib/site-facts";
+import { isInHouseProduct, PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
    (see lib/cms/revalidate.ts); this is the fallback for other edits. */
@@ -294,16 +294,16 @@ export default async function CaseStudyDetailPage({
           </h2>
           <p className="text-body text-sm leading-relaxed mb-8 max-w-md">
             We build custom websites and brand experiences for small businesses
-            across Ohio and beyond. Book a free 30-min call and let&apos;s talk
-            about your goals.
+            across Ohio and beyond. Tell us about your goals and get a written
+            proposal. No meetings required.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href="/contact"
-              data-track="Case study CTA: Book a Free Call"
+              href={PROPOSAL_HREF}
+              data-track="Case study CTA: Request a proposal"
               className="btn btn-primary text-center"
             >
-              Book a Free Call
+              {PROPOSAL_CTA_LABEL}
             </Link>
             <Link
               href="/case-studies"

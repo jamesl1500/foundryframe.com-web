@@ -22,6 +22,7 @@ import {
   getPublishedPackages,
   type PublishedPackage,
 } from "@/lib/cms/public-data";
+import { PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
 
 /* Reads from the Supabase CMS. Admin saves refresh this page right away
    (see lib/cms/revalidate.ts); this is the fallback for other edits. */
@@ -202,7 +203,7 @@ export default async function PackagesPage() {
         intro={
           <p>
             Four categories. Every scope. One team. Every price below is a
-            starting point — we&apos;ll confirm the exact number on a free call,
+            starting point — you&apos;ll get the exact number in a written proposal,
             with no obligation to move forward.
           </p>
         }
@@ -211,8 +212,11 @@ export default async function PackagesPage() {
             <Link href="/packages/website/spark" className="btn btn-molten min-h-13 px-7">
               The Spark &middot; from $1,500 &rarr;
             </Link>
-            <Link href="/contact" className="btn btn-primary min-h-13 px-7">
-              Book a Free Call
+            <Link
+              href={PROPOSAL_HREF}
+              className="btn btn-primary min-h-13 px-7"
+            >
+              {PROPOSAL_CTA_LABEL}
             </Link>
             <Link href="/packages/builder" className="btn btn-glass min-h-13 px-7">
               Build Your Package

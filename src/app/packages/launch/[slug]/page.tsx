@@ -19,7 +19,12 @@ import { getLaunchBundle, launchBundles } from "@/lib/packages/launch";
 import { getWebsitePackage } from "@/lib/packages/website";
 import { parsePriceSpecification } from "@/lib/schema-price";
 import { AREA_SERVED, ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
-import { FOUNDING_DISCOUNT_PERCENT, FOUNDING_SPOTS_OPEN } from "@/lib/site-facts";
+import {
+  FOUNDING_DISCOUNT_PERCENT,
+  FOUNDING_SPOTS_OPEN,
+  OPTIONAL_CALL_LABEL,
+  PROPOSAL_HREF,
+} from "@/lib/site-facts";
 import JsonLd from "@/components/seo/JsonLd";
 import PrintShopAddOn from "@/components/PrintShopAddOn";
 
@@ -162,7 +167,7 @@ export default async function LaunchBundlePage({
               )}
               <p className="text-5xl font-heading font-bold text-ink mb-6">{bundle.price}</p>
               <Link
-                href="/contact"
+                href={PROPOSAL_HREF}
                 data-track={`Bundle details hero: ${bundle.name}`}
                 className="btn btn-primary flex text-center"
               >
@@ -174,7 +179,7 @@ export default async function LaunchBundlePage({
                 rel="noopener noreferrer"
                 className="btn btn-glass flex text-center mt-3"
               >
-                Book a Free Call
+                {OPTIONAL_CALL_LABEL}
               </a>
               {FOUNDING_SPOTS_OPEN > 0 && (
                 <Link
@@ -284,12 +289,12 @@ export default async function LaunchBundlePage({
           <div className="lg:col-span-4">
             <p className="eyebrow mb-4">How It Works</p>
             <h2 className="text-4xl sm:text-5xl font-heading font-bold text-ink mb-6">
-              From first call to launch day
+              From proposal to launch day
             </h2>
             <p className="text-muted text-sm leading-relaxed max-w-sm">
               Most {bundle.name} launches take{" "}
-              <span className="text-ink font-semibold">{bundle.timeline}</span>. You&apos;ll get a
-              specific schedule after the discovery call.
+              <span className="text-ink font-semibold">{bundle.timeline}</span>. Your written
+              proposal includes a specific schedule, and you follow every step in your client portal.
             </p>
           </div>
           <ol className="lg:col-span-8 border-t border-ink/10">
@@ -494,7 +499,7 @@ export default async function LaunchBundlePage({
             </p>
             <div className="flex flex-wrap gap-3 mt-10">
               <Link
-                href="/contact"
+                href={PROPOSAL_HREF}
                 data-track={`Bundle details CTA: ${bundle.name}`}
                 className="btn btn-accent"
               >
@@ -506,7 +511,7 @@ export default async function LaunchBundlePage({
                 rel="noopener noreferrer"
                 className="btn border border-white/25 text-white hover:bg-white/10"
               >
-                Book a Free Call
+                {OPTIONAL_CALL_LABEL}
               </a>
             </div>
             <p className="mt-6 text-white/70 text-xs">

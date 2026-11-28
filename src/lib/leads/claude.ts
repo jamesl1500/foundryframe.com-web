@@ -64,7 +64,8 @@ Rules:
 - Do not invent metrics, guarantees, prices, services, legal terms, or client claims.
 - Make the plan specific, concise, and ready to show a client.
 - Timeline phases must fit within the supplied total timeline.
-- Do not write contract clauses; the agreement is assembled separately from approved boilerplate.`;
+- Do not write contract clauses; the agreement is assembled separately from approved boilerplate.
+- We work without meetings: no timeline phase or next step may require a call, meeting, or workshop. Reviews happen through the client portal and short recorded walkthroughs. nextSteps should say that once the agreement is signed and the deposit is in, the client gets their client portal and a short kickoff questionnaire.`;
 
   const message = await anthropic.messages.create({
     model: DEFAULT_MODEL,
@@ -381,7 +382,7 @@ ${
   args.page
     ? "- Mention we put together a free concept page showing how their site could look and perform, and include the preview link on its own line exactly as given.\n"
     : ""
-}- End with a low-pressure ask for a 15-minute call this week.
+}- End with a low-pressure next step that needs no meeting: reply to this email and we'll send a written proposal. Mention that a 15-minute call is available only if they'd rather talk.
 - Sign off as:
 James Latten
 Foundry Frame

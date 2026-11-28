@@ -19,6 +19,7 @@ import AuditForm from "@/components/AuditForm";
 import PageHero from "@/components/PageHero";
 import JsonLd from "@/components/seo/JsonLd";
 import { AREA_SERVED, ORGANIZATION_ID, breadcrumbList, faqPage } from "@/lib/seo/schema";
+import { PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
 
 const siteUrl = "https://www.foundryframe.com";
 const pageTitle = "Free Website Audit: SEO, Speed & Design";
@@ -150,7 +151,7 @@ const faqs = [
   },
   {
     q: "Will I be pressured to buy something?",
-    a: "No. The audit is genuinely useful on its own — you can take the fix list to any developer. If you'd like help, we'll point you to the services that address your biggest issues, and a free strategy call is always optional.",
+    a: "No. The audit is genuinely useful on its own — you can take the fix list to any developer. If you'd like help, we'll point you to the services that address your biggest issues, and a short call is always optional.",
   },
   {
     q: "Can you audit any website?",
@@ -315,18 +316,18 @@ export default function AuditPage() {
       <section className="py-20 lg:py-28">
         <div className="max-w-[900px] mx-auto px-6 lg:px-10 text-center">
           <h2 className="text-3xl sm:text-4xl font-heading font-bold text-ink mb-4">
-            Want a human to walk you through the results?
+            Want a human to fix what the audit found?
           </h2>
           <p className="text-body text-sm leading-relaxed mb-8 max-w-xl mx-auto">
-            Run your audit first, then book a free call and we&apos;ll go over the
-            findings together — no pitch, no pressure.
+            Run your audit first, then request a proposal and we&apos;ll reply in writing
+            with how we&apos;d fix what it found. No pitch, no pressure.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+              href={PROPOSAL_HREF}
               className="btn btn-primary"
             >
-              Book a Free Call
+              {PROPOSAL_CTA_LABEL}
             </Link>
             <Link
               href="/services/web-design"

@@ -163,9 +163,9 @@ export const launchBundles: LaunchBundle[] = [
     timeline: "6–8 weeks",
     process: [
       {
-        step: "Discovery call",
+        step: "Written proposal",
         description:
-          "A free call about your business, your customers, and what you need for launch. We follow up with a proposal and timeline.",
+          "Tell us about your business in a short form and you get a written proposal with the scope, price, and timeline. No call needed, though a 15-minute call is there if you want one.",
       },
       {
         step: "Brand kickoff",
@@ -230,7 +230,7 @@ export const launchBundles: LaunchBundle[] = [
       },
       {
         q: "How long does Ignite take?",
-        a: "Most Ignite projects launch in 6–8 weeks: the logo comes first, then the website. You'll get a specific timeline after the discovery call.",
+        a: "Most Ignite projects launch in 6–8 weeks: the logo comes first, then the website. Your written proposal includes a specific timeline.",
       },
       {
         q: "Which social platforms do you set up?",
@@ -326,9 +326,9 @@ export const launchBundles: LaunchBundle[] = [
     timeline: "8–12 weeks",
     process: [
       {
-        step: "Discovery call",
+        step: "Written proposal",
         description:
-          "A free call about your business, your market, and your goals. We follow up with a proposal and timeline.",
+          "Tell us about your business in a short form and you get a written proposal with the scope, price, and timeline. No call needed, though a 15-minute call is there if you want one.",
       },
       {
         step: "Research",
@@ -393,7 +393,7 @@ export const launchBundles: LaunchBundle[] = [
       },
       {
         q: "How long does Velocity take?",
-        a: "Most Velocity projects launch in 8–12 weeks, with research and branding first and the website after. You'll get a specific timeline after the discovery call.",
+        a: "Most Velocity projects launch in 8–12 weeks, with research and branding first and the website after. Your written proposal includes a specific timeline.",
       },
       {
         q: "Do you write the content in the 90-day roadmap?",
@@ -434,7 +434,7 @@ export const launchBundles: LaunchBundle[] = [
         label: "The Architect — 20-page growth website with e-commerce readiness",
         title: "The Architect website",
         detail:
-          "Up to 20 pages with reusable section templates, e-commerce, CRM and email integrations, and a 90+ Lighthouse performance target.",
+          "Up to 20 pages with a reusable section library, e-commerce, CRM and email integrations, and a 90+ Lighthouse performance target.",
         group: "Website",
         href: "/packages/website/architect",
       },
@@ -494,14 +494,14 @@ export const launchBundles: LaunchBundle[] = [
     timeline: "10–14 weeks",
     process: [
       {
-        step: "Discovery call",
+        step: "Written proposal",
         description:
-          "A free call about your business, your growth goals, and your current channels. We follow up with a proposal and timeline.",
+          "Tell us about your business in a short form and you get a written proposal with the scope, price, and timeline. No call needed, though a 15-minute call is there if you want one.",
       },
       {
-        step: "Strategy session",
+        step: "Strategy brief",
         description:
-          "A working session on your customers, competitors, offer, and budget, so the brand, site, and campaigns share one plan.",
+          "A questionnaire on your customers, competitors, offer, and budget, answered in a written strategy brief with a recorded walkthrough, so the brand, site, and campaigns share one plan.",
       },
       {
         step: "Brand & style guide",
@@ -553,7 +553,7 @@ export const launchBundles: LaunchBundle[] = [
     faqs: [
       {
         q: "Is the ad budget included?",
-        a: "No. Ascend covers strategy, setup, creative, and the first month of optimization. Your ad spend is paid directly to Google or Meta, and we'll help you set a budget on the strategy call.",
+        a: "No. Ascend covers strategy, setup, creative, and the first month of optimization. Your ad spend is paid directly to Google or Meta, and we'll recommend a budget in your strategy brief.",
       },
       {
         q: "Google Ads or Meta Ads?",

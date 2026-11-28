@@ -91,7 +91,7 @@ const faqs = [
   },
   {
     q: "How much does a launch bundle cost?",
-    a: "Ignite starts at $2,500, Velocity at $3,500, and Ascend at $4,750. Apex is custom-priced after a discovery workshop. Every price is a starting point; we confirm the exact number on a free, no-obligation call, and every bundle includes Print Shop at no extra cost.",
+    a: "Ignite starts at $2,500, Velocity at $3,500, and Ascend at $4,750. Apex is custom-priced after a discovery workshop. Every price is a starting point; you get the exact number in a free, no-obligation written proposal, and every bundle includes Print Shop at no extra cost.",
   },
   {
     q: "How is a launch bundle different from a website package?",

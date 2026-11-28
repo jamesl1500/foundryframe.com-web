@@ -13,6 +13,7 @@ import { breadcrumbList, faqPage } from "@/lib/seo/schema";
 import AuditCallout from "@/components/AuditCallout";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
+import { PROPOSAL_CTA_LABEL, PROPOSAL_HREF } from "@/lib/site-facts";
 
 
 export const metadata: Metadata = {
@@ -80,11 +81,11 @@ const faqCategories = [
       },
       {
         q: "What does your creative process look like?",
-        a: "Our process follows five phases: Discovery (understanding your business, audience, and goals), Strategy (defining the approach and roadmap), Design (crafting every page and asset around your brand), Build (hand-coding and producing the work), and Launch (deploying, connecting analytics, and training your team). You're involved at every stage and nothing moves forward without your sign-off.",
+        a: "Four steps, and no meetings required: Proposal (you tell us about your business in a short form and get a written proposal with scope, price, and timeline), Deposit (approving the proposal and paying the deposit reserves your spot), Build with written updates (you follow every milestone in your Binx client portal, and design reviews come as short recorded walkthroughs you watch on your own time), and Approve and launch (you sign off in the portal and we take the site live). Prefer to talk? An optional 15-minute call is always available. You're involved at every stage and nothing moves forward without your sign-off.",
       },
       {
         q: "Do you build WordPress websites?",
-        a: "Yes, when it's the right fit. Most of our sites are hand-coded with Next.js and React for speed and security, but we also build on WordPress when it makes more sense, for example if your team already knows it, you need a particular plugin, or you're keeping an existing WordPress site. We'll recommend a platform on the discovery call, and our Maintenance Plans keep either kind of site updated.",
+        a: "Yes, when it's the right fit. Most of our sites are hand-coded with Next.js and React for speed and security, but we also build on WordPress when it makes more sense, for example if your team already knows it, you need a particular plugin, or you're keeping an existing WordPress site. We'll recommend a platform in your written proposal, and our Maintenance Plans keep either kind of site updated.",
       },
       {
         q: "How long does a typical project take?",
@@ -122,7 +123,7 @@ const faqCategories = [
     questions: [
       {
         q: "How do I get started?",
-        a: "Simply reach out through our Contact page or email us at jlatten@foundryframe.com. We'll schedule a free discovery call to learn about your project, discuss your goals, and determine the best approach. From there, we'll provide a detailed proposal and timeline.",
+        a: "Simply reach out through our Contact page or email us at jlatten@foundryframe.com. Tell us about your project and goals in writing, and we'll reply with a detailed proposal and timeline. No call is needed, but you can book an optional 15-minute call if you'd rather talk it through.",
       },
       {
         q: "What do you need from me to start?",
@@ -238,19 +239,19 @@ export default function FAQPage() {
               Next Step
             </p>
             <h2 className="text-5xl sm:text-6xl font-heading font-bold text-ink leading-[0.95] mb-4">
-              Book your free 30-min strategy call
+              Get a written proposal
             </h2>
             <p className="text-body text-sm leading-relaxed mb-10 max-w-lg">
-              Bring your questions, your goals, and your budget. We&apos;ll
-              tell you exactly what&apos;s possible and what it would take to
-              get there. No pitch, no pressure.
+              Tell us your goals and budget in a short form. We&apos;ll reply
+              in writing with exactly what&apos;s possible and what it would
+              take to get there. No meetings, no pitch, no pressure.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="https://calendar.app.google/BugYDt3yg1oWBfpH7"
+                href={PROPOSAL_HREF}
                 className="btn btn-primary text-center"
               >
-                Book a Free Call
+                {PROPOSAL_CTA_LABEL}
               </Link>
               <a
                 href="mailto:jlatten@foundryframe.com"

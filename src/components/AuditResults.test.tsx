@@ -103,7 +103,7 @@ describe("AuditResults", () => {
     );
     expect(screen.getByText("0")).toBeInTheDocument();
     expect(screen.queryByText("Category Breakdown")).not.toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Book A Strategy Call" })).toHaveAttribute("href", "/contact");
+    expect(screen.getByRole("link", { name: "Request a proposal" })).toHaveAttribute("href", "/contact#start");
   });
 
   it("renders scanned-site text as plain text, never HTML", () => {

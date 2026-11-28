@@ -80,6 +80,44 @@ export const GOOGLE_REVIEWS = [
   },
 ] as const;
 
+/* --- How we work: no meetings required ---
+   Every project runs in writing: a written proposal, a deposit, progress
+   in the client portal with short recorded walkthroughs instead of calls,
+   then sign-off and launch. A short call stays available for anyone who
+   wants one, but it's never a required step. The homepage strip, package
+   pages, contact page, and chat assistant all read from here. */
+export const CLIENT_PORTAL = {
+  name: "Binx",
+  url: "https://www.binxportal.com",
+} as const;
+export const OPTIONAL_CALL_MINUTES = 15;
+export const OPTIONAL_CALL_LABEL = `Book a ${OPTIONAL_CALL_MINUTES}-min call`;
+/** Primary call to action: the written project form on /contact. */
+export const PROPOSAL_CTA_LABEL = "Request a proposal";
+export const PROPOSAL_HREF = "/contact#start";
+
+export const HOW_WE_WORK_STEPS = [
+  {
+    step: "Proposal",
+    description:
+      "Tell us about your business in a short form. You get a written proposal with the scope, price, and timeline. No call needed.",
+  },
+  {
+    step: "Deposit",
+    description:
+      "Approve the proposal and pay the deposit. That reserves your spot, and work starts right away.",
+  },
+  {
+    step: "Build with written updates",
+    description: `Follow every milestone in your ${CLIENT_PORTAL.name} client portal. Design reviews arrive as short screen recordings you watch when it suits you.`,
+  },
+  {
+    step: "Approve and launch",
+    description:
+      "Sign off on the finished site in the portal and we take it live. You own everything.",
+  },
+] as const;
+
 /* --- Founding Client offer --- */
 export const FOUNDING_SPOTS_OPEN = 3;
 export const FOUNDING_DISCOUNT_PERCENT = 20;

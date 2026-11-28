@@ -204,13 +204,13 @@ export default function AuditResults({ audit }: { audit: AuditRead }) {
           Ready to fix what&apos;s holding your site back?
         </p>
         <p className="text-body text-sm mb-6">
-          Talk to our team about the fastest path to a better-performing website.
+          Tell us what you need and get a written plan for the fastest path to a better-performing website. No call needed.
         </p>
         <Link
-          href="/contact"
+          href="/contact#start"
           className="btn btn-primary"
         >
-          Book A Strategy Call
+          Request a proposal
         </Link>
       </div>
     </div>
